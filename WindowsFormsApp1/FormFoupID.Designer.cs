@@ -1,0 +1,127 @@
+﻿namespace Adam
+{
+    partial class FormFoupID
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.FoupID_Read_tb = new System.Windows.Forms.TextBox();
+            this.FoupID_Read_Confirm_btn = new System.Windows.Forms.Button();
+            this.FoupID = new System.Windows.Forms.Label();
+            this.FoupID_Status_lb = new System.Windows.Forms.Label();
+            this.groupBox7.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.FoupID_Read_tb);
+            this.groupBox7.Controls.Add(this.FoupID_Read_Confirm_btn);
+            this.groupBox7.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.groupBox7.Location = new System.Drawing.Point(60, 76);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(311, 81);
+            this.groupBox7.TabIndex = 126;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Tag = "1";
+            this.groupBox7.Text = "Foup ID";
+            // 
+            // FoupID_Read_tb
+            // 
+            this.FoupID_Read_tb.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.FoupID_Read_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.FoupID_Read_tb.Location = new System.Drawing.Point(6, 35);
+            this.FoupID_Read_tb.Name = "FoupID_Read_tb";
+            this.FoupID_Read_tb.ReadOnly = true;
+            this.FoupID_Read_tb.Size = new System.Drawing.Size(201, 26);
+            this.FoupID_Read_tb.TabIndex = 121;
+            this.FoupID_Read_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.FoupID_Read_tb.Leave += new System.EventHandler(this.FoupID_Read_tb_Leave);
+            // 
+            // FoupID_Read_Confirm_btn
+            // 
+            this.FoupID_Read_Confirm_btn.BackColor = System.Drawing.Color.DarkGray;
+            this.FoupID_Read_Confirm_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.FoupID_Read_Confirm_btn.FlatAppearance.BorderSize = 2;
+            this.FoupID_Read_Confirm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.FoupID_Read_Confirm_btn.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.FoupID_Read_Confirm_btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.FoupID_Read_Confirm_btn.Location = new System.Drawing.Point(213, 35);
+            this.FoupID_Read_Confirm_btn.Name = "FoupID_Read_Confirm_btn";
+            this.FoupID_Read_Confirm_btn.Size = new System.Drawing.Size(86, 26);
+            this.FoupID_Read_Confirm_btn.TabIndex = 122;
+            this.FoupID_Read_Confirm_btn.Text = "Confirm";
+            this.FoupID_Read_Confirm_btn.UseVisualStyleBackColor = false;
+            this.FoupID_Read_Confirm_btn.Click += new System.EventHandler(this.FoupID_Read_Confirm_btn_Click);
+            // 
+            // FoupID
+            // 
+            this.FoupID.AutoSize = true;
+            this.FoupID.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.FoupID.Location = new System.Drawing.Point(137, 21);
+            this.FoupID.Name = "FoupID";
+            this.FoupID.Size = new System.Drawing.Size(148, 31);
+            this.FoupID.TabIndex = 127;
+            this.FoupID.Text = "Loadport02";
+            // 
+            // FoupID_Status_lb
+            // 
+            this.FoupID_Status_lb.AutoSize = true;
+            this.FoupID_Status_lb.Font = new System.Drawing.Font("新細明體", 12F);
+            this.FoupID_Status_lb.Location = new System.Drawing.Point(111, 190);
+            this.FoupID_Status_lb.Name = "FoupID_Status_lb";
+            this.FoupID_Status_lb.Size = new System.Drawing.Size(156, 16);
+            this.FoupID_Status_lb.TabIndex = 128;
+            this.FoupID_Status_lb.Text = "Waiting Barcode reader";
+            // 
+            // FormFoupID
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(414, 232);
+            this.Controls.Add(this.FoupID_Status_lb);
+            this.Controls.Add(this.FoupID);
+            this.Controls.Add(this.groupBox7);
+            this.Name = "FormFoupID";
+            this.Text = "FoupID";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFoupID_FormClosing);
+            this.Load += new System.EventHandler(this.FormFoupID_Load);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        internal System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.TextBox FoupID_Read_tb;
+        private System.Windows.Forms.Button FoupID_Read_Confirm_btn;
+        private System.Windows.Forms.Label FoupID;
+        private System.Windows.Forms.Label FoupID_Status_lb;
+    }
+}
