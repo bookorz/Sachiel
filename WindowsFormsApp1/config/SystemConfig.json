@@ -1,5 +1,5 @@
 {
-  "SystemMode": "SORTER_2R2A8L",
+  "SystemMode": "SACHIEL",
   "DBConnectionString": "server=127.0.0.1;port=3307;user id=sanwa;password=sanwa_adam;database=adam",
   "OCR2ImgSourcePath1111": "C:/ProgramData/e-Reader0/e-Reader/AllImage",
   "OCR2ImgSourcePath": "C:/ProgramData/e-Reader/AllImage",

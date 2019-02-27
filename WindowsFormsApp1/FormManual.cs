@@ -42,25 +42,28 @@ namespace GUI
         {
             foreach (Node node in NodeManagement.GetList())
             {
-                switch (node.Type.ToUpper())
+                if (node.Enable)
                 {
-                    case "LOADPORT":
-                        if (node.Brand.ToUpper().Equals("TDK"))
-                        {
-                            if (Cb_LoadPortSelect.Text.Equals(""))
+                    switch (node.Type.ToUpper())
+                    {
+                        case "LOADPORT":
+                            if (node.Brand.ToUpper().Equals("TDK"))
                             {
-                                Cb_LoadPortSelect.Text = node.Name;
+                                if (Cb_LoadPortSelect.Text.Equals(""))
+                                {
+                                    Cb_LoadPortSelect.Text = node.Name;
+                                }
+                                Cb_LoadPortSelect.Items.Add(node.Name);
                             }
-                            Cb_LoadPortSelect.Items.Add(node.Name);
-                        }
-                        break;
-                    case "OCR":
-                        if(Cb_OCRSelect.Text.Equals(""))
-                        {
-                            Cb_OCRSelect.Text = node.Name;
-                        }
-                        Cb_OCRSelect.Items.Add(node.Name);
-                        break;
+                            break;
+                        case "OCR":
+                            if (Cb_OCRSelect.Text.Equals(""))
+                            {
+                                Cb_OCRSelect.Text = node.Name;
+                            }
+                            Cb_OCRSelect.Items.Add(node.Name);
+                            break;
+                    }
                 }
             }
             ManualPortStatusUpdate.UpdateMapping(Cb_LoadPortSelect.Text, "?????????????????????????");
@@ -989,8 +992,12 @@ namespace GUI
             string Message = "";
 
             string nodeName = Cb_OCRSelect.Text;
+            if (nodeName.Trim().Equals(""))
+            {
+                return;
+            }
             SetDeviceStatus(nodeName);
-            if (OCRConnection_tb.Text.ToUpper().Equals("CONNECTED"))
+            if (!OCRConnection_tb.Text.ToUpper().Equals("CONNECTED"))
             {
                 return;//連線狀態下才執行
             }
@@ -1247,6 +1254,11 @@ namespace GUI
                 return;
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(node.GetController().Start));
+        }
+
+        private void Cb_OCRSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
