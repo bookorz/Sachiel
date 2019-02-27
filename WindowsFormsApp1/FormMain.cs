@@ -26,14 +26,14 @@ using Adam.Util;
 using System.Security.Cryptography;
 using System.Text;
 using SANWA.Utility.Config;
-using SECSInterface;
+
 
 namespace Adam
 {
-    public partial class FormMain : Form, IUserInterfaceReport, IUIReport, IXfeStateReport
+    public partial class FormMain : Form, IUserInterfaceReport, IXfeStateReport
     {
         public static RouteControl RouteCtrl;
-        public static SECSGEM HostControl;
+       // public static SECSGEM HostControl;
         public static XfeCrossZone xfe;
         public static AlarmMapping AlmMapping;
         private static readonly ILog logger = LogManager.GetLogger(typeof(FormMain));

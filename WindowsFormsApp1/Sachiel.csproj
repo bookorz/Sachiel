@@ -73,8 +73,9 @@
     <Reference Include="Ionic.Zip">
       <HintPath>lib\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\SANWAFunction\packages\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TransferControl\TransferControl\Lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="mysql.data">
       <HintPath>lib\mysql.data.dll</HintPath>
@@ -573,10 +574,6 @@
     <ProjectReference Include="..\..\SANWAFunction\SANWA\SANWA\SANWA.csproj">
       <Project>{4eed2ed4-a72e-4f24-8d80-ef2f0b24fcf1}</Project>
       <Name>SANWA</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SECSInterface\SECSInterface\SECSInterface.csproj">
-      <Project>{3c15fc8b-f9f5-4d02-af5f-591d93b8f5fa}</Project>
-      <Name>SECSInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TransferControl\TransferControl\TransferControl.csproj">
       <Project>{316ccd27-c53f-42f2-ad5e-5ca897dd9ab8}</Project>
