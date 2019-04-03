@@ -1,4 +1,5 @@
 ﻿using Adam.UI_Update.Monitoring;
+using Adam.Util;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -61,238 +62,7 @@ namespace Adam.UI_Update.WaferMapping
             }
         }
 
-        public static void RefreshMapping(string PortName)
-        {
-            try
-            {
-                Form form = Application.OpenForms["FormWaferMapping"];
-                DataGridView Port_gv;
-                if (form == null)
-                    return;
-
-                Port_gv = form.Controls.Find(PortName + "Assign_Gv", true).FirstOrDefault() as DataGridView;
-                if (Port_gv == null)
-                    return;
-
-                if (Port_gv.InvokeRequired)
-                {
-                    UpdatePortMapping ph = new UpdatePortMapping(RefreshMapping);
-                    Port_gv.BeginInvoke(ph, PortName);
-                }
-                else
-                {
-
-                    Node port = NodeManagement.Get(PortName);
-
-                    foreach(Job each in port.JobList.Values.ToList())
-                    {
-                        each.RecipeID = "300MM";
-                    }
-                    
-                    List<Job> tmp = port.JobList.Values.ToList();
-                    tmp.Sort((x, y) => { return -Convert.ToInt16(x.Slot).CompareTo(Convert.ToInt16(y.Slot)); });
-                    Port_gv.DataSource = tmp;
-                    Port_gv.Columns["Slot"].Width = 25;
-                    Port_gv.Columns["Slot"].HeaderText = "S";
-                    Port_gv.Columns["Host_Job_Id"].Width = 75;
-                    Port_gv.Columns["DisplayDestination"].Width = 55;
-                    Port_gv.Columns["DestinationSlot"].Width = 30;
-                    Port_gv.Columns["Offset"].Visible = false;
-                    Port_gv.Columns["Angle"].Visible = false;
-                    Port_gv.Columns["Job_Id"].Visible = false;
-                    Port_gv.Columns["Destination"].Visible = false;
-                    Port_gv.Columns["ProcessFlag"].Visible = false;
-                    //Port_gv.Columns["Piority"].Visible = false;
-                    Port_gv.Columns["AlignerFlag"].Visible = false;
-                    Port_gv.Columns["OCRFlag"].Visible = false;
-                    Port_gv.Columns["AlignerFinished"].Visible = false;
-                    Port_gv.Columns["OCRFinished"].Visible = false;
-                    Port_gv.Columns["Position"].Visible = false;
-                    Port_gv.Columns["FromPort"].Visible = false;
-                    Port_gv.Columns["LastNode"].Visible = false;
-                    Port_gv.Columns["CurrentState"].Visible = false;
-                    Port_gv.Columns["WaitToDo"].Visible = false;
-                    //Port_gv.Columns["FetchRobot"].Visible = false;
-                    Port_gv.Columns["ProcessNode"].Visible = false;
-                    Port_gv.Columns["MapFlag"].Visible = false;
-                    Port_gv.Columns["DisplayDestination"].HeaderText = "Dest";
-                    Port_gv.Columns["DestinationSlot"].HeaderText = "DS";
-                    Port_gv.Columns["Host_Job_Id"].HeaderText = "ID";
-                    Port_gv.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10);
-                    Port_gv.Columns["NeedProcess"].Visible = false;
-                    Port_gv.Columns["OCRImgPath"].Visible = false;
-                    Port_gv.Columns["OCRScore"].Visible = false;
-                    Port_gv.Columns["LastSlot"].Visible = false;
-                    Port_gv.Columns["FromPortSlot"].Visible = false;
-                    Port_gv.Columns["AssignTime"].Visible = false;
-                    Port_gv.Columns["DefaultOCR"].Visible = false;
-                    Port_gv.Columns["RecipeID"].Visible = false;
-                    Port_gv.Columns["ErrPosition"].Visible = false;
-                    Port_gv.Columns["InProcess"].Visible = false;
-                    Port_gv.Columns["Host_Lot_Id"].Visible = false;
-                    //MonitoringUpdate.UpdateNodesJob(PortName);
-
-                }
-
-
-            }
-            catch (Exception e)
-            {
-                logger.Error("UpdateLoadPortMapping: Update fail:" + e.StackTrace);
-            }
-        }
-
-        public static void UpdateLoadPortMapping(string PortName, string Mapping)
-        {
-            try
-            {
-                Form form = Application.OpenForms["FormWaferMapping"];
-                DataGridView Port_gv;
-                if (form == null)
-                    return;
-
-                Port_gv = form.Controls.Find(PortName + "Assign_Gv", true).FirstOrDefault() as DataGridView;
-                if (Port_gv == null)
-                    return;
-
-                if (Port_gv.InvokeRequired)
-                {
-                    UpdatePort ph = new UpdatePort(UpdateLoadPortMapping);
-                    Port_gv.BeginInvoke(ph, PortName, Mapping);
-                }
-                else
-                {
-
-                    Node port = NodeManagement.Get(PortName);
-                    //List<Job> MappingData = new List<Job>();
-                    //port.IsMapping = true;
-                    if (Mapping.Equals(""))
-                    {
-                        foreach (Job eachJob in port.JobList.Values)
-                        {
-                            JobManagement.Remove(eachJob.Job_Id);
-                        }
-                        port.JobList.Clear();
-                        port.ReserveList.Clear();
-                        JobManagement.ClearAssignJobByPort(port.Name);
-                    }
-                    else
-                    {
-                        int currentIdx = 1;
-                        for (int i = 0; i < Mapping.Length; i++)
-                        {
-                            Job wafer = RouteControl.CreateJob();
-                            wafer.Slot = (i + 1).ToString();
-                            wafer.FromPort = PortName;
-                            wafer.FromPortSlot = wafer.Slot;
-                            wafer.Position = PortName;
-                            wafer.AlignerFlag = false;
-                            wafer.RecipeID = "300MM";
-                            string Slot = (i + 1).ToString("00");
-                            switch (Mapping[i])
-                            {
-                                case '0':
-                                    wafer.Job_Id = "No wafer";
-                                    wafer.Host_Job_Id = wafer.Job_Id;
-                                    //MappingData.Add(wafer);
-                                    break;
-                                case '1':
-                                    while (true)
-                                    {
-                                        wafer.Job_Id = "Wafer" + currentIdx.ToString("00");
-                                        wafer.Host_Job_Id = wafer.Job_Id;
-                                        wafer.MapFlag = true;
-                                        if (JobManagement.Add(wafer.Job_Id, wafer))
-                                        {
-
-                                            //MappingData.Add(wafer);
-                                            break;
-                                        }
-                                        currentIdx++;
-                                    }
-
-                                    break;
-                                case '2':
-                                    wafer.Job_Id = "Crossed";
-                                    wafer.Host_Job_Id = wafer.Job_Id;
-                                    wafer.MapFlag = true;
-                                    //MappingData.Add(wafer);
-                                    break;
-                                case '?':
-                                    wafer.Job_Id = "Undefined";
-                                    wafer.Host_Job_Id = wafer.Job_Id;
-                                    wafer.MapFlag = true;
-                                    //MappingData.Add(wafer);
-                                    break;
-                                case 'W':
-                                    wafer.Job_Id = "Double";
-                                    wafer.Host_Job_Id = wafer.Job_Id;
-                                    wafer.MapFlag = true;
-                                    //MappingData.Add(wafer);
-                                    break;
-                            }
-                            if (!port.AddJob(wafer.Slot, wafer))
-                            {
-                                Job org = port.GetJob(wafer.Slot);
-                                JobManagement.Remove(org.Job_Id);
-                                port.RemoveJob(wafer.Slot);
-                                port.AddJob(wafer.Slot, wafer);
-                            }
-                        }
-                    }
-                    List<Job> tmp = port.JobList.Values.ToList();
-                    tmp.Sort((x, y) => { return -Convert.ToInt16(x.Slot).CompareTo(Convert.ToInt16(y.Slot)); });
-                    Port_gv.DataSource = tmp;
-                    Port_gv.Columns["Slot"].Width = 25;
-                    Port_gv.Columns["Slot"].HeaderText = "S";
-                    Port_gv.Columns["Host_Job_Id"].Width = 75;
-                    Port_gv.Columns["DisplayDestination"].Width = 55;
-                    Port_gv.Columns["DestinationSlot"].Width = 30;
-                    Port_gv.Columns["Offset"].Visible = false;
-                    Port_gv.Columns["Angle"].Visible = false;
-                    Port_gv.Columns["Job_Id"].Visible = false;
-                    Port_gv.Columns["Destination"].Visible = false;
-                    Port_gv.Columns["ProcessFlag"].Visible = false;
-                    // Port_gv.Columns["Piority"].Visible = false;
-                    Port_gv.Columns["AlignerFlag"].Visible = false;
-                    Port_gv.Columns["OCRFlag"].Visible = false;
-                    Port_gv.Columns["AlignerFinished"].Visible = false;
-                    Port_gv.Columns["OCRFinished"].Visible = false;
-                    Port_gv.Columns["Position"].Visible = false;
-                    Port_gv.Columns["FromPort"].Visible = false;
-                    Port_gv.Columns["LastNode"].Visible = false;
-                    Port_gv.Columns["CurrentState"].Visible = false;
-                    Port_gv.Columns["WaitToDo"].Visible = false;
-                    //Port_gv.Columns["FetchRobot"].Visible = false;
-                    Port_gv.Columns["ProcessNode"].Visible = false;
-                    Port_gv.Columns["MapFlag"].Visible = false;
-                    Port_gv.Columns["DisplayDestination"].HeaderText = "Dest";
-                    Port_gv.Columns["DestinationSlot"].HeaderText = "DS";
-                    Port_gv.Columns["Host_Job_Id"].HeaderText = "ID";
-                    Port_gv.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10);
-                    Port_gv.Columns["NeedProcess"].Visible = false;
-                    Port_gv.Columns["OCRImgPath"].Visible = false;
-                    Port_gv.Columns["OCRScore"].Visible = false;
-                    Port_gv.Columns["LastSlot"].Visible = false;
-                    Port_gv.Columns["FromPortSlot"].Visible = false;
-                    Port_gv.Columns["AssignTime"].Visible = false;
-                    Port_gv.Columns["DefaultOCR"].Visible = false;
-                    Port_gv.Columns["RecipeID"].Visible = false;
-                    Port_gv.Columns["ErrPosition"].Visible = false;
-                    Port_gv.Columns["InProcess"].Visible = false;
-                    Port_gv.Columns["Host_Lot_Id"].Visible = false;
-                    
-                    MonitoringUpdate.UpdateNodesJob(PortName);
-                    port.IsMapping = true;
-                }
-
-
-            }
-            catch (Exception e)
-            {
-                logger.Error("UpdateLoadPortMapping: Update fail:" + e.StackTrace);
-            }
-        }
+       
 
         public static void UpdateLoadPortMode(string PortName, string Mode)
         {
@@ -309,7 +79,7 @@ namespace Adam.UI_Update.WaferMapping
 
                 if (Port_Mode.InvokeRequired)
                 {
-                    UpdatePort ph = new UpdatePort(UpdateLoadPortMapping);
+                    UpdatePort ph = new UpdatePort(UpdateLoadPortMode);
                     Port_Mode.BeginInvoke(ph, PortName, Mode);
                 }
                 else
@@ -325,95 +95,144 @@ namespace Adam.UI_Update.WaferMapping
             }
         }
 
-        public static void UpdateAssignCM(string FromPort, string ToPort,bool Enable)
+        public static void UpdateNodesJob(string NodeName)
         {
             try
             {
                 Form form = Application.OpenForms["FormWaferMapping"];
+                TextBox Mode;
+
                 if (form == null)
                     return;
-                Button fromPort = form.Controls.Find(FromPort + "_ASCM", true).FirstOrDefault() as Button;
-                if (fromPort == null)
+
+                Mode = form.Controls.Find(NodeName + "_FID", true).FirstOrDefault() as TextBox;
+
+                if (Mode == null)
                     return;
-                if (fromPort.InvokeRequired)
+
+                if (Mode.InvokeRequired)
                 {
-                    UpdateAssign ph = new UpdateAssign(UpdateAssignCM);
-                    fromPort.BeginInvoke(ph, FromPort, ToPort);
+                    UpdatePortMapping ph = new UpdatePortMapping(UpdateNodesJob);
+                    Mode.BeginInvoke(ph, NodeName);
                 }
                 else
                 {
-                    DataGridView FromPort_gv = form.Controls.Find(FromPort + "Assign_Gv", true).FirstOrDefault() as DataGridView;
-                    if (FromPort_gv != null)
-                    {
-                        FromPort_gv.Enabled = Enable;
-                    }
+                    Node node = NodeManagement.Get(NodeName);
 
-                    DataGridView ToPort_gv = form.Controls.Find(ToPort + "Assign_Gv", true).FirstOrDefault() as DataGridView;
-                    if (ToPort_gv != null)
+                    Mode.Text = node.Mode;
+                    //if (node.IsMapping)
+                    //{
+                    for (int i = 1; i <= Tools.GetSlotCount(node.Type); i++)
                     {
-                        ToPort_gv.Enabled = Enable;
+                        Label present = form.Controls.Find(node.Name + "_Slot_" + i.ToString(), true).FirstOrDefault() as Label;
+                        if (present != null)
+                        {
+
+                            Job tmp;
+                            if (node.JobList.TryGetValue(i.ToString(), out tmp))
+                            {
+                                present.Text = tmp.Host_Job_Id;
+                                switch (present.Text)
+                                {
+                                    case "No wafer":
+                                        present.BackColor = Color.DimGray;
+                                        present.ForeColor = Color.White;
+                                        break;
+                                    case "Crossed":
+                                    case "Undefined":
+                                    case "Double":
+                                        present.BackColor = Color.Red;
+                                        present.ForeColor = Color.White;
+                                        break;
+                                    default:
+                                        present.BackColor = Color.Green;
+                                        present.ForeColor = Color.White;
+                                        break;
+                                }
+
+                            }
+                            else
+                            {
+                                present.Text = "";
+                                present.BackColor = Color.White;
+                            }
+                        }
                     }
-                    fromPort.Enabled = Enable;
-                    if (!Enable)
-                    {
-                        fromPort.BackColor = Color.Green;
-                        fromPort.ForeColor = Color.White;
-                    }
-                    else
-                    {
-                        fromPort.BackColor = Color.Gainsboro;
-                        fromPort.ForeColor = Color.Black;
-                    }
+                    //}
                 }
+
+
             }
-            catch (Exception e)
+            catch
             {
-                logger.Error("UpdateAssignCM: Update fail:" + e.StackTrace);
+                logger.Error("UpdateNodesJob: Update fail.");
             }
         }
 
-        public static void ResetAssignCM(string Port, bool Enable)
+        public static void UpdateJobMove(string JobId)
         {
             try
             {
                 Form form = Application.OpenForms["FormWaferMapping"];
+                Label tb;
+
                 if (form == null)
                     return;
-                Button fromPort = form.Controls.Find(Port + "_ASCM", true).FirstOrDefault() as Button;
-                if (fromPort == null)
+
+                tb = form.Controls.Find("LoadPort01_FID", true).FirstOrDefault() as Label;
+
+                if (tb == null)
                     return;
-                if (fromPort.InvokeRequired)
+
+                if (tb.InvokeRequired)
                 {
-                    UpdatePortUsed ph = new UpdatePortUsed(ResetAssignCM);
-                    fromPort.BeginInvoke(ph, Port, Enable);
+                    UpdatePortMapping ph = new UpdatePortMapping(UpdateJobMove);
+                    tb.BeginInvoke(ph, JobId);
                 }
                 else
                 {
-                    DataGridView FromPort_gv = form.Controls.Find(Port + "Assign_Gv", true).FirstOrDefault() as DataGridView;
-                    if (FromPort_gv != null)
+                    Job Job = JobManagement.Get(JobId);
+                    if (Job != null)
                     {
-                        FromPort_gv.Enabled = Enable;
-                    }
+                        Node LastNode = NodeManagement.Get(Job.LastNode);
+                        Node CurrentNode = NodeManagement.Get(Job.Position);
+                        if (LastNode != null)
+                        {
 
-                   
-                    fromPort.Enabled = Enable;
-                    if (!Enable)
-                    {
-                        fromPort.Text = "Assign Cancel";
-                        fromPort.BackColor = Color.Green;
-                        fromPort.ForeColor = Color.White;
-                    }
-                    else
-                    {
-                        fromPort.Text = "Assign Complete";
-                        fromPort.BackColor = Color.Gainsboro;
-                        fromPort.ForeColor = Color.Black;
+                            Label present = form.Controls.Find(Job.LastNode + "_Slot_" + Job.LastSlot, true).FirstOrDefault() as Label;
+                            if (present != null)
+                            {
+
+                                present.Text = "No wafer";
+                                present.BackColor = Color.DimGray;
+                                present.ForeColor = Color.White;
+
+                            }
+
+                        }
+                        if (CurrentNode != null)
+                        {
+                            Label present = form.Controls.Find(Job.Position + "_Slot_" + Job.Slot, true).FirstOrDefault() as Label;
+                            if (present != null)
+                            {
+
+
+                                present.Text = Job.Host_Job_Id;
+
+                                present.BackColor = Color.Green;
+                                present.ForeColor = Color.White;
+
+                            }
+
+                        }
                     }
                 }
+
+
             }
-            catch (Exception e)
+            catch
             {
-                logger.Error("UpdateAssignCM: Update fail:" + e.StackTrace);
+                logger.Error("UpdateJobMove: Update fail.");
             }
         }
     }

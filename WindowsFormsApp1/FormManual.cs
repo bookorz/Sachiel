@@ -570,11 +570,55 @@ namespace GUI
             string TaskName = "";
             Dictionary<string, string> param = new Dictionary<string, string>();
 
-
+            Node node = NodeManagement.Get(nodeName);
 
 
             switch (btn.Name)
             {
+                case "btnRActiveOn":
+                    if(node!=null)
+                    {
+                        node.RArmActive = true;
+                        tbRActiveState.BackColor = Color.LightGreen;
+                    }
+                    else
+                    {
+                        MessageBox.Show(nodeName+"is not exsit.");
+                    }
+                    break;
+                case "btnRActiveOff":
+                    if (node != null)
+                    {
+                        node.RArmActive = false;
+                        tbRActiveState.BackColor = Color.MintCream;
+                    }
+                    else
+                    {
+                        MessageBox.Show(nodeName + "is not exsit.");
+                    }
+                    break;
+                case "btnLActiveOn":
+                    if (node != null)
+                    {
+                        node.LArmActive = true;
+                        tbLActiveState.BackColor = Color.LightGreen;
+                    }
+                    else
+                    {
+                        MessageBox.Show(nodeName + "is not exsit.");
+                    }
+                    break;
+                case "btnLActiveOff":
+                    if (node != null)
+                    {
+                        node.LArmActive = false;
+                        tbLActiveState.BackColor = Color.MintCream;
+                    }
+                    else
+                    {
+                        MessageBox.Show(nodeName + "is not exsit.");
+                    }
+                    break;
                 case "btnRInit":
                     TaskName = "ROBOT_Init";
                     param.Add("@Target", nodeName);
@@ -1016,7 +1060,7 @@ namespace GUI
         private void setRobotStatus()
         {
             string Message = "";
-            Control[] controls = new Control[] { tbRError, tbRLVacuSolenoid, tbRLwaferSensor, tbRRVacuSolenoid, tbRRwaferSensor, nudRSpeed, tbRStatus };
+            Control[] controls = new Control[] { tbRError, tbRLVacuSolenoid, tbRRVacuSolenoid, nudRSpeed, tbRStatus };
             foreach (Control control in controls)
             {
                 control.Text = "";
@@ -1047,6 +1091,7 @@ namespace GUI
             Control[] controls = new Control[] { tbA1Error, tbA1Status, tbA1VacSolenoid, tbA1WaferSensor, tbA1WaferSensor, tbA2Error, tbA2Status, tbA2VacSolenoid, tbA2WaferSensor, tbA2WaferSensor, nudA1Speed, nudA2Speed };
             foreach (Control control in controls)
             {
+
                 control.Text = "";
                 control.BackColor = Color.WhiteSmoke;
             }
@@ -1258,7 +1303,7 @@ namespace GUI
 
         private void Cb_OCRSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            setOCRStatus();
         }
     }
 }

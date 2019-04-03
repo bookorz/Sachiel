@@ -348,9 +348,7 @@
     <Compile Include="UI_Update\Running\RunningUpdate.cs" />
     <Compile Include="UI_Update\Terminal\TerminalUpdate.cs" />
     <Compile Include="UI_Update\WaferMapping\WaferAssignUpdate.cs" />
-    <Compile Include="Util\IXfeStateReport.cs" />
     <Compile Include="Util\UIHandle.cs" />
-    <Compile Include="Util\XfeCrossZone.cs" />
     <Compile Include="Util\OCRResult.cs" />
     <Compile Include="Util\SanwaUtil.cs" />
     <Compile Include="Util\StateUtil.cs" />

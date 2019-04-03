@@ -186,7 +186,7 @@ namespace Adam.UI_Update.Running
                         else
                         {
                             ProcessRecord.CreatePr(DestPort);
-                            WaferAssignUpdate.UpdateAssignCM(DestPort.Name, FinPort.Name,false);
+                            //WaferAssignUpdate.UpdateAssignCM(DestPort.Name, FinPort.Name,false);
                             DestPort.Available = true;
                             if (DestPort.ByPass)
                             {

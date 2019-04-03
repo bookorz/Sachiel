@@ -26,7 +26,7 @@ using Adam.Util;
 using System.Security.Cryptography;
 using System.Text;
 using SANWA.Utility.Config;
-
+using TransferControl.Operation;
 
 namespace Adam
 {
@@ -347,6 +347,8 @@ namespace Adam
             alarmFrom.Visible = true;
         }
 
+       
+
         public void On_Command_Excuted(Node Node, Transaction Txn, ReturnMessage Msg)
         {
             logger.Debug("On_Command_Excuted");
@@ -373,7 +375,7 @@ namespace Adam
                         case Transaction.Command.LoadPortType.DoorUp:
                         case Transaction.Command.LoadPortType.InitialPos:
                         case Transaction.Command.LoadPortType.ForceInitialPos:
-                            WaferAssignUpdate.RefreshMapping(Node.Name);
+                            //WaferAssignUpdate.RefreshMapping(Node.Name);
                             MonitoringUpdate.UpdateNodesJob(Node.Name);
                             break;
                     }
@@ -382,7 +384,7 @@ namespace Adam
                     switch (Txn.Method)
                     {
                         case Transaction.Command.RobotType.GetMapping:
-                            WaferAssignUpdate.RefreshMapping(Node.CurrentPosition);
+                           // WaferAssignUpdate.RefreshMapping(Node.CurrentPosition);
                             MonitoringUpdate.UpdateNodesJob(Node.CurrentPosition);
                             break;
                     }
@@ -855,10 +857,10 @@ namespace Adam
             //MonitoringUpdate.UpdateStatus(Mode);
             foreach (Node port in NodeManagement.GetLoadPortList())
             {
-                WaferAssignUpdate.RefreshMapping(port.Name);
+               // WaferAssignUpdate.RefreshMapping(port.Name);
                 if (Mode.Equals("Stop"))
                 {
-                    WaferAssignUpdate.ResetAssignCM(port.Name, true);
+                   // WaferAssignUpdate.ResetAssignCM(port.Name, true);
                 }
             }
 
@@ -1276,7 +1278,7 @@ namespace Adam
         {
             string TaskName = "";
             string Message = "";
-            Task.Finished2 = true;
+           
             TaskJobManagment.CurrentProceedTask tmpTask;
             if (Task.Id.IndexOf("FormManual") != -1)
             {
@@ -1359,7 +1361,7 @@ namespace Adam
         public void On_Transfer_Complete(XfeCrossZone xfe)
         {
 
-            WaferAssignUpdate.RefreshMapping(xfe.LD);
+            //WaferAssignUpdate.RefreshMapping(xfe.LD);
             foreach (string ULD in xfe.ULD_List)
             {
                 NodeManagement.Get(ULD).ReserveList.Clear();
@@ -1367,10 +1369,10 @@ namespace Adam
                 {
                     job.UnAssignPort();
                 }
-                WaferAssignUpdate.RefreshMapping(ULD);
-                WaferAssignUpdate.ResetAssignCM(ULD, true);
+               // WaferAssignUpdate.RefreshMapping(ULD);
+               // WaferAssignUpdate.ResetAssignCM(ULD, true);
             }
-            WaferAssignUpdate.ResetAssignCM(xfe.LD, true);
+            //WaferAssignUpdate.ResetAssignCM(xfe.LD, true);
             MonitoringUpdate.UpdateWPH((xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
             if (xfe.ULD_List.Count != 0)
             {
@@ -1491,6 +1493,115 @@ namespace Adam
             }
         }
 
-     
+        public void On_LoadPort_Complete(string PortName)
+        {
+            
+        }
+
+        public void On_UnLoadPort_Complete(string PortName)
+        {
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            fakeData("LOADPORT01");
+            fakeData("LOADPORT02");
+            WaferAssignUpdate.UpdateNodesJob("LOADPORT01");
+            WaferAssignUpdate.UpdateNodesJob("LOADPORT02");
+        }
+
+        private void fakeData(string name)
+        {
+            //string Mapping = Msg.Value;
+            string Mapping = "1111111111111000000000000";
+            //if (!Mapping.Equals("0000000000000000000000000"))
+            //{
+            //    Mapping = "0000000110000000000000000";
+            //}
+            //WaferAssignUpdate.UpdateLoadPortMapping(Node.Name, Msg.Value);
+            //if (Node.Name.Equals("LOADPORT01"))
+            //{
+            //    //Mapping = "1111111111111111111111111";
+            //    Mapping = SystemConfig.Get().MappingData;
+            //}
+            Node Node = NodeManagement.Get(name);
+            Node.MappingResult = Mapping;
+
+            Node.IsMapping = true;
+
+            int currentIdx = 1;
+            for (int i = 0; i < Mapping.Length; i++)
+            {
+                Job wafer = RouteControl.CreateJob();
+                wafer.Slot = (i + 1).ToString();
+                wafer.FromPort = Node.Name;
+                wafer.FromPortSlot = wafer.Slot;
+                wafer.Position = Node.Name;
+                wafer.AlignerFlag = false;
+                string Slot = (i + 1).ToString("00");
+                switch (Mapping[i])
+                {
+                    case '0':
+                        wafer.Job_Id = "No wafer";
+                        wafer.Host_Job_Id = wafer.Job_Id;
+                        wafer.MapFlag = false;
+                        wafer.ErrPosition = false;
+                        //MappingData.Add(wafer);
+                        break;
+                    case '1':
+                        while (true)
+                        {
+                            wafer.Job_Id = "Wafer" + currentIdx.ToString("000");
+                            wafer.Host_Job_Id = wafer.Job_Id;
+                            wafer.MapFlag = true;
+                            wafer.ErrPosition = false;
+                            if (JobManagement.Add(wafer.Job_Id, wafer))
+                            {
+
+                                //MappingData.Add(wafer);
+                                break;
+                            }
+                            currentIdx++;
+                        }
+
+                        break;
+                    case '2':
+                    case 'E':
+                        wafer.Job_Id = "Crossed";
+                        wafer.Host_Job_Id = wafer.Job_Id;
+                        wafer.MapFlag = true;
+                        wafer.ErrPosition = true;
+                        //MappingData.Add(wafer);
+                        Node.IsMapping = false;
+                        break;
+                    default:
+                    case '?':
+                        wafer.Job_Id = "Undefined";
+                        wafer.Host_Job_Id = wafer.Job_Id;
+                        wafer.MapFlag = true;
+                        wafer.ErrPosition = true;
+                        //MappingData.Add(wafer);
+                        Node.IsMapping = false;
+                        break;
+                    case 'W':
+                        wafer.Job_Id = "Double";
+                        wafer.Host_Job_Id = wafer.Job_Id;
+                        wafer.MapFlag = true;
+                        wafer.ErrPosition = true;
+                        //MappingData.Add(wafer);
+                        Node.IsMapping = false;
+                        break;
+                }
+                if (!Node.AddJob(wafer.Slot, wafer))
+                {
+                    Job org = Node.GetJob(wafer.Slot);
+                    JobManagement.Remove(org.Job_Id);
+                    Node.RemoveJob(wafer.Slot);
+                    Node.AddJob(wafer.Slot, wafer);
+                }
+
+            }
+        }
     }
 }
