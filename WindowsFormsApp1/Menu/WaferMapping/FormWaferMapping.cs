@@ -284,13 +284,20 @@ namespace Adam.Menu.WaferMapping
                                 Job tSlot;
                                 if (tPort.JobList.TryGetValue((Convert.ToInt16(toSlot) + 1).ToString(), out tSlot))
                                 {
-                                    if (tSlot.ReservePort.Equals(""))
+                                    Label present = form.Controls.Find(toPort + "_Slot_" + (Convert.ToInt16(toSlot) + 1).ToString(), true).FirstOrDefault() as Label;
+                                    if (!tSlot.MapFlag && !tSlot.ErrPosition && tSlot.ReservePort.Equals(""))
                                     {//如果上一層還沒被指派，標記為可被選
-
-                                        Label present = form.Controls.Find(toPort + "_Slot_" + (Convert.ToInt16(toSlot) + 1).ToString(), true).FirstOrDefault() as Label;
                                         present.BackColor = Color.White;
                                         present.ForeColor = Color.Black;
 
+                                    }
+                                    else if (tSlot.MapFlag && !tSlot.ErrPosition && tSlot.Destination.Equals(""))
+                                    {//如果上一層還沒被指派，標記為可被選
+                                        if (!tSlot.Slot.Equals(fromSlot) || !port.Name.ToUpper().Equals(fromPort))
+                                        {
+                                            present.BackColor = Color.Green;
+                                            present.ForeColor = Color.White;
+                                        }
                                     }
                                 }
                             }
@@ -309,7 +316,7 @@ namespace Adam.Menu.WaferMapping
                                             Label present = form.Controls.Find(p.Name + "_Slot_" + eachSlot.Slot, true).FirstOrDefault() as Label;
                                             if (present != null)
                                             {
-                                                if (lastSlot.Destination.Equals("") && !bypass)
+                                                if (((lastSlot.MapFlag && lastSlot.Destination.Equals("")) || (!lastSlot.MapFlag && !lastSlot.ReservePort.Equals(""))) && !bypass)
                                                 {
                                                     //下面一層Slot未被選，則標記為不可選
                                                     present.ForeColor = Color.Red;
@@ -350,13 +357,17 @@ namespace Adam.Menu.WaferMapping
                                 Job tSlot;
                                 if (tPort.JobList.TryGetValue((Convert.ToInt16(toSlot) + 1).ToString(), out tSlot))
                                 {
-                                    if (tSlot.ReservePort.Equals(""))
-                                    {
-
-                                        Label present = form.Controls.Find(toPort + "_Slot_" + (Convert.ToInt16(toSlot) + 1).ToString(), true).FirstOrDefault() as Label;
+                                    Label present = form.Controls.Find(toPort + "_Slot_" + (Convert.ToInt16(toSlot) + 1).ToString(), true).FirstOrDefault() as Label;
+                                    if (!tSlot.MapFlag && !tSlot.ErrPosition && tSlot.ReservePort.Equals(""))
+                                    {                                   
                                         present.BackColor = Color.DimGray;
                                         present.ForeColor = Color.White;
 
+                                    }
+                                    else if (tSlot.MapFlag && !tSlot.ErrPosition && tSlot.Destination.Equals(""))
+                                    {
+                                        present.BackColor = Color.Green;
+                                        present.ForeColor = Color.White;
                                     }
                                 }
                             }
@@ -367,6 +378,10 @@ namespace Adam.Menu.WaferMapping
                                 {
                                     foreach (Job eachSlot in p.JobList.Values)
                                     {
+                                        if(p.Name.ToUpper().Equals(fromPort.ToUpper())&& eachSlot.Slot.Equals(fromSlot))
+                                        {
+                                            continue;
+                                        }
                                         if (eachSlot.MapFlag && !eachSlot.ErrPosition)
                                         {
                                             //只能由下往上取，標記能取的Wafer
@@ -375,7 +390,7 @@ namespace Adam.Menu.WaferMapping
                                                 Label present = form.Controls.Find(p.Name + "_Slot_" + eachSlot.Slot, true).FirstOrDefault() as Label;
                                                 if (present != null)
                                                 {
-                                                    if (lastSlot.Destination.Equals(""))
+                                                    if (((lastSlot.MapFlag && lastSlot.Destination.Equals("")) || (!lastSlot.MapFlag && !lastSlot.ReservePort.Equals(""))))
                                                     {
 
                                                         present.ForeColor = Color.Red;
@@ -407,7 +422,7 @@ namespace Adam.Menu.WaferMapping
                     //只能由下往上取，標記能取的Wafer
                     if (pt.JobList.TryGetValue((Convert.ToInt16(SlotNo) - 1).ToString(), out lastSlot))
                     {
-                        if (lastSlot.Destination.Equals(""))
+                        if ((lastSlot.MapFlag && lastSlot.Destination.Equals("")) || (!lastSlot.MapFlag && !lastSlot.ReservePort.Equals("")))
                         {
                             Label present = form.Controls.Find(pt.Name + "_Slot_" + SlotNo, true).FirstOrDefault() as Label;
                             if (present != null)
@@ -439,7 +454,7 @@ namespace Adam.Menu.WaferMapping
 
                                             if (present != null)
                                             {
-                                                if (lastSlot.Destination.Equals("") && !bypass)
+                                                if (((lastSlot.MapFlag && lastSlot.Destination.Equals("")) || (!lastSlot.MapFlag && !lastSlot.ReservePort.Equals(""))) && !bypass)
                                                 {
 
                                                     present.ForeColor = Color.Red;
@@ -487,29 +502,29 @@ namespace Adam.Menu.WaferMapping
                                             if (p.JobList.TryGetValue((Convert.ToInt16(eachSlot.Slot) - 1).ToString(), out nextSlot))
                                             {
                                                 Form tform = Application.OpenForms["FormWaferMapping"];
-                                                Label tpresent = form.Controls.Find(p.Name + "_Slot_" + nextSlot.Slot, true).FirstOrDefault() as Label;
+                                                //Label tpresent = form.Controls.Find(p.Name + "_Slot_" + nextSlot.Slot, true).FirstOrDefault() as Label;
                                                 if (!nextSlot.ReservePort.Equals("") && !bypass)
                                                 {//下層slot已被綁定
 
                                                     if (nextSlot.ReservePort.Equals(""))
                                                     {
 
-                                                        tpresent.BackColor = Color.White;
-                                                        tpresent.ForeColor = Color.Black;
+                                                        present.BackColor = Color.White;
+                                                        present.ForeColor = Color.Black;
 
                                                     }
                                                     else
                                                     {//下層已被綁定，限制放片
 
-                                                        tpresent.BackColor = Color.DimGray;
-                                                        tpresent.ForeColor = Color.White;
+                                                        present.BackColor = Color.DimGray;
+                                                        present.ForeColor = Color.White;
                                                     }
 
                                                 }
                                                 else
                                                 {//bypass
-                                                    tpresent.BackColor = Color.White;
-                                                    tpresent.ForeColor = Color.Black;
+                                                    present.BackColor = Color.White;
+                                                    present.ForeColor = Color.Black;
                                                 }
                                             }
                                         }
@@ -563,7 +578,7 @@ namespace Adam.Menu.WaferMapping
                                         if (eachSlot.ReservePort.Equals("") && eachSlot.ReserveSlot.Equals(""))
                                         {//該slot還沒被綁定
                                             Form tform = Application.OpenForms["FormWaferMapping"];
-                                            Label tpresent = form.Controls.Find(toPort + "_Slot_" + (Convert.ToInt16(toSlot) + 1).ToString(), true).FirstOrDefault() as Label;
+                                            Label tpresent = form.Controls.Find(p.Name + "_Slot_" + (Convert.ToInt16(eachSlot.Slot) + 1).ToString(), true).FirstOrDefault() as Label;
                                             Job tSlot;
                                             if (p.JobList.TryGetValue(toSlot, out tSlot)&& !bypass)
                                             {

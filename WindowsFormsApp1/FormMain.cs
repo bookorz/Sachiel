@@ -1518,7 +1518,7 @@ namespace Adam
         private void fakeData(string name)
         {
             //string Mapping = Msg.Value;
-            string Mapping = "1111100111111000000000000";
+            string Mapping = "1111100111011000000000000";
             //if (!Mapping.Equals("0000000000000000000000000"))
             //{
             //    Mapping = "0000000110000000000000000";
