@@ -1507,14 +1507,18 @@ namespace Adam
         {
             fakeData("LOADPORT01");
             fakeData("LOADPORT02");
+            fakeData("LOADPORT03");
+            fakeData("LOADPORT04");
             WaferAssignUpdate.UpdateNodesJob("LOADPORT01");
             WaferAssignUpdate.UpdateNodesJob("LOADPORT02");
+            WaferAssignUpdate.UpdateNodesJob("LOADPORT03");
+            WaferAssignUpdate.UpdateNodesJob("LOADPORT04");
         }
 
         private void fakeData(string name)
         {
             //string Mapping = Msg.Value;
-            string Mapping = "1111111111111000000000000";
+            string Mapping = "1111100111111000000000000";
             //if (!Mapping.Equals("0000000000000000000000000"))
             //{
             //    Mapping = "0000000110000000000000000";

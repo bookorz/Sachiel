@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TransferControl.Management;
@@ -217,7 +218,38 @@ namespace Adam.Menu.Monitoring
             node.SetEnable(!((sender as CheckBox).Checked));
 
         }
-        
-       
+
+        private void FormMonitoring_Load(object sender, EventArgs e)
+        {
+            Form form = this;
+            foreach (Node port in NodeManagement.GetLoadPortList())
+            {
+                for (int i = 1; i <= 25; i++)
+                {
+                    Label present = form.Controls.Find(port.Name + "_Slot_" + i.ToString(), true).FirstOrDefault() as Label;
+                    if (present != null)
+                    {
+                        switch (port.CarrierType.ToUpper())
+                        {
+                            case "FOUP":
+                                present.Visible = true;
+                                break;
+                            case "OPEN":
+                                if (i > 13)
+                                {
+                                    present.Visible = false;
+                                }
+                                else
+                                {
+                                    present.Visible = true;
+                                }
+                                break;
+                        }
+
+                    }
+                }
+
+            }
+        }
     }
 }

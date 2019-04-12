@@ -96,6 +96,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -348,7 +349,6 @@
     <Compile Include="UI_Update\Running\RunningUpdate.cs" />
     <Compile Include="UI_Update\Terminal\TerminalUpdate.cs" />
     <Compile Include="UI_Update\WaferMapping\WaferAssignUpdate.cs" />
-
     <Compile Include="Util\Recipe.cs" />
     <Compile Include="Util\UIHandle.cs" />
     <Compile Include="Util\OCRResult.cs" />

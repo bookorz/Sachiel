@@ -4690,6 +4690,7 @@
             this.ClientSize = new System.Drawing.Size(1620, 760);
             this.Controls.Add(this.Aligner01_tb);
             this.Name = "FormMonitoring";
+            this.Load += new System.EventHandler(this.FormMonitoring_Load);
             this.Aligner01_tb.ResumeLayout(false);
             this.Aligner01_tb.PerformLayout();
             this.panel5.ResumeLayout(false);
