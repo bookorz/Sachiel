@@ -583,7 +583,7 @@ namespace Adam.Menu.WaferMapping
                                             if (p.JobList.TryGetValue(toSlot, out tSlot)&& !bypass)
                                             {
 
-                                                if (tSlot.ReservePort.Equals("") )//檢查目前slot是否已被綁定，改變上層slot限制狀態
+                                                if (tSlot.ReservePort.Equals("") )//檢查下層slot是否已被綁定，改變目前slot限制狀態
                                                 {
                                                     //未被綁定
                                                     tpresent.BackColor = Color.White;
@@ -597,11 +597,7 @@ namespace Adam.Menu.WaferMapping
                                                     tpresent.ForeColor = Color.White;
                                                 }
                                             }
-                                            else
-                                            {
-                                                present.BackColor = Color.White;
-                                                present.ForeColor = Color.Black;
-                                            }
+                                            
                                         }
                                         else
                                         {
