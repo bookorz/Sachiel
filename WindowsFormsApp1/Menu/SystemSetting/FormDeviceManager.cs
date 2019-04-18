@@ -12,6 +12,7 @@ using SANWA.Utility;
 using TransferControl.Management;
 using Adam.UI_Update.OCR;
 using log4net;
+using TransferControl.Controller;
 
 namespace Adam.Menu.SystemSetting
 {
@@ -24,7 +25,7 @@ namespace Adam.Menu.SystemSetting
 
         private SANWA.Utility.config_equipment_model equipment_Model = new SANWA.Utility.config_equipment_model();
         private DataTable dtConfigNode = new DataTable();
-        private DataTable dtRouteTable = new DataTable();
+        private DataTable dtControllerTable = new DataTable();
         private static readonly ILog logger = LogManager.GetLogger(typeof(FormDeviceManager));
 
         private void FormDeviceManager_Load(object sender, EventArgs e)
@@ -38,32 +39,7 @@ namespace Adam.Menu.SystemSetting
             {
                 UpdateNodeList();
 
-                if (equipment_Model.EquipmentModel == null)
-                {
-                    MessageBox.Show("查無 Equipment_Model 相關資料，請管理者確認組態等相關設定！", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    txbEquipmentModel.Text = equipment_Model.EquipmentModel.equipment_model_type;
 
-                    dtTemp = new DataTable();
-                    strSql = "SELECT list_type, list_id, list_name, list_name_en, CASE WHEN list_value = 'DIO' THEN 'SYSTEM' ELSE list_value END list_value, sort_sequence " +
-                                "FROM config_list_item " +
-                                "WHERE list_type = 'DEVICE_TYPE'";
-                    dtTemp = dBUtil.GetDataTable(strSql, null);
-
-                    if (dtTemp.Rows.Count > 0)
-                    {
-                        cmbDeviceNodeType.DataSource = dtTemp;
-                        cmbDeviceNodeType.DisplayMember = "list_name";
-                        cmbDeviceNodeType.ValueMember = "list_value";
-                        cmbDeviceNodeType.SelectedIndex = -1;
-                    }
-                    else
-                    {
-                        cmbDeviceNodeType.DataSource = null;
-                    }
-                }
 
             }
             catch (Exception ex)
@@ -71,62 +47,6 @@ namespace Adam.Menu.SystemSetting
                 //throw new Exception(ex.ToString());
                 logger.Error(ex.StackTrace);
                 MessageBox.Show(ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void cmbDeviceNodeType_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            string strSql = string.Empty;
-            Dictionary<string, object> keyValues = new Dictionary<string, object>();
-            DBUtil dBUtil = new DBUtil();
-            DataTable dtTemp = new DataTable();
-
-            try
-            {
-                cmbVendor.DataSource = null;
-                strSql = "SELECT vendor_id, CONCAT(vendor_name, ' - ', vendor_name_en) AS name, vendor_name, vendor_name_en, vendor_device " +
-                         "FROM config_vendor " +
-                         "WHERE vendor_device like @vendor_device ";
-                keyValues.Add("@vendor_device", "%" + cmbDeviceNodeType.SelectedValue.ToString() + "%");
-                dtTemp = dBUtil.GetDataTable(strSql, keyValues);
-
-                if (dtTemp.Rows.Count > 0)
-                {
-                    cmbVendor.DataSource = dtTemp;
-                    cmbVendor.DisplayMember = "name";
-                    cmbVendor.ValueMember = "vendor_id";
-                    cmbVendor.SelectedIndex = -1;
-                }
-                else
-                {
-                    cmbVendor.DataSource = null;
-                }
-
-                //dtTemp = new DataTable();
-                //strSql = "SELECT (sn_no +1) AS sn_no, CONCAT(SUBSTRING(controller_id, 1, LENGTH(controller_id) - 2), LPAD(LTRIM(CAST(CONVERT(SUBSTRING(controller_id, LENGTH(controller_id) - 1, 2), INTEGER) + 1 AS CHAR)), 2, '0')) AS new_controller_id " +
-                //    "FROM config_node " +
-                //    "WHERE equipment_model_id = @equipment_model_id " +
-                //    "AND node_type = @node_type " +
-                //    "ORDER BY sn_no DESC";
-                //keyValues.Add("@equipment_model_id", equipment_Model.EquipmentModel.equipment_model_id);
-                //keyValues.Add("@node_type", cmbDeviceNodeType.SelectedValue.ToString());
-                //dtTemp = dBUtil.GetDataTable(strSql, keyValues);
-
-                //if (dtTemp.Rows.Count > 0)
-                //{
-                //    nudSerialNo.Value = Convert.ToInt32(dtTemp.Rows[0]["sn_no"].ToString());
-                //    txbControllerID.Text = dtTemp.Rows[0]["new_controller_id"].ToString();
-                //}
-                //else
-                //{
-                //    nudSerialNo.Value = 0;
-                //    txbControllerID.Text = string.Empty;
-                //}
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
             }
         }
 
@@ -156,6 +76,13 @@ namespace Adam.Menu.SystemSetting
                 {
                     lstNodeList.DataSource = null;
                 }
+
+                strSql = @"SELECT * 
+                            FROM config_controller_setting
+                            WHERE equipment_model_id = @equipment_model_id";
+
+                dtControllerTable = dBUtil.GetDataTable(strSql, keyValues);
+
             }
             catch (Exception ex)
             {
@@ -166,7 +93,7 @@ namespace Adam.Menu.SystemSetting
         private void lstNodeList_Click(object sender, EventArgs e)
         {
             DataTable dtTemp = new DataTable();
-
+            string ControllerName = "";
             try
             {
                 var query = (from a in dtConfigNode.AsEnumerable()
@@ -175,30 +102,66 @@ namespace Adam.Menu.SystemSetting
 
                 if (query.Count == 0)
                 {
-                    dgvRouteTable.DataSource = null;
+
                     throw new RowNotInTableException();
                 }
                 else
                 {
                     dtTemp = query.CopyToDataTable();
 
-                    txbDeviceNodeName.Text = dtTemp.Rows[0]["node_id"].ToString();
-                    txbDeviceNodeName.Tag = dtTemp.Rows[0]["node_id"].ToString();
-                    cmbDeviceNodeType.SelectedValue = dtTemp.Rows[0]["node_type"].ToString();
-                    cmbDeviceNodeType_SelectionChangeCommitted(sender, e);
-                    nudSerialNo.Value = Convert.ToInt32(dtTemp.Rows[0]["sn_no"].ToString());
-                    cmbVendor.SelectedValue = dtTemp.Rows[0]["vendor"].ToString();
-                    txbModel.Text = dtTemp.Rows[0]["model_no"].ToString();
-                    txbFirmwareVersion.Text = dtTemp.Rows[0]["firmware_ver"].ToString();
-                    txbAddress.Text = dtTemp.Rows[0]["conn_address"].ToString();
-                    txbControllerID.Text = dtTemp.Rows[0]["controller_id"].ToString();
-                    chbActive.Checked = dtTemp.Rows[0]["enable_flg"].ToString() == "1" ? true : false;
-                    txbDefaultAligner.Text = dtTemp.Rows[0]["default_aligner"].ToString();
-                    txbAlternativeAligner.Text = dtTemp.Rows[0]["alternative_aligner"].ToString();
-                    dtRouteTable = (DataTable)Newtonsoft.Json.JsonConvert.DeserializeObject(dtTemp.Rows[0]["route_table"].ToString(), (typeof(DataTable)));
-                    dgvRouteTable.DataSource = dtRouteTable;
+                    Setting_NodeName_lb.Text = dtTemp.Rows[0]["node_id"].ToString();
 
-                    chbByPass.Checked = dtTemp.Rows[0]["bypass"].ToString() == "1" ? true : false;
+                    Setting_NodeType_lb.Text = dtTemp.Rows[0]["node_type"].ToString();
+
+                    ControllerName = dtTemp.Rows[0]["controller_id"].ToString();
+
+                    if (dtTemp.Rows[0]["enable_flg"].ToString() == "1" ? true : false)
+                    {
+                        Setting_NodeEnable_rb.Checked = true;
+                    }
+                    else
+                    {
+                        Setting_NodeDisable_rb.Checked = true;
+                    }
+
+                    Setting_CarrierType_cb.Text = dtTemp.Rows[0]["carrier_type"].ToString();
+                    if (Setting_NodeType_lb.Text.ToUpper().Equals("LOADPORT"))
+                    {
+                        Setting_CarrierType_cb.Visible = true;
+                        Setting_CarrierType_lb.Visible = true;
+                    }
+                    else
+                    {
+                        Setting_CarrierType_cb.Visible = false;
+                        Setting_CarrierType_lb.Visible = false;
+                    }
+                }
+                query = (from a in dtControllerTable.AsEnumerable()
+                         where a.Field<string>("device_name") == ControllerName
+                         select a).ToList();
+
+                if (query.Count == 0)
+                {
+                    throw new RowNotInTableException();
+                }
+                else
+                {
+                    dtTemp = query.CopyToDataTable();
+                    Setting_ControllerName_lb.Text = dtTemp.Rows[0]["device_name"].ToString();
+                    Setting_connectType_cb.Text = dtTemp.Rows[0]["conn_type"].ToString();
+                    Setting_Address_tb.Text = dtTemp.Rows[0]["conn_address"].ToString();
+                    Setting_Port_tb.Text = dtTemp.Rows[0]["conn_port"].ToString();
+                    if (Setting_connectType_cb.Text.ToUpper().Equals("SOCKET"))
+                    {
+                        setting_Address_lb.Text = "Address:";
+                        Setting_Port_lb.Text = "Port:";
+                    }
+                    else
+                    {
+                        setting_Address_lb.Text = "Comport:";
+                        Setting_Port_lb.Text = "Baud Rate:";
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -214,118 +177,53 @@ namespace Adam.Menu.SystemSetting
             Dictionary<string, object> keyValues = new Dictionary<string, object>();
             DBUtil dBUtil = new DBUtil();
             DataTable dtTemp = new DataTable();
-            DataRow[] drsTemp;
+      
 
             try
             {
-                if (txbDeviceNodeName.Text.Trim().Equals(string.Empty) &&
-                    cmbDeviceNodeType.SelectedIndex == -1 &&
-                    nudSerialNo.Value == 0 &&
-                    cmbVendor.SelectedIndex == -1 &&
-                    txbModel.Text.Trim().Equals(string.Empty) &&
-                    txbFirmwareVersion.Text.Trim().Equals(string.Empty) &&
-                    txbAddress.Text.Trim().Equals(string.Empty) &&
-                    txbControllerID.Text.Trim().Equals(string.Empty)
-                    )
+                Node currentNode = NodeManagement.Get(Setting_NodeName_lb.Text);
+
+                if (currentNode == null)
                 {
-                    MessageBox.Show("Miss input data in the form.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                    MessageBox.Show("Node "+Setting_NodeName_lb.Text + " is not exist!");
                     return;
                 }
-
-                if (txbDeviceNodeName.Text.Trim().Equals(string.Empty) ||
-                    cmbDeviceNodeType.SelectedIndex == -1 || cmbVendor.SelectedIndex == -1)
+                DeviceController currentController = ControllerManagement.Get(currentNode.Controller);
+                if (currentController == null)
                 {
-                    MessageBox.Show("Miss input data in the form.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                    MessageBox.Show("Controller "+currentNode.Controller + " is not exist!");
                     return;
                 }
-
-                strSql = "select * from config_node where equipment_model_id = @equipment_model_id and node_type = @node_type order by node_id, sn_no";
-                keyValues.Add("@equipment_model_id", SANWA.Utility.Config.SystemConfig.Get().SystemMode);
-                keyValues.Add("@node_type", cmbDeviceNodeType.SelectedValue.ToString());
-                dtTemp = dBUtil.GetDataTable(strSql, keyValues);
-
-                if (dtTemp.Rows.Count > 0)
-                {
-                    if (dtTemp.Select("node_id in ('" + txbDeviceNodeName.Tag + "','" + cmbDeviceNodeType.Text + Convert.ToInt32(nudSerialNo.Value).ToString("D2") + "')").Length > 0)
-                    {
-                        sbErrorMessage.Append("Node ID exist.");
-                        sbErrorMessage.AppendLine();
-                    }
-
-                    if (dtTemp.Select("sn_no = " + Convert.ToInt32(nudSerialNo.Value).ToString()).Length > 0)
-                    {
-                        sbErrorMessage.Append("Serial No exist.");
-                        sbErrorMessage.AppendLine();
-                    }
-
-                    if (dtTemp.Select("controller_id = '" + txbControllerID.Text + "'").Length > 0)
-                    {
-                        sbErrorMessage.Append("Controller ID exist.");
-                        sbErrorMessage.AppendLine();
-                    }
-                }
-
-                if (sbErrorMessage.ToString().Length > 0)
-                {
-                    if (MessageBox.Show(sbErrorMessage.ToString() + "\r\n Do you want to overwrite???", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                keyValues.Clear();
-
-                strSql = "REPLACE INTO config_node " +
-                    "(equipment_model_id, node_id, node_type, sn_no, vendor, model_no, firmware_ver, conn_address, controller_id, bypass, default_aligner, alternative_aligner, route_table, enable_flg, create_user, create_timestamp, modify_user, modify_timestamp) " +
-                    "VALUES " +
-                    "(@equipment_model_id, @node_id, @node_type, @sn_no, @vendor, @model_no, @firmware_ver, @conn_address, @controller_id, @bypass, @default_aligner, @alternative_aligner, @route_table, @enable_flg, @create_user, @create_timestamp, @modify_user, NOW())";
+                currentNode.Enable = Setting_NodeEnable_rb.Checked;
+                currentNode.CarrierType = Setting_CarrierType_cb.Text;
+                strSql = @"UPDATE config_node SET enable_flg = @enable_flg ,carrier_type = @carrier_type WHERE equipment_model_id = @equipment_model_id AND node_id = @node_id";
 
                 keyValues.Add("@equipment_model_id", equipment_Model.EquipmentModel.equipment_model_id);
-                keyValues.Add("@node_id", txbDeviceNodeName.Text.Trim());
-                keyValues.Add("@node_type", cmbDeviceNodeType.SelectedValue.ToString());
-                keyValues.Add("@sn_no", nudSerialNo.Value);
-                keyValues.Add("@vendor", cmbVendor.SelectedValue.ToString());
-                keyValues.Add("@model_no", txbModel.Text.Trim());
-                keyValues.Add("@firmware_ver", txbFirmwareVersion.Text.Trim());
-                keyValues.Add("@conn_address", txbAddress.Text.Trim());
-                keyValues.Add("@controller_id", txbControllerID.Text.Trim());
-                keyValues.Add("@enable_flg", chbActive.Checked ? 1 : 0);
-                keyValues.Add("@default_aligner", txbDefaultAligner.Text.Trim());
-                keyValues.Add("@alternative_aligner", txbAlternativeAligner.Text.Trim());
-                keyValues.Add("@route_table", JsonConvert.SerializeObject(dtRouteTable, Formatting.Indented).Replace("\r\n", string.Empty));
-                keyValues.Add("@bypass", chbByPass.Checked ? 1 : 0);
-
-                drsTemp = dtTemp.Select("node_id = '" + cmbDeviceNodeType.Text + Convert.ToInt32(nudSerialNo.Value).ToString("D2") + "'");
-                Form form = Application.OpenForms["FormMain"];
-                Label Signal = form.Controls.Find("lbl_login_id", true).FirstOrDefault() as Label;
-
-                if (drsTemp.Length > 0)
-                {
-                    keyValues.Add("@create_user", drsTemp[0]["create_user"].ToString());
-                    keyValues.Add("@create_timestamp", Convert.ToDateTime(drsTemp[0]["create_timestamp"].ToString()).ToString("yyyy-MM-dd HH:mm:ss"));
-                }
-                else
-                {
-                    keyValues.Add("@create_user", Signal.Text);
-                    strSql = strSql.Replace("@create_timestamp", "NOW()");
-                }
-
-                keyValues.Add("@modify_user", Signal.Text);
-
+                keyValues.Add("@node_id", currentNode.Name);
+                keyValues.Add("@enable_flg", currentNode.Enable ? 1 : 0);
+                keyValues.Add("@carrier_type", currentNode.CarrierType);
                 dBUtil.ExecuteNonQuery(strSql, keyValues);
-                MessageBox.Show("Done it.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
 
-                Adam.Util.SanwaUtil.addActionLog("Adam.Menu.SystemSetting", "FormCpmmandScript", Signal.Text);
+                keyValues.Clear();
+                currentController.ConnectionType = Setting_connectType_cb.Text;
+                currentController.IPAdress = Setting_Address_tb.Text;
+                currentController.Port = Convert.ToInt32(Setting_Port_tb.Text);
+                strSql = "UPDATE config_controller_setting SET conn_type = @conn_type, conn_address = @conn_address , conn_port = @conn_port WHERE equipment_model_id = @equipment_model_id AND device_name = @device_name";
 
-                UpdateNodeList();
-                ClearUI();
+                keyValues.Add("@equipment_model_id", equipment_Model.EquipmentModel.equipment_model_id);
+                keyValues.Add("@device_name", currentNode.Controller);
+                keyValues.Add("@conn_type", currentController.ConnectionType);
+                keyValues.Add("@conn_address", Setting_Address_tb.Text);
+                keyValues.Add("@conn_port", currentController.Port.ToString());
+                dBUtil.ExecuteNonQuery(strSql, keyValues);
 
-                //改設定後套用
-                NodeManagement.LoadConfig();
-                if (cmbDeviceNodeType.Text.Equals("OCR"))
-                {
-                    OCRUpdate.AssignForm();
-                }
+
+
+                MessageBox.Show("連線相關設定值，將於重啟程式後生效.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -333,22 +231,19 @@ namespace Adam.Menu.SystemSetting
             }
         }
 
-        private void ClearUI()
+        private void Setting_connectType_cb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txbDeviceNodeName.Text = string.Empty;
-            txbDeviceNodeName.Tag = null;
-            cmbDeviceNodeType.SelectedIndex = -1;
-            nudSerialNo.Value = 0;
-            cmbVendor.SelectedIndex = -1;
-            txbModel.Text = string.Empty;
-            txbFirmwareVersion.Text = string.Empty;
-            txbAddress.Text = string.Empty;
-            txbControllerID.Text = string.Empty;
-            chbActive.Checked = false;
-            txbDefaultAligner.Text = string.Empty;
-            txbAlternativeAligner.Text = string.Empty;
-            dgvRouteTable.DataSource = null;
-            chbByPass.Checked = false;
+            switch (Setting_connectType_cb.Text.ToUpper())
+            {
+                case "COMPORT":
+                    setting_Address_lb.Text = "Comport:";
+                    Setting_Port_lb.Text = "Baud Rate:";
+                    break;
+                case "SOCKET":
+                    setting_Address_lb.Text = "Address:";
+                    Setting_Port_lb.Text = "Port:";
+                    break;
+            }
         }
     }
 }

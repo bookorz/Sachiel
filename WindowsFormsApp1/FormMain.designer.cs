@@ -39,9 +39,8 @@ namespace Adam
             this.Connection_btn = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.ALL_INIT_btn = new System.Windows.Forms.Button();
-            this.ALL_Reset_btn = new System.Windows.Forms.Button();
-            this.ALL_ORG_btn = new System.Windows.Forms.Button();
             this.DifferentialPressureAlarm2_Signal = new System.Windows.Forms.Button();
             this.DifferentialPressureAlarm1_Signal = new System.Windows.Forms.Button();
             this.SafetyRelay_Signal = new System.Windows.Forms.Button();
@@ -49,7 +48,6 @@ namespace Adam
             this.FFUAlarm_Signal = new System.Windows.Forms.Button();
             this.CDAAlarm_Signal = new System.Windows.Forms.Button();
             this.DoorSwitch_Signal = new System.Windows.Forms.Button();
-            this.CurrentState_btn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbl_login_date = new System.Windows.Forms.Label();
@@ -111,7 +109,8 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Start_btn = new System.Windows.Forms.Button();
+            this.Stop_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -192,10 +191,10 @@ namespace Adam
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.Stop_btn);
+            this.groupBox5.Controls.Add(this.Start_btn);
             this.groupBox5.Controls.Add(this.button1);
             this.groupBox5.Controls.Add(this.ALL_INIT_btn);
-            this.groupBox5.Controls.Add(this.ALL_Reset_btn);
-            this.groupBox5.Controls.Add(this.ALL_ORG_btn);
             this.groupBox5.Controls.Add(this.DifferentialPressureAlarm2_Signal);
             this.groupBox5.Controls.Add(this.DifferentialPressureAlarm1_Signal);
             this.groupBox5.Controls.Add(this.SafetyRelay_Signal);
@@ -203,10 +202,16 @@ namespace Adam
             this.groupBox5.Controls.Add(this.FFUAlarm_Signal);
             this.groupBox5.Controls.Add(this.CDAAlarm_Signal);
             this.groupBox5.Controls.Add(this.DoorSwitch_Signal);
-            this.groupBox5.Controls.Add(this.CurrentState_btn);
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ALL_INIT_btn
             // 
@@ -215,22 +220,6 @@ namespace Adam
             this.ALL_INIT_btn.Name = "ALL_INIT_btn";
             this.ALL_INIT_btn.UseVisualStyleBackColor = false;
             this.ALL_INIT_btn.Click += new System.EventHandler(this.ALL_INIT_btn_Click);
-            // 
-            // ALL_Reset_btn
-            // 
-            resources.ApplyResources(this.ALL_Reset_btn, "ALL_Reset_btn");
-            this.ALL_Reset_btn.BackColor = System.Drawing.Color.YellowGreen;
-            this.ALL_Reset_btn.Name = "ALL_Reset_btn";
-            this.ALL_Reset_btn.UseVisualStyleBackColor = false;
-            this.ALL_Reset_btn.Click += new System.EventHandler(this.ALL_Reset_btn_Click);
-            // 
-            // ALL_ORG_btn
-            // 
-            resources.ApplyResources(this.ALL_ORG_btn, "ALL_ORG_btn");
-            this.ALL_ORG_btn.BackColor = System.Drawing.Color.YellowGreen;
-            this.ALL_ORG_btn.Name = "ALL_ORG_btn";
-            this.ALL_ORG_btn.UseVisualStyleBackColor = false;
-            this.ALL_ORG_btn.Click += new System.EventHandler(this.ALL_ORG_btn_Click);
             // 
             // DifferentialPressureAlarm2_Signal
             // 
@@ -280,13 +269,6 @@ namespace Adam
             this.DoorSwitch_Signal.BackColor = System.Drawing.Color.Gray;
             this.DoorSwitch_Signal.Name = "DoorSwitch_Signal";
             this.DoorSwitch_Signal.UseVisualStyleBackColor = false;
-            // 
-            // CurrentState_btn
-            // 
-            resources.ApplyResources(this.CurrentState_btn, "CurrentState_btn");
-            this.CurrentState_btn.BackColor = System.Drawing.Color.Orange;
-            this.CurrentState_btn.Name = "CurrentState_btn";
-            this.CurrentState_btn.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
@@ -802,12 +784,21 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
-            // button1
+            // Start_btn
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            resources.ApplyResources(this.Start_btn, "Start_btn");
+            this.Start_btn.BackColor = System.Drawing.Color.DimGray;
+            this.Start_btn.Name = "Start_btn";
+            this.Start_btn.UseVisualStyleBackColor = false;
+            this.Start_btn.Click += new System.EventHandler(this.Start_btn_Click);
+            // 
+            // Stop_btn
+            // 
+            resources.ApplyResources(this.Stop_btn, "Stop_btn");
+            this.Stop_btn.BackColor = System.Drawing.Color.DimGray;
+            this.Stop_btn.Name = "Stop_btn";
+            this.Stop_btn.UseVisualStyleBackColor = false;
+            this.Stop_btn.Click += new System.EventHandler(this.Stop_btn_Click);
             // 
             // FormMain
             // 
@@ -874,7 +865,6 @@ namespace Adam
         private System.Windows.Forms.Button FFUAlarm_Signal;
         private System.Windows.Forms.Button CDAAlarm_Signal;
         private System.Windows.Forms.Button DoorSwitch_Signal;
-        private System.Windows.Forms.Button CurrentState_btn;
         private System.Windows.Forms.Button DifferentialPressureAlarm1_Signal;
         private System.Windows.Forms.Button SafetyRelay_Signal;
         private System.Windows.Forms.Button btnLogInOut;
@@ -926,10 +916,10 @@ namespace Adam
         private System.Windows.Forms.DataGridView Conn_gv;
         private System.Windows.Forms.TabPage Wafer;
         private System.Windows.Forms.Button btnManual;
-        private System.Windows.Forms.Button ALL_ORG_btn;
-        private System.Windows.Forms.Button ALL_Reset_btn;
         private System.Windows.Forms.Button ALL_INIT_btn;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Stop_btn;
+        private System.Windows.Forms.Button Start_btn;
     }
 }
 

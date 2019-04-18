@@ -72,11 +72,25 @@
             this.groupBox21 = new System.Windows.Forms.GroupBox();
             this.panel13 = new System.Windows.Forms.Panel();
             this.pnlRobotStatus = new System.Windows.Forms.Panel();
+            this.btnLActiveOff = new System.Windows.Forms.Button();
+            this.btnLActiveOn = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tbLActiveState = new System.Windows.Forms.TextBox();
+            this.tbRActiveState = new System.Windows.Forms.TextBox();
+            this.btnRActiveOff = new System.Windows.Forms.Button();
+            this.btnRActiveOn = new System.Windows.Forms.Button();
+            this.btnRLVacuOff = new System.Windows.Forms.Button();
             this.RobotConnect_btn = new System.Windows.Forms.Button();
+            this.btnRLVacuOn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.tbRLVacuSolenoid = new System.Windows.Forms.TextBox();
             this.RobotConnection_tb = new System.Windows.Forms.TextBox();
+            this.tbRRVacuSolenoid = new System.Windows.Forms.TextBox();
             this.btnRInit = new System.Windows.Forms.Button();
+            this.btnRRVacuOff = new System.Windows.Forms.Button();
             this.btnRRetract = new System.Windows.Forms.Button();
+            this.btnRRVacuOn = new System.Windows.Forms.Button();
             this.tbRError = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -89,13 +103,6 @@
             this.btnRChgMode = new System.Windows.Forms.Button();
             this.cbRMode = new System.Windows.Forms.ComboBox();
             this.btnRHome = new System.Windows.Forms.Button();
-            this.btnRLVacuOff = new System.Windows.Forms.Button();
-            this.btnRLVacuOn = new System.Windows.Forms.Button();
-            this.label65 = new System.Windows.Forms.Label();
-            this.tbRLVacuSolenoid = new System.Windows.Forms.TextBox();
-            this.tbRRVacuSolenoid = new System.Windows.Forms.TextBox();
-            this.btnRRVacuOff = new System.Windows.Forms.Button();
-            this.btnRRVacuOn = new System.Windows.Forms.Button();
             this.btnRChgSpeed = new System.Windows.Forms.Button();
             this.btnROrg = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -328,13 +335,6 @@
             this.btnPause = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.pnlMotionStop = new System.Windows.Forms.Panel();
-            this.btnLActiveOff = new System.Windows.Forms.Button();
-            this.btnLActiveOn = new System.Windows.Forms.Button();
-            this.label20 = new System.Windows.Forms.Label();
-            this.tbLActiveState = new System.Windows.Forms.TextBox();
-            this.tbRActiveState = new System.Windows.Forms.TextBox();
-            this.btnRActiveOff = new System.Windows.Forms.Button();
-            this.btnRActiveOn = new System.Windows.Forms.Button();
             this.tbcManual.SuspendLayout();
             this.tabRobot.SuspendLayout();
             this.groupBox20.SuspendLayout();
@@ -964,6 +964,7 @@
             this.EightInch_rb.TabIndex = 1;
             this.EightInch_rb.Text = "200MM";
             this.EightInch_rb.UseVisualStyleBackColor = true;
+            this.EightInch_rb.Visible = false;
             // 
             // btnRAreaSwap
             // 
@@ -994,6 +995,7 @@
             this.TwelveInch_rb.TabStop = true;
             this.TwelveInch_rb.Text = "300MM";
             this.TwelveInch_rb.UseVisualStyleBackColor = true;
+            this.TwelveInch_rb.Visible = false;
             // 
             // groupBox21
             // 
@@ -1071,6 +1073,114 @@
             this.pnlRobotStatus.Size = new System.Drawing.Size(629, 715);
             this.pnlRobotStatus.TabIndex = 18;
             // 
+            // btnLActiveOff
+            // 
+            this.btnLActiveOff.BackColor = System.Drawing.Color.DarkGray;
+            this.btnLActiveOff.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnLActiveOff.FlatAppearance.BorderSize = 2;
+            this.btnLActiveOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLActiveOff.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnLActiveOff.Location = new System.Drawing.Point(424, 456);
+            this.btnLActiveOff.Name = "btnLActiveOff";
+            this.btnLActiveOff.Size = new System.Drawing.Size(48, 45);
+            this.btnLActiveOff.TabIndex = 126;
+            this.btnLActiveOff.Text = "Off";
+            this.btnLActiveOff.UseVisualStyleBackColor = false;
+            this.btnLActiveOff.Click += new System.EventHandler(this.RobotFunction_Click);
+            // 
+            // btnLActiveOn
+            // 
+            this.btnLActiveOn.BackColor = System.Drawing.Color.DarkGray;
+            this.btnLActiveOn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnLActiveOn.FlatAppearance.BorderSize = 2;
+            this.btnLActiveOn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLActiveOn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnLActiveOn.Location = new System.Drawing.Point(366, 456);
+            this.btnLActiveOn.Name = "btnLActiveOn";
+            this.btnLActiveOn.Size = new System.Drawing.Size(48, 45);
+            this.btnLActiveOn.TabIndex = 125;
+            this.btnLActiveOn.Text = "On";
+            this.btnLActiveOn.UseVisualStyleBackColor = false;
+            this.btnLActiveOn.Click += new System.EventHandler(this.RobotFunction_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("微軟正黑體", 18F);
+            this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label20.Location = new System.Drawing.Point(53, 418);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(158, 30);
+            this.label20.TabIndex = 120;
+            this.label20.Text = "Arm Enabled";
+            // 
+            // tbLActiveState
+            // 
+            this.tbLActiveState.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbLActiveState.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbLActiveState.Location = new System.Drawing.Point(366, 418);
+            this.tbLActiveState.Name = "tbLActiveState";
+            this.tbLActiveState.ReadOnly = true;
+            this.tbLActiveState.Size = new System.Drawing.Size(106, 32);
+            this.tbLActiveState.TabIndex = 121;
+            this.tbLActiveState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbRActiveState
+            // 
+            this.tbRActiveState.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbRActiveState.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbRActiveState.Location = new System.Drawing.Point(224, 418);
+            this.tbRActiveState.Name = "tbRActiveState";
+            this.tbRActiveState.ReadOnly = true;
+            this.tbRActiveState.Size = new System.Drawing.Size(106, 32);
+            this.tbRActiveState.TabIndex = 122;
+            this.tbRActiveState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnRActiveOff
+            // 
+            this.btnRActiveOff.BackColor = System.Drawing.Color.DarkGray;
+            this.btnRActiveOff.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRActiveOff.FlatAppearance.BorderSize = 2;
+            this.btnRActiveOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRActiveOff.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRActiveOff.Location = new System.Drawing.Point(282, 456);
+            this.btnRActiveOff.Name = "btnRActiveOff";
+            this.btnRActiveOff.Size = new System.Drawing.Size(48, 45);
+            this.btnRActiveOff.TabIndex = 124;
+            this.btnRActiveOff.Text = "Off";
+            this.btnRActiveOff.UseVisualStyleBackColor = false;
+            this.btnRActiveOff.Click += new System.EventHandler(this.RobotFunction_Click);
+            // 
+            // btnRActiveOn
+            // 
+            this.btnRActiveOn.BackColor = System.Drawing.Color.DarkGray;
+            this.btnRActiveOn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRActiveOn.FlatAppearance.BorderSize = 2;
+            this.btnRActiveOn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRActiveOn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRActiveOn.Location = new System.Drawing.Point(224, 456);
+            this.btnRActiveOn.Name = "btnRActiveOn";
+            this.btnRActiveOn.Size = new System.Drawing.Size(48, 45);
+            this.btnRActiveOn.TabIndex = 123;
+            this.btnRActiveOn.Text = "On";
+            this.btnRActiveOn.UseVisualStyleBackColor = false;
+            this.btnRActiveOn.Click += new System.EventHandler(this.RobotFunction_Click);
+            // 
+            // btnRLVacuOff
+            // 
+            this.btnRLVacuOff.BackColor = System.Drawing.Color.DarkGray;
+            this.btnRLVacuOff.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRLVacuOff.FlatAppearance.BorderSize = 2;
+            this.btnRLVacuOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRLVacuOff.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRLVacuOff.Location = new System.Drawing.Point(424, 547);
+            this.btnRLVacuOff.Name = "btnRLVacuOff";
+            this.btnRLVacuOff.Size = new System.Drawing.Size(48, 45);
+            this.btnRLVacuOff.TabIndex = 79;
+            this.btnRLVacuOff.Text = "Off";
+            this.btnRLVacuOff.UseVisualStyleBackColor = false;
+            this.btnRLVacuOff.Click += new System.EventHandler(this.RobotFunction_Click);
+            // 
             // RobotConnect_btn
             // 
             this.RobotConnect_btn.BackColor = System.Drawing.Color.DarkGray;
@@ -1087,6 +1197,21 @@
             this.RobotConnect_btn.UseVisualStyleBackColor = false;
             this.RobotConnect_btn.Click += new System.EventHandler(this.RobotConnect_btn_Click);
             // 
+            // btnRLVacuOn
+            // 
+            this.btnRLVacuOn.BackColor = System.Drawing.Color.DarkGray;
+            this.btnRLVacuOn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRLVacuOn.FlatAppearance.BorderSize = 2;
+            this.btnRLVacuOn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRLVacuOn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRLVacuOn.Location = new System.Drawing.Point(366, 547);
+            this.btnRLVacuOn.Name = "btnRLVacuOn";
+            this.btnRLVacuOn.Size = new System.Drawing.Size(48, 45);
+            this.btnRLVacuOn.TabIndex = 78;
+            this.btnRLVacuOn.Text = "On";
+            this.btnRLVacuOn.UseVisualStyleBackColor = false;
+            this.btnRLVacuOn.Click += new System.EventHandler(this.RobotFunction_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -1098,6 +1223,28 @@
             this.label3.TabIndex = 117;
             this.label3.Text = "Connection";
             // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("微軟正黑體", 18F);
+            this.label65.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label65.Location = new System.Drawing.Point(70, 509);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(141, 30);
+            this.label65.TabIndex = 3;
+            this.label65.Text = "Wafer Hold";
+            // 
+            // tbRLVacuSolenoid
+            // 
+            this.tbRLVacuSolenoid.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbRLVacuSolenoid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbRLVacuSolenoid.Location = new System.Drawing.Point(366, 509);
+            this.tbRLVacuSolenoid.Name = "tbRLVacuSolenoid";
+            this.tbRLVacuSolenoid.ReadOnly = true;
+            this.tbRLVacuSolenoid.Size = new System.Drawing.Size(106, 32);
+            this.tbRLVacuSolenoid.TabIndex = 15;
+            this.tbRLVacuSolenoid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // RobotConnection_tb
             // 
             this.RobotConnection_tb.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -1108,6 +1255,17 @@
             this.RobotConnection_tb.Size = new System.Drawing.Size(237, 32);
             this.RobotConnection_tb.TabIndex = 118;
             this.RobotConnection_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbRRVacuSolenoid
+            // 
+            this.tbRRVacuSolenoid.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbRRVacuSolenoid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbRRVacuSolenoid.Location = new System.Drawing.Point(224, 509);
+            this.tbRRVacuSolenoid.Name = "tbRRVacuSolenoid";
+            this.tbRRVacuSolenoid.ReadOnly = true;
+            this.tbRRVacuSolenoid.Size = new System.Drawing.Size(106, 32);
+            this.tbRRVacuSolenoid.TabIndex = 16;
+            this.tbRRVacuSolenoid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnRInit
             // 
@@ -1124,6 +1282,21 @@
             this.btnRInit.UseVisualStyleBackColor = false;
             this.btnRInit.Click += new System.EventHandler(this.RobotFunction_Click);
             // 
+            // btnRRVacuOff
+            // 
+            this.btnRRVacuOff.BackColor = System.Drawing.Color.DarkGray;
+            this.btnRRVacuOff.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRRVacuOff.FlatAppearance.BorderSize = 2;
+            this.btnRRVacuOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRRVacuOff.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRRVacuOff.Location = new System.Drawing.Point(282, 547);
+            this.btnRRVacuOff.Name = "btnRRVacuOff";
+            this.btnRRVacuOff.Size = new System.Drawing.Size(48, 45);
+            this.btnRRVacuOff.TabIndex = 77;
+            this.btnRRVacuOff.Text = "Off";
+            this.btnRRVacuOff.UseVisualStyleBackColor = false;
+            this.btnRRVacuOff.Click += new System.EventHandler(this.RobotFunction_Click);
+            // 
             // btnRRetract
             // 
             this.btnRRetract.BackColor = System.Drawing.Color.DarkGray;
@@ -1139,6 +1312,21 @@
             this.btnRRetract.Text = "Arm Retract";
             this.btnRRetract.UseVisualStyleBackColor = false;
             this.btnRRetract.Click += new System.EventHandler(this.RobotFunction_Click);
+            // 
+            // btnRRVacuOn
+            // 
+            this.btnRRVacuOn.BackColor = System.Drawing.Color.DarkGray;
+            this.btnRRVacuOn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRRVacuOn.FlatAppearance.BorderSize = 2;
+            this.btnRRVacuOn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRRVacuOn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRRVacuOn.Location = new System.Drawing.Point(224, 547);
+            this.btnRRVacuOn.Name = "btnRRVacuOn";
+            this.btnRRVacuOn.Size = new System.Drawing.Size(48, 45);
+            this.btnRRVacuOn.TabIndex = 76;
+            this.btnRRVacuOn.Text = "On";
+            this.btnRRVacuOn.UseVisualStyleBackColor = false;
+            this.btnRRVacuOn.Click += new System.EventHandler(this.RobotFunction_Click);
             // 
             // tbRError
             // 
@@ -1315,99 +1503,6 @@
             this.btnRHome.UseVisualStyleBackColor = false;
             this.btnRHome.Click += new System.EventHandler(this.RobotFunction_Click);
             // 
-            // btnRLVacuOff
-            // 
-            this.btnRLVacuOff.BackColor = System.Drawing.Color.DarkGray;
-            this.btnRLVacuOff.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRLVacuOff.FlatAppearance.BorderSize = 2;
-            this.btnRLVacuOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRLVacuOff.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRLVacuOff.Location = new System.Drawing.Point(424, 547);
-            this.btnRLVacuOff.Name = "btnRLVacuOff";
-            this.btnRLVacuOff.Size = new System.Drawing.Size(48, 45);
-            this.btnRLVacuOff.TabIndex = 79;
-            this.btnRLVacuOff.Text = "Off";
-            this.btnRLVacuOff.UseVisualStyleBackColor = false;
-            this.btnRLVacuOff.Click += new System.EventHandler(this.RobotFunction_Click);
-            // 
-            // btnRLVacuOn
-            // 
-            this.btnRLVacuOn.BackColor = System.Drawing.Color.DarkGray;
-            this.btnRLVacuOn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRLVacuOn.FlatAppearance.BorderSize = 2;
-            this.btnRLVacuOn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRLVacuOn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRLVacuOn.Location = new System.Drawing.Point(366, 547);
-            this.btnRLVacuOn.Name = "btnRLVacuOn";
-            this.btnRLVacuOn.Size = new System.Drawing.Size(48, 45);
-            this.btnRLVacuOn.TabIndex = 78;
-            this.btnRLVacuOn.Text = "On";
-            this.btnRLVacuOn.UseVisualStyleBackColor = false;
-            this.btnRLVacuOn.Click += new System.EventHandler(this.RobotFunction_Click);
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("微軟正黑體", 18F);
-            this.label65.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label65.Location = new System.Drawing.Point(70, 509);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(141, 30);
-            this.label65.TabIndex = 3;
-            this.label65.Text = "Wafer Hold";
-            // 
-            // tbRLVacuSolenoid
-            // 
-            this.tbRLVacuSolenoid.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tbRLVacuSolenoid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbRLVacuSolenoid.Location = new System.Drawing.Point(366, 509);
-            this.tbRLVacuSolenoid.Name = "tbRLVacuSolenoid";
-            this.tbRLVacuSolenoid.ReadOnly = true;
-            this.tbRLVacuSolenoid.Size = new System.Drawing.Size(106, 32);
-            this.tbRLVacuSolenoid.TabIndex = 15;
-            this.tbRLVacuSolenoid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // tbRRVacuSolenoid
-            // 
-            this.tbRRVacuSolenoid.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tbRRVacuSolenoid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbRRVacuSolenoid.Location = new System.Drawing.Point(224, 509);
-            this.tbRRVacuSolenoid.Name = "tbRRVacuSolenoid";
-            this.tbRRVacuSolenoid.ReadOnly = true;
-            this.tbRRVacuSolenoid.Size = new System.Drawing.Size(106, 32);
-            this.tbRRVacuSolenoid.TabIndex = 16;
-            this.tbRRVacuSolenoid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btnRRVacuOff
-            // 
-            this.btnRRVacuOff.BackColor = System.Drawing.Color.DarkGray;
-            this.btnRRVacuOff.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRRVacuOff.FlatAppearance.BorderSize = 2;
-            this.btnRRVacuOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRRVacuOff.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRRVacuOff.Location = new System.Drawing.Point(282, 547);
-            this.btnRRVacuOff.Name = "btnRRVacuOff";
-            this.btnRRVacuOff.Size = new System.Drawing.Size(48, 45);
-            this.btnRRVacuOff.TabIndex = 77;
-            this.btnRRVacuOff.Text = "Off";
-            this.btnRRVacuOff.UseVisualStyleBackColor = false;
-            this.btnRRVacuOff.Click += new System.EventHandler(this.RobotFunction_Click);
-            // 
-            // btnRRVacuOn
-            // 
-            this.btnRRVacuOn.BackColor = System.Drawing.Color.DarkGray;
-            this.btnRRVacuOn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRRVacuOn.FlatAppearance.BorderSize = 2;
-            this.btnRRVacuOn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRRVacuOn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRRVacuOn.Location = new System.Drawing.Point(224, 547);
-            this.btnRRVacuOn.Name = "btnRRVacuOn";
-            this.btnRRVacuOn.Size = new System.Drawing.Size(48, 45);
-            this.btnRRVacuOn.TabIndex = 76;
-            this.btnRRVacuOn.Text = "On";
-            this.btnRRVacuOn.UseVisualStyleBackColor = false;
-            this.btnRRVacuOn.Click += new System.EventHandler(this.RobotFunction_Click);
-            // 
             // btnRChgSpeed
             // 
             this.btnRChgSpeed.BackColor = System.Drawing.Color.DarkGray;
@@ -1471,6 +1566,7 @@
             this.label1.Size = new System.Drawing.Size(82, 30);
             this.label1.TabIndex = 25;
             this.label1.Text = "Robot";
+            this.label1.Visible = false;
             // 
             // rbR2
             // 
@@ -1483,6 +1579,7 @@
             this.rbR2.TabStop = true;
             this.rbR2.Text = "Robot2";
             this.rbR2.UseVisualStyleBackColor = true;
+            this.rbR2.Visible = false;
             this.rbR2.CheckedChanged += new System.EventHandler(this.rb_CheckedChanged);
             // 
             // rbR1
@@ -1497,6 +1594,7 @@
             this.rbR1.TabStop = true;
             this.rbR1.Text = "Robot1";
             this.rbR1.UseVisualStyleBackColor = true;
+            this.rbR1.Visible = false;
             this.rbR1.CheckedChanged += new System.EventHandler(this.rb_CheckedChanged);
             // 
             // label63
@@ -1606,6 +1704,7 @@
             this.groupBox23.TabIndex = 2;
             this.groupBox23.TabStop = false;
             this.groupBox23.Text = "Aligner2";
+            this.groupBox23.Visible = false;
             // 
             // panel17
             // 
@@ -4682,99 +4781,6 @@
             this.pnlMotionStop.Name = "pnlMotionStop";
             this.pnlMotionStop.Size = new System.Drawing.Size(755, 50);
             this.pnlMotionStop.TabIndex = 1;
-            // 
-            // btnLActiveOff
-            // 
-            this.btnLActiveOff.BackColor = System.Drawing.Color.DarkGray;
-            this.btnLActiveOff.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnLActiveOff.FlatAppearance.BorderSize = 2;
-            this.btnLActiveOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLActiveOff.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnLActiveOff.Location = new System.Drawing.Point(424, 456);
-            this.btnLActiveOff.Name = "btnLActiveOff";
-            this.btnLActiveOff.Size = new System.Drawing.Size(48, 45);
-            this.btnLActiveOff.TabIndex = 126;
-            this.btnLActiveOff.Text = "Off";
-            this.btnLActiveOff.UseVisualStyleBackColor = false;
-            this.btnLActiveOff.Click += new System.EventHandler(this.RobotFunction_Click);
-            // 
-            // btnLActiveOn
-            // 
-            this.btnLActiveOn.BackColor = System.Drawing.Color.DarkGray;
-            this.btnLActiveOn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnLActiveOn.FlatAppearance.BorderSize = 2;
-            this.btnLActiveOn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLActiveOn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnLActiveOn.Location = new System.Drawing.Point(366, 456);
-            this.btnLActiveOn.Name = "btnLActiveOn";
-            this.btnLActiveOn.Size = new System.Drawing.Size(48, 45);
-            this.btnLActiveOn.TabIndex = 125;
-            this.btnLActiveOn.Text = "On";
-            this.btnLActiveOn.UseVisualStyleBackColor = false;
-            this.btnLActiveOn.Click += new System.EventHandler(this.RobotFunction_Click);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("微軟正黑體", 18F);
-            this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label20.Location = new System.Drawing.Point(53, 418);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(158, 30);
-            this.label20.TabIndex = 120;
-            this.label20.Text = "Arm Enabled";
-            // 
-            // tbLActiveState
-            // 
-            this.tbLActiveState.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tbLActiveState.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbLActiveState.Location = new System.Drawing.Point(366, 418);
-            this.tbLActiveState.Name = "tbLActiveState";
-            this.tbLActiveState.ReadOnly = true;
-            this.tbLActiveState.Size = new System.Drawing.Size(106, 32);
-            this.tbLActiveState.TabIndex = 121;
-            this.tbLActiveState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // tbRActiveState
-            // 
-            this.tbRActiveState.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tbRActiveState.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbRActiveState.Location = new System.Drawing.Point(224, 418);
-            this.tbRActiveState.Name = "tbRActiveState";
-            this.tbRActiveState.ReadOnly = true;
-            this.tbRActiveState.Size = new System.Drawing.Size(106, 32);
-            this.tbRActiveState.TabIndex = 122;
-            this.tbRActiveState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btnRActiveOff
-            // 
-            this.btnRActiveOff.BackColor = System.Drawing.Color.DarkGray;
-            this.btnRActiveOff.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRActiveOff.FlatAppearance.BorderSize = 2;
-            this.btnRActiveOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRActiveOff.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRActiveOff.Location = new System.Drawing.Point(282, 456);
-            this.btnRActiveOff.Name = "btnRActiveOff";
-            this.btnRActiveOff.Size = new System.Drawing.Size(48, 45);
-            this.btnRActiveOff.TabIndex = 124;
-            this.btnRActiveOff.Text = "Off";
-            this.btnRActiveOff.UseVisualStyleBackColor = false;
-            this.btnRActiveOff.Click += new System.EventHandler(this.RobotFunction_Click);
-            // 
-            // btnRActiveOn
-            // 
-            this.btnRActiveOn.BackColor = System.Drawing.Color.DarkGray;
-            this.btnRActiveOn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRActiveOn.FlatAppearance.BorderSize = 2;
-            this.btnRActiveOn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRActiveOn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRActiveOn.Location = new System.Drawing.Point(224, 456);
-            this.btnRActiveOn.Name = "btnRActiveOn";
-            this.btnRActiveOn.Size = new System.Drawing.Size(48, 45);
-            this.btnRActiveOn.TabIndex = 123;
-            this.btnRActiveOn.Text = "On";
-            this.btnRActiveOn.UseVisualStyleBackColor = false;
-            this.btnRActiveOn.Click += new System.EventHandler(this.RobotFunction_Click);
             // 
             // FormManual
             // 

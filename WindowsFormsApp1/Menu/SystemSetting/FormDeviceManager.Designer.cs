@@ -34,33 +34,26 @@
             this.lstNodeList = new System.Windows.Forms.ListBox();
             this.splitContainerSetting = new System.Windows.Forms.SplitContainer();
             this.lbDeviceNodeManager = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.txbFirmwareVersion = new System.Windows.Forms.TextBox();
-            this.txbModel = new System.Windows.Forms.TextBox();
-            this.lbEquipmentModel = new System.Windows.Forms.Label();
-            this.lbDeviceNodeName = new System.Windows.Forms.Label();
-            this.lbDeviceNodeType = new System.Windows.Forms.Label();
-            this.lbSerialNo = new System.Windows.Forms.Label();
-            this.lbVendor = new System.Windows.Forms.Label();
-            this.lbModel = new System.Windows.Forms.Label();
-            this.lbFirmwareVersion = new System.Windows.Forms.Label();
-            this.lbAddress = new System.Windows.Forms.Label();
-            this.lbControllerID = new System.Windows.Forms.Label();
-            this.cmbDeviceNodeType = new System.Windows.Forms.ComboBox();
-            this.cmbVendor = new System.Windows.Forms.ComboBox();
-            this.nudSerialNo = new System.Windows.Forms.NumericUpDown();
-            this.txbAddress = new System.Windows.Forms.TextBox();
-            this.txbDeviceNodeName = new System.Windows.Forms.TextBox();
-            this.txbEquipmentModel = new System.Windows.Forms.TextBox();
-            this.txbControllerID = new System.Windows.Forms.TextBox();
-            this.lbDefaultAligner = new System.Windows.Forms.Label();
-            this.lbAlternativeAligner = new System.Windows.Forms.Label();
-            this.chbByPass = new System.Windows.Forms.CheckBox();
-            this.lbRoute = new System.Windows.Forms.Label();
-            this.chbActive = new System.Windows.Forms.CheckBox();
-            this.txbDefaultAligner = new System.Windows.Forms.TextBox();
-            this.txbAlternativeAligner = new System.Windows.Forms.TextBox();
-            this.dgvRouteTable = new System.Windows.Forms.DataGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Setting_Port_tb = new System.Windows.Forms.TextBox();
+            this.Setting_Address_tb = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Setting_connectType_cb = new System.Windows.Forms.ComboBox();
+            this.Setting_ControllerName_lb = new System.Windows.Forms.Label();
+            this.Setting_Port_lb = new System.Windows.Forms.Label();
+            this.setting_Address_lb = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Setting_CarrierType_cb = new System.Windows.Forms.ComboBox();
+            this.Setting_NodeName_lb = new System.Windows.Forms.Label();
+            this.Setting_CarrierType_lb = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.Setting_NodeType_lb = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.Setting_NodeDisable_rb = new System.Windows.Forms.RadioButton();
+            this.Setting_NodeEnable_rb = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
             this.tlpButton = new System.Windows.Forms.TableLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
             this.gbNodeManager.SuspendLayout();
@@ -74,9 +67,9 @@
             this.splitContainerSetting.Panel2.SuspendLayout();
             this.splitContainerSetting.SuspendLayout();
             this.lbDeviceNodeManager.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSerialNo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteTable)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.tlpButton.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,7 +143,8 @@
             // 
             // lbDeviceNodeManager
             // 
-            this.lbDeviceNodeManager.Controls.Add(this.tableLayoutPanel1);
+            this.lbDeviceNodeManager.Controls.Add(this.groupBox2);
+            this.lbDeviceNodeManager.Controls.Add(this.groupBox1);
             this.lbDeviceNodeManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbDeviceNodeManager.Location = new System.Drawing.Point(0, 0);
             this.lbDeviceNodeManager.Name = "lbDeviceNodeManager";
@@ -159,312 +153,208 @@
             this.lbDeviceNodeManager.TabStop = false;
             this.lbDeviceNodeManager.Text = "Device node setting";
             // 
-            // tableLayoutPanel1
+            // groupBox2
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.35974F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.64026F));
-            this.tableLayoutPanel1.Controls.Add(this.txbFirmwareVersion, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.txbModel, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.lbEquipmentModel, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbDeviceNodeName, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lbDeviceNodeType, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbSerialNo, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lbVendor, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lbModel, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.lbFirmwareVersion, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.lbAddress, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.lbControllerID, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.cmbDeviceNodeType, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.cmbVendor, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.nudSerialNo, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txbAddress, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.txbDeviceNodeName, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txbEquipmentModel, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txbControllerID, 1, 8);
-            this.tableLayoutPanel1.Controls.Add(this.lbDefaultAligner, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.lbAlternativeAligner, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.chbByPass, 1, 9);
-            this.tableLayoutPanel1.Controls.Add(this.lbRoute, 0, 12);
-            this.tableLayoutPanel1.Controls.Add(this.chbActive, 1, 13);
-            this.tableLayoutPanel1.Controls.Add(this.txbDefaultAligner, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.txbAlternativeAligner, 1, 11);
-            this.tableLayoutPanel1.Controls.Add(this.dgvRouteTable, 1, 12);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 25);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 14;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1073, 616);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.groupBox2.Controls.Add(this.Setting_Port_tb);
+            this.groupBox2.Controls.Add(this.Setting_Address_tb);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.Setting_connectType_cb);
+            this.groupBox2.Controls.Add(this.Setting_ControllerName_lb);
+            this.groupBox2.Controls.Add(this.Setting_Port_lb);
+            this.groupBox2.Controls.Add(this.setting_Address_lb);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Location = new System.Drawing.Point(459, 42);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(403, 351);
+            this.groupBox2.TabIndex = 11;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Controller";
             // 
-            // txbFirmwareVersion
+            // Setting_Port_tb
             // 
-            this.txbFirmwareVersion.Dock = System.Windows.Forms.DockStyle.Left;
-            this.txbFirmwareVersion.Location = new System.Drawing.Point(200, 243);
-            this.txbFirmwareVersion.Name = "txbFirmwareVersion";
-            this.txbFirmwareVersion.Size = new System.Drawing.Size(470, 29);
-            this.txbFirmwareVersion.TabIndex = 20;
+            this.Setting_Port_tb.Location = new System.Drawing.Point(193, 157);
+            this.Setting_Port_tb.Name = "Setting_Port_tb";
+            this.Setting_Port_tb.Size = new System.Drawing.Size(161, 29);
+            this.Setting_Port_tb.TabIndex = 11;
             // 
-            // txbModel
+            // Setting_Address_tb
             // 
-            this.txbModel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.txbModel.Location = new System.Drawing.Point(200, 203);
-            this.txbModel.Name = "txbModel";
-            this.txbModel.Size = new System.Drawing.Size(470, 29);
-            this.txbModel.TabIndex = 19;
+            this.Setting_Address_tb.Location = new System.Drawing.Point(193, 119);
+            this.Setting_Address_tb.Name = "Setting_Address_tb";
+            this.Setting_Address_tb.Size = new System.Drawing.Size(161, 29);
+            this.Setting_Address_tb.TabIndex = 10;
             // 
-            // lbEquipmentModel
+            // label3
             // 
-            this.lbEquipmentModel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbEquipmentModel.Location = new System.Drawing.Point(3, 0);
-            this.lbEquipmentModel.Name = "lbEquipmentModel";
-            this.lbEquipmentModel.Size = new System.Drawing.Size(191, 40);
-            this.lbEquipmentModel.TabIndex = 0;
-            this.lbEquipmentModel.Text = "Equipment model";
-            this.lbEquipmentModel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(35, 49);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(139, 20);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Controller Name:";
             // 
-            // lbDeviceNodeName
+            // Setting_connectType_cb
             // 
-            this.lbDeviceNodeName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbDeviceNodeName.Location = new System.Drawing.Point(3, 40);
-            this.lbDeviceNodeName.Name = "lbDeviceNodeName";
-            this.lbDeviceNodeName.Size = new System.Drawing.Size(191, 40);
-            this.lbDeviceNodeName.TabIndex = 1;
-            this.lbDeviceNodeName.Text = "Device node name";
-            this.lbDeviceNodeName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Setting_connectType_cb.FormattingEnabled = true;
+            this.Setting_connectType_cb.Items.AddRange(new object[] {
+            "Socket",
+            "Comport"});
+            this.Setting_connectType_cb.Location = new System.Drawing.Point(193, 83);
+            this.Setting_connectType_cb.Name = "Setting_connectType_cb";
+            this.Setting_connectType_cb.Size = new System.Drawing.Size(121, 28);
+            this.Setting_connectType_cb.TabIndex = 9;
+            this.Setting_connectType_cb.SelectedIndexChanged += new System.EventHandler(this.Setting_connectType_cb_SelectedIndexChanged);
             // 
-            // lbDeviceNodeType
+            // Setting_ControllerName_lb
             // 
-            this.lbDeviceNodeType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbDeviceNodeType.Location = new System.Drawing.Point(3, 80);
-            this.lbDeviceNodeType.Name = "lbDeviceNodeType";
-            this.lbDeviceNodeType.Size = new System.Drawing.Size(191, 40);
-            this.lbDeviceNodeType.TabIndex = 2;
-            this.lbDeviceNodeType.Text = "Device node type";
-            this.lbDeviceNodeType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Setting_ControllerName_lb.AutoSize = true;
+            this.Setting_ControllerName_lb.Location = new System.Drawing.Point(189, 49);
+            this.Setting_ControllerName_lb.Name = "Setting_ControllerName_lb";
+            this.Setting_ControllerName_lb.Size = new System.Drawing.Size(199, 20);
+            this.Setting_ControllerName_lb.TabIndex = 1;
+            this.Setting_ControllerName_lb.Text = "Controller_Name_Display";
             // 
-            // lbSerialNo
+            // Setting_Port_lb
             // 
-            this.lbSerialNo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSerialNo.Location = new System.Drawing.Point(3, 120);
-            this.lbSerialNo.Name = "lbSerialNo";
-            this.lbSerialNo.Size = new System.Drawing.Size(191, 40);
-            this.lbSerialNo.TabIndex = 3;
-            this.lbSerialNo.Text = "Serial no";
-            this.lbSerialNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Setting_Port_lb.AutoSize = true;
+            this.Setting_Port_lb.Location = new System.Drawing.Point(35, 160);
+            this.Setting_Port_lb.Name = "Setting_Port_lb";
+            this.Setting_Port_lb.Size = new System.Drawing.Size(45, 20);
+            this.Setting_Port_lb.TabIndex = 8;
+            this.Setting_Port_lb.Text = "Port:";
             // 
-            // lbVendor
+            // setting_Address_lb
             // 
-            this.lbVendor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbVendor.Location = new System.Drawing.Point(3, 160);
-            this.lbVendor.Name = "lbVendor";
-            this.lbVendor.Size = new System.Drawing.Size(191, 40);
-            this.lbVendor.TabIndex = 4;
-            this.lbVendor.Text = "Vendor";
-            this.lbVendor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.setting_Address_lb.AutoSize = true;
+            this.setting_Address_lb.Location = new System.Drawing.Point(35, 125);
+            this.setting_Address_lb.Name = "setting_Address_lb";
+            this.setting_Address_lb.Size = new System.Drawing.Size(73, 20);
+            this.setting_Address_lb.TabIndex = 2;
+            this.setting_Address_lb.Text = "Address:";
             // 
-            // lbModel
+            // label10
             // 
-            this.lbModel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbModel.Location = new System.Drawing.Point(3, 200);
-            this.lbModel.Name = "lbModel";
-            this.lbModel.Size = new System.Drawing.Size(191, 40);
-            this.lbModel.TabIndex = 5;
-            this.lbModel.Text = "Model";
-            this.lbModel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(35, 86);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(117, 20);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "Connect Type:";
             // 
-            // lbFirmwareVersion
+            // groupBox1
             // 
-            this.lbFirmwareVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbFirmwareVersion.Location = new System.Drawing.Point(3, 240);
-            this.lbFirmwareVersion.Name = "lbFirmwareVersion";
-            this.lbFirmwareVersion.Size = new System.Drawing.Size(191, 40);
-            this.lbFirmwareVersion.TabIndex = 6;
-            this.lbFirmwareVersion.Text = "Firmware version";
-            this.lbFirmwareVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.Setting_CarrierType_cb);
+            this.groupBox1.Controls.Add(this.Setting_NodeName_lb);
+            this.groupBox1.Controls.Add(this.Setting_CarrierType_lb);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.Setting_NodeType_lb);
+            this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Location = new System.Drawing.Point(35, 42);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(402, 586);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Node";
             // 
-            // lbAddress
+            // label1
             // 
-            this.lbAddress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbAddress.Location = new System.Drawing.Point(3, 280);
-            this.lbAddress.Name = "lbAddress";
-            this.lbAddress.Size = new System.Drawing.Size(191, 40);
-            this.lbAddress.TabIndex = 7;
-            this.lbAddress.Text = "Address";
-            this.lbAddress.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(35, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(105, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Node Name:";
             // 
-            // lbControllerID
+            // Setting_CarrierType_cb
             // 
-            this.lbControllerID.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbControllerID.Location = new System.Drawing.Point(3, 320);
-            this.lbControllerID.Name = "lbControllerID";
-            this.lbControllerID.Size = new System.Drawing.Size(191, 40);
-            this.lbControllerID.TabIndex = 8;
-            this.lbControllerID.Text = "Controller ID";
-            this.lbControllerID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Setting_CarrierType_cb.FormattingEnabled = true;
+            this.Setting_CarrierType_cb.Items.AddRange(new object[] {
+            "FOSB",
+            "OPEN"});
+            this.Setting_CarrierType_cb.Location = new System.Drawing.Point(171, 163);
+            this.Setting_CarrierType_cb.Name = "Setting_CarrierType_cb";
+            this.Setting_CarrierType_cb.Size = new System.Drawing.Size(121, 28);
+            this.Setting_CarrierType_cb.TabIndex = 9;
+            this.Setting_CarrierType_cb.Visible = false;
             // 
-            // cmbDeviceNodeType
+            // Setting_NodeName_lb
             // 
-            this.cmbDeviceNodeType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmbDeviceNodeType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmbDeviceNodeType.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cmbDeviceNodeType.FormattingEnabled = true;
-            this.cmbDeviceNodeType.Location = new System.Drawing.Point(200, 83);
-            this.cmbDeviceNodeType.Name = "cmbDeviceNodeType";
-            this.cmbDeviceNodeType.Size = new System.Drawing.Size(470, 28);
-            this.cmbDeviceNodeType.TabIndex = 11;
-            this.cmbDeviceNodeType.SelectionChangeCommitted += new System.EventHandler(this.cmbDeviceNodeType_SelectionChangeCommitted);
+            this.Setting_NodeName_lb.AutoSize = true;
+            this.Setting_NodeName_lb.Location = new System.Drawing.Point(169, 49);
+            this.Setting_NodeName_lb.Name = "Setting_NodeName_lb";
+            this.Setting_NodeName_lb.Size = new System.Drawing.Size(165, 20);
+            this.Setting_NodeName_lb.TabIndex = 1;
+            this.Setting_NodeName_lb.Text = "Node_Name_Display";
             // 
-            // cmbVendor
+            // Setting_CarrierType_lb
             // 
-            this.cmbVendor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmbVendor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmbVendor.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cmbVendor.FormattingEnabled = true;
-            this.cmbVendor.Location = new System.Drawing.Point(200, 163);
-            this.cmbVendor.Name = "cmbVendor";
-            this.cmbVendor.Size = new System.Drawing.Size(470, 28);
-            this.cmbVendor.TabIndex = 12;
+            this.Setting_CarrierType_lb.AutoSize = true;
+            this.Setting_CarrierType_lb.Location = new System.Drawing.Point(35, 166);
+            this.Setting_CarrierType_lb.Name = "Setting_CarrierType_lb";
+            this.Setting_CarrierType_lb.Size = new System.Drawing.Size(104, 20);
+            this.Setting_CarrierType_lb.TabIndex = 8;
+            this.Setting_CarrierType_lb.Text = "Carrier Type:";
+            this.Setting_CarrierType_lb.Visible = false;
             // 
-            // nudSerialNo
+            // label2
             // 
-            this.nudSerialNo.BackColor = System.Drawing.Color.White;
-            this.nudSerialNo.Dock = System.Windows.Forms.DockStyle.Left;
-            this.nudSerialNo.Enabled = false;
-            this.nudSerialNo.Location = new System.Drawing.Point(200, 123);
-            this.nudSerialNo.Name = "nudSerialNo";
-            this.nudSerialNo.Size = new System.Drawing.Size(470, 29);
-            this.nudSerialNo.TabIndex = 13;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(35, 125);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(120, 20);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Node Enabled:";
             // 
-            // txbAddress
+            // Setting_NodeType_lb
             // 
-            this.txbAddress.Dock = System.Windows.Forms.DockStyle.Left;
-            this.txbAddress.Location = new System.Drawing.Point(200, 283);
-            this.txbAddress.Name = "txbAddress";
-            this.txbAddress.Size = new System.Drawing.Size(470, 29);
-            this.txbAddress.TabIndex = 17;
+            this.Setting_NodeType_lb.AutoSize = true;
+            this.Setting_NodeType_lb.Location = new System.Drawing.Point(169, 86);
+            this.Setting_NodeType_lb.Name = "Setting_NodeType_lb";
+            this.Setting_NodeType_lb.Size = new System.Drawing.Size(155, 20);
+            this.Setting_NodeType_lb.TabIndex = 7;
+            this.Setting_NodeType_lb.Text = "Node_Type_Display";
             // 
-            // txbDeviceNodeName
+            // panel1
             // 
-            this.txbDeviceNodeName.Dock = System.Windows.Forms.DockStyle.Left;
-            this.txbDeviceNodeName.Location = new System.Drawing.Point(200, 43);
-            this.txbDeviceNodeName.Name = "txbDeviceNodeName";
-            this.txbDeviceNodeName.Size = new System.Drawing.Size(470, 29);
-            this.txbDeviceNodeName.TabIndex = 18;
+            this.panel1.Controls.Add(this.Setting_NodeDisable_rb);
+            this.panel1.Controls.Add(this.Setting_NodeEnable_rb);
+            this.panel1.Location = new System.Drawing.Point(171, 121);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(174, 32);
+            this.panel1.TabIndex = 5;
             // 
-            // txbEquipmentModel
+            // Setting_NodeDisable_rb
             // 
-            this.txbEquipmentModel.BackColor = System.Drawing.Color.White;
-            this.txbEquipmentModel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.txbEquipmentModel.Location = new System.Drawing.Point(200, 3);
-            this.txbEquipmentModel.Name = "txbEquipmentModel";
-            this.txbEquipmentModel.ReadOnly = true;
-            this.txbEquipmentModel.Size = new System.Drawing.Size(470, 29);
-            this.txbEquipmentModel.TabIndex = 21;
+            this.Setting_NodeDisable_rb.AutoSize = true;
+            this.Setting_NodeDisable_rb.Location = new System.Drawing.Point(87, 3);
+            this.Setting_NodeDisable_rb.Name = "Setting_NodeDisable_rb";
+            this.Setting_NodeDisable_rb.Size = new System.Drawing.Size(82, 24);
+            this.Setting_NodeDisable_rb.TabIndex = 4;
+            this.Setting_NodeDisable_rb.TabStop = true;
+            this.Setting_NodeDisable_rb.Text = "Disable";
+            this.Setting_NodeDisable_rb.UseVisualStyleBackColor = true;
             // 
-            // txbControllerID
+            // Setting_NodeEnable_rb
             // 
-            this.txbControllerID.BackColor = System.Drawing.Color.White;
-            this.txbControllerID.Dock = System.Windows.Forms.DockStyle.Left;
-            this.txbControllerID.Location = new System.Drawing.Point(200, 323);
-            this.txbControllerID.Name = "txbControllerID";
-            this.txbControllerID.ReadOnly = true;
-            this.txbControllerID.Size = new System.Drawing.Size(470, 29);
-            this.txbControllerID.TabIndex = 22;
+            this.Setting_NodeEnable_rb.AutoSize = true;
+            this.Setting_NodeEnable_rb.Location = new System.Drawing.Point(3, 3);
+            this.Setting_NodeEnable_rb.Name = "Setting_NodeEnable_rb";
+            this.Setting_NodeEnable_rb.Size = new System.Drawing.Size(78, 24);
+            this.Setting_NodeEnable_rb.TabIndex = 3;
+            this.Setting_NodeEnable_rb.TabStop = true;
+            this.Setting_NodeEnable_rb.Text = "Enable";
+            this.Setting_NodeEnable_rb.UseVisualStyleBackColor = true;
             // 
-            // lbDefaultAligner
+            // label4
             // 
-            this.lbDefaultAligner.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbDefaultAligner.Location = new System.Drawing.Point(3, 400);
-            this.lbDefaultAligner.Name = "lbDefaultAligner";
-            this.lbDefaultAligner.Size = new System.Drawing.Size(191, 40);
-            this.lbDefaultAligner.TabIndex = 24;
-            this.lbDefaultAligner.Text = "Default aligner";
-            this.lbDefaultAligner.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbAlternativeAligner
-            // 
-            this.lbAlternativeAligner.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbAlternativeAligner.Location = new System.Drawing.Point(3, 440);
-            this.lbAlternativeAligner.Name = "lbAlternativeAligner";
-            this.lbAlternativeAligner.Size = new System.Drawing.Size(191, 40);
-            this.lbAlternativeAligner.TabIndex = 25;
-            this.lbAlternativeAligner.Text = "Alternative aligner";
-            this.lbAlternativeAligner.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // chbByPass
-            // 
-            this.chbByPass.AutoSize = true;
-            this.chbByPass.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chbByPass.Location = new System.Drawing.Point(200, 363);
-            this.chbByPass.Name = "chbByPass";
-            this.chbByPass.Size = new System.Drawing.Size(870, 34);
-            this.chbByPass.TabIndex = 27;
-            this.chbByPass.Text = "By pass";
-            this.chbByPass.UseVisualStyleBackColor = true;
-            // 
-            // lbRoute
-            // 
-            this.lbRoute.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbRoute.Location = new System.Drawing.Point(3, 480);
-            this.lbRoute.Name = "lbRoute";
-            this.lbRoute.Size = new System.Drawing.Size(191, 100);
-            this.lbRoute.TabIndex = 26;
-            this.lbRoute.Text = "Route";
-            this.lbRoute.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // chbActive
-            // 
-            this.chbActive.AutoSize = true;
-            this.chbActive.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chbActive.Location = new System.Drawing.Point(200, 583);
-            this.chbActive.Name = "chbActive";
-            this.chbActive.Size = new System.Drawing.Size(870, 30);
-            this.chbActive.TabIndex = 9;
-            this.chbActive.Text = "Active";
-            this.chbActive.UseVisualStyleBackColor = true;
-            // 
-            // txbDefaultAligner
-            // 
-            this.txbDefaultAligner.BackColor = System.Drawing.Color.White;
-            this.txbDefaultAligner.Location = new System.Drawing.Point(200, 403);
-            this.txbDefaultAligner.Name = "txbDefaultAligner";
-            this.txbDefaultAligner.ReadOnly = true;
-            this.txbDefaultAligner.Size = new System.Drawing.Size(470, 29);
-            this.txbDefaultAligner.TabIndex = 28;
-            // 
-            // txbAlternativeAligner
-            // 
-            this.txbAlternativeAligner.BackColor = System.Drawing.Color.White;
-            this.txbAlternativeAligner.Location = new System.Drawing.Point(200, 443);
-            this.txbAlternativeAligner.Name = "txbAlternativeAligner";
-            this.txbAlternativeAligner.ReadOnly = true;
-            this.txbAlternativeAligner.Size = new System.Drawing.Size(470, 29);
-            this.txbAlternativeAligner.TabIndex = 29;
-            // 
-            // dgvRouteTable
-            // 
-            this.dgvRouteTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRouteTable.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dgvRouteTable.Location = new System.Drawing.Point(200, 483);
-            this.dgvRouteTable.Name = "dgvRouteTable";
-            this.dgvRouteTable.RowTemplate.Height = 24;
-            this.dgvRouteTable.Size = new System.Drawing.Size(470, 94);
-            this.dgvRouteTable.TabIndex = 30;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(35, 86);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 20);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Node Type:";
             // 
             // tlpButton
             // 
@@ -517,10 +407,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSetting)).EndInit();
             this.splitContainerSetting.ResumeLayout(false);
             this.lbDeviceNodeManager.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSerialNo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteTable)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tlpButton.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -535,33 +427,26 @@
         private System.Windows.Forms.SplitContainer splitContainerSetting;
         private System.Windows.Forms.GroupBox lbDeviceNodeManager;
         private System.Windows.Forms.TableLayoutPanel tlpButton;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label lbEquipmentModel;
-        private System.Windows.Forms.Label lbDeviceNodeName;
-        private System.Windows.Forms.Label lbDeviceNodeType;
-        private System.Windows.Forms.Label lbSerialNo;
-        private System.Windows.Forms.Label lbVendor;
-        private System.Windows.Forms.Label lbModel;
-        private System.Windows.Forms.Label lbFirmwareVersion;
-        private System.Windows.Forms.Label lbAddress;
-        private System.Windows.Forms.TextBox txbFirmwareVersion;
-        private System.Windows.Forms.TextBox txbModel;
-        private System.Windows.Forms.TextBox txbDeviceNodeName;
-        private System.Windows.Forms.NumericUpDown nudSerialNo;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lbControllerID;
-        private System.Windows.Forms.TextBox txbEquipmentModel;
-        private System.Windows.Forms.ComboBox cmbDeviceNodeType;
-        private System.Windows.Forms.ComboBox cmbVendor;
-        private System.Windows.Forms.TextBox txbControllerID;
-        private System.Windows.Forms.TextBox txbAddress;
-        private System.Windows.Forms.Label lbDefaultAligner;
-        private System.Windows.Forms.Label lbAlternativeAligner;
-        private System.Windows.Forms.CheckBox chbByPass;
-        private System.Windows.Forms.CheckBox chbActive;
-        private System.Windows.Forms.TextBox txbDefaultAligner;
-        private System.Windows.Forms.TextBox txbAlternativeAligner;
-        private System.Windows.Forms.Label lbRoute;
-        private System.Windows.Forms.DataGridView dgvRouteTable;
+        private System.Windows.Forms.Label Setting_NodeName_lb;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox Setting_CarrierType_cb;
+        private System.Windows.Forms.Label Setting_CarrierType_lb;
+        private System.Windows.Forms.Label Setting_NodeType_lb;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton Setting_NodeDisable_rb;
+        private System.Windows.Forms.RadioButton Setting_NodeEnable_rb;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox Setting_Address_tb;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox Setting_connectType_cb;
+        private System.Windows.Forms.Label Setting_ControllerName_lb;
+        private System.Windows.Forms.Label Setting_Port_lb;
+        private System.Windows.Forms.Label setting_Address_lb;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox Setting_Port_tb;
     }
 }

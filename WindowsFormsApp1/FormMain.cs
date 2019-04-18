@@ -27,6 +27,7 @@ using System.Security.Cryptography;
 using System.Text;
 using SANWA.Utility.Config;
 using TransferControl.Operation;
+using Adam.UI_Update.DifferentialMonitor;
 
 namespace Adam
 {
@@ -48,7 +49,7 @@ namespace Adam
         //private Menu.OCR.FormOCR formOCR = new Menu.OCR.FormOCR();
         //private Menu.SystemSetting.FormSECSSet formSecs = new Menu.SystemSetting.FormSECSSet();
         private Menu.SystemSetting.FormSystemSetting formSystem = new Menu.SystemSetting.FormSystemSetting();
-        private Menu.RunningScreen.FormRunningScreen formTestMode = new Menu.RunningScreen.FormRunningScreen();
+        private Menu.RunningScreen.FormDifferentialMonitor formTestMode = new Menu.RunningScreen.FormDifferentialMonitor();
         private Menu.Wafer.FormWafer WaferForm = new Menu.Wafer.FormWafer();
         public static GUI.FormManual formManual = null;
 
@@ -891,6 +892,9 @@ namespace Adam
         {
             switch (Parameter)
             {
+                case "DIFFERENTIAL":
+                    DifferentialMonitorUpdate.UpdateChart(Parameter, Value);
+                    break;
                 case "BF1_DOOR_OPEN":
                 case "BF1_ARM_EXTEND_ENABLE":
                 case "BF2_DOOR_OPEN":
@@ -1234,6 +1238,13 @@ namespace Adam
 
         public void On_TaskJob_Aborted(TaskJobManagment.CurrentProceedTask Task, string NodeName, string ReportType, string Message)
         {
+            switch (Task.ProceedTask.TaskName)
+            {
+                case "ALL_INIT":
+                    DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                    break;
+
+            }
             if (Task.Id.IndexOf("FormManual") != -1)
             {
                 ManualPortStatusUpdate.LockUI(false);
@@ -1286,7 +1297,12 @@ namespace Adam
             }
             switch (Task.ProceedTask.TaskName)
             {
-                case "ALL_ORGSH":
+                case "ALL_INIT":
+                    //啟用Start按鈕
+                    DIOUpdate.UpdateControlButton("Start_btn",true);
+                    //讓INIT按鈕由黃變黑色
+                    DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
+
                     foreach (Node port in NodeManagement.GetLoadPortList())
                     {
                         if (port.Enable && !port.Foup_Presence)
@@ -1329,30 +1345,7 @@ namespace Adam
 
         }
 
-        private void ALL_ORG_btn_Click(object sender, EventArgs e)
-        {
-            string TaskName = "ALL_ORGSH";
-            string Message = "";
-            TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName);
-            if (Task == null)
-            {
-                MessageBox.Show("上一個動作執行中!");
-            }
-        }
-
-        private void ALL_Reset_btn_Click(object sender, EventArgs e)
-        {
-            string TaskName = "ALL_RESET";
-            string Message = "";
-            TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName);
-            if (Task == null)
-            {
-                MessageBox.Show("上一個動作執行中!");
-            }
-
-        }
+        
         private bool checkTask(TaskJobManagment.CurrentProceedTask Task1, TaskJobManagment.CurrentProceedTask Task2)
         {
             return Task1.Finished && Task2.Finished;
@@ -1361,137 +1354,10 @@ namespace Adam
         public void On_Transfer_Complete(XfeCrossZone xfe)
         {
 
-            //WaferAssignUpdate.RefreshMapping(xfe.LD);
-            foreach (string ULD in xfe.ULD_List)
-            {
-                NodeManagement.Get(ULD).ReserveList.Clear();
-                foreach (Job job in NodeManagement.Get(ULD).JobList.Values)
-                {
-                    job.UnAssignPort();
-                }
-               // WaferAssignUpdate.RefreshMapping(ULD);
-               // WaferAssignUpdate.ResetAssignCM(ULD, true);
-            }
-            //WaferAssignUpdate.ResetAssignCM(xfe.LD, true);
-            MonitoringUpdate.UpdateWPH((xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
-            if (xfe.ULD_List.Count != 0)
-            {
-                string TaskName = "LOADPORT_CLOSE_NOMAP_TMP";
-                string Message = "";
-                Dictionary<string, string> param1 = new Dictionary<string, string>();
-                Dictionary<string, string> param2 = new Dictionary<string, string>();
-                param1.Add("@Target", xfe.LD);
-                TaskJobManagment.CurrentProceedTask Task1;
-                TaskJobManagment.CurrentProceedTask Task2;
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task1, TaskName, param1);
-
-
-
-
-                TaskName = "LOADPORT_CLOSE_NOMAP_TMP";
-                Message = "";
-
-                param2.Add("@Target", xfe.tmpULD);
-
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task2, TaskName, param2);
-                SpinWait.SpinUntil(() => checkTask(Task1, Task2), 99999999);
-               
-
-                TaskName = "LOADPORT_OPEN_TMP";
-                Message = "";
-                param1 = new Dictionary<string, string>();
-                param1.Add("@Target", xfe.LD);
-
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task1, TaskName, param1);
-
-
-                TaskName = "LOADPORT_OPEN_TMP";
-                Message = "";
-                param2 = new Dictionary<string, string>();
-                param2.Add("@Target", xfe.tmpULD);
-
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task2, TaskName, param2);
-                SpinWait.SpinUntil(() => checkTask(Task1, Task2), 99999999);
-
-                TaskName = "LOADPORT_GET_MAPDT_TMP";
-                Message = "";
-                param1 = new Dictionary<string, string>();
-                param1.Add("@Target", xfe.LD);
-
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task1, TaskName, param1);
-
-
-                TaskName = "LOADPORT_GET_MAPDT_TMP";
-                Message = "";
-                param2 = new Dictionary<string, string>();
-                param2.Add("@Target", xfe.tmpULD);
-
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task2, TaskName, param2);
-                SpinWait.SpinUntil(() => checkTask(Task1, Task2), 99999999);
-
-            }
-            if (cycleRun)
-            {
-
-                Node LD = NodeManagement.Get(xfe.tmpULD);
-                Node ULD = null;
-                bool isFindLD = false;
-                foreach (Node port in NodeManagement.GetLoadPortList())
-                {
-                    if (port.Name.Equals(LD.Name))
-                    {
-                        isFindLD = true;
-                        continue;
-                    }
-                    if (isFindLD)
-                    {
-                        if (port.Enable)
-                        {
-                            ULD = port;
-                            break;
-                        }
-                    }
-
-                }
-                if (ULD == null)
-                {
-                    foreach (Node port in NodeManagement.GetLoadPortList())
-                    {
-                        if (port.Enable && !port.Name.Equals(LD.Name))
-                        {
-                            ULD = port;
-                            break;
-                        }
-                    }
-                }
-                if (LD != null && ULD != null)
-                {
-                    foreach (Job wafer in LD.JobList.Values)
-                    {
-                        if (wafer.MapFlag && !wafer.ErrPosition)
-                        {
-                            wafer.NeedProcess = true;
-                            wafer.ProcessFlag = false;
-                            wafer.AssignPort(ULD.Name, wafer.Slot);
-                        }
-                    }
-                    FormMain.xfe.tmpULD = ULD.Name;
-                    FormMain.xfe.Start(LD.Name);
-                }
-            }
+           
         }
 
-        private void ALL_INIT_btn_Click(object sender, EventArgs e)
-        {
-            string TaskName = "ALL_INIT";
-            string Message = "";
-            TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName);
-            if (Task == null)
-            {
-                MessageBox.Show("上一個動作執行中!");
-            }
-        }
+      
 
         public void On_LoadPort_Complete(string PortName)
         {
@@ -1606,6 +1472,39 @@ namespace Adam
                 }
 
             }
+        }
+
+        private void ALL_INIT_btn_Click(object sender, EventArgs e)
+        {
+            string TaskName = "ALL_INIT";
+            string Message = "";
+            TaskJobManagment.CurrentProceedTask Task;
+            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName);
+            if (Task == null)
+            {
+                MessageBox.Show("上一個動作執行中!");
+            }
+            else
+            {
+                DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
+                ALL_INIT_btn.BackColor = Color.Yellow;
+            }
+        }
+
+        private void Start_btn_Click(object sender, EventArgs e)
+        {
+            DIOUpdate.UpdateControlButton("Start_btn",false);
+            DIOUpdate.UpdateControlButton("Stop_btn", true);
+            DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
+           
+        }
+
+        private void Stop_btn_Click(object sender, EventArgs e)
+        {
+            DIOUpdate.UpdateControlButton("Start_btn", true);
+            DIOUpdate.UpdateControlButton("Stop_btn", false);
+            DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+
         }
     }
 }

@@ -291,6 +291,72 @@
   <data name="&gt;&gt;splitContainer13.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="Stop_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="Stop_btn.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Stop_btn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Stop_btn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 153</value>
+  </data>
+  <data name="Stop_btn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 35</value>
+  </data>
+  <data name="Stop_btn.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="Stop_btn.Text" xml:space="preserve">
+    <value>STOP</value>
+  </data>
+  <data name="&gt;&gt;Stop_btn.Name" xml:space="preserve">
+    <value>Stop_btn</value>
+  </data>
+  <data name="&gt;&gt;Stop_btn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Stop_btn.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;Stop_btn.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Start_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="Start_btn.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Start_btn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Start_btn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 94</value>
+  </data>
+  <data name="Start_btn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 35</value>
+  </data>
+  <data name="Start_btn.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="Start_btn.Text" xml:space="preserve">
+    <value>START</value>
+  </data>
+  <data name="&gt;&gt;Start_btn.Name" xml:space="preserve">
+    <value>Start_btn</value>
+  </data>
+  <data name="&gt;&gt;Start_btn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Start_btn.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;Start_btn.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>103, 247</value>
   </data>
@@ -313,7 +379,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="ALL_INIT_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -322,7 +388,7 @@
     <value>NoControl</value>
   </data>
   <data name="ALL_INIT_btn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 149</value>
+    <value>10, 32</value>
   </data>
   <data name="ALL_INIT_btn.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
@@ -331,7 +397,7 @@
     <value>15</value>
   </data>
   <data name="ALL_INIT_btn.Text" xml:space="preserve">
-    <value>ALL INIT</value>
+    <value>ALL INITIAL</value>
   </data>
   <data name="&gt;&gt;ALL_INIT_btn.Name" xml:space="preserve">
     <value>ALL_INIT_btn</value>
@@ -343,66 +409,6 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;ALL_INIT_btn.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ALL_Reset_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="ALL_Reset_btn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="ALL_Reset_btn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 108</value>
-  </data>
-  <data name="ALL_Reset_btn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 35</value>
-  </data>
-  <data name="ALL_Reset_btn.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="ALL_Reset_btn.Text" xml:space="preserve">
-    <value>ALL RESET</value>
-  </data>
-  <data name="&gt;&gt;ALL_Reset_btn.Name" xml:space="preserve">
-    <value>ALL_Reset_btn</value>
-  </data>
-  <data name="&gt;&gt;ALL_Reset_btn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ALL_Reset_btn.Parent" xml:space="preserve">
-    <value>groupBox5</value>
-  </data>
-  <data name="&gt;&gt;ALL_Reset_btn.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="ALL_ORG_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="ALL_ORG_btn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="ALL_ORG_btn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 190</value>
-  </data>
-  <data name="ALL_ORG_btn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 35</value>
-  </data>
-  <data name="ALL_ORG_btn.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="ALL_ORG_btn.Text" xml:space="preserve">
-    <value>ALL ORG</value>
-  </data>
-  <data name="&gt;&gt;ALL_ORG_btn.Name" xml:space="preserve">
-    <value>ALL_ORG_btn</value>
-  </data>
-  <data name="&gt;&gt;ALL_ORG_btn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ALL_ORG_btn.Parent" xml:space="preserve">
-    <value>groupBox5</value>
-  </data>
-  <data name="&gt;&gt;ALL_ORG_btn.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="DifferentialPressureAlarm2_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -638,42 +644,6 @@
   </data>
   <data name="&gt;&gt;DoorSwitch_Signal.ZOrder" xml:space="preserve">
     <value>10</value>
-  </data>
-  <data name="CurrentState_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="CurrentState_btn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="CurrentState_btn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="CurrentState_btn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 28</value>
-  </data>
-  <data name="CurrentState_btn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 35</value>
-  </data>
-  <data name="CurrentState_btn.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="CurrentState_btn.Text" xml:space="preserve">
-    <value>Idle</value>
-  </data>
-  <data name="CurrentState_btn.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;CurrentState_btn.Name" xml:space="preserve">
-    <value>CurrentState_btn</value>
-  </data>
-  <data name="&gt;&gt;CurrentState_btn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CurrentState_btn.Parent" xml:space="preserve">
-    <value>groupBox5</value>
-  </data>
-  <data name="&gt;&gt;CurrentState_btn.ZOrder" xml:space="preserve">
-    <value>11</value>
   </data>
   <data name="groupBox5.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>

@@ -13,6 +13,7 @@ namespace Adam.UI_Update.Layout
     {
         static ILog logger = LogManager.GetLogger(typeof(DIOUpdate));
         delegate void UpdateDIO(string Parameter, string Value);
+        delegate void UpdateEnabled(string Name, bool Enabled);
         delegate void GetBool();
 
         public static void UpdateInterLock(string Parameter, string Value)
@@ -48,7 +49,7 @@ namespace Adam.UI_Update.Layout
                                 case "FALSE":
                                     Signal.BackColor = Color.Red;
                                     break;
-                                
+
                             }
                             break;
                     }
@@ -60,7 +61,48 @@ namespace Adam.UI_Update.Layout
             }
             catch (Exception e)
             {
-                logger.Error("UpdateInterLock: Update fail. err:"+e.StackTrace);
+                logger.Error("UpdateInterLock: Update fail. err:" + e.StackTrace);
+            }
+        }
+
+        public static void UpdateControlButton(string Name, bool Enabled)
+        {
+            Form form = Application.OpenForms["FormMain"];
+
+            if (form == null)
+                return;
+
+            Button Signal = form.Controls.Find(Name, true).FirstOrDefault() as Button;
+
+            if (Signal == null)
+                return;
+
+            if (Signal.InvokeRequired)
+            {
+                UpdateEnabled ph = new UpdateEnabled(UpdateControlButton);
+                Signal.BeginInvoke(ph, Name, Enabled);
+            }
+            else
+            {
+                if (Enabled)
+                {
+                    Signal.Enabled = true;
+                    switch (Name)
+                    {
+                        case "Stop_btn":
+                            Signal.BackColor = Color.Red;
+                            break;
+                        default:
+                            Signal.BackColor = Color.YellowGreen;
+                            break;
+                    }
+                    
+                }
+                else
+                {
+                    Signal.Enabled = false;
+                    Signal.BackColor = Color.DimGray;
+                }
             }
         }
 
@@ -74,7 +116,7 @@ namespace Adam.UI_Update.Layout
                     return;
 
                 Button Signal = form.Controls.Find(Parameter + "_Signal", true).FirstOrDefault() as Button;
-               
+
                 if (Signal == null)
                     return;
 
@@ -136,7 +178,7 @@ namespace Adam.UI_Update.Layout
                                     Signal.BackColor = Color.Red;
                                     break;
                                 case "BLINK":
-                                    if(Signal.BackColor == Color.Red)
+                                    if (Signal.BackColor == Color.Red)
                                     {
                                         Signal.BackColor = Color.DimGray;
                                     }
@@ -154,7 +196,7 @@ namespace Adam.UI_Update.Layout
 
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Error("UpdateDIOStatus: Update fail.");
             }

@@ -12,12 +12,12 @@ using TransferControl.Management;
 
 namespace Adam.Menu.RunningScreen
 {
-    public partial class FormRunningScreen : Adam.Menu.FormFrame
+    public partial class FormDifferentialMonitor : Adam.Menu.FormFrame
     {
 
        
 
-        public FormRunningScreen()
+        public FormDifferentialMonitor()
         {
             InitializeComponent();
         }

@@ -141,11 +141,11 @@
     <Compile Include="FormQuery.designer.cs">
       <DependentUpon>FormQuery.cs</DependentUpon>
     </Compile>
-    <Compile Include="Menu\RunningScreen\RunningScreen.cs">
+    <Compile Include="Menu\DifferentialMonitor\FormDifferentialMonitor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Menu\RunningScreen\RunningScreen.Designer.cs">
-      <DependentUpon>RunningScreen.cs</DependentUpon>
+    <Compile Include="Menu\DifferentialMonitor\FormDifferentialMonitor.Designer.cs">
+      <DependentUpon>FormDifferentialMonitor.cs</DependentUpon>
     </Compile>
     <Compile Include="Menu\SystemSetting\FormDIOSetting.cs">
       <SubType>Form</SubType>
@@ -337,6 +337,7 @@
       <DependentUpon>FormTeaching.cs</DependentUpon>
     </Compile>
     <Compile Include="UI_Update\Aauthority\AuthorityUpdate.cs" />
+    <Compile Include="UI_Update\DifferentialMonitor\DifferentialMonitorUpdate.cs" />
     <Compile Include="UI_Update\Layout\DIOUpdate.cs" />
     <Compile Include="UI_Update\Manual\AlignerStatusUpdate.cs" />
     <Compile Include="UI_Update\Manual\OCRStatusUpdate.cs" />
@@ -449,8 +450,8 @@
     <EmbeddedResource Include="Menu\SystemSetting\FormSystemSetting.resx">
       <DependentUpon>FormSystemSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Menu\RunningScreen\RunningScreen.resx">
-      <DependentUpon>RunningScreen.cs</DependentUpon>
+    <EmbeddedResource Include="Menu\DifferentialMonitor\FormDifferentialMonitor.resx">
+      <DependentUpon>FormDifferentialMonitor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu\WaferMapping\FormWaferMapping.resx">
       <DependentUpon>FormWaferMapping.cs</DependentUpon>
