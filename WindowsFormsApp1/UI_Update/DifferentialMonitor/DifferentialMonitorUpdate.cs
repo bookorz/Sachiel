@@ -62,7 +62,7 @@ namespace Adam.UI_Update.DifferentialMonitor
                         chart.Series.Add(series1);
                         chart.ChartAreas[0].AxisY.Maximum = 60;
                         chart.ChartAreas[0].AxisY.Minimum = -10;
-
+                        
                         //chart.Titles.Add("壓差計數值");
                         Label CurrentVal = form.Controls.Find("CurrentVal_lb", true).FirstOrDefault() as Label;
                         if (CurrentVal != null)
