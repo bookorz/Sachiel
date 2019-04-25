@@ -337,6 +337,7 @@
       <DependentUpon>FormTeaching.cs</DependentUpon>
     </Compile>
     <Compile Include="UI_Update\Aauthority\AuthorityUpdate.cs" />
+    <Compile Include="UI_Update\Barcode\Barcodeupdate.cs" />
     <Compile Include="UI_Update\DifferentialMonitor\DifferentialMonitorUpdate.cs" />
     <Compile Include="UI_Update\Layout\DIOUpdate.cs" />
     <Compile Include="UI_Update\Manual\AlignerStatusUpdate.cs" />

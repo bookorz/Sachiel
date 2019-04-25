@@ -1616,7 +1616,7 @@
     <value>10</value>
   </data>
   <data name="TestMode.Text" xml:space="preserve">
-    <value>Running Screen</value>
+    <value>Differential Monitor</value>
   </data>
   <data name="&gt;&gt;TestMode.Name" xml:space="preserve">
     <value>TestMode</value>

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TransferControl.Engine;
+using TransferControl.Management;
 
 namespace Adam
 {
@@ -42,7 +44,32 @@ namespace Adam
 
         private void FoupID_Read_Confirm_btn_Click(object sender, EventArgs e)
         {
-            //open & mapping foup
+            if (!FoupID_Read_tb.Text.Equals(""))
+            {
+                //open & mapping foup
+
+                TaskJobManagment.CurrentProceedTask Task;
+                Node port = NodeManagement.Get(LoadportName_lb.Text);
+                if (port != null)
+                {
+                    port.OPACCESS = false;
+                    string TaskName = "LOADPORT_OPEN";
+                    string Message = "";
+                    Dictionary<string, string> param = new Dictionary<string, string>();
+                    param.Add("@Target", port.Name);
+
+                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("找不到該Laodport資料");
+                }
+            }
+            else
+            {
+                MessageBox.Show("請輸入Foup ID");
+            }
         }
     }
 }

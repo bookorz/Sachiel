@@ -28,6 +28,7 @@ using System.Text;
 using SANWA.Utility.Config;
 using TransferControl.Operation;
 using Adam.UI_Update.DifferentialMonitor;
+using Adam.UI_Update.Barcode;
 
 namespace Adam
 {
@@ -42,6 +43,7 @@ namespace Adam
         public static bool AutoReverse = true;
 
         FormAlarm alarmFrom = new FormAlarm();
+        FormFoupID BarcodeForm = new FormFoupID();
         private Menu.Monitoring.FormMonitoring formMonitoring = new Menu.Monitoring.FormMonitoring();
         private Menu.Communications.FormAbnormalRecovery FormAbnormalRecovery = new Menu.Communications.FormAbnormalRecovery();
         private Menu.WaferMapping.FormWaferMapping formWafer = new Menu.WaferMapping.FormWaferMapping();
@@ -124,7 +126,8 @@ namespace Adam
                 alarmFrom.Show();
                 //alarmFrom.SendToBack();
                 alarmFrom.Hide();
-
+                BarcodeForm.Show();
+                BarcodeForm.Hide();
 
 
             }
@@ -725,13 +728,14 @@ namespace Adam
                             case "MANSW":
                                 if (Node.OPACCESS)
                                 {
-                                    Node.OPACCESS = false;
-                                    TaskName = "LOADPORT_OPEN";
-                                    Message = "";
-                                    Dictionary<string, string> param = new Dictionary<string, string>();
-                                    param.Add("@Target", Node.Name);
+                                    Barcodeupdate.UpdateLoadport(Node.Name);
+                                    //Node.OPACCESS = false;
+                                    //TaskName = "LOADPORT_OPEN";
+                                    //Message = "";
+                                    //Dictionary<string, string> param = new Dictionary<string, string>();
+                                    //param.Add("@Target", Node.Name);
 
-                                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
+                                    //RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
                                 }
                                 break;
                             case "MANOF":
@@ -989,7 +993,7 @@ namespace Adam
             switch ((sender as Button).Name)
             {
                 case "RED_Signal":
-                    if (RouteControl.Instance.DIO.GetIO("OUT", "RED").ToUpper().Equals("TRUE"))
+                    if (RouteControl.Instance.DIO.GetIO("DOUT", "RED").ToUpper().Equals("TRUE"))
                     {
                         RouteControl.Instance.DIO.SetIO("RED", "False");
                     }
@@ -999,7 +1003,7 @@ namespace Adam
                     }
                     break;
                 case "ORANGE_Signal":
-                    if (RouteControl.Instance.DIO.GetIO("OUT", "ORANGE").ToUpper().Equals("TRUE"))
+                    if (RouteControl.Instance.DIO.GetIO("DOUT", "ORANGE").ToUpper().Equals("TRUE"))
                     {
                         RouteControl.Instance.DIO.SetIO("ORANGE", "False");
                     }
@@ -1009,7 +1013,7 @@ namespace Adam
                     }
                     break;
                 case "GREEN_Signal":
-                    if (RouteControl.Instance.DIO.GetIO("OUT", "GREEN").ToUpper().Equals("TRUE"))
+                    if (RouteControl.Instance.DIO.GetIO("DOUT", "GREEN").ToUpper().Equals("TRUE"))
                     {
                         RouteControl.Instance.DIO.SetIO("GREEN", "False");
                     }
@@ -1019,7 +1023,7 @@ namespace Adam
                     }
                     break;
                 case "BLUE_Signal":
-                    if (RouteControl.Instance.DIO.GetIO("OUT", "BLUE").ToUpper().Equals("TRUE"))
+                    if (RouteControl.Instance.DIO.GetIO("DOUT", "BLUE").ToUpper().Equals("TRUE"))
                     {
                         RouteControl.Instance.DIO.SetIO("BLUE", "False");
                     }
@@ -1029,7 +1033,7 @@ namespace Adam
                     }
                     break;
                 case "BUZZER1_Signal":
-                    if (RouteControl.Instance.DIO.GetIO("OUT", "BUZZER1").ToUpper().Equals("TRUE"))
+                    if (RouteControl.Instance.DIO.GetIO("DOUT", "BUZZER1").ToUpper().Equals("TRUE"))
                     {
                         RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
                     }
@@ -1039,7 +1043,7 @@ namespace Adam
                     }
                     break;
                 case "BUZZER2_Signal":
-                    if (RouteControl.Instance.DIO.GetIO("OUT", "BUZZER2").ToUpper().Equals("TRUE"))
+                    if (RouteControl.Instance.DIO.GetIO("DOUT", "BUZZER2").ToUpper().Equals("TRUE"))
                     {
                         RouteControl.Instance.DIO.SetIO("BUZZER2", "False");
                     }

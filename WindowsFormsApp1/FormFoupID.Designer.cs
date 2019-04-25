@@ -31,7 +31,7 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.FoupID_Read_tb = new System.Windows.Forms.TextBox();
             this.FoupID_Read_Confirm_btn = new System.Windows.Forms.Button();
-            this.FoupID = new System.Windows.Forms.Label();
+            this.LoadportName_lb = new System.Windows.Forms.Label();
             this.FoupID_Status_lb = new System.Windows.Forms.Label();
             this.groupBox7.SuspendLayout();
             this.SuspendLayout();
@@ -77,15 +77,15 @@
             this.FoupID_Read_Confirm_btn.UseVisualStyleBackColor = false;
             this.FoupID_Read_Confirm_btn.Click += new System.EventHandler(this.FoupID_Read_Confirm_btn_Click);
             // 
-            // FoupID
+            // LoadportName_lb
             // 
-            this.FoupID.AutoSize = true;
-            this.FoupID.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.FoupID.Location = new System.Drawing.Point(137, 21);
-            this.FoupID.Name = "FoupID";
-            this.FoupID.Size = new System.Drawing.Size(148, 31);
-            this.FoupID.TabIndex = 127;
-            this.FoupID.Text = "Loadport02";
+            this.LoadportName_lb.AutoSize = true;
+            this.LoadportName_lb.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.LoadportName_lb.Location = new System.Drawing.Point(137, 21);
+            this.LoadportName_lb.Name = "LoadportName_lb";
+            this.LoadportName_lb.Size = new System.Drawing.Size(148, 31);
+            this.LoadportName_lb.TabIndex = 127;
+            this.LoadportName_lb.Text = "Loadport02";
             // 
             // FoupID_Status_lb
             // 
@@ -103,7 +103,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(414, 232);
             this.Controls.Add(this.FoupID_Status_lb);
-            this.Controls.Add(this.FoupID);
+            this.Controls.Add(this.LoadportName_lb);
             this.Controls.Add(this.groupBox7);
             this.Name = "FormFoupID";
             this.Text = "FoupID";
@@ -121,7 +121,7 @@
         internal System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TextBox FoupID_Read_tb;
         private System.Windows.Forms.Button FoupID_Read_Confirm_btn;
-        private System.Windows.Forms.Label FoupID;
+        private System.Windows.Forms.Label LoadportName_lb;
         private System.Windows.Forms.Label FoupID_Status_lb;
     }
 }

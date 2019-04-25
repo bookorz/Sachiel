@@ -39,6 +39,8 @@ namespace Adam
             this.Connection_btn = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Stop_btn = new System.Windows.Forms.Button();
+            this.Start_btn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.ALL_INIT_btn = new System.Windows.Forms.Button();
             this.DifferentialPressureAlarm2_Signal = new System.Windows.Forms.Button();
@@ -109,8 +111,6 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.Start_btn = new System.Windows.Forms.Button();
-            this.Stop_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -205,6 +205,22 @@ namespace Adam
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
+            // 
+            // Stop_btn
+            // 
+            resources.ApplyResources(this.Stop_btn, "Stop_btn");
+            this.Stop_btn.BackColor = System.Drawing.Color.DimGray;
+            this.Stop_btn.Name = "Stop_btn";
+            this.Stop_btn.UseVisualStyleBackColor = false;
+            this.Stop_btn.Click += new System.EventHandler(this.Stop_btn_Click);
+            // 
+            // Start_btn
+            // 
+            resources.ApplyResources(this.Start_btn, "Start_btn");
+            this.Start_btn.BackColor = System.Drawing.Color.DimGray;
+            this.Start_btn.Name = "Start_btn";
+            this.Start_btn.UseVisualStyleBackColor = false;
+            this.Start_btn.Click += new System.EventHandler(this.Start_btn_Click);
             // 
             // button1
             // 
@@ -783,22 +799,6 @@ namespace Adam
             this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            // 
-            // Start_btn
-            // 
-            resources.ApplyResources(this.Start_btn, "Start_btn");
-            this.Start_btn.BackColor = System.Drawing.Color.DimGray;
-            this.Start_btn.Name = "Start_btn";
-            this.Start_btn.UseVisualStyleBackColor = false;
-            this.Start_btn.Click += new System.EventHandler(this.Start_btn_Click);
-            // 
-            // Stop_btn
-            // 
-            resources.ApplyResources(this.Stop_btn, "Stop_btn");
-            this.Stop_btn.BackColor = System.Drawing.Color.DimGray;
-            this.Stop_btn.Name = "Stop_btn";
-            this.Stop_btn.UseVisualStyleBackColor = false;
-            this.Stop_btn.Click += new System.EventHandler(this.Stop_btn_Click);
             // 
             // FormMain
             // 
