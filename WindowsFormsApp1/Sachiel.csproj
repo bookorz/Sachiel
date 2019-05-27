@@ -238,10 +238,10 @@
     <Compile Include="FormVersion.designer.cs">
       <DependentUpon>FormVersion.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormIO.cs">
+    <Compile Include="Menu\IO\FormIO.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormIO.designer.cs">
+    <Compile Include="Menu\IO\FormIO.designer.cs">
       <DependentUpon>FormIO.cs</DependentUpon>
     </Compile>
     <Compile Include="FormLLSetting.cs">
@@ -339,6 +339,7 @@
     <Compile Include="UI_Update\Aauthority\AuthorityUpdate.cs" />
     <Compile Include="UI_Update\Barcode\Barcodeupdate.cs" />
     <Compile Include="UI_Update\DifferentialMonitor\DifferentialMonitorUpdate.cs" />
+    <Compile Include="UI_Update\IO\IOUpdate.cs" />
     <Compile Include="UI_Update\Layout\DIOUpdate.cs" />
     <Compile Include="UI_Update\Manual\AlignerStatusUpdate.cs" />
     <Compile Include="UI_Update\Manual\OCRStatusUpdate.cs" />
@@ -400,7 +401,7 @@
     <EmbeddedResource Include="FormVersion.resx">
       <DependentUpon>FormVersion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormIO.resx">
+    <EmbeddedResource Include="Menu\IO\FormIO.resx">
       <DependentUpon>FormIO.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLLSetting.resx">
@@ -482,70 +483,6 @@
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="config\CommandScript\AlignerInit.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\AlignerStateGet.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\LoadPortFoupIn.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\LoadPortFoupOut.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\LoadPortInit.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\LoadPortMapping.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\LoadPortUnloadAndLoad.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\LoadPortUnload.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\RobotInit.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\RobotManualGetGet.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\RobotManualGetPut.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\RobotManualPutGet.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\RobotManualPutPut.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\RobotStateGet.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\CommandScript\test.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\Controller\Controllers.1234.json" />
-    <None Include="config\Controller\Controllers.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\Controller\Controllers.json.7788" />
-    <None Include="config\Controller\Controllers.json.test" />
-    <None Include="config\DIO\ControlSetting.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\DIO\DigitalList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\DIO\ParameterSetting - 複製.json" />
-    <None Include="config\DIO\ParameterSetting.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\Node\Nodes.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="config\Script\Normal.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

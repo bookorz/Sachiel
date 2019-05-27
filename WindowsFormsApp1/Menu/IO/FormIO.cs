@@ -8,16 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UI_TEST
+namespace Adam.Menu.IO
 {
-    public partial class IO : Form
+    public partial class FormIO : Adam.Menu.FormFrame
     {
-        public IO()
+        public FormIO()
         {
             InitializeComponent();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void FormIO_Load(object sender, EventArgs e)
         {
 
         }

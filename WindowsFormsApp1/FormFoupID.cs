@@ -14,6 +14,7 @@ namespace Adam
 {
     public partial class FormFoupID : Form
     {
+
         public FormFoupID()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace Adam
         private void FormFoupID_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult result = MessageBox.Show("Abort load procedure?", "Warning", MessageBoxButtons.YesNo);
-            if(result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
                 //Unclamp foup            
             }
@@ -47,6 +48,27 @@ namespace Adam
             if (!FoupID_Read_tb.Text.Equals(""))
             {
                 //open & mapping foup
+                string end = "";
+                switch (LoadportName_lb.Text)
+                {
+                    case "LOADPORT01":
+                        end = "!";
+                        break;
+                    case "LOADPORT02":
+                        end = "\"";
+                        break;
+                    case "LOADPORT03":
+                        end = "#";
+                        break;
+                    case "LOADPORT04":
+                        end = "$";
+                        break;
+                }
+                if (!end.Equals(endCode))
+                {
+                    MessageBox.Show("請使用正確的條碼槍");
+                    return;
+                }
 
                 TaskJobManagment.CurrentProceedTask Task;
                 Node port = NodeManagement.Get(LoadportName_lb.Text);
@@ -70,6 +92,61 @@ namespace Adam
             {
                 MessageBox.Show("請輸入Foup ID");
             }
+        }
+        public static string startCode = "";
+        public static string endCode = "";
+        public static string foupID = "";
+        private void FoupID_Read_tb_TextChanged(object sender, EventArgs e)
+        {
+            if (!startCode.Equals("") && !endCode.Equals(""))
+            {
+                FoupID_Read_tb.Text = foupID;
+                return;
+            }
+
+            if (startCode.Equals(""))
+            {
+                if (FoupID_Read_tb.Text[0].Equals('@'))
+                {
+                    startCode = "@";
+                }
+                else
+                {
+                    MessageBox.Show("請使用條碼槍");
+                }
+            }
+            else
+            {
+                if (!FoupID_Read_tb.Text.Equals(""))
+                {
+                    switch (FoupID_Read_tb.Text[FoupID_Read_tb.Text.Length - 1].ToString())
+                    {
+                        case "!":
+                        case "\"":
+                        case "#":
+                        case "$":
+                            endCode = FoupID_Read_tb.Text[FoupID_Read_tb.Text.Length - 1].ToString();
+                            foupID = FoupID_Read_tb.Text.Replace(startCode, "").Replace(endCode, "");
+                            FoupID_Read_tb.Text = foupID;
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void Clear_btn_Click(object sender, EventArgs e)
+        {
+            endCode = "";
+            FoupID_Read_tb.Text = "";
+            startCode = "";
+
+        }
+
+        private void LoadportName_lb_TextChanged(object sender, EventArgs e)
+        {
+            endCode = "";
+            FoupID_Read_tb.Text = "";
+            startCode = "";
         }
     }
 }

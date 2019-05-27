@@ -335,6 +335,8 @@
             this.btnPause = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.pnlMotionStop = new System.Windows.Forms.Panel();
+            this.Btn_ORG_A = new System.Windows.Forms.Button();
+            this.Btn_LOrg = new System.Windows.Forms.Button();
             this.tbcManual.SuspendLayout();
             this.tabRobot.SuspendLayout();
             this.groupBox20.SuspendLayout();
@@ -2769,6 +2771,7 @@
             // Command_Group_A
             // 
             this.Command_Group_A.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.Command_Group_A.Controls.Add(this.Btn_LOrg);
             this.Command_Group_A.Controls.Add(this.LblLED_A);
             this.Command_Group_A.Controls.Add(this.Btn_ReadLED_A);
             this.Command_Group_A.Controls.Add(this.groupBox10);
@@ -2814,7 +2817,7 @@
             this.LblLED_A.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LblLED_A.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.LblLED_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LblLED_A.Location = new System.Drawing.Point(166, 122);
+            this.LblLED_A.Location = new System.Drawing.Point(166, 159);
             this.LblLED_A.Name = "LblLED_A";
             this.LblLED_A.Size = new System.Drawing.Size(162, 33);
             this.LblLED_A.TabIndex = 48;
@@ -2825,7 +2828,7 @@
             // 
             this.Btn_ReadLED_A.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_ReadLED_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_ReadLED_A.Location = new System.Drawing.Point(23, 116);
+            this.Btn_ReadLED_A.Location = new System.Drawing.Point(23, 91);
             this.Btn_ReadLED_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_ReadLED_A.Name = "Btn_ReadLED_A";
             this.Btn_ReadLED_A.Size = new System.Drawing.Size(137, 45);
@@ -2863,6 +2866,7 @@
             // 
             this.GroupBox36.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.GroupBox36.Controls.Add(this.Btn_ORG_A);
             this.GroupBox36.Controls.Add(this.Lab_StateCode_06_A);
             this.GroupBox36.Controls.Add(this.Lab_StateCode_19_A);
             this.GroupBox36.Controls.Add(this.Lab_StateCode_17_A);
@@ -3382,7 +3386,7 @@
             // 
             this.Btn_DoorDown_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_DoorDown_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_DoorDown_A.Location = new System.Drawing.Point(178, 580);
+            this.Btn_DoorDown_A.Location = new System.Drawing.Point(178, 617);
             this.Btn_DoorDown_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_DoorDown_A.Name = "Btn_DoorDown_A";
             this.Btn_DoorDown_A.Size = new System.Drawing.Size(119, 52);
@@ -3396,7 +3400,7 @@
             // 
             this.Btn_DoorOpen_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_DoorOpen_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_DoorOpen_A.Location = new System.Drawing.Point(178, 520);
+            this.Btn_DoorOpen_A.Location = new System.Drawing.Point(178, 557);
             this.Btn_DoorOpen_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_DoorOpen_A.Name = "Btn_DoorOpen_A";
             this.Btn_DoorOpen_A.Size = new System.Drawing.Size(119, 52);
@@ -3439,7 +3443,7 @@
             this.groupBox9.Controls.Add(this.Btn_LOAD_A);
             this.groupBox9.Controls.Add(this.Btn_UNLOAD_A);
             this.groupBox9.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox9.Location = new System.Drawing.Point(370, 21);
+            this.groupBox9.Location = new System.Drawing.Point(343, 21);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(285, 125);
             this.groupBox9.TabIndex = 40;
@@ -3502,7 +3506,7 @@
             // 
             this.Btn_DoorUp_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_DoorUp_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_DoorUp_A.Location = new System.Drawing.Point(53, 579);
+            this.Btn_DoorUp_A.Location = new System.Drawing.Point(53, 616);
             this.Btn_DoorUp_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_DoorUp_A.Name = "Btn_DoorUp_A";
             this.Btn_DoorUp_A.Size = new System.Drawing.Size(119, 52);
@@ -3516,7 +3520,7 @@
             // 
             this.groupBox25.Controls.Add(this.Btn_ReMapping_A);
             this.groupBox25.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox25.Location = new System.Drawing.Point(23, 637);
+            this.groupBox25.Location = new System.Drawing.Point(23, 674);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(299, 91);
             this.groupBox25.TabIndex = 33;
@@ -4332,7 +4336,7 @@
             // 
             this.Btn_VacuumON_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_VacuumON_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_VacuumON_A.Location = new System.Drawing.Point(178, 396);
+            this.Btn_VacuumON_A.Location = new System.Drawing.Point(178, 433);
             this.Btn_VacuumON_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_VacuumON_A.Name = "Btn_VacuumON_A";
             this.Btn_VacuumON_A.Size = new System.Drawing.Size(119, 54);
@@ -4358,7 +4362,7 @@
             // 
             this.Btn_VacuumOFF_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_VacuumOFF_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_VacuumOFF_A.Location = new System.Drawing.Point(53, 395);
+            this.Btn_VacuumOFF_A.Location = new System.Drawing.Point(53, 432);
             this.Btn_VacuumOFF_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_VacuumOFF_A.Name = "Btn_VacuumOFF_A";
             this.Btn_VacuumOFF_A.Size = new System.Drawing.Size(119, 54);
@@ -4401,7 +4405,7 @@
             this.LblStatus_A.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LblStatus_A.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.LblStatus_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LblStatus_A.Location = new System.Drawing.Point(166, 226);
+            this.LblStatus_A.Location = new System.Drawing.Point(166, 263);
             this.LblStatus_A.Name = "LblStatus_A";
             this.LblStatus_A.Size = new System.Drawing.Size(180, 33);
             this.LblStatus_A.TabIndex = 26;
@@ -4412,7 +4416,7 @@
             // 
             this.Btn_ReadStatus_A.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_ReadStatus_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_ReadStatus_A.Location = new System.Drawing.Point(23, 220);
+            this.Btn_ReadStatus_A.Location = new System.Drawing.Point(23, 257);
             this.Btn_ReadStatus_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_ReadStatus_A.Name = "Btn_ReadStatus_A";
             this.Btn_ReadStatus_A.Size = new System.Drawing.Size(137, 45);
@@ -4427,7 +4431,7 @@
             this.LblVersion_A.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LblVersion_A.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.LblVersion_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LblVersion_A.Location = new System.Drawing.Point(166, 175);
+            this.LblVersion_A.Location = new System.Drawing.Point(166, 212);
             this.LblVersion_A.Name = "LblVersion_A";
             this.LblVersion_A.Size = new System.Drawing.Size(162, 33);
             this.LblVersion_A.TabIndex = 18;
@@ -4438,7 +4442,7 @@
             // 
             this.Btn_UnDock_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_UnDock_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_UnDock_A.Location = new System.Drawing.Point(53, 335);
+            this.Btn_UnDock_A.Location = new System.Drawing.Point(53, 372);
             this.Btn_UnDock_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_UnDock_A.Name = "Btn_UnDock_A";
             this.Btn_UnDock_A.Size = new System.Drawing.Size(119, 52);
@@ -4452,7 +4456,7 @@
             // 
             this.Btn_Clamp_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_Clamp_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_Clamp_A.Location = new System.Drawing.Point(180, 276);
+            this.Btn_Clamp_A.Location = new System.Drawing.Point(180, 313);
             this.Btn_Clamp_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_Clamp_A.Name = "Btn_Clamp_A";
             this.Btn_Clamp_A.Size = new System.Drawing.Size(119, 52);
@@ -4466,7 +4470,7 @@
             // 
             this.Btn_ReadVersion_A.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_ReadVersion_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_ReadVersion_A.Location = new System.Drawing.Point(23, 169);
+            this.Btn_ReadVersion_A.Location = new System.Drawing.Point(23, 206);
             this.Btn_ReadVersion_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_ReadVersion_A.Name = "Btn_ReadVersion_A";
             this.Btn_ReadVersion_A.Size = new System.Drawing.Size(137, 45);
@@ -4480,7 +4484,7 @@
             // 
             this.Btn_UnClamp_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_UnClamp_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_UnClamp_A.Location = new System.Drawing.Point(53, 275);
+            this.Btn_UnClamp_A.Location = new System.Drawing.Point(53, 312);
             this.Btn_UnClamp_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_UnClamp_A.Name = "Btn_UnClamp_A";
             this.Btn_UnClamp_A.Size = new System.Drawing.Size(119, 52);
@@ -4494,7 +4498,7 @@
             // 
             this.Btn_Dock_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_Dock_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_Dock_A.Location = new System.Drawing.Point(178, 336);
+            this.Btn_Dock_A.Location = new System.Drawing.Point(178, 373);
             this.Btn_Dock_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_Dock_A.Name = "Btn_Dock_A";
             this.Btn_Dock_A.Size = new System.Drawing.Size(119, 52);
@@ -4508,7 +4512,7 @@
             // 
             this.Btn_DoorClose_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_DoorClose_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_DoorClose_A.Location = new System.Drawing.Point(53, 519);
+            this.Btn_DoorClose_A.Location = new System.Drawing.Point(53, 556);
             this.Btn_DoorClose_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_DoorClose_A.Name = "Btn_DoorClose_A";
             this.Btn_DoorClose_A.Size = new System.Drawing.Size(119, 52);
@@ -4522,7 +4526,7 @@
             // 
             this.Btn_UnLatchDoor_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_UnLatchDoor_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_UnLatchDoor_A.Location = new System.Drawing.Point(178, 458);
+            this.Btn_UnLatchDoor_A.Location = new System.Drawing.Point(178, 495);
             this.Btn_UnLatchDoor_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_UnLatchDoor_A.Name = "Btn_UnLatchDoor_A";
             this.Btn_UnLatchDoor_A.Size = new System.Drawing.Size(119, 54);
@@ -4536,7 +4540,7 @@
             // 
             this.Btn_LatchDoor_A.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_LatchDoor_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Btn_LatchDoor_A.Location = new System.Drawing.Point(53, 457);
+            this.Btn_LatchDoor_A.Location = new System.Drawing.Point(53, 494);
             this.Btn_LatchDoor_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Btn_LatchDoor_A.Name = "Btn_LatchDoor_A";
             this.Btn_LatchDoor_A.Size = new System.Drawing.Size(119, 54);
@@ -4781,6 +4785,34 @@
             this.pnlMotionStop.Name = "pnlMotionStop";
             this.pnlMotionStop.Size = new System.Drawing.Size(755, 50);
             this.pnlMotionStop.TabIndex = 1;
+            // 
+            // Btn_ORG_A
+            // 
+            this.Btn_ORG_A.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_ORG_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Btn_ORG_A.Location = new System.Drawing.Point(550, 97);
+            this.Btn_ORG_A.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Btn_ORG_A.Name = "Btn_ORG_A";
+            this.Btn_ORG_A.Size = new System.Drawing.Size(137, 52);
+            this.Btn_ORG_A.TabIndex = 49;
+            this.Btn_ORG_A.Tag = "1";
+            this.Btn_ORG_A.Text = "ORG Search";
+            this.Btn_ORG_A.UseVisualStyleBackColor = true;
+            this.Btn_ORG_A.Click += new System.EventHandler(this.PortFunction_Click);
+            // 
+            // Btn_LOrg
+            // 
+            this.Btn_LOrg.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_LOrg.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Btn_LOrg.Location = new System.Drawing.Point(23, 91);
+            this.Btn_LOrg.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Btn_LOrg.Name = "Btn_LOrg";
+            this.Btn_LOrg.Size = new System.Drawing.Size(137, 45);
+            this.Btn_LOrg.TabIndex = 49;
+            this.Btn_LOrg.Tag = "01";
+            this.Btn_LOrg.Text = "Origin";
+            this.Btn_LOrg.UseVisualStyleBackColor = true;
+            this.Btn_LOrg.Click += new System.EventHandler(this.PortFunction_Click);
             // 
             // FormManual
             // 
@@ -5173,5 +5205,7 @@
         private System.Windows.Forms.TextBox tbRActiveState;
         private System.Windows.Forms.Button btnRActiveOff;
         private System.Windows.Forms.Button btnRActiveOn;
+        internal System.Windows.Forms.Button Btn_ORG_A;
+        internal System.Windows.Forms.Button Btn_LOrg;
     }
 }

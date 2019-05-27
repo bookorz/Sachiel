@@ -43,6 +43,9 @@ namespace Adam.UI_Update.Barcode
 
                     form.Visible = true;
 
+                    TextBox FoupID = form.Controls.Find("FoupID_Read_tb", true).FirstOrDefault() as TextBox;
+                    FoupID.Text = "";
+                    FoupID.Focus();
                 }
 
 

@@ -286,7 +286,17 @@ namespace Adam.UI_Update.Manual
             else
             {
                 tb.Text = status;
-               
+                Button connectBtn = manual.Controls.Find("RobotConnect_btn", true).FirstOrDefault() as Button;
+                switch (status)
+                {
+                    case "Connected":
+                    case "Connecting":
+                        connectBtn.Enabled = false;
+                        break;
+                    default:
+                        connectBtn.Enabled = true;
+                        break;
+                }
             }
 
         }

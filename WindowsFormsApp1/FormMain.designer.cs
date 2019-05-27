@@ -111,6 +111,7 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
+            this.EQP_State = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -191,6 +192,7 @@ namespace Adam
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.EQP_State);
             this.groupBox5.Controls.Add(this.Stop_btn);
             this.groupBox5.Controls.Add(this.Start_btn);
             this.groupBox5.Controls.Add(this.button1);
@@ -800,6 +802,13 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
+            // EQP_State
+            // 
+            resources.ApplyResources(this.EQP_State, "EQP_State");
+            this.EQP_State.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.EQP_State.Name = "EQP_State";
+            this.EQP_State.UseVisualStyleBackColor = false;
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -920,6 +929,7 @@ namespace Adam
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button Stop_btn;
         private System.Windows.Forms.Button Start_btn;
+        private System.Windows.Forms.Button EQP_State;
     }
 }
 

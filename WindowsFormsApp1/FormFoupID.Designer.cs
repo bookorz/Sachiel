@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.Clear_btn = new System.Windows.Forms.Button();
             this.FoupID_Read_tb = new System.Windows.Forms.TextBox();
             this.FoupID_Read_Confirm_btn = new System.Windows.Forms.Button();
             this.LoadportName_lb = new System.Windows.Forms.Label();
@@ -38,27 +39,41 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.Clear_btn);
             this.groupBox7.Controls.Add(this.FoupID_Read_tb);
             this.groupBox7.Controls.Add(this.FoupID_Read_Confirm_btn);
             this.groupBox7.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.groupBox7.Location = new System.Drawing.Point(60, 76);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(311, 81);
+            this.groupBox7.Size = new System.Drawing.Size(311, 111);
             this.groupBox7.TabIndex = 126;
             this.groupBox7.TabStop = false;
             this.groupBox7.Tag = "1";
             this.groupBox7.Text = "Foup ID";
             // 
+            // Clear_btn
+            // 
+            this.Clear_btn.BackColor = System.Drawing.Color.DarkGray;
+            this.Clear_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Clear_btn.FlatAppearance.BorderSize = 2;
+            this.Clear_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Clear_btn.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Clear_btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Clear_btn.Location = new System.Drawing.Point(219, 72);
+            this.Clear_btn.Name = "Clear_btn";
+            this.Clear_btn.Size = new System.Drawing.Size(86, 26);
+            this.Clear_btn.TabIndex = 124;
+            this.Clear_btn.Text = "Clear";
+            this.Clear_btn.UseVisualStyleBackColor = false;
+            this.Clear_btn.Click += new System.EventHandler(this.Clear_btn_Click);
+            // 
             // FoupID_Read_tb
             // 
-            this.FoupID_Read_tb.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.FoupID_Read_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.FoupID_Read_tb.Location = new System.Drawing.Point(6, 35);
+            this.FoupID_Read_tb.Location = new System.Drawing.Point(7, 33);
             this.FoupID_Read_tb.Name = "FoupID_Read_tb";
-            this.FoupID_Read_tb.ReadOnly = true;
-            this.FoupID_Read_tb.Size = new System.Drawing.Size(201, 26);
-            this.FoupID_Read_tb.TabIndex = 121;
-            this.FoupID_Read_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.FoupID_Read_tb.Size = new System.Drawing.Size(298, 33);
+            this.FoupID_Read_tb.TabIndex = 123;
+            this.FoupID_Read_tb.TextChanged += new System.EventHandler(this.FoupID_Read_tb_TextChanged);
             this.FoupID_Read_tb.Leave += new System.EventHandler(this.FoupID_Read_tb_Leave);
             // 
             // FoupID_Read_Confirm_btn
@@ -69,7 +84,7 @@
             this.FoupID_Read_Confirm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.FoupID_Read_Confirm_btn.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FoupID_Read_Confirm_btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.FoupID_Read_Confirm_btn.Location = new System.Drawing.Point(213, 35);
+            this.FoupID_Read_Confirm_btn.Location = new System.Drawing.Point(121, 72);
             this.FoupID_Read_Confirm_btn.Name = "FoupID_Read_Confirm_btn";
             this.FoupID_Read_Confirm_btn.Size = new System.Drawing.Size(86, 26);
             this.FoupID_Read_Confirm_btn.TabIndex = 122;
@@ -86,6 +101,7 @@
             this.LoadportName_lb.Size = new System.Drawing.Size(148, 31);
             this.LoadportName_lb.TabIndex = 127;
             this.LoadportName_lb.Text = "Loadport02";
+            this.LoadportName_lb.TextChanged += new System.EventHandler(this.LoadportName_lb_TextChanged);
             // 
             // FoupID_Status_lb
             // 
@@ -119,9 +135,10 @@
         #endregion
 
         internal System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.TextBox FoupID_Read_tb;
         private System.Windows.Forms.Button FoupID_Read_Confirm_btn;
         private System.Windows.Forms.Label LoadportName_lb;
         private System.Windows.Forms.Label FoupID_Status_lb;
+        private System.Windows.Forms.TextBox FoupID_Read_tb;
+        private System.Windows.Forms.Button Clear_btn;
     }
 }

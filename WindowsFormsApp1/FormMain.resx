@@ -291,6 +291,36 @@
   <data name="&gt;&gt;splitContainer13.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="EQP_State.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="EQP_State.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="EQP_State.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 28</value>
+  </data>
+  <data name="EQP_State.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 35</value>
+  </data>
+  <data name="EQP_State.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="EQP_State.Text" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="&gt;&gt;EQP_State.Name" xml:space="preserve">
+    <value>EQP_State</value>
+  </data>
+  <data name="&gt;&gt;EQP_State.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EQP_State.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;EQP_State.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="Stop_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -301,7 +331,7 @@
     <value>NoControl</value>
   </data>
   <data name="Stop_btn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 153</value>
+    <value>10, 199</value>
   </data>
   <data name="Stop_btn.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
@@ -322,7 +352,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;Stop_btn.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Start_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -334,7 +364,7 @@
     <value>NoControl</value>
   </data>
   <data name="Start_btn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 94</value>
+    <value>10, 140</value>
   </data>
   <data name="Start_btn.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
@@ -355,7 +385,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;Start_btn.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>103, 247</value>
@@ -379,7 +409,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="ALL_INIT_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -388,7 +418,7 @@
     <value>NoControl</value>
   </data>
   <data name="ALL_INIT_btn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 32</value>
+    <value>10, 78</value>
   </data>
   <data name="ALL_INIT_btn.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
@@ -409,7 +439,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;ALL_INIT_btn.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="DifferentialPressureAlarm2_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -442,7 +472,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;DifferentialPressureAlarm2_Signal.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="DifferentialPressureAlarm1_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -475,7 +505,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;DifferentialPressureAlarm1_Signal.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="SafetyRelay_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -511,7 +541,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;SafetyRelay_Signal.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="IonizerAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -544,7 +574,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;IonizerAlarm_Signal.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="FFUAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -577,7 +607,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;FFUAlarm_Signal.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="CDAAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -610,7 +640,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;CDAAlarm_Signal.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="DoorSwitch_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -643,7 +673,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;DoorSwitch_Signal.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="groupBox5.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1544,7 +1574,7 @@
     <value>1</value>
   </data>
   <data name="tabComm.Text" xml:space="preserve">
-    <value>AbnormalRecovery</value>
+    <value>I/O</value>
   </data>
   <data name="&gt;&gt;tabComm.Name" xml:space="preserve">
     <value>tabComm</value>
@@ -2264,7 +2294,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>55</value>
+    <value>60</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>10, 20</value>

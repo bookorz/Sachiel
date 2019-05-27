@@ -112,7 +112,7 @@ namespace Adam.UI_Update.Monitoring
                 if (form == null)
                     return;
 
-                Button state_btn = form.Controls.Find("ALL_INIT_btn", true).FirstOrDefault() as Button;
+                Button state_btn = form.Controls.Find("EQP_State", true).FirstOrDefault() as Button;
 
                 if (state_btn == null)
                     return;

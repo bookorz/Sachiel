@@ -84,7 +84,11 @@ namespace GUI
             Dictionary<string, string> param = new Dictionary<string, string>();
             switch (btn.Name)
             {
+                case "Btn_LOrg":
+                    TaskName = "LOADPORT_ORGSH";
 
+                    param.Add("@Target", port.Name);
+                    break;
                 case "Btn_LOAD_A":
                     if (ChkWithSlotMap_A.Checked)
                     {

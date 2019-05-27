@@ -35,7 +35,7 @@ namespace Adam.Menu.WaferMapping
                     {
                         switch (port.CarrierType.ToUpper())
                         {
-                            case "FOUP":
+                            case "FOSB":
                                 present.Visible = true;
                                 break;
                             case "OPEN":
@@ -68,7 +68,7 @@ namespace Adam.Menu.WaferMapping
         string fromSlot = "";
         string toPort = "";
         string toSlot = "";
-        bool bypass = false;
+        bool bypass = true;
         private void Slot_Click(object sender, EventArgs e)
         {
             Label Slot_Label = (Label)sender;
@@ -338,6 +338,7 @@ namespace Adam.Menu.WaferMapping
                     {// not select
                         Slot_Label.BackColor = Color.Yellow;
                         Slot_Label.ForeColor = Color.Black;
+                        Slot_Label.Text = "已被選定";
                         toPort = PortName;
                         toSlot = SlotNo;
                         Node fPort = NodeManagement.Get(fromPort);
@@ -347,6 +348,7 @@ namespace Adam.Menu.WaferMapping
                             if (fPort.JobList.TryGetValue(fromSlot, out fSlot))
                             {
                                 fSlot.AssignPort(toPort, toSlot);
+
                             }
                         }
                         if (!bypass)
