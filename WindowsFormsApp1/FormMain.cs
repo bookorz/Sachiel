@@ -1358,8 +1358,7 @@ namespace Adam
                     }
 
                     break;
-                case "TRANSFER_LOADPORT_CLOSE"://test mode
-                case "LOADPORT_CLOSE_NOMAP":
+                case "LOADPORT_CLOSE_NOMAP"://test mode
                     Node p = NodeManagement.Get(Task.Params["@Target"]);
                     TaskName = "LOADPORT_OPEN";
                     Message = "";
@@ -1419,7 +1418,11 @@ namespace Adam
 
                 foreach (Job wafer in LD_Jobs)
                 {//檢查LD的所有WAFER
-
+                    if (wafer.PreviousSlotNotEmpty)
+                    {//下層有片所以不能取
+                        wafer.Locked = true;
+                        continue;
+                    }
                     isAssign = false;
                     foreach (Job Slot in ULD_Jobs)
                     {//搜尋所有FOSB Slot 找到能放的
@@ -1528,7 +1531,19 @@ namespace Adam
 
         public void On_LoadPort_Complete(Node Port)
         {
-
+            //var AvailableSlots = from eachSlot in Port.JobList.Values.ToList()
+            //                     where eachSlot.MapFlag && !eachSlot.ErrPosition && !eachSlot.Locked
+            //                     select eachSlot;
+            //if (AvailableSlots.Count() == 0)
+            //{
+                //取完片 自動退
+                string TaskName = "LOADPORT_CLOSE_NOMAP";
+                string Message = "";
+                Dictionary<string, string> param1 = new Dictionary<string, string>();
+                param1.Add("@Target", Port.Name);
+                TaskJobManagment.CurrentProceedTask tmpTask;
+                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+            //}
         }
 
         public void On_UnLoadPort_Complete(Node Port)
