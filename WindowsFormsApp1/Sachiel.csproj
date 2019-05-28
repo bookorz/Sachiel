@@ -183,6 +183,12 @@
     <Compile Include="Menu\SystemSetting\FormSignalTower.Designer.cs">
       <DependentUpon>FormSignalTower.cs</DependentUpon>
     </Compile>
+    <Compile Include="Menu\SystemSetting\FormSimpleSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\SystemSetting\FormSimpleSetting.Designer.cs">
+      <DependentUpon>FormSimpleSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu\Wafer\FormWafer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -485,6 +491,9 @@
     <EmbeddedResource Include="Menu\SystemSetting\FormSignalTower.resx">
       <DependentUpon>FormSignalTower.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Menu\SystemSetting\FormSimpleSetting.resx">
+      <DependentUpon>FormSimpleSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menu\SystemSetting\FormSystemSetting.resx">
       <DependentUpon>FormSystemSetting.cs</DependentUpon>
     </EmbeddedResource>
@@ -600,6 +609,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="recipe\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

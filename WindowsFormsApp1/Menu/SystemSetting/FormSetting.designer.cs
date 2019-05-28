@@ -39,6 +39,8 @@
             this.btnCodeSetting = new System.Windows.Forms.Button();
             this.tbpDIOSetting = new System.Windows.Forms.Button();
             this.btnRecipeSetting = new System.Windows.Forms.Button();
+            this.btnDIOSetting = new System.Windows.Forms.Button();
+            this.btnNodeSetting = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pnlSetting
@@ -159,12 +161,36 @@
             this.btnRecipeSetting.UseVisualStyleBackColor = true;
             this.btnRecipeSetting.Click += new System.EventHandler(this.btnRecipeSetting_Click);
             // 
+            // btnDIOSetting
+            // 
+            this.btnDIOSetting.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnDIOSetting.Location = new System.Drawing.Point(1438, 522);
+            this.btnDIOSetting.Name = "btnDIOSetting";
+            this.btnDIOSetting.Size = new System.Drawing.Size(170, 45);
+            this.btnDIOSetting.TabIndex = 1;
+            this.btnDIOSetting.Text = "DIO Setting";
+            this.btnDIOSetting.UseVisualStyleBackColor = true;
+            this.btnDIOSetting.Click += new System.EventHandler(this.btnDIOSetting_Click);
+            // 
+            // btnNodeSetting
+            // 
+            this.btnNodeSetting.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNodeSetting.Location = new System.Drawing.Point(1438, 573);
+            this.btnNodeSetting.Name = "btnNodeSetting";
+            this.btnNodeSetting.Size = new System.Drawing.Size(170, 45);
+            this.btnNodeSetting.TabIndex = 1;
+            this.btnNodeSetting.Text = "Node Setting";
+            this.btnNodeSetting.UseVisualStyleBackColor = true;
+            this.btnNodeSetting.Click += new System.EventHandler(this.btnNodeSetting_Click);
+            // 
             // FormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1620, 760);
             this.Controls.Add(this.btnRecipeSetting);
+            this.Controls.Add(this.btnNodeSetting);
+            this.Controls.Add(this.btnDIOSetting);
             this.Controls.Add(this.tbpDIOSetting);
             this.Controls.Add(this.btnCodeSetting);
             this.Controls.Add(this.btnAlarmEventSet);
@@ -198,5 +224,7 @@
         private System.Windows.Forms.Button btnCodeSetting;
         private System.Windows.Forms.Button tbpDIOSetting;
         private System.Windows.Forms.Button btnRecipeSetting;
+        private System.Windows.Forms.Button btnDIOSetting;
+        private System.Windows.Forms.Button btnNodeSetting;
     }
 }
