@@ -39,6 +39,7 @@ namespace Adam
             this.Connection_btn = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.EQP_State = new System.Windows.Forms.Button();
             this.Stop_btn = new System.Windows.Forms.Button();
             this.Start_btn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -56,6 +57,7 @@ namespace Adam
             this.lbl_login_group = new System.Windows.Forms.Label();
             this.lbl_login_name = new System.Windows.Forms.Label();
             this.lbl_login_id = new System.Windows.Forms.Label();
+            this.btnChgPWD = new System.Windows.Forms.Button();
             this.btnLogInOut = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -111,7 +113,7 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.EQP_State = new System.Windows.Forms.Button();
+            this.tabNewSetting = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -207,6 +209,13 @@ namespace Adam
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
+            // 
+            // EQP_State
+            // 
+            resources.ApplyResources(this.EQP_State, "EQP_State");
+            this.EQP_State.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.EQP_State.Name = "EQP_State";
+            this.EQP_State.UseVisualStyleBackColor = false;
             // 
             // Stop_btn
             // 
@@ -306,6 +315,7 @@ namespace Adam
             this.groupBox1.Controls.Add(this.lbl_login_group);
             this.groupBox1.Controls.Add(this.lbl_login_name);
             this.groupBox1.Controls.Add(this.lbl_login_id);
+            this.groupBox1.Controls.Add(this.btnChgPWD);
             this.groupBox1.Controls.Add(this.btnLogInOut);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -333,6 +343,15 @@ namespace Adam
             // 
             resources.ApplyResources(this.lbl_login_id, "lbl_login_id");
             this.lbl_login_id.Name = "lbl_login_id";
+            // 
+            // btnChgPWD
+            // 
+            this.btnChgPWD.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.btnChgPWD.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            resources.ApplyResources(this.btnChgPWD, "btnChgPWD");
+            this.btnChgPWD.Name = "btnChgPWD";
+            this.btnChgPWD.UseVisualStyleBackColor = true;
+            this.btnChgPWD.Click += new System.EventHandler(this.btnChgPWD_Click);
             // 
             // btnLogInOut
             // 
@@ -481,6 +500,7 @@ namespace Adam
             this.tbcMian.Controls.Add(this.TestMode);
             this.tbcMian.Controls.Add(this.Wafer);
             this.tbcMian.Controls.Add(this.tabSetting);
+            this.tbcMian.Controls.Add(this.tabNewSetting);
             resources.ApplyResources(this.tbcMian, "tbcMian");
             this.tbcMian.Name = "tbcMian";
             this.tbcMian.SelectedIndex = 0;
@@ -802,12 +822,12 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
-            // EQP_State
+            // tabNewSetting
             // 
-            resources.ApplyResources(this.EQP_State, "EQP_State");
-            this.EQP_State.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.EQP_State.Name = "EQP_State";
-            this.EQP_State.UseVisualStyleBackColor = false;
+            this.tabNewSetting.BackColor = System.Drawing.SystemColors.Control;
+            this.tabNewSetting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.tabNewSetting, "tabNewSetting");
+            this.tabNewSetting.Name = "tabNewSetting";
             // 
             // FormMain
             // 
@@ -930,6 +950,8 @@ namespace Adam
         private System.Windows.Forms.Button Stop_btn;
         private System.Windows.Forms.Button Start_btn;
         private System.Windows.Forms.Button EQP_State;
+        private System.Windows.Forms.Button btnChgPWD;
+        private System.Windows.Forms.TabPage tabNewSetting;
     }
 }
 

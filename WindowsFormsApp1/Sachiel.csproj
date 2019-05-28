@@ -111,6 +111,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormChgPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChgPwd.Designer.cs">
+      <DependentUpon>FormChgPwd.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormFoupID.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,24 @@
     </Compile>
     <Compile Include="Menu\SystemSetting\FormDIOSetting.Designer.cs">
       <DependentUpon>FormDIOSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\SystemSetting\FormRecipeSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\SystemSetting\FormRecipeSetting.designer.cs">
+      <DependentUpon>FormRecipeSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\SystemSetting\FormSECSSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\SystemSetting\FormSECSSet.designer.cs">
+      <DependentUpon>FormSECSSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\SystemSetting\FormSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\SystemSetting\FormSetting.designer.cs">
+      <DependentUpon>FormSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Menu\SystemSetting\FormSignalTower.cs">
       <SubType>Form</SubType>
@@ -362,6 +386,9 @@
     <EmbeddedResource Include="FormAlarm.resx">
       <DependentUpon>FormAlarm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormChgPwd.resx">
+      <DependentUpon>FormChgPwd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormFoupID.resx">
       <DependentUpon>FormFoupID.cs</DependentUpon>
     </EmbeddedResource>
@@ -442,6 +469,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu\SystemSetting\FormOnlineSettings.resx">
       <DependentUpon>FormOnlineSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\SystemSetting\FormRecipeSetting.resx">
+      <DependentUpon>FormRecipeSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\SystemSetting\FormSECSSet.resx">
+      <DependentUpon>FormSECSSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\SystemSetting\FormSetting.resx">
+      <DependentUpon>FormSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu\SystemSetting\FormSettingFram.resx">
       <DependentUpon>FormSettingFram.cs</DependentUpon>

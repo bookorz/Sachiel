@@ -49,8 +49,10 @@ namespace Adam.UI_Update.Authority
                         lbl_login_group.Text = Group;
                     if (lbl_login_date != null)
                         lbl_login_date.Text = System.DateTime.Now.ToString("yyyy-MM-dd HH：mm：ss");
-                    Button btn = form.Controls.Find("btnLogInOut", true).FirstOrDefault() as Button;
-                    btn.Text = "Logout";
+                    Button btnLogout = form.Controls.Find("btnLogInOut", true).FirstOrDefault() as Button;
+                    btnLogout.Text = "Logout";
+                    Button btnEdit = form.Controls.Find("btnChgPWD", true).FirstOrDefault() as Button;
+                    btnEdit.Visible = true;
                     //AuthorityUpdate.UpdateFuncAssign(Group);
                     AuthorityUpdate.UpdateFuncGroupEnable(Group);
                     

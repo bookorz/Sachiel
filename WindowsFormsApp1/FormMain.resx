@@ -852,6 +852,42 @@
   <data name="&gt;&gt;lbl_login_id.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="btnChgPWD.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnChgPWD.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 15.75pt</value>
+  </data>
+  <data name="btnChgPWD.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnChgPWD.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 109</value>
+  </data>
+  <data name="btnChgPWD.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 37</value>
+  </data>
+  <data name="btnChgPWD.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="btnChgPWD.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="btnChgPWD.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;btnChgPWD.Name" xml:space="preserve">
+    <value>btnChgPWD</value>
+  </data>
+  <data name="&gt;&gt;btnChgPWD.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnChgPWD.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;btnChgPWD.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="btnLogInOut.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
@@ -862,10 +898,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnLogInOut.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 109</value>
+    <value>181, 109</value>
   </data>
   <data name="btnLogInOut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 37</value>
+    <value>165, 37</value>
   </data>
   <data name="btnLogInOut.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -883,7 +919,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;btnLogInOut.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -913,7 +949,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -943,7 +979,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -973,10 +1009,10 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>975, 6</value>
+    <value>4, 3</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>352, 152</value>
@@ -986,9 +1022,6 @@
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Information</value>
-  </data>
-  <data name="groupBox1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>
@@ -1138,16 +1171,16 @@
     <value>True</value>
   </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 36pt</value>
+    <value>微軟正黑體, 27.75pt</value>
   </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>483, 57</value>
+    <value>761, 73</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>586, 61</value>
+    <value>456, 47</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1343,7 +1376,7 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 6</value>
+    <value>397, 6</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>337, 146</value>
@@ -1710,6 +1743,30 @@
   </data>
   <data name="&gt;&gt;tabSetting.ZOrder" xml:space="preserve">
     <value>6</value>
+  </data>
+  <data name="tabNewSetting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 44</value>
+  </data>
+  <data name="tabNewSetting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1626, 764</value>
+  </data>
+  <data name="tabNewSetting.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="tabNewSetting.Text" xml:space="preserve">
+    <value>System Setting(N)</value>
+  </data>
+  <data name="&gt;&gt;tabNewSetting.Name" xml:space="preserve">
+    <value>tabNewSetting</value>
+  </data>
+  <data name="&gt;&gt;tabNewSetting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabNewSetting.Parent" xml:space="preserve">
+    <value>tbcMian</value>
+  </data>
+  <data name="&gt;&gt;tabNewSetting.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="tbcMian.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Left</value>
