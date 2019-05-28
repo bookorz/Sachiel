@@ -30,6 +30,7 @@ using TransferControl.Operation;
 using Adam.UI_Update.DifferentialMonitor;
 using Adam.UI_Update.Barcode;
 using Adam.UI_Update.IO;
+using Adam.Menu.WaferMapping;
 
 namespace Adam
 {
@@ -1237,6 +1238,60 @@ namespace Adam
             {
                 formStatus.Focus();
             }
+            if (tbcMian.SelectedTab.Text.Equals("Wafer mapping"))
+            {
+                FormWaferMapping.fromPort = "";
+                FormWaferMapping.fromSlot = "";
+                FormWaferMapping.toPort = "";
+                FormWaferMapping.toSlot = "";
+                Form form = Application.OpenForms["FormWaferMapping"];
+                foreach (Node p in NodeManagement.GetLoadPortList())//更新所有目的地slot被選的狀態
+                {
+                    if (p.Enable && p.IsMapping)
+                    {
+                        foreach (Job eachSlot in p.JobList.Values)
+                        {
+                            if (!eachSlot.MapFlag && !eachSlot.ErrPosition)//找到空slot
+                            {
+
+                                Label present = form.Controls.Find(p.Name + "_Slot_" + eachSlot.Slot, true).FirstOrDefault() as Label;
+                                if (present != null)
+                                {
+                                    if (eachSlot.ReservePort.Equals("") && eachSlot.ReserveSlot.Equals(""))
+                                    {//沒被選
+                                        present.BackColor = Color.DimGray;
+                                        present.ForeColor = Color.White;
+                                    }
+                                    else
+                                    {//已被選
+                                        present.BackColor = Color.Brown;
+                                        present.ForeColor = Color.White;
+                                    }
+                                }
+                            }
+                            if(eachSlot.MapFlag && !eachSlot.ErrPosition)//找到wafer
+                            {
+                                Label present = form.Controls.Find(p.Name + "_Slot_" + eachSlot.Slot, true).FirstOrDefault() as Label;
+                                if (present != null)
+                                {
+                                    if (eachSlot.Destination.Equals("") && eachSlot.DestinationSlot.Equals(""))
+                                    {//沒被選
+                                        present.BackColor = Color.Green;
+                                        present.ForeColor = Color.White;
+                                    }
+                                    else
+                                    {//已被選
+                                        present.BackColor = Color.Brown;
+                                        present.ForeColor = Color.White;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
         }
 
         private void menuMaintenace_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -1418,11 +1473,7 @@ namespace Adam
 
                 foreach (Job wafer in LD_Jobs)
                 {//檢查LD的所有WAFER
-                    if (wafer.PreviousSlotNotEmpty)
-                    {//下層有片所以不能取
-                        wafer.Locked = true;
-                        continue;
-                    }
+                    
                     isAssign = false;
                     foreach (Job Slot in ULD_Jobs)
                     {//搜尋所有FOSB Slot 找到能放的

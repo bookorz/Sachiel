@@ -232,6 +232,7 @@ namespace Adam.Menu.Monitoring
                         switch (port.CarrierType.ToUpper())
                         {
                             case "FOSB":
+                            case "FOUP":
                                 present.Visible = true;
                                 break;
                             case "OPEN":

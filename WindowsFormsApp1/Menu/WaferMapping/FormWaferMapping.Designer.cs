@@ -278,7 +278,7 @@
             this.Assign_finish_btn.Name = "Assign_finish_btn";
             this.Assign_finish_btn.Size = new System.Drawing.Size(136, 65);
             this.Assign_finish_btn.TabIndex = 174;
-            this.Assign_finish_btn.Text = "完成";
+            this.Assign_finish_btn.Text = "開始";
             this.Assign_finish_btn.UseVisualStyleBackColor = true;
             this.Assign_finish_btn.Click += new System.EventHandler(this.Assign_finish_btn_Click);
             // 

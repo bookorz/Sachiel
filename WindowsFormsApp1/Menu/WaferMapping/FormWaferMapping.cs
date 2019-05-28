@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using TransferControl.Management;
+using TransferControl.Operation;
 
 namespace Adam.Menu.WaferMapping
 {
@@ -36,6 +37,7 @@ namespace Adam.Menu.WaferMapping
                         switch (port.CarrierType.ToUpper())
                         {
                             case "FOSB":
+                            case "FOUP":
                                 present.Visible = true;
                                 break;
                             case "OPEN":
@@ -57,17 +59,49 @@ namespace Adam.Menu.WaferMapping
 
         }
 
+        private Node SearchLoadport()
+        {
+            Node result = null;
+            var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
+                                 where OPEN.Mode.Equals("LD") && OPEN.IsMapping
+                                 orderby OPEN.LoadTime
+                                 select OPEN;
+            if (AvailableOPENs.Count() != 0)
+            {
+                result = AvailableOPENs.First();
+            }
+            return result;
+        }
+
         private void Assign_finish_btn_Click(object sender, EventArgs e)
         {
-            this.Enabled = false;
-            Form form = Application.OpenForms["FormMain"];
+                this.Enabled = false;
+            if (XfeCrossZone.Running)
+            {
+                MessageBox.Show("請先執行整機初始化");
+            }
+            else
+            {
+                Node Loadport = SearchLoadport();
+                if (Loadport == null)
+                {
+                    MessageBox.Show("沒有需要執行的工作");
+                }
+                else
+                {
+                    if (!FormMain.xfe.Start(Loadport.Name))
+                    {
+                        MessageBox.Show("xfe.Start fail!");
+                    }
+                }
+            }
 
 
         }
-        string fromPort = "";
-        string fromSlot = "";
-        string toPort = "";
-        string toSlot = "";
+        public static string fromPort = "";
+        public static string fromSlot = "";
+        public static string toPort = "";
+        public static string toSlot = "";
         bool bypass = true;
         private void Slot_Click(object sender, EventArgs e)
         {
@@ -338,7 +372,7 @@ namespace Adam.Menu.WaferMapping
                     {// not select
                         Slot_Label.BackColor = Color.Yellow;
                         Slot_Label.ForeColor = Color.Black;
-                        Slot_Label.Text = "已被選定";
+                      
                         toPort = PortName;
                         toSlot = SlotNo;
                         Node fPort = NodeManagement.Get(fromPort);
@@ -348,7 +382,8 @@ namespace Adam.Menu.WaferMapping
                             if (fPort.JobList.TryGetValue(fromSlot, out fSlot))
                             {
                                 fSlot.AssignPort(toPort, toSlot);
-
+                                Label present = form.Controls.Find(fromPort + "_Slot_" + fromSlot.ToString(), true).FirstOrDefault() as Label;
+                                present.Text += "";
                             }
                         }
                         if (!bypass)
@@ -615,5 +650,8 @@ namespace Adam.Menu.WaferMapping
             }
 
         }
+
+
+       
     }
 }
