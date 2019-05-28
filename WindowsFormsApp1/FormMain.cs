@@ -51,7 +51,8 @@ namespace Adam
         private Menu.Status.FormStatus formStatus = new Menu.Status.FormStatus();
         //private Menu.OCR.FormOCR formOCR = new Menu.OCR.FormOCR();
         //private Menu.SystemSetting.FormSECSSet formSecs = new Menu.SystemSetting.FormSECSSet();
-        private Menu.SystemSetting.FormSystemSetting formSystem = new Menu.SystemSetting.FormSystemSetting();
+        private Menu.SystemSetting.FormSystemSetting formSystem = new Menu.SystemSetting.FormSystemSetting();//舊設定方式
+        private Menu.SystemSetting.FormSetting formSystemNew = new Menu.SystemSetting.FormSetting();//新設定方式
         private Menu.RunningScreen.FormDifferentialMonitor formTestMode = new Menu.RunningScreen.FormDifferentialMonitor();
         private Menu.Wafer.FormWafer WaferForm = new Menu.Wafer.FormWafer();
         public static GUI.FormManual formManual = null;
@@ -107,7 +108,7 @@ namespace Adam
             this.Width = 1;
             this.Height = 1;
 
-            Control[] ctrlForm = new Control[] { formMonitoring, formIO, formWafer, formStatus, formTestMode, WaferForm, formSystem };
+            Control[] ctrlForm = new Control[] { formMonitoring, formIO, formWafer, formStatus, formTestMode, WaferForm, formSystem, formSystemNew };
 
             try
             {
@@ -187,6 +188,7 @@ namespace Adam
                     formLogin.ShowDialog();
                     break;
                 case "Logout":
+                    btnChgPWD.Visible = false;
                     AuthorityUpdate.UpdateLogoutInfo();
                     //disable authroity function
                     AuthorityUpdate.UpdateFuncGroupEnable("INIT");
@@ -1750,6 +1752,18 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
 
+        }
+
+        private void btnChgPWD_Click(object sender, EventArgs e)
+        {
+            using (var form = new GUI.FormChgPwd(lbl_login_id.Text))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+
+                }
+            }
         }
     }
 }
