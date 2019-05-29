@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SANWA;
+using SANWA.Utility.Config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +29,10 @@ namespace Adam.Menu.SystemSetting
         {
             foreach (Control foo in pnlSetting.Controls)
             {
+                if(foo is Form)
+                {
+                    ((Form)foo).Close();
+                }
                 pnlSetting.Controls.Remove(foo);
                 foo.Dispose();
             }
@@ -93,6 +99,20 @@ namespace Adam.Menu.SystemSetting
         {
             FormRecipeSetting form = new FormRecipeSetting();
             AddForm(form);
+        }
+
+        private void btnDIOSetting_Click(object sender, EventArgs e)
+        {
+            FormSimpleSetting form = new FormSimpleSetting(Config_Type.DIO);
+            AddForm(form);
+        }
+
+        private void btnNodeSetting_Click(object sender, EventArgs e)
+        {
+            FormSimpleSetting form = new FormSimpleSetting(Config_Type.NODE);
+            AddForm(form);
+            Recipe recipe = new Recipe();
+            Recipe.Set("default", recipe);
         }
     }
 }
