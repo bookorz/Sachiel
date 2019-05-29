@@ -266,15 +266,15 @@
             this.label105 = new System.Windows.Forms.Label();
             this.LoadPort01_Slot_25 = new System.Windows.Forms.Label();
             this.label106 = new System.Windows.Forms.Label();
-            this.LoadPort04_FID = new System.Windows.Forms.TextBox();
+            this.LOADPORT04_FID = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.LoadPort03_FID = new System.Windows.Forms.TextBox();
+            this.LOADPORT03_FID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.LoadPort02_FID = new System.Windows.Forms.TextBox();
+            this.LOADPORT02_FID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Robot01_State = new System.Windows.Forms.TextBox();
             this.Aligner01_State = new System.Windows.Forms.TextBox();
-            this.LoadPort01_FID = new System.Windows.Forms.TextBox();
+            this.LOADPORT01_FID = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.Aligner01_tb.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -317,15 +317,15 @@
             this.Aligner01_tb.Controls.Add(this.tableLayoutPanel2);
             this.Aligner01_tb.Controls.Add(this.tableLayoutPanel1);
             this.Aligner01_tb.Controls.Add(this.TblPanel_A);
-            this.Aligner01_tb.Controls.Add(this.LoadPort04_FID);
+            this.Aligner01_tb.Controls.Add(this.LOADPORT04_FID);
             this.Aligner01_tb.Controls.Add(this.label4);
-            this.Aligner01_tb.Controls.Add(this.LoadPort03_FID);
+            this.Aligner01_tb.Controls.Add(this.LOADPORT03_FID);
             this.Aligner01_tb.Controls.Add(this.label3);
-            this.Aligner01_tb.Controls.Add(this.LoadPort02_FID);
+            this.Aligner01_tb.Controls.Add(this.LOADPORT02_FID);
             this.Aligner01_tb.Controls.Add(this.label2);
             this.Aligner01_tb.Controls.Add(this.Robot01_State);
             this.Aligner01_tb.Controls.Add(this.Aligner01_State);
-            this.Aligner01_tb.Controls.Add(this.LoadPort01_FID);
+            this.Aligner01_tb.Controls.Add(this.LOADPORT01_FID);
             this.Aligner01_tb.Controls.Add(this.label9);
             this.Aligner01_tb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Aligner01_tb.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -4547,18 +4547,18 @@
             this.label106.Text = "25";
             this.label106.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LoadPort04_FID
+            // LOADPORT04_FID
             // 
-            this.LoadPort04_FID.BackColor = System.Drawing.Color.White;
-            this.LoadPort04_FID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LoadPort04_FID.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
-            this.LoadPort04_FID.ForeColor = System.Drawing.Color.Black;
-            this.LoadPort04_FID.Location = new System.Drawing.Point(592, 74);
-            this.LoadPort04_FID.Name = "LoadPort04_FID";
-            this.LoadPort04_FID.Size = new System.Drawing.Size(158, 29);
-            this.LoadPort04_FID.TabIndex = 114;
-            this.LoadPort04_FID.Text = "Foup ID";
-            this.LoadPort04_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LOADPORT04_FID.BackColor = System.Drawing.Color.White;
+            this.LOADPORT04_FID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LOADPORT04_FID.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
+            this.LOADPORT04_FID.ForeColor = System.Drawing.Color.Black;
+            this.LOADPORT04_FID.Location = new System.Drawing.Point(592, 74);
+            this.LOADPORT04_FID.Name = "LOADPORT04_FID";
+            this.LOADPORT04_FID.Size = new System.Drawing.Size(158, 29);
+            this.LOADPORT04_FID.TabIndex = 114;
+            this.LOADPORT04_FID.Text = "Foup ID";
+            this.LOADPORT04_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
             // 
@@ -4575,18 +4575,18 @@
             this.label4.Text = "LoadPort04";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LoadPort03_FID
+            // LOADPORT03_FID
             // 
-            this.LoadPort03_FID.BackColor = System.Drawing.Color.White;
-            this.LoadPort03_FID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LoadPort03_FID.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
-            this.LoadPort03_FID.ForeColor = System.Drawing.Color.Black;
-            this.LoadPort03_FID.Location = new System.Drawing.Point(402, 74);
-            this.LoadPort03_FID.Name = "LoadPort03_FID";
-            this.LoadPort03_FID.Size = new System.Drawing.Size(158, 29);
-            this.LoadPort03_FID.TabIndex = 111;
-            this.LoadPort03_FID.Text = "Foup ID";
-            this.LoadPort03_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LOADPORT03_FID.BackColor = System.Drawing.Color.White;
+            this.LOADPORT03_FID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LOADPORT03_FID.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
+            this.LOADPORT03_FID.ForeColor = System.Drawing.Color.Black;
+            this.LOADPORT03_FID.Location = new System.Drawing.Point(402, 74);
+            this.LOADPORT03_FID.Name = "LOADPORT03_FID";
+            this.LOADPORT03_FID.Size = new System.Drawing.Size(158, 29);
+            this.LOADPORT03_FID.TabIndex = 111;
+            this.LOADPORT03_FID.Text = "Foup ID";
+            this.LOADPORT03_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
             // 
@@ -4603,18 +4603,18 @@
             this.label3.Text = "LoadPort03";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LoadPort02_FID
+            // LOADPORT02_FID
             // 
-            this.LoadPort02_FID.BackColor = System.Drawing.Color.White;
-            this.LoadPort02_FID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LoadPort02_FID.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
-            this.LoadPort02_FID.ForeColor = System.Drawing.Color.Black;
-            this.LoadPort02_FID.Location = new System.Drawing.Point(217, 74);
-            this.LoadPort02_FID.Name = "LoadPort02_FID";
-            this.LoadPort02_FID.Size = new System.Drawing.Size(158, 29);
-            this.LoadPort02_FID.TabIndex = 108;
-            this.LoadPort02_FID.Text = "Foup ID";
-            this.LoadPort02_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LOADPORT02_FID.BackColor = System.Drawing.Color.White;
+            this.LOADPORT02_FID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LOADPORT02_FID.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
+            this.LOADPORT02_FID.ForeColor = System.Drawing.Color.Black;
+            this.LOADPORT02_FID.Location = new System.Drawing.Point(217, 74);
+            this.LOADPORT02_FID.Name = "LOADPORT02_FID";
+            this.LOADPORT02_FID.Size = new System.Drawing.Size(158, 29);
+            this.LOADPORT02_FID.TabIndex = 108;
+            this.LOADPORT02_FID.Text = "Foup ID";
+            this.LOADPORT02_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
             // 
@@ -4657,18 +4657,18 @@
             this.Aligner01_State.Text = "Idle";
             this.Aligner01_State.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // LoadPort01_FID
+            // LOADPORT01_FID
             // 
-            this.LoadPort01_FID.BackColor = System.Drawing.Color.White;
-            this.LoadPort01_FID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LoadPort01_FID.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
-            this.LoadPort01_FID.ForeColor = System.Drawing.Color.Black;
-            this.LoadPort01_FID.Location = new System.Drawing.Point(28, 74);
-            this.LoadPort01_FID.Name = "LoadPort01_FID";
-            this.LoadPort01_FID.Size = new System.Drawing.Size(158, 29);
-            this.LoadPort01_FID.TabIndex = 60;
-            this.LoadPort01_FID.Text = "Foup ID";
-            this.LoadPort01_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LOADPORT01_FID.BackColor = System.Drawing.Color.White;
+            this.LOADPORT01_FID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LOADPORT01_FID.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
+            this.LOADPORT01_FID.ForeColor = System.Drawing.Color.Black;
+            this.LOADPORT01_FID.Location = new System.Drawing.Point(28, 74);
+            this.LOADPORT01_FID.Name = "LOADPORT01_FID";
+            this.LOADPORT01_FID.Size = new System.Drawing.Size(158, 29);
+            this.LOADPORT01_FID.TabIndex = 60;
+            this.LOADPORT01_FID.Text = "Foup ID";
+            this.LOADPORT01_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label9
             // 
@@ -4714,15 +4714,15 @@
         #endregion
 
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox LoadPort01_FID;
+        private System.Windows.Forms.TextBox LOADPORT01_FID;
         private System.Windows.Forms.TextBox Aligner01_State;
         private System.Windows.Forms.TextBox Robot01_State;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox LoadPort02_FID;
+        private System.Windows.Forms.TextBox LOADPORT02_FID;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox LoadPort03_FID;
+        private System.Windows.Forms.TextBox LOADPORT03_FID;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox LoadPort04_FID;
+        private System.Windows.Forms.TextBox LOADPORT04_FID;
         internal System.Windows.Forms.TableLayoutPanel TblPanel_A;
         internal System.Windows.Forms.Label LoadPort01_Slot_1;
         internal System.Windows.Forms.Label label82;

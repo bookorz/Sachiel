@@ -56,6 +56,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tlpButton = new System.Windows.Forms.TableLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
+            this.Setting_Mode_cb = new System.Windows.Forms.ComboBox();
+            this.Setting_Mode_lb = new System.Windows.Forms.Label();
             this.gbNodeManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerNode)).BeginInit();
             this.splitContainerNode.Panel1.SuspendLayout();
@@ -243,6 +245,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Setting_Mode_cb);
+            this.groupBox1.Controls.Add(this.Setting_Mode_lb);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.Setting_CarrierType_cb);
             this.groupBox1.Controls.Add(this.Setting_NodeName_lb);
@@ -272,7 +276,8 @@
             this.Setting_CarrierType_cb.FormattingEnabled = true;
             this.Setting_CarrierType_cb.Items.AddRange(new object[] {
             "FOSB",
-            "OPEN"});
+            "OPEN",
+            "FOUP"});
             this.Setting_CarrierType_cb.Location = new System.Drawing.Point(171, 163);
             this.Setting_CarrierType_cb.Name = "Setting_CarrierType_cb";
             this.Setting_CarrierType_cb.Size = new System.Drawing.Size(121, 28);
@@ -386,6 +391,28 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // Setting_Mode_cb
+            // 
+            this.Setting_Mode_cb.FormattingEnabled = true;
+            this.Setting_Mode_cb.Items.AddRange(new object[] {
+            "LD",
+            "ULD"});
+            this.Setting_Mode_cb.Location = new System.Drawing.Point(171, 204);
+            this.Setting_Mode_cb.Name = "Setting_Mode_cb";
+            this.Setting_Mode_cb.Size = new System.Drawing.Size(121, 28);
+            this.Setting_Mode_cb.TabIndex = 11;
+            this.Setting_Mode_cb.Visible = false;
+            // 
+            // Setting_Mode_lb
+            // 
+            this.Setting_Mode_lb.AutoSize = true;
+            this.Setting_Mode_lb.Location = new System.Drawing.Point(35, 207);
+            this.Setting_Mode_lb.Name = "Setting_Mode_lb";
+            this.Setting_Mode_lb.Size = new System.Drawing.Size(57, 20);
+            this.Setting_Mode_lb.TabIndex = 10;
+            this.Setting_Mode_lb.Text = "Mode:";
+            this.Setting_Mode_lb.Visible = false;
+            // 
             // FormDeviceManager
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -448,5 +475,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox Setting_Port_tb;
+        private System.Windows.Forms.ComboBox Setting_Mode_cb;
+        private System.Windows.Forms.Label Setting_Mode_lb;
     }
 }

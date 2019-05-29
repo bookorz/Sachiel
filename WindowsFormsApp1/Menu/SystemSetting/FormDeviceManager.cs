@@ -125,15 +125,20 @@ namespace Adam.Menu.SystemSetting
                     }
 
                     Setting_CarrierType_cb.Text = dtTemp.Rows[0]["carrier_type"].ToString();
+                    Setting_Mode_cb.Text = dtTemp.Rows[0]["mode"].ToString();
                     if (Setting_NodeType_lb.Text.ToUpper().Equals("LOADPORT"))
                     {
                         Setting_CarrierType_cb.Visible = true;
                         Setting_CarrierType_lb.Visible = true;
+                        Setting_Mode_cb.Visible = true;
+                        Setting_Mode_lb.Visible = true;
                     }
                     else
                     {
                         Setting_CarrierType_cb.Visible = false;
                         Setting_CarrierType_lb.Visible = false;
+                        Setting_Mode_cb.Visible = false;
+                        Setting_Mode_lb.Visible = false;
                     }
                 }
                 query = (from a in dtControllerTable.AsEnumerable()
@@ -196,12 +201,15 @@ namespace Adam.Menu.SystemSetting
                 }
                 currentNode.Enable = Setting_NodeEnable_rb.Checked;
                 currentNode.CarrierType = Setting_CarrierType_cb.Text;
-                strSql = @"UPDATE config_node SET enable_flg = @enable_flg ,carrier_type = @carrier_type WHERE equipment_model_id = @equipment_model_id AND node_id = @node_id";
+                currentNode.Mode = Setting_Mode_cb.Text;
+                strSql = @"UPDATE config_node SET enable_flg = @enable_flg ,carrier_type = @carrier_type, mode = @mode WHERE equipment_model_id = @equipment_model_id AND node_id = @node_id";
 
                 keyValues.Add("@equipment_model_id", equipment_Model.EquipmentModel.equipment_model_id);
                 keyValues.Add("@node_id", currentNode.Name);
                 keyValues.Add("@enable_flg", currentNode.Enable ? 1 : 0);
                 keyValues.Add("@carrier_type", currentNode.CarrierType);
+                keyValues.Add("@mode", currentNode.Mode);
+
                 dBUtil.ExecuteNonQuery(strSql, keyValues);
 
                 keyValues.Clear();

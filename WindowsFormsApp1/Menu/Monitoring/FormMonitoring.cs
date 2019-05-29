@@ -224,6 +224,7 @@ namespace Adam.Menu.Monitoring
             Form form = this;
             foreach (Node port in NodeManagement.GetLoadPortList())
             {
+
                 for (int i = 1; i <= 25; i++)
                 {
                     Label present = form.Controls.Find(port.Name + "_Slot_" + i.ToString(), true).FirstOrDefault() as Label;
@@ -250,7 +251,10 @@ namespace Adam.Menu.Monitoring
                     }
                 }
 
+
             }
+
+            
         }
     }
 }

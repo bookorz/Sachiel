@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Adam.UI_Update.Monitoring;
+using Adam.UI_Update.WaferMapping;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,12 +37,14 @@ namespace Adam
             DialogResult result = MessageBox.Show("Abort load procedure?", "Warning", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                //Unclamp foup            
+                //Unclamp foup     
+                this.Hide();
             }
             else
             {
                 FoupID_Read_tb.Focus();
             }
+            e.Cancel = true;
         }
 
         private void FoupID_Read_Confirm_btn_Click(object sender, EventArgs e)
@@ -74,6 +78,9 @@ namespace Adam
                 Node port = NodeManagement.Get(LoadportName_lb.Text);
                 if (port != null)
                 {
+                    port.FoupID = foupID;
+                    MonitoringUpdate.UpdateFoupID(port.Name.ToUpper(), foupID);
+                    WaferAssignUpdate.UpdateFoupID(port.Name.ToUpper(), foupID);
                     port.OPACCESS = false;
                     string TaskName = "LOADPORT_OPEN";
                     string Message = "";

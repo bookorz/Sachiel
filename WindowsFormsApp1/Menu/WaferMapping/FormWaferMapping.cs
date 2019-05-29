@@ -75,23 +75,43 @@ namespace Adam.Menu.WaferMapping
 
         private void Assign_finish_btn_Click(object sender, EventArgs e)
         {
-                this.Enabled = false;
+            if (Source_cb.Text.Equals(""))
+            {
+                MessageBox.Show("請選擇來源LOADPORT");
+                return;
+            }
+            
+            
             if (XfeCrossZone.Running)
             {
                 MessageBox.Show("請先執行整機初始化");
             }
             else
             {
-                Node Loadport = SearchLoadport();
+                Node Loadport = NodeManagement.Get(Source_cb.Text);
                 if (Loadport == null)
                 {
-                    MessageBox.Show("沒有需要執行的工作");
+                    MessageBox.Show("找不到"+Loadport.Name);
                 }
                 else
                 {
+                    foreach (Job j in JobManagement.GetJobList())
+                    {
+                        j.AbortProcess = false;
+
+                    }
                     if (!FormMain.xfe.Start(Loadport.Name))
                     {
                         MessageBox.Show("xfe.Start fail!");
+                    }
+                    else
+                    {
+                        this.Enabled = false;
+                        fromPort = "";
+                        fromSlot = "";
+                        toPort = "";
+                        toSlot = "";
+
                     }
                 }
             }
@@ -308,6 +328,7 @@ namespace Adam.Menu.WaferMapping
                             if (fPort.JobList.TryGetValue(fromSlot, out fSlot))
                             {
                                 fSlot.UnAssignPort();//取消綁定
+                                
                             }
                         }
                         if (!bypass)
@@ -485,20 +506,23 @@ namespace Adam.Menu.WaferMapping
                                     if (eachSlot.Destination.Equals("") && eachSlot.DestinationSlot.Equals(""))
                                     {
                                         present.BackColor = Color.Green;
-                                        //只能由下往上取，標記能取的Wafer
-                                        if (p.JobList.TryGetValue((Convert.ToInt16(eachSlot.Slot) - 1).ToString(), out lastSlot))
+                                        if (!bypass)
                                         {
-
-                                            if (present != null)
+                                            //只能由下往上取，標記能取的Wafer
+                                            if (p.JobList.TryGetValue((Convert.ToInt16(eachSlot.Slot) - 1).ToString(), out lastSlot))
                                             {
-                                                if (((lastSlot.MapFlag && lastSlot.Destination.Equals("")) || (!lastSlot.MapFlag && !lastSlot.ReservePort.Equals(""))) && !bypass)
-                                                {
 
-                                                    present.ForeColor = Color.Red;
-                                                }
-                                                else
+                                                if (present != null)
                                                 {
-                                                    present.ForeColor = Color.White;
+                                                    if (((lastSlot.MapFlag && lastSlot.Destination.Equals("")) || (!lastSlot.MapFlag && !lastSlot.ReservePort.Equals(""))) && !bypass)
+                                                    {
+
+                                                        present.ForeColor = Color.Red;
+                                                    }
+                                                    else
+                                                    {
+                                                        present.ForeColor = Color.White;
+                                                    }
                                                 }
                                             }
                                         }

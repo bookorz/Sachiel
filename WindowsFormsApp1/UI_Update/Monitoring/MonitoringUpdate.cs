@@ -16,7 +16,9 @@ namespace Adam.UI_Update.Monitoring
         static ILog logger = LogManager.GetLogger(typeof(MonitoringUpdate));
 
         delegate void UpdatePortUsed(string PortName, bool Used);
+        delegate void UpdateID(string PortName, string FoupID);
         delegate void UpdateNode(string JobId);
+        delegate void UpdateForSlot(Node Port, string Slot);
 
         public static void DisableUpdate(string Name, bool Checked)
         {
@@ -45,6 +47,36 @@ namespace Adam.UI_Update.Monitoring
             catch
             {
 
+            }
+        }
+
+        public static void UpdateFoupID(string PortName, string FoupID)
+        {
+            try
+            {
+                Form form = Application.OpenForms["FormMonitoring"];
+                TextBox W;
+                if (form == null)
+                    return;
+
+                W = form.Controls.Find(PortName.ToUpper() + "_FID", true).FirstOrDefault() as TextBox;
+                if (W == null)
+                    return;
+
+                if (W.InvokeRequired)
+                {
+                    UpdateID ph = new UpdateID(UpdateFoupID);
+                    W.BeginInvoke(ph, PortName, FoupID);
+                }
+                else
+                {
+                    W.Text = FoupID;
+
+                }
+            }
+            catch
+            {
+                logger.Error("UpdateFoupID: Update fail.");
             }
         }
 
@@ -118,72 +150,72 @@ namespace Adam.UI_Update.Monitoring
                 logger.Error("UpdateUseState: Update fail.");
             }
         }
+        private static void UpdateSlot(Node Port, string Slot)
+        {
+            Form form = Application.OpenForms["FormMonitoring"];
+            if (form == null)
+                return;
+
+            Label present = form.Controls.Find(Port.Name + "_Slot_" + Slot, true).FirstOrDefault() as Label;
+            if (present == null)
+            {
+                return;
+            }
+            if (present.InvokeRequired)
+            {
+                UpdateForSlot ph = new UpdateForSlot(UpdateSlot);
+                present.BeginInvoke(ph, Port, Slot);
+            }
+            else
+            {
+                Job tmp;
+                if (Port.JobList.TryGetValue(Slot, out tmp))
+                {
+                    present.Text = tmp.Host_Job_Id;
+                    switch (present.Text)
+                    {
+                        case "No wafer":
+                            present.BackColor = Color.DimGray;
+                            present.ForeColor = Color.White;
+                            break;
+                        case "Crossed":
+                        case "Undefined":
+                        case "Double":
+                            present.BackColor = Color.Red;
+                            present.ForeColor = Color.White;
+                            break;
+                        default:
+                            present.BackColor = Color.Green;
+                            present.ForeColor = Color.White;
+                            break;
+                    }
+
+                }
+                else
+                {
+                    present.Text = "";
+                    present.BackColor = Color.White;
+                }
+            }
+        }
         public static void UpdateNodesJob(string NodeName)
         {
             try
             {
                 Form form = Application.OpenForms["FormMonitoring"];
-                Label Mode;
+          
 
                 if (form == null)
                     return;
 
-                Mode = form.Controls.Find(NodeName+"_Mode", true).FirstOrDefault() as Label;
-
-                if (Mode == null)
-                    return;
-
-                if (Mode.InvokeRequired)
-                {
-                    UpdateNode ph = new UpdateNode(UpdateNodesJob);
-                    Mode.BeginInvoke(ph, NodeName);
-                }
-                else
-                {
+                
                     Node node = NodeManagement.Get(NodeName);
-                   
-                    Mode.Text = node.Mode;
-                    //if (node.IsMapping)
-                    //{
-                        for (int i = 1; i <= Tools.GetSlotCount(node.Type); i++)
-                        {
-                            Label present = form.Controls.Find(node.Name + "_Slot_" + i.ToString(), true).FirstOrDefault() as Label;
-                            if (present != null)
-                            {
 
-                                Job tmp;
-                                if (node.JobList.TryGetValue(i.ToString(), out tmp))
-                                {
-                                    present.Text = tmp.Host_Job_Id;
-                                    switch (present.Text)
-                                    {
-                                        case "No wafer":
-                                            present.BackColor = Color.DimGray;
-                                            present.ForeColor = Color.White;
-                                            break;
-                                        case "Crossed":
-                                        case "Undefined":
-                                        case "Double":
-                                            present.BackColor = Color.Red;
-                                            present.ForeColor = Color.White;
-                                            break;
-                                        default:
-                                            present.BackColor = Color.Green;
-                                            present.ForeColor = Color.White;
-                                            break;
-                                    }
 
-                                }
-                                else
-                                {
-                                    present.Text = "";
-                                    present.BackColor = Color.White;
-                                }
-                            }
-                        }
-                    //}
+                for (int i = 1; i <= Tools.GetSlotCount(node.Type); i++)
+                {
+                    UpdateSlot(node, i.ToString());
                 }
-
 
             }
             catch

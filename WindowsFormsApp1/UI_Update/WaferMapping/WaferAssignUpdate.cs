@@ -19,41 +19,90 @@ namespace Adam.UI_Update.WaferMapping
         delegate void UpdatePort(string PortName, string Mapping);
         delegate void UpdatePortMapping(string PortName);
         delegate void UpdatePortUsed(string PortName, bool Used);
-        delegate void UpdateAssign(string PortName, string Mapping,bool Enable);
+        delegate void UpdateAssign(string PortName, string Mapping, bool Enable);
+        delegate void UpdateForSlot(Node Port, string Slot);
 
-        public static void UpdateUseState(string PortName, bool used)
+        public static void UpdateFoupID(string PortName, string FoupID)
         {
             try
             {
                 Form form = Application.OpenForms["FormWaferMapping"];
-                Label Used;
+                TextBox W;
                 if (form == null)
                     return;
 
-                Used = form.Controls.Find(PortName + "_Use", true).FirstOrDefault() as Label;
-                if (Used == null)
+                W = form.Controls.Find(PortName.ToUpper() + "_FID", true).FirstOrDefault() as TextBox;
+                if (W == null)
                     return;
 
-                if (Used.InvokeRequired)
+                if (W.InvokeRequired)
                 {
-                    UpdatePortUsed ph = new UpdatePortUsed(UpdateUseState);
-                    Used.BeginInvoke(ph, PortName, used);
+                    UpdatePort ph = new UpdatePort(UpdateFoupID);
+                    W.BeginInvoke(ph, PortName, FoupID);
                 }
                 else
                 {
-                    if (used)
+                    W.Text = FoupID;
+
+                }
+            }
+            catch
+            {
+                logger.Error("UpdateFoupID: Update fail.");
+            }
+        }
+        public static void UpdateEnabled(string Name, bool Enable)
+        {
+            try
+            {
+                Form form = Application.OpenForms["FormWaferMapping"];
+                Button btn;
+                if (form == null)
+                    return;
+
+
+                if (Name.Equals("FORM"))
+                {
+                    if (form.InvokeRequired)
                     {
-                        Used.Text = "Used";
-                        Used.BackColor = Color.Green;
-                        Used.ForeColor = Color.White;
+                        UpdatePortUsed ph = new UpdatePortUsed(UpdateEnabled);
+                        form.BeginInvoke(ph, Name, Enable);
                     }
                     else
                     {
-                        Used.Text = "Not Used";
-                        Used.BackColor = Color.DimGray;
-                        Used.ForeColor = Color.White;
-                    }
+                        if (Enable)
+                        {
+                            form.Enabled = true;
+                        }
+                        else
+                        {
+                            form.Enabled = false;
+                        }
 
+                    }
+                }
+                else
+                {
+                    btn = form.Controls.Find(Name, true).FirstOrDefault() as Button;
+                    if (btn == null)
+                        return;
+                    if (btn.InvokeRequired)
+                    {
+                        UpdatePortUsed ph = new UpdatePortUsed(UpdateEnabled);
+                        btn.BeginInvoke(ph, Name, Enable);
+                    }
+                    else
+                    {
+                        if (Enable)
+                        {
+                            btn.Enabled = true;
+                        }
+                        else
+                        {
+                            btn.Enabled = false;
+                        }
+
+                    }
                 }
             }
             catch
@@ -62,7 +111,7 @@ namespace Adam.UI_Update.WaferMapping
             }
         }
 
-       
+
 
         public static void UpdateLoadPortMode(string PortName, string Mode)
         {
@@ -94,7 +143,54 @@ namespace Adam.UI_Update.WaferMapping
                 logger.Error("UpdateLoadPortMode: Update fail:" + e.StackTrace);
             }
         }
+        private static void UpdateSlot(Node Port, string Slot)
+        {
+            Form form = Application.OpenForms["FormWaferMapping"];
+            if (form == null)
+                return;
 
+            Label present = form.Controls.Find(Port.Name + "_Slot_" + Slot, true).FirstOrDefault() as Label;
+            if (present == null)
+            {
+                return;
+            }
+            if (present.InvokeRequired)
+            {
+                UpdateForSlot ph = new UpdateForSlot(UpdateSlot);
+                present.BeginInvoke(ph, Port, Slot);
+            }
+            else
+            {
+                Job tmp;
+                if (Port.JobList.TryGetValue(Slot, out tmp))
+                {
+                    present.Text = tmp.Host_Job_Id;
+                    switch (present.Text)
+                    {
+                        case "No wafer":
+                            present.BackColor = Color.DimGray;
+                            present.ForeColor = Color.White;
+                            break;
+                        case "Crossed":
+                        case "Undefined":
+                        case "Double":
+                            present.BackColor = Color.Red;
+                            present.ForeColor = Color.White;
+                            break;
+                        default:
+                            present.BackColor = Color.Green;
+                            present.ForeColor = Color.White;
+                            break;
+                    }
+
+                }
+                else
+                {
+                    present.Text = "";
+                    present.BackColor = Color.White;
+                }
+            }
+        }
         public static void UpdateNodesJob(string NodeName)
         {
             try
@@ -105,61 +201,19 @@ namespace Adam.UI_Update.WaferMapping
                 if (form == null)
                     return;
 
-                Mode = form.Controls.Find(NodeName + "_FID", true).FirstOrDefault() as TextBox;
 
-                if (Mode == null)
-                    return;
 
-                if (Mode.InvokeRequired)
+                Node node = NodeManagement.Get(NodeName);
+
+                //Mode.Text = node.Mode;
+                //if (node.IsMapping)
+                //{
+                for (int i = 1; i <= Tools.GetSlotCount(node.Type); i++)
                 {
-                    UpdatePortMapping ph = new UpdatePortMapping(UpdateNodesJob);
-                    Mode.BeginInvoke(ph, NodeName);
+                    UpdateSlot(node, i.ToString());
                 }
-                else
-                {
-                    Node node = NodeManagement.Get(NodeName);
+                //}
 
-                    Mode.Text = node.Mode;
-                    //if (node.IsMapping)
-                    //{
-                    for (int i = 1; i <= Tools.GetSlotCount(node.Type); i++)
-                    {
-                        Label present = form.Controls.Find(node.Name + "_Slot_" + i.ToString(), true).FirstOrDefault() as Label;
-                        if (present != null)
-                        {
-
-                            Job tmp;
-                            if (node.JobList.TryGetValue(i.ToString(), out tmp))
-                            {
-                                present.Text = tmp.Host_Job_Id;
-                                switch (present.Text)
-                                {
-                                    case "No wafer":
-                                        present.BackColor = Color.DimGray;
-                                        present.ForeColor = Color.White;
-                                        break;
-                                    case "Crossed":
-                                    case "Undefined":
-                                    case "Double":
-                                        present.BackColor = Color.Red;
-                                        present.ForeColor = Color.White;
-                                        break;
-                                    default:
-                                        present.BackColor = Color.Green;
-                                        present.ForeColor = Color.White;
-                                        break;
-                                }
-
-                            }
-                            else
-                            {
-                                present.Text = "";
-                                present.BackColor = Color.White;
-                            }
-                        }
-                    }
-                    //}
-                }
 
 
             }
@@ -174,12 +228,12 @@ namespace Adam.UI_Update.WaferMapping
             try
             {
                 Form form = Application.OpenForms["FormWaferMapping"];
-                Label tb;
+                TextBox tb;
 
                 if (form == null)
                     return;
 
-                tb = form.Controls.Find("LoadPort01_FID", true).FirstOrDefault() as Label;
+                tb = form.Controls.Find("LoadPort01_FID", true).FirstOrDefault() as TextBox;
 
                 if (tb == null)
                     return;

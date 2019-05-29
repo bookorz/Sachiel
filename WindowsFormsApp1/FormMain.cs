@@ -31,6 +31,7 @@ using Adam.UI_Update.DifferentialMonitor;
 using Adam.UI_Update.Barcode;
 using Adam.UI_Update.IO;
 using Adam.Menu.WaferMapping;
+using System.Diagnostics;
 
 namespace Adam
 {
@@ -56,10 +57,14 @@ namespace Adam
         private Menu.RunningScreen.FormDifferentialMonitor formTestMode = new Menu.RunningScreen.FormDifferentialMonitor();
         private Menu.Wafer.FormWafer WaferForm = new Menu.Wafer.FormWafer();
         public static GUI.FormManual formManual = null;
-
+        public static string CurrentMode = "AUTO";
+        public static bool Start = false;
+        public static bool Initial = false;
 
         public FormMain()
         {
+            
+
             InitializeComponent();
             XmlConfigurator.Configure();
             Initialize();
@@ -99,7 +104,14 @@ namespace Adam
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            var HST = (from prs in Process.GetProcessesByName("VB9BReaderForm").OfType<Process>().ToList()
+                       where prs.MainWindowTitle.Equals("Wafer Reader Version 4.3.1.0")
+                       select prs);
+            if (HST.Count() == 0)
+            {
+                MessageBox.Show("請先開啟HST OCR程式!");
+                this.Close();
+            }
 
             Int32 oldWidth = this.Width;
             Int32 oldHeight = this.Height;
@@ -184,8 +196,18 @@ namespace Adam
             switch (btnLogInOut.Text)
             {
                 case "Login":
-                    GUI.FormLogin formLogin = new GUI.FormLogin();
-                    formLogin.ShowDialog();
+                    //GUI.FormLogin formLogin = new GUI.FormLogin();
+                    //formLogin.ShowDialog();
+
+                    using (var form = new GUI.FormLogin())
+                    {
+                        var result = form.ShowDialog();
+                        if (result == DialogResult.OK)
+                        {
+                            Mode_btn.Enabled = true;
+
+                        }
+                    }
                     break;
                 case "Logout":
                     btnChgPWD.Visible = false;
@@ -193,6 +215,24 @@ namespace Adam
                     //disable authroity function
                     AuthorityUpdate.UpdateFuncGroupEnable("INIT");
                     ((TabControl)formSystem.Controls["tbcSystemSetting"]).SelectTab(0);
+                    tbcMian.SelectTab(0);
+                    tbcMian.Enabled = false;
+                    Mode_btn.Text = "Online-Mode";
+                    Mode_btn.BackColor = Color.Green;
+                    Mode_btn.Enabled = false;
+                    btnManual.Enabled = false;
+                    btnManual.BackColor = Color.Gray;
+                    CurrentMode = "AUTO";
+                    
+                    DIOUpdate.UpdateControlButton("Start_btn", Initial);
+
+                    DIOUpdate.UpdateControlButton("Stop_btn", false);
+                    DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                    if (formManual != null)
+                    {
+                        formManual.Close();
+                    }
+
                     break;
             }
         }
@@ -380,6 +420,7 @@ namespace Adam
                         case Transaction.Command.LoadPortType.ForceInitialPos:
                             //WaferAssignUpdate.RefreshMapping(Node.Name);
                             MonitoringUpdate.UpdateNodesJob(Node.Name);
+                            WaferAssignUpdate.UpdateNodesJob(Node.Name);
                             break;
                     }
                     break;
@@ -580,7 +621,7 @@ namespace Adam
                 CurrentAlarm.IsStop = Detail.IsStop;
                 if (CurrentAlarm.IsStop)
                 {
-
+                    XfeCrossZone.Stop();
                 }
             }
             catch (Exception e)
@@ -595,6 +636,10 @@ namespace Adam
             AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
             AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
             DIOUpdate.UpdateControlButton("Start_btn", false);
+            DIOUpdate.UpdateControlButton("Stop_btn", false);
+            DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            Start = false;
+            Initial = false;
         }
 
         public void On_Command_Finished(Node Node, Transaction Txn, ReturnMessage Msg)
@@ -695,7 +740,7 @@ namespace Adam
                 CurrentAlarm.IsStop = Detail.IsStop;
                 if (CurrentAlarm.IsStop)
                 {
-                    //RouteCtrl.Stop();
+                    XfeCrossZone.Stop();
                 }
             }
             catch (Exception e)
@@ -876,7 +921,7 @@ namespace Adam
         {
             logger.Debug("On_Job_Location_Changed");
             MonitoringUpdate.UpdateJobMove(Job.Job_Id);
-
+            WaferAssignUpdate.UpdateJobMove(Job.Job_Id);
 
         }
 
@@ -957,7 +1002,7 @@ namespace Adam
 
                 if (CurrentAlarm.IsStop)
                 {
-                    //RouteCtrl.Stop();
+                    //XfeCrossZone.Stop();
                 }
             }
             catch (Exception e)
@@ -1121,14 +1166,23 @@ namespace Adam
 
         private void Mode_btn_Click(object sender, EventArgs e)
         {
-
+            if (XfeCrossZone.Running)
+            {
+                MessageBox.Show("請先停止搬運");
+                return;
+            }
             if (Mode_btn.Text.Equals("Manual-Mode"))
             {
-
+                DIOUpdate.UpdateControlButton("Start_btn", Initial);
+                DIOUpdate.UpdateControlButton("Stop_btn", false);
+                DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                 Mode_btn.Text = "Online-Mode";
                 Mode_btn.BackColor = Color.Green;
                 btnManual.Enabled = false;
                 btnManual.BackColor = Color.Gray;
+                tbcMian.Enabled = false;
+                tbcMian.SelectTab(0);
+                CurrentMode = "AUTO";
                 if (formManual != null)
                 {
                     formManual.Close();
@@ -1136,29 +1190,38 @@ namespace Adam
             }
             else
             {
-                //check 密碼
-                MD5 md5 = MD5.Create();
-                string[] use_info = ShowLoginDialog();
-                string user_id = use_info[0];
-                string password = use_info[1];
-                byte[] source = Encoding.Default.GetBytes(password);//將字串轉為Byte[]
-                byte[] crypto = md5.ComputeHash(source);//進行MD5加密
-                string md5_result = BitConverter.ToString(crypto).Replace("-", String.Empty).ToUpper();//取得 MD5
-                string config_password = SystemConfig.Get().AdminPassword;
-                if (md5_result.Equals(config_password))
+                if (Start)
                 {
-
-                    Mode_btn.Text = "Manual-Mode";
-                    Mode_btn.BackColor = Color.Orange;
-                    btnManual.Enabled = true;
-                    btnManual.BackColor = Color.Orange;
+                    MessageBox.Show("請先切換至STOP");
+                    return;
                 }
-                else
-                {
-                    MessageBox.Show("Password incorrect !!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                    btnManual.Enabled = false;
-                    btnManual.BackColor = Color.Gray;
-                }
+                ////check 密碼
+                //MD5 md5 = MD5.Create();
+                //string[] use_info = ShowLoginDialog();
+                //string user_id = use_info[0];
+                //string password = use_info[1];
+                //byte[] source = Encoding.Default.GetBytes(password);//將字串轉為Byte[]
+                //byte[] crypto = md5.ComputeHash(source);//進行MD5加密
+                //string md5_result = BitConverter.ToString(crypto).Replace("-", String.Empty).ToUpper();//取得 MD5
+                //string config_password = SystemConfig.Get().AdminPassword;
+                //if (md5_result.Equals(config_password))
+                //{
+                DIOUpdate.UpdateControlButton("Start_btn", false);
+                DIOUpdate.UpdateControlButton("Stop_btn", false);
+                DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                Mode_btn.Text = "Manual-Mode";
+                Mode_btn.BackColor = Color.Orange;
+                btnManual.Enabled = true;
+                btnManual.BackColor = Color.Orange;
+                CurrentMode = "MANUAL";
+                tbcMian.Enabled = true;
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Password incorrect !!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                //    btnManual.Enabled = false;
+                //    btnManual.BackColor = Color.Gray;
+                //}
 
             }
         }
@@ -1240,6 +1303,18 @@ namespace Adam
             {
                 formStatus.Focus();
             }
+            if (tbcMian.SelectedTab.Text.Equals("Monitoring"))
+            {
+                Form form = Application.OpenForms["FormMonitoring"];
+                foreach (Node port in NodeManagement.GetLoadPortList())
+                {
+                    Label present = form.Controls.Find(port.Name + "_Mode", true).FirstOrDefault() as Label;
+                    if (present != null)
+                    {
+                        present.Text = port.Mode;
+                    }
+                }
+            }
             if (tbcMian.SelectedTab.Text.Equals("Wafer mapping"))
             {
                 FormWaferMapping.fromPort = "";
@@ -1271,29 +1346,30 @@ namespace Adam
                                     }
                                 }
                             }
-                            if(eachSlot.MapFlag && !eachSlot.ErrPosition)//找到wafer
+                            if (eachSlot.MapFlag && !eachSlot.ErrPosition)//找到wafer
                             {
                                 Label present = form.Controls.Find(p.Name + "_Slot_" + eachSlot.Slot, true).FirstOrDefault() as Label;
                                 if (present != null)
                                 {
-                                    if (eachSlot.Destination.Equals("") && eachSlot.DestinationSlot.Equals(""))
-                                    {//沒被選
-                                        present.BackColor = Color.Green;
-                                        present.ForeColor = Color.White;
-                                    }
-                                    else
+                                    if (!eachSlot.Destination.Equals("") && !eachSlot.DestinationSlot.Equals("") && (!eachSlot.Destination.Equals(eachSlot.Position) && !eachSlot.DestinationSlot.Equals(eachSlot.Slot)))
                                     {//已被選
                                         present.BackColor = Color.Brown;
                                         present.ForeColor = Color.White;
                                     }
+                                    else
+                                    {//沒被選
+                                        present.BackColor = Color.Green;
+                                        present.ForeColor = Color.White;
+                                    }
+
                                 }
                             }
                         }
                     }
                 }
             }
-            
-            
+
+
         }
 
         private void menuMaintenace_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -1317,9 +1393,11 @@ namespace Adam
 
         public void On_TaskJob_Aborted(TaskJobManagment.CurrentProceedTask Task, string NodeName, string ReportType, string Message)
         {
-            DIOUpdate.UpdateControlButton("Start_btn", true);
+            DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            Start = false;
+            Initial = false;
             if (Task.Id.IndexOf("FormManual") != -1)
             {
                 ManualPortStatusUpdate.LockUI(false);
@@ -1373,8 +1451,11 @@ namespace Adam
             switch (Task.ProceedTask.TaskName)
             {
                 case "SORTER_INIT":
-                    //啟用Start按鈕
-                    DIOUpdate.UpdateControlButton("Start_btn", true);
+                    if (CurrentMode.Equals("AUTO"))
+                    {
+                        //啟用Start按鈕
+                        DIOUpdate.UpdateControlButton("Start_btn", true);
+                    }
                     //讓INIT按鈕由黃變綠色
                     DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                     xfe.Initial();
@@ -1393,18 +1474,16 @@ namespace Adam
                             CarrierManagement.Add().SetLocation(port.Name);
                         }
                     }
+                    Initial = true;
                     break;
                 case "LOADPORT_OPEN":
                     Node currentPort = NodeManagement.Get(Task.Params["@Target"]);
-                    if (currentPort.CarrierType.Equals("OPEN"))
+                    if (currentPort.Mode.Equals("LD"))
                     {
                         AssignWafer(currentPort);
 
-
-
-
                     }
-                    else if (currentPort.CarrierType.Equals("FOSB"))
+                    else if (currentPort.Mode.Equals("ULD"))
                     {
 
                         Node ld = SearchLoadport();
@@ -1431,7 +1510,7 @@ namespace Adam
         {
             Node result = null;
             var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
-                                 where OPEN.CarrierType.Equals("OPEN") && OPEN.IsMapping
+                                 where OPEN.Mode.Equals("LD") && OPEN.IsMapping
                                  orderby OPEN.LoadTime
                                  select OPEN;
             if (AvailableOPENs.Count() != 0)
@@ -1449,90 +1528,101 @@ namespace Adam
             {
                 return;
             }
-            //List<Job> LD_Jobs = Loadport.JobList.Values.ToList();
-            var LD_Jobs = from wafer in Loadport.JobList.Values
-                          where wafer.MapFlag && !wafer.ErrPosition
-                          orderby Convert.ToInt16(wafer.Slot)
-                          select wafer;
+            if (CurrentMode.Equals("MANUAL"))
+            {
+                return;
+            }
+            if (CurrentMode.Equals("AUTO") && !Start)
+            {
+                return;
+            }
+            if (CurrentMode.Equals("AUTO"))
+            {
+                //List<Job> LD_Jobs = Loadport.JobList.Values.ToList();
+                var LD_Jobs = from wafer in Loadport.JobList.Values
+                              where wafer.MapFlag && !wafer.ErrPosition
+                              orderby Convert.ToInt16(wafer.Slot)
+                              select wafer;
 
-            //LD_Jobs.Sort((x, y) => { return Convert.ToInt32(x.Slot).CompareTo(Convert.ToInt32(y.Slot)); });
-            var AvailableFOSBs = from FOSB in NodeManagement.GetLoadPortList()
-                                 where FOSB.CarrierType.Equals("FOSB") && FOSB.IsMapping
-                                 orderby FOSB.LoadTime
-                                 select FOSB;
-            //List<Node> FOSBs = AvailableFOSBs.ToList();
-            //FOSBs.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
-            bool isAssign = false;
-            bool isAssign2 = false;
-            foreach (Node fosb in AvailableFOSBs)
-            {//找到能放的FOSB
+                //LD_Jobs.Sort((x, y) => { return Convert.ToInt32(x.Slot).CompareTo(Convert.ToInt32(y.Slot)); });
+                var AvailableFOSBs = from FOSB in NodeManagement.GetLoadPortList()
+                                     where FOSB.Mode.Equals("ULD") && FOSB.IsMapping
+                                     orderby FOSB.LoadTime
+                                     select FOSB;
+                //List<Node> FOSBs = AvailableFOSBs.ToList();
+                //FOSBs.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
+                bool isAssign = false;
+                bool isAssign2 = false;
+                foreach (Node fosb in AvailableFOSBs)
+                {//找到能放的FOSB
 
-                var ULD_Jobs = (from Slot in fosb.JobList.Values
-                                where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
-                                select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
-                //List<Job> ULD_Jobs = fosb.JobList.Values.ToList();
-                //ULD_Jobs.Sort((x, y) => { return -Convert.ToInt32(x.Slot).CompareTo(Convert.ToInt32(y.Slot)); });
+                    var ULD_Jobs = (from Slot in fosb.JobList.Values
+                                    where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
+                                    select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
+                    //List<Job> ULD_Jobs = fosb.JobList.Values.ToList();
+                    //ULD_Jobs.Sort((x, y) => { return -Convert.ToInt32(x.Slot).CompareTo(Convert.ToInt32(y.Slot)); });
 
-                foreach (Job wafer in LD_Jobs)
-                {//檢查LD的所有WAFER
-                    
-                    isAssign = false;
-                    foreach (Job Slot in ULD_Jobs)
-                    {//搜尋所有FOSB Slot 找到能放的
-                     //if (!Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned)
-                     //{//空的 map正常 還沒被預約          
-                        if (Slot.PreviousSlotNotEmpty)
-                        {//下一層有片所以不能放
-                            Slot.Locked = true;
+                    foreach (Job wafer in LD_Jobs)
+                    {//檢查LD的所有WAFER
+
+                        isAssign = false;
+                        foreach (Job Slot in ULD_Jobs)
+                        {//搜尋所有FOSB Slot 找到能放的
+                         //if (!Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned)
+                         //{//空的 map正常 還沒被預約          
+                            if (Slot.PreviousSlotNotEmpty)
+                            {//下一層有片所以不能放
+                                Slot.Locked = true;
+                            }
+                            else
+                            {
+                                wafer.NeedProcess = true;
+                                wafer.ProcessFlag = false;
+                                wafer.AssignPort(fosb.Name, Slot.Slot);
+                                isAssign = true;
+                                isAssign2 = true;
+                                Slot.IsAssigned = true;
+                                break;
+                            }
+                            //}
                         }
-                        else
+                        if (!isAssign)
                         {
-                            wafer.NeedProcess = true;
-                            wafer.ProcessFlag = false;
-                            wafer.AssignPort(fosb.Name, Slot.Slot);
-                            isAssign = true;
-                            isAssign2 = true;
-                            Slot.IsAssigned = true;
                             break;
                         }
-                        //}
                     }
-                    if (!isAssign)
-                    {
+                    if (isAssign2)
+                    {//已經指派過的話就跳脫
                         break;
                     }
                 }
-                if (isAssign2)
-                {//已經指派過的話就跳脫
-                    break;
+                for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
+                {//重新排序目的地for雙Arm
+                    Job upper = LD_Jobs.ToList()[i];
+                    Job lower = LD_Jobs.ToList()[i - 1];
+                    if (upper.Destination.Equals(lower.Destination) && upper.NeedProcess && lower.NeedProcess)
+                    {
+                        string swapDes = upper.Destination;
+                        string swapSlot = upper.DestinationSlot;
+                        upper.AssignPort(lower.Destination, lower.DestinationSlot);
+                        lower.AssignPort(swapDes, swapSlot);
+                    }
+                    else
+                    {
+                        i--;
+                    }
                 }
-            }
-            for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
-            {//重新排序目的地for雙Arm
-                Job upper = LD_Jobs.ToList()[i];
-                Job lower = LD_Jobs.ToList()[i - 1];
-                if (upper.Destination.Equals(lower.Destination) && upper.NeedProcess && lower.NeedProcess)
-                {
-                    string swapDes = upper.Destination;
-                    string swapSlot = upper.DestinationSlot;
-                    upper.AssignPort(lower.Destination, lower.DestinationSlot);
-                    lower.AssignPort(swapDes, swapSlot);
-                }
-                else
-                {
-                    i--;
-                }
-            }
 
-            var NeedProcessSlot = from wafer in LD_Jobs
-                                  where wafer.NeedProcess
-                                  select wafer;
+                var NeedProcessSlot = from wafer in LD_Jobs
+                                      where wafer.NeedProcess
+                                      select wafer;
 
-            if (!XfeCrossZone.Running && NeedProcessSlot.Count() != 0)
-            {
-                if (!xfe.Start(Loadport.Name))
+                if (!XfeCrossZone.Running && NeedProcessSlot.Count() != 0)
                 {
-                    MessageBox.Show("xfe.Start fail!");
+                    if (!xfe.Start(Loadport.Name))
+                    {
+                        MessageBox.Show("xfe.Start fail!");
+                    }
                 }
             }
         }
@@ -1577,7 +1667,7 @@ namespace Adam
             {
                 AssignWafer(ld);
             }
-
+            WaferAssignUpdate.UpdateEnabled("FORM", true);
         }
 
 
@@ -1589,19 +1679,19 @@ namespace Adam
             //                     select eachSlot;
             //if (AvailableSlots.Count() == 0)
             //{
-                //取完片 自動退
-                string TaskName = "LOADPORT_CLOSE_NOMAP";
-                string Message = "";
-                Dictionary<string, string> param1 = new Dictionary<string, string>();
-                param1.Add("@Target", Port.Name);
-                TaskJobManagment.CurrentProceedTask tmpTask;
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+            //取完片 自動退
+            string TaskName = "LOADPORT_CLOSE_NOMAP";
+            string Message = "";
+            Dictionary<string, string> param1 = new Dictionary<string, string>();
+            param1.Add("@Target", Port.Name);
+            TaskJobManagment.CurrentProceedTask tmpTask;
+            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
             //}
         }
 
         public void On_UnLoadPort_Complete(Node Port)
         {
-            
+
             var Available = from each in Port.JobList.Values
                             where !each.MapFlag && !each.ErrPosition && !each.Locked
                             select each;
@@ -1743,7 +1833,12 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", true);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
-
+            Start = true;
+            Node ld = SearchLoadport();
+            if (ld != null)
+            {
+                AssignWafer(ld);
+            }
         }
 
         private void Stop_btn_Click(object sender, EventArgs e)
@@ -1751,7 +1846,27 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", true);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            Start = false;
 
+            foreach (Job j in JobManagement.GetJobList())
+            {
+                j.AbortProcess = true;
+
+            }
+
+            foreach (Node port in NodeManagement.GetLoadPortList())
+            {
+                if (port.IsMapping)
+                {
+                    foreach (Job j in port.JobList.Values)
+                    {
+                        if (!j.MapFlag && !j.ErrPosition)
+                        {
+                            j.IsAssigned = false;
+                        }
+                    }
+                }
+            }
         }
 
         private void btnChgPWD_Click(object sender, EventArgs e)

@@ -579,50 +579,50 @@ namespace GUI
 
             switch (btn.Name)
             {
-                case "btnRActiveOn":
-                    if(node!=null)
-                    {
-                        node.RArmActive = true;
-                        tbRActiveState.BackColor = Color.LightGreen;
-                    }
-                    else
-                    {
-                        MessageBox.Show(nodeName+"is not exsit.");
-                    }
-                    break;
-                case "btnRActiveOff":
-                    if (node != null)
-                    {
-                        node.RArmActive = false;
-                        tbRActiveState.BackColor = Color.MintCream;
-                    }
-                    else
-                    {
-                        MessageBox.Show(nodeName + "is not exsit.");
-                    }
-                    break;
-                case "btnLActiveOn":
-                    if (node != null)
-                    {
-                        node.LArmActive = true;
-                        tbLActiveState.BackColor = Color.LightGreen;
-                    }
-                    else
-                    {
-                        MessageBox.Show(nodeName + "is not exsit.");
-                    }
-                    break;
-                case "btnLActiveOff":
-                    if (node != null)
-                    {
-                        node.LArmActive = false;
-                        tbLActiveState.BackColor = Color.MintCream;
-                    }
-                    else
-                    {
-                        MessageBox.Show(nodeName + "is not exsit.");
-                    }
-                    break;
+                //case "btnRActiveOn":
+                //    if(node!=null)
+                //    {
+                //        node.RArmActive = true;
+                //        tbRActiveState.BackColor = Color.LightGreen;
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show(nodeName+"is not exsit.");
+                //    }
+                //    break;
+                //case "btnRActiveOff":
+                //    if (node != null)
+                //    {
+                //        node.RArmActive = false;
+                //        tbRActiveState.BackColor = Color.MintCream;
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show(nodeName + "is not exsit.");
+                //    }
+                //    break;
+                //case "btnLActiveOn":
+                //    if (node != null)
+                //    {
+                //        node.LArmActive = true;
+                //        tbLActiveState.BackColor = Color.LightGreen;
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show(nodeName + "is not exsit.");
+                //    }
+                //    break;
+                //case "btnLActiveOff":
+                //    if (node != null)
+                //    {
+                //        node.LArmActive = false;
+                //        tbLActiveState.BackColor = Color.MintCream;
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show(nodeName + "is not exsit.");
+                //    }
+                //    break;
                 case "btnRInit":
                     TaskName = "ROBOT_Init";
                     param.Add("@Target", nodeName);

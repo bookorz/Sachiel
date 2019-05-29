@@ -40,12 +40,13 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.Clear_btn);
+            this.groupBox7.Controls.Add(this.LoadportName_lb);
             this.groupBox7.Controls.Add(this.FoupID_Read_tb);
             this.groupBox7.Controls.Add(this.FoupID_Read_Confirm_btn);
             this.groupBox7.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox7.Location = new System.Drawing.Point(60, 76);
+            this.groupBox7.Location = new System.Drawing.Point(173, 126);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(311, 111);
+            this.groupBox7.Size = new System.Drawing.Size(377, 190);
             this.groupBox7.TabIndex = 126;
             this.groupBox7.TabStop = false;
             this.groupBox7.Tag = "1";
@@ -59,9 +60,9 @@
             this.Clear_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Clear_btn.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Clear_btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Clear_btn.Location = new System.Drawing.Point(219, 72);
+            this.Clear_btn.Location = new System.Drawing.Point(250, 119);
             this.Clear_btn.Name = "Clear_btn";
-            this.Clear_btn.Size = new System.Drawing.Size(86, 26);
+            this.Clear_btn.Size = new System.Drawing.Size(86, 35);
             this.Clear_btn.TabIndex = 124;
             this.Clear_btn.Text = "Clear";
             this.Clear_btn.UseVisualStyleBackColor = false;
@@ -69,7 +70,7 @@
             // 
             // FoupID_Read_tb
             // 
-            this.FoupID_Read_tb.Location = new System.Drawing.Point(7, 33);
+            this.FoupID_Read_tb.Location = new System.Drawing.Point(38, 54);
             this.FoupID_Read_tb.Name = "FoupID_Read_tb";
             this.FoupID_Read_tb.Size = new System.Drawing.Size(298, 33);
             this.FoupID_Read_tb.TabIndex = 123;
@@ -84,9 +85,9 @@
             this.FoupID_Read_Confirm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.FoupID_Read_Confirm_btn.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FoupID_Read_Confirm_btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.FoupID_Read_Confirm_btn.Location = new System.Drawing.Point(121, 72);
+            this.FoupID_Read_Confirm_btn.Location = new System.Drawing.Point(135, 119);
             this.FoupID_Read_Confirm_btn.Name = "FoupID_Read_Confirm_btn";
-            this.FoupID_Read_Confirm_btn.Size = new System.Drawing.Size(86, 26);
+            this.FoupID_Read_Confirm_btn.Size = new System.Drawing.Size(86, 35);
             this.FoupID_Read_Confirm_btn.TabIndex = 122;
             this.FoupID_Read_Confirm_btn.Text = "Confirm";
             this.FoupID_Read_Confirm_btn.UseVisualStyleBackColor = false;
@@ -96,7 +97,7 @@
             // 
             this.LoadportName_lb.AutoSize = true;
             this.LoadportName_lb.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.LoadportName_lb.Location = new System.Drawing.Point(137, 21);
+            this.LoadportName_lb.Location = new System.Drawing.Point(129, -2);
             this.LoadportName_lb.Name = "LoadportName_lb";
             this.LoadportName_lb.Size = new System.Drawing.Size(148, 31);
             this.LoadportName_lb.TabIndex = 127;
@@ -107,7 +108,7 @@
             // 
             this.FoupID_Status_lb.AutoSize = true;
             this.FoupID_Status_lb.Font = new System.Drawing.Font("新細明體", 12F);
-            this.FoupID_Status_lb.Location = new System.Drawing.Point(111, 190);
+            this.FoupID_Status_lb.Location = new System.Drawing.Point(257, 409);
             this.FoupID_Status_lb.Name = "FoupID_Status_lb";
             this.FoupID_Status_lb.Size = new System.Drawing.Size(156, 16);
             this.FoupID_Status_lb.TabIndex = 128;
@@ -117,9 +118,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 232);
+            this.ClientSize = new System.Drawing.Size(760, 483);
             this.Controls.Add(this.FoupID_Status_lb);
-            this.Controls.Add(this.LoadportName_lb);
             this.Controls.Add(this.groupBox7);
             this.Name = "FormFoupID";
             this.Text = "FoupID";

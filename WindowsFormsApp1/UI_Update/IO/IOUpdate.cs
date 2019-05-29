@@ -106,7 +106,7 @@ namespace Adam.UI_Update.IO
                 id.Location = new System.Drawing.Point(20, currentY);
                 if (Type.ToUpper().Equals("DIN"))
                 {
-                    id.Size = new System.Drawing.Size(230, 20);
+                    id.Size = new System.Drawing.Size(330, 20);
                 }
                 else
                 {

@@ -31,7 +31,7 @@ namespace GUI
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
+            this.DialogResult = DialogResult.Cancel;
             Boolean result = false;
             //set SQL
             StringBuilder sql = new StringBuilder();
@@ -68,6 +68,7 @@ namespace GUI
                     log.Info(msg);
                     //SanwaUtil.addActionLog("Authority", "Login", user_id);// add record to log_system_action
                     SanwaUtil.addActionLog("Authority", "Login", user_id, "使用者登錄");// add record to log_system_action
+                    this.DialogResult = DialogResult.OK;
                     //log.Debug(msg);
                     this.Close();
                 }

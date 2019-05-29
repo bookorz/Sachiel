@@ -347,12 +347,15 @@ namespace Adam.Util
                 case "004":
                     if (robot != null)
                         robot.Present_R = result[1];
-                    if (aligner != null)
-                        aligner.Present = result[1];
+                    
                     break;
                 case "005":
                     if (robot != null)
                         robot.Present_L = result[1];
+                    break;
+                case "008":
+                    if (aligner != null)
+                        aligner.Present = result[1];
                     break;
             }
         }
