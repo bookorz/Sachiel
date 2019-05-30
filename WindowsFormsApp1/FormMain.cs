@@ -522,7 +522,7 @@ namespace Adam
                                     ManualPortStatusUpdate.UpdateLED(Node.Name, Msg.Value);
                                     break;
                                 case Transaction.Command.LoadPortType.ReadStatus:
-                                    ManualPortStatusUpdate.UpdateSmifStatus(Node.Name, Msg.Value);
+                                    ManualPortStatusUpdate.UpdateStatus(Node.Name, Msg.Value);
                                     break;
                                 case Transaction.Command.LoadPortType.GetCount:
 
@@ -687,6 +687,9 @@ namespace Adam
                         case "ALIGNER":
                             ManualAlignerStatusUpdate.UpdateGUI(Txn, Node.Name, Msg.Value);//update 手動功能畫面
                             break;
+                        case "OCR":
+
+                            break;
                     }
                     break;
                 default:
@@ -710,7 +713,7 @@ namespace Adam
                             switch (Txn.Method)
                             {
                                 case Transaction.Command.OCRType.Read:
-                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, Txn.TargetJobs[0]);
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
                                     OCRStatusUpdate.UpdateOCRRead(Node.Name, Msg.Value);
                                     break;
                             }

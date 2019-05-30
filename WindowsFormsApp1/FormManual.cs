@@ -56,13 +56,7 @@ namespace GUI
                                 Cb_LoadPortSelect.Items.Add(node.Name);
                             }
                             break;
-                        case "OCR":
-                            if (Cb_OCRSelect.Text.Equals(""))
-                            {
-                                Cb_OCRSelect.Text = node.Name;
-                            }
-                            Cb_OCRSelect.Items.Add(node.Name);
-                            break;
+                        
                     }
                 }
             }
@@ -256,7 +250,7 @@ namespace GUI
                 Label StsLb = this.Controls.Find("Lab_StateCode_" + Idx + "_A", true).FirstOrDefault() as Label;
                 StsLb.Text = "";
             }
-
+            setLoadportStatus();
         }
 
 
@@ -1035,31 +1029,7 @@ namespace GUI
             return vars;
         }
 
-        private void setOCRStatus()
-        {
-            string Message = "";
-
-            string nodeName = Cb_OCRSelect.Text;
-            if (nodeName.Trim().Equals(""))
-            {
-                return;
-            }
-            SetDeviceStatus(nodeName);
-            if (!OCRConnection_tb.Text.ToUpper().Equals("CONNECTED"))
-            {
-                return;//連線狀態下才執行
-            }
-            //向Robot 詢問狀態
-            //Node robot = NodeManagement.Get(nodeName);
-            //String script_name = robot.Brand.ToUpper().Equals("KAWASAKI") ? "RobotStateGet(Kawasaki)" : "RobotStateGet";
-            //robot.ExcuteScript(script_name, "FormManual", out Message);
-
-            Dictionary<string, string> param = new Dictionary<string, string>();
-            string TaskName = "OCR_INIT";
-            param.Add("@Target", nodeName);
-            TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
-        }
+        
 
         private void setRobotStatus()
         {
@@ -1088,7 +1058,18 @@ namespace GUI
             RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
         }
 
-
+        private void setLoadportStatus()
+        {
+            string Message = "";
+            
+            String nodeName = Cb_LoadPortSelect.Text;
+            
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            string TaskName = "LOADPORT_INIT";
+            param.Add("@Target", nodeName);
+            TaskJobManagment.CurrentProceedTask Task;
+            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
+        }
         private void setAlignerStatus()
         {
             string Message = "";
@@ -1158,10 +1139,7 @@ namespace GUI
                     tbStatus = tbA2Status;
                     Aligner02Connection_tb.Text = node.ConnectionStatus;
                     break;
-                case "OCR01":
-                case "OCR02":
-                    OCRConnection_tb.Text = node.ConnectionStatus;
-                    break;
+                
             }
             if (tbStatus == null)
                 return;
@@ -1221,9 +1199,9 @@ namespace GUI
                 setRobotStatus();
             if (tbcManual.SelectedTab.Text.Equals("Aligner"))
                 setAlignerStatus();
-            if (tbcManual.SelectedTab.Text.Equals("OCR"))
-                setOCRStatus();
-
+            
+            if (tbcManual.SelectedTab.Text.Equals("LoadPort"))
+                setLoadportStatus();
         }
 
         private void btnRAreaSwap_Click(object sender, EventArgs e)
@@ -1305,9 +1283,8 @@ namespace GUI
             ThreadPool.QueueUserWorkItem(new WaitCallback(node.GetController().Start));
         }
 
-        private void Cb_OCRSelect_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            setOCRStatus();
-        }
+       
+
+        
     }
 }

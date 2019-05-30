@@ -310,21 +310,6 @@
             this.Btn_DoorClose_A = new System.Windows.Forms.Button();
             this.Btn_UnLatchDoor_A = new System.Windows.Forms.Button();
             this.Btn_LatchDoor_A = new System.Windows.Forms.Button();
-            this.tabOCR = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.Cb_OCRSelect = new System.Windows.Forms.ComboBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.OCRConnection_tb = new System.Windows.Forms.TextBox();
-            this.OCRConnect_btn = new System.Windows.Forms.Button();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.OCRRead_tb = new System.Windows.Forms.TextBox();
-            this.OCRRead_btn = new System.Windows.Forms.Button();
-            this.Ocr1_lb = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.OCR_Pic = new System.Windows.Forms.PictureBox();
             this.btnContinue = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
@@ -364,15 +349,6 @@
             this.groupBox9.SuspendLayout();
             this.groupBox25.SuspendLayout();
             this.TblPanel_A.SuspendLayout();
-            this.tabOCR.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OCR_Pic)).BeginInit();
             this.pnlMotionStop.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -381,7 +357,6 @@
             this.tbcManual.Controls.Add(this.tabRobot);
             this.tbcManual.Controls.Add(this.tabAligner);
             this.tbcManual.Controls.Add(this.tabLoadport);
-            this.tbcManual.Controls.Add(this.tabOCR);
             this.tbcManual.Location = new System.Drawing.Point(12, 12);
             this.tbcManual.Name = "tbcManual";
             this.tbcManual.SelectedIndex = 0;
@@ -4457,184 +4432,6 @@
             this.Btn_LatchDoor_A.UseVisualStyleBackColor = true;
             this.Btn_LatchDoor_A.Click += new System.EventHandler(this.PortFunction_Click);
             // 
-            // tabOCR
-            // 
-            this.tabOCR.Controls.Add(this.groupBox3);
-            this.tabOCR.Location = new System.Drawing.Point(4, 36);
-            this.tabOCR.Name = "tabOCR";
-            this.tabOCR.Size = new System.Drawing.Size(1487, 801);
-            this.tabOCR.TabIndex = 3;
-            this.tabOCR.Text = "OCR";
-            this.tabOCR.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBox3.Controls.Add(this.panel3);
-            this.groupBox3.Controls.Add(this.Ocr1_lb);
-            this.groupBox3.Controls.Add(this.panel1);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(0, 0);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(5);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(1487, 801);
-            this.groupBox3.TabIndex = 25;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Tag = "1";
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.panel4);
-            this.panel3.Location = new System.Drawing.Point(17, 31);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(376, 743);
-            this.panel3.TabIndex = 156;
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel4.Controls.Add(this.groupBox4);
-            this.panel4.Controls.Add(this.groupBox5);
-            this.panel4.Controls.Add(this.groupBox7);
-            this.panel4.Location = new System.Drawing.Point(17, 14);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(344, 713);
-            this.panel4.TabIndex = 0;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.Cb_OCRSelect);
-            this.groupBox4.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox4.Location = new System.Drawing.Point(11, 15);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(305, 84);
-            this.groupBox4.TabIndex = 46;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Tag = "1";
-            this.groupBox4.Text = "OCR Select";
-            // 
-            // Cb_OCRSelect
-            // 
-            this.Cb_OCRSelect.BackColor = System.Drawing.SystemColors.Window;
-            this.Cb_OCRSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cb_OCRSelect.FormattingEnabled = true;
-            this.Cb_OCRSelect.Location = new System.Drawing.Point(6, 31);
-            this.Cb_OCRSelect.Name = "Cb_OCRSelect";
-            this.Cb_OCRSelect.Size = new System.Drawing.Size(293, 32);
-            this.Cb_OCRSelect.TabIndex = 0;
-            this.Cb_OCRSelect.SelectedIndexChanged += new System.EventHandler(this.Cb_OCRSelect_SelectedIndexChanged);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.OCRConnection_tb);
-            this.groupBox5.Controls.Add(this.OCRConnect_btn);
-            this.groupBox5.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox5.Location = new System.Drawing.Point(11, 122);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(311, 85);
-            this.groupBox5.TabIndex = 123;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Tag = "1";
-            this.groupBox5.Text = "Connection";
-            // 
-            // OCRConnection_tb
-            // 
-            this.OCRConnection_tb.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.OCRConnection_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.OCRConnection_tb.Location = new System.Drawing.Point(6, 35);
-            this.OCRConnection_tb.Name = "OCRConnection_tb";
-            this.OCRConnection_tb.ReadOnly = true;
-            this.OCRConnection_tb.Size = new System.Drawing.Size(201, 26);
-            this.OCRConnection_tb.TabIndex = 121;
-            this.OCRConnection_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // OCRConnect_btn
-            // 
-            this.OCRConnect_btn.BackColor = System.Drawing.Color.DarkGray;
-            this.OCRConnect_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.OCRConnect_btn.FlatAppearance.BorderSize = 2;
-            this.OCRConnect_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.OCRConnect_btn.Font = new System.Drawing.Font("微軟正黑體", 10F);
-            this.OCRConnect_btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OCRConnect_btn.Location = new System.Drawing.Point(213, 35);
-            this.OCRConnect_btn.Name = "OCRConnect_btn";
-            this.OCRConnect_btn.Size = new System.Drawing.Size(86, 26);
-            this.OCRConnect_btn.TabIndex = 122;
-            this.OCRConnect_btn.Text = "Connect";
-            this.OCRConnect_btn.UseVisualStyleBackColor = false;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.OCRRead_tb);
-            this.groupBox7.Controls.Add(this.OCRRead_btn);
-            this.groupBox7.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox7.Location = new System.Drawing.Point(11, 238);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(311, 87);
-            this.groupBox7.TabIndex = 125;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Tag = "1";
-            this.groupBox7.Text = "ID";
-            // 
-            // OCRRead_tb
-            // 
-            this.OCRRead_tb.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.OCRRead_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.OCRRead_tb.Location = new System.Drawing.Point(6, 35);
-            this.OCRRead_tb.Name = "OCRRead_tb";
-            this.OCRRead_tb.ReadOnly = true;
-            this.OCRRead_tb.Size = new System.Drawing.Size(201, 26);
-            this.OCRRead_tb.TabIndex = 121;
-            this.OCRRead_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // OCRRead_btn
-            // 
-            this.OCRRead_btn.BackColor = System.Drawing.Color.DarkGray;
-            this.OCRRead_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.OCRRead_btn.FlatAppearance.BorderSize = 2;
-            this.OCRRead_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.OCRRead_btn.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.OCRRead_btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OCRRead_btn.Location = new System.Drawing.Point(213, 35);
-            this.OCRRead_btn.Name = "OCRRead_btn";
-            this.OCRRead_btn.Size = new System.Drawing.Size(86, 26);
-            this.OCRRead_btn.TabIndex = 122;
-            this.OCRRead_btn.Text = "Read";
-            this.OCRRead_btn.UseVisualStyleBackColor = false;
-            // 
-            // Ocr1_lb
-            // 
-            this.Ocr1_lb.AutoSize = true;
-            this.Ocr1_lb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Ocr1_lb.ForeColor = System.Drawing.Color.Black;
-            this.Ocr1_lb.Location = new System.Drawing.Point(465, 18);
-            this.Ocr1_lb.Name = "Ocr1_lb";
-            this.Ocr1_lb.Size = new System.Drawing.Size(54, 19);
-            this.Ocr1_lb.TabIndex = 155;
-            this.Ocr1_lb.Text = "Photo";
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.OCR_Pic);
-            this.panel1.Location = new System.Drawing.Point(420, 31);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1054, 743);
-            this.panel1.TabIndex = 154;
-            // 
-            // OCR_Pic
-            // 
-            this.OCR_Pic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.OCR_Pic.ImageLocation = "";
-            this.OCR_Pic.Location = new System.Drawing.Point(14, 9);
-            this.OCR_Pic.Name = "OCR_Pic";
-            this.OCR_Pic.Size = new System.Drawing.Size(1025, 718);
-            this.OCR_Pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.OCR_Pic.TabIndex = 1;
-            this.OCR_Pic.TabStop = false;
-            // 
             // btnContinue
             // 
             this.btnContinue.BackColor = System.Drawing.Color.ForestGreen;
@@ -4758,18 +4555,6 @@
             this.groupBox25.ResumeLayout(false);
             this.TblPanel_A.ResumeLayout(false);
             this.TblPanel_A.PerformLayout();
-            this.tabOCR.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.OCR_Pic)).EndInit();
             this.pnlMotionStop.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -5062,21 +4847,6 @@
         private System.Windows.Forms.Button Aligner01Connect_btn;
         private System.Windows.Forms.TextBox Aligner01Connection_tb;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TabPage tabOCR;
-        internal System.Windows.Forms.GroupBox groupBox3;
-        internal System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.TextBox OCRRead_tb;
-        private System.Windows.Forms.Button OCRRead_btn;
-        internal System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox OCRConnection_tb;
-        private System.Windows.Forms.Button OCRConnect_btn;
-        internal System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ComboBox Cb_OCRSelect;
-        private System.Windows.Forms.Label Ocr1_lb;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox OCR_Pic;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
         internal System.Windows.Forms.Button Btn_LOrg;
     }
 }

@@ -602,7 +602,7 @@ namespace Adam.UI_Update.Manual
                 if (form == null)
                     return;
 
-                portName = form.Controls.Find("Cb_SMIFSelect", true).FirstOrDefault() as ComboBox;
+                portName = form.Controls.Find("Cb_LoadPortSelect", true).FirstOrDefault() as ComboBox;
                 if (portName == null)
                     return;
 
@@ -618,7 +618,7 @@ namespace Adam.UI_Update.Manual
                         for (int i = Data.Length - 1; i >= 0; i--)
                         {
                             string Slot = (i + 1).ToString("00");
-                            Label slotLb = form.Controls.Find("Lab_S_Slot_" + Slot, true).FirstOrDefault() as Label;
+                            Label slotLb = form.Controls.Find("Lab_A_Slot_" + Slot, true).FirstOrDefault() as Label;
 
                             switch (Data[i])
                             {
