@@ -178,8 +178,9 @@ namespace Adam.UI_Update.Authority
             StringBuilder sql = new StringBuilder();
             sql.Append("\n SELECT ugf.user_group_id, ugf.fun_id, ugf.active, f.fun_form, f.fun_ref");
             sql.Append("\n   FROM user_group_function ugf");
-            sql.Append("\n   LEFT JOIN function f");
+            sql.Append("\n   INNER JOIN function f");
             sql.Append("\n     ON ugf.fun_id = f.fun_id");
+            sql.Append("\n    AND f.active = 'Y'");
             //sql.Append("\n  WHERE user_group_id = @user_group_id ");
 
             //set parameter
@@ -220,11 +221,16 @@ namespace Adam.UI_Update.Authority
                                 break;
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("Control not found. Form:" + Form + " Control:" + Control + " active" + active);
+                    }
+
                 }
             }
             catch
             {
-                logger.Error("UpdateFuncAssign: Update fail.");
+                logger.Error("UpdateFuncAssign: Update fail. Form:" + Form + " Control:" + Control + " active" + active);
             }
         }
 

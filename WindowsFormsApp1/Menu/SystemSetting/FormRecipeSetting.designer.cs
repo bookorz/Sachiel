@@ -183,7 +183,6 @@
             this.gbRecipe.Controls.Add(this.btnCancel);
             this.gbRecipe.Controls.Add(this.btnSave);
             this.gbRecipe.Controls.Add(this.gbRecipeBody);
-            this.gbRecipe.Enabled = false;
             this.gbRecipe.Location = new System.Drawing.Point(155, 3);
             this.gbRecipe.Name = "gbRecipe";
             this.gbRecipe.Size = new System.Drawing.Size(1259, 635);
@@ -207,6 +206,7 @@
             // 
             this.tbRecipeID.Location = new System.Drawing.Point(463, 26);
             this.tbRecipeID.Name = "tbRecipeID";
+            this.tbRecipeID.ReadOnly = true;
             this.tbRecipeID.Size = new System.Drawing.Size(201, 33);
             this.tbRecipeID.TabIndex = 1;
             // 
@@ -235,6 +235,7 @@
             // 
             this.tbRecipeName.Location = new System.Drawing.Point(144, 26);
             this.tbRecipeName.Name = "tbRecipeName";
+            this.tbRecipeName.ReadOnly = true;
             this.tbRecipeName.Size = new System.Drawing.Size(201, 33);
             this.tbRecipeName.TabIndex = 1;
             // 
@@ -417,7 +418,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(976, 47);
+            this.checkBox1.Location = new System.Drawing.Point(975, 58);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(181, 28);
             this.checkBox1.TabIndex = 4;
@@ -1104,7 +1105,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(976, 74);
+            this.checkBox2.Location = new System.Drawing.Point(975, 85);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(238, 28);
             this.checkBox2.TabIndex = 4;
@@ -1172,7 +1173,7 @@
             this.tbA2_speed.Name = "tbA2_speed";
             this.tbA2_speed.Size = new System.Drawing.Size(109, 33);
             this.tbA2_speed.TabIndex = 1;
-            this.tbA2_speed.Text = "360000";
+            this.tbA2_speed.Text = "0";
             // 
             // label6
             // 
@@ -1191,7 +1192,7 @@
             this.tbA1_angle.Name = "tbA1_angle";
             this.tbA1_angle.Size = new System.Drawing.Size(109, 33);
             this.tbA1_angle.TabIndex = 1;
-            this.tbA1_angle.Text = "360000";
+            this.tbA1_angle.Text = "0";
             // 
             // label7
             // 
@@ -1305,7 +1306,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(980, 123);
+            this.label23.Location = new System.Drawing.Point(980, 24);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(63, 24);
             this.label23.TabIndex = 0;
@@ -1314,7 +1315,7 @@
             // 
             // tbEqpID
             // 
-            this.tbEqpID.Location = new System.Drawing.Point(1049, 118);
+            this.tbEqpID.Location = new System.Drawing.Point(1049, 19);
             this.tbEqpID.Name = "tbEqpID";
             this.tbEqpID.Size = new System.Drawing.Size(165, 33);
             this.tbEqpID.TabIndex = 1;

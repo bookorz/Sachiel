@@ -30,8 +30,8 @@ namespace Adam
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer13 = new System.Windows.Forms.SplitContainer();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
             this.Mode_btn = new System.Windows.Forms.Button();
@@ -79,8 +79,8 @@ namespace Adam
             this.tabComm = new System.Windows.Forms.TabPage();
             this.tabMapping = new System.Windows.Forms.TabPage();
             this.tabStatus = new System.Windows.Forms.TabPage();
-            this.TestMode = new System.Windows.Forms.TabPage();
-            this.Wafer = new System.Windows.Forms.TabPage();
+            this.tbDiffMonitor = new System.Windows.Forms.TabPage();
+            this.tabWafer = new System.Windows.Forms.TabPage();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.tabNewSetting = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -385,21 +385,21 @@ namespace Adam
             this.Conn_gv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Conn_gv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Conn_gv.ColumnHeadersVisible = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微軟正黑體", 12F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Conn_gv.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 12F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Conn_gv.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.Conn_gv, "Conn_gv");
             this.Conn_gv.MultiSelect = false;
             this.Conn_gv.Name = "Conn_gv";
             this.Conn_gv.ReadOnly = true;
             this.Conn_gv.RowHeadersVisible = false;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Conn_gv.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Conn_gv.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.Conn_gv.RowTemplate.Height = 24;
             this.Conn_gv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.Conn_gv.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Conn_gv_CellFormatting);
@@ -496,11 +496,11 @@ namespace Adam
             this.tbcMian.Controls.Add(this.tabMonitor);
             this.tbcMian.Controls.Add(this.tabComm);
             this.tbcMian.Controls.Add(this.tabMapping);
-            this.tbcMian.Controls.Add(this.tabStatus);
-            this.tbcMian.Controls.Add(this.TestMode);
-            this.tbcMian.Controls.Add(this.Wafer);
-            this.tbcMian.Controls.Add(this.tabSetting);
             this.tbcMian.Controls.Add(this.tabNewSetting);
+            this.tbcMian.Controls.Add(this.tbDiffMonitor);
+            this.tbcMian.Controls.Add(this.tabWafer);
+            this.tbcMian.Controls.Add(this.tabStatus);
+            this.tbcMian.Controls.Add(this.tabSetting);
             resources.ApplyResources(this.tbcMian, "tbcMian");
             this.tbcMian.Name = "tbcMian";
             this.tbcMian.SelectedIndex = 0;
@@ -536,17 +536,17 @@ namespace Adam
             resources.ApplyResources(this.tabStatus, "tabStatus");
             this.tabStatus.Name = "tabStatus";
             // 
-            // TestMode
+            // tbDiffMonitor
             // 
-            resources.ApplyResources(this.TestMode, "TestMode");
-            this.TestMode.Name = "TestMode";
-            this.TestMode.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.tbDiffMonitor, "tbDiffMonitor");
+            this.tbDiffMonitor.Name = "tbDiffMonitor";
+            this.tbDiffMonitor.UseVisualStyleBackColor = true;
             // 
-            // Wafer
+            // tabWafer
             // 
-            resources.ApplyResources(this.Wafer, "Wafer");
-            this.Wafer.Name = "Wafer";
-            this.Wafer.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.tabWafer, "tabWafer");
+            this.tabWafer.Name = "tabWafer";
+            this.tabWafer.UseVisualStyleBackColor = true;
             // 
             // tabSetting
             // 
@@ -941,9 +941,9 @@ namespace Adam
         private System.Windows.Forms.Button Mode_btn;
         private System.Windows.Forms.Button Connection_btn;
         private System.Windows.Forms.CheckBox Mute_chk;
-        private System.Windows.Forms.TabPage TestMode;
+        private System.Windows.Forms.TabPage tbDiffMonitor;
         private System.Windows.Forms.DataGridView Conn_gv;
-        private System.Windows.Forms.TabPage Wafer;
+        private System.Windows.Forms.TabPage tabWafer;
         private System.Windows.Forms.Button btnManual;
         private System.Windows.Forms.Button ALL_INIT_btn;
         private System.Windows.Forms.Button button1;

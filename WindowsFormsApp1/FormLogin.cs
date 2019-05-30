@@ -31,7 +31,6 @@ namespace GUI
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
             Boolean result = false;
             //set SQL
             StringBuilder sql = new StringBuilder();
@@ -74,7 +73,9 @@ namespace GUI
                 }
                 else
                 {
+                    //this.DialogResult = DialogResult.Cancel; //不能加這行，會跳出
                     MessageBox.Show("Please check data and login again.", "Login Fail");
+                    return;
                 }
             }
 
