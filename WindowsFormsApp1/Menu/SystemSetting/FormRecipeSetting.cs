@@ -21,10 +21,18 @@ namespace Adam.Menu.SystemSetting
 
         private void btnCreateRecipe_Click(object sender, EventArgs e)
         {
-            gbRecipe.Enabled = true;
-            gbRecipeHeader.Enabled = true;
+            //gbRecipe.Enabled = true;
             btnCreateRecipe.Enabled = false;
             btnModifyRecipe.Enabled = false;
+            btnCancel.Enabled = true;
+            btnSave.Enabled = true;
+            tbRecipeName.Text = "";
+            tbRecipeID.Text = "";
+            tbRecipeName.ReadOnly = false;
+            tbRecipeID.ReadOnly = false;
+            tbRecipeName.Focus();
+            trvRecipe.Enabled = false;
+            //gbRecipeHeader.Enabled = true;
             cbAutoFin1.SelectedIndex = 0;
             cbAutoFin2.SelectedIndex = 0;
             cbAutoGetRule.SelectedIndex = 0;
@@ -57,11 +65,20 @@ namespace Adam.Menu.SystemSetting
         private void btnSave_Click(object sender, EventArgs e)
         {
             //檢查資料
-
+            if (tbRecipeID.Text.Trim().Equals("") || tbRecipeName.Text.Trim().Equals(""))
+            {
+                MessageBox.Show("Recipe Name or recipe id should not be empty.");
+                return;
+            }
             //GUI 處理
-            gbRecipe.Enabled = false;
+            //gbRecipe.Enabled = false;
             btnCreateRecipe.Enabled = true;
             btnModifyRecipe.Enabled = true;
+            btnCancel.Enabled = false;
+            btnSave.Enabled = false;
+            tbRecipeName.ReadOnly = true;
+            tbRecipeID.ReadOnly = true;
+            trvRecipe.Enabled = true;
             //Recipe 存檔
             Recipe recipe = new Recipe();
             recipe.aligner1_angle = tbA1_angle.Text;
@@ -107,22 +124,38 @@ namespace Adam.Menu.SystemSetting
 
             Recipe.Set(recipe.recipe_id, recipe);
             refreshList();
+            MessageBox.Show("Execute successfully.", "Success");
         }
 
         private void btnModifyRecipe_Click(object sender, EventArgs e)
         {
-            gbRecipe.Enabled = true;
-            gbRecipeBody.Enabled = true;
-            gbRecipeHeader.Enabled = false;
+            if(trvRecipe.SelectedNode == null)
+            {
+                MessageBox.Show("Please select a recipe first.", "Notice");
+            }
+            updateInfo(trvRecipe.SelectedNode.Text);
+            //gbRecipe.Enabled = true;
+            //gbRecipeBody.Enabled = true;
+            //gbRecipeHeader.Enabled = false;
             btnCreateRecipe.Enabled = false;
             btnModifyRecipe.Enabled = false;
+            btnCancel.Enabled = true;
+            btnSave.Enabled = true;
+            tbRecipeName.ReadOnly = true;
+            tbRecipeID.ReadOnly = true;
+            trvRecipe.Enabled = false;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            gbRecipe.Enabled = false;
+            //gbRecipe.Enabled = false;
             btnCreateRecipe.Enabled = true;
             btnModifyRecipe.Enabled = true;
+            btnCancel.Enabled = false;
+            btnSave.Enabled = false;
+            tbRecipeName.ReadOnly = true;
+            tbRecipeID.ReadOnly = true;
+            trvRecipe.Enabled = true;
         }
 
         private void FormRecipeSetting_Load(object sender, EventArgs e)
@@ -153,7 +186,7 @@ namespace Adam.Menu.SystemSetting
         {
             try
             {
-                gbRecipe.Enabled = true;
+                //gbRecipe.Enabled = true;
                 Recipe recipe = Recipe.Get(recipeID);
                 tbA1_angle.Text = recipe.aligner1_angle;
                 tbA1_speed.Text = recipe.aligner1_speed;
@@ -202,7 +235,7 @@ namespace Adam.Menu.SystemSetting
                 tbRecipeName.Text = recipe.recipe_name;
                 tbR1Speed.Text = recipe.robot1_speed;
                 tbR2Speed.Text = recipe.robot2_speed;
-                gbRecipe.Enabled = false;
+                //gbRecipe.Enabled = false;
             }
             catch (Exception ex)
             {

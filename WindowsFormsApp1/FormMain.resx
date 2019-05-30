@@ -177,6 +177,18 @@
   <data name="button1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 247</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>button1</value>
+  </data>
   <data name="&gt;&gt;button1.Name" xml:space="preserve">
     <value>button1</value>
   </data>
@@ -187,6 +199,7 @@
     <value>groupBox54</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+<<<<<<< HEAD
     <value>1</value>
   </data>
   <data name="groupBox54.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -417,6 +430,30 @@
   <data name="&gt;&gt;Start_btn.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 247</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="ALL_INIT_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -445,7 +482,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;ALL_INIT_btn.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="DifferentialPressureAlarm2_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -478,7 +515,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;DifferentialPressureAlarm2_Signal.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="DifferentialPressureAlarm1_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -511,7 +548,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;DifferentialPressureAlarm1_Signal.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="SafetyRelay_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -547,7 +584,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;SafetyRelay_Signal.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="IonizerAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -580,7 +617,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;IonizerAlarm_Signal.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="FFUAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -613,7 +650,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;FFUAlarm_Signal.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="CDAAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -646,7 +683,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;CDAAlarm_Signal.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="DoorSwitch_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -679,7 +716,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;DoorSwitch_Signal.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="groupBox5.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1564,6 +1601,57 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1749, 3</value>
+  </data>
+  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 152</value>
+  </data>
+  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Signal tower</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1884, 158</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <data name="tabMonitor.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -1651,6 +1739,78 @@
   <data name="&gt;&gt;tabMapping.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="tabNewSetting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 44</value>
+  </data>
+  <data name="tabNewSetting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1626, 764</value>
+  </data>
+  <data name="tabNewSetting.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="tabNewSetting.Text" xml:space="preserve">
+    <value>System Setting</value>
+  </data>
+  <data name="&gt;&gt;tabNewSetting.Name" xml:space="preserve">
+    <value>tabNewSetting</value>
+  </data>
+  <data name="&gt;&gt;tabNewSetting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabNewSetting.Parent" xml:space="preserve">
+    <value>tbcMian</value>
+  </data>
+  <data name="&gt;&gt;tabNewSetting.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tbDiffMonitor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 44</value>
+  </data>
+  <data name="tbDiffMonitor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1626, 764</value>
+  </data>
+  <data name="tbDiffMonitor.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="tbDiffMonitor.Text" xml:space="preserve">
+    <value>Differential Monitor</value>
+  </data>
+  <data name="&gt;&gt;tbDiffMonitor.Name" xml:space="preserve">
+    <value>tbDiffMonitor</value>
+  </data>
+  <data name="&gt;&gt;tbDiffMonitor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbDiffMonitor.Parent" xml:space="preserve">
+    <value>tbcMian</value>
+  </data>
+  <data name="&gt;&gt;tbDiffMonitor.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tabWafer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 44</value>
+  </data>
+  <data name="tabWafer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1626, 764</value>
+  </data>
+  <data name="tabWafer.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="tabWafer.Text" xml:space="preserve">
+    <value>Wafer</value>
+  </data>
+  <data name="&gt;&gt;tabWafer.Name" xml:space="preserve">
+    <value>tabWafer</value>
+  </data>
+  <data name="&gt;&gt;tabWafer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabWafer.Parent" xml:space="preserve">
+    <value>tbcMian</value>
+  </data>
+  <data name="&gt;&gt;tabWafer.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <data name="tabStatus.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 44</value>
   </data>
@@ -1673,55 +1833,7 @@
     <value>tbcMian</value>
   </data>
   <data name="&gt;&gt;tabStatus.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="TestMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 44</value>
-  </data>
-  <data name="TestMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1626, 764</value>
-  </data>
-  <data name="TestMode.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="TestMode.Text" xml:space="preserve">
-    <value>Differential Monitor</value>
-  </data>
-  <data name="&gt;&gt;TestMode.Name" xml:space="preserve">
-    <value>TestMode</value>
-  </data>
-  <data name="&gt;&gt;TestMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TestMode.Parent" xml:space="preserve">
-    <value>tbcMian</value>
-  </data>
-  <data name="&gt;&gt;TestMode.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="Wafer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 44</value>
-  </data>
-  <data name="Wafer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1626, 764</value>
-  </data>
-  <data name="Wafer.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="Wafer.Text" xml:space="preserve">
-    <value>Wafer</value>
-  </data>
-  <data name="&gt;&gt;Wafer.Name" xml:space="preserve">
-    <value>Wafer</value>
-  </data>
-  <data name="&gt;&gt;Wafer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Wafer.Parent" xml:space="preserve">
-    <value>tbcMian</value>
-  </data>
-  <data name="&gt;&gt;Wafer.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="tabSetting.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 44</value>
@@ -1736,7 +1848,7 @@
     <value>7</value>
   </data>
   <data name="tabSetting.Text" xml:space="preserve">
-    <value>System Setting</value>
+    <value>System Setting(舊)</value>
   </data>
   <data name="&gt;&gt;tabSetting.Name" xml:space="preserve">
     <value>tabSetting</value>
@@ -1748,30 +1860,6 @@
     <value>tbcMian</value>
   </data>
   <data name="&gt;&gt;tabSetting.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="tabNewSetting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 44</value>
-  </data>
-  <data name="tabNewSetting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1626, 764</value>
-  </data>
-  <data name="tabNewSetting.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="tabNewSetting.Text" xml:space="preserve">
-    <value>System Setting(N)</value>
-  </data>
-  <data name="&gt;&gt;tabNewSetting.Name" xml:space="preserve">
-    <value>tabNewSetting</value>
-  </data>
-  <data name="&gt;&gt;tabNewSetting.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabNewSetting.Parent" xml:space="preserve">
-    <value>tbcMian</value>
-  </data>
-  <data name="&gt;&gt;tabNewSetting.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
   <data name="tbcMian.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">

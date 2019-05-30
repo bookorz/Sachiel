@@ -49,10 +49,10 @@ namespace Adam
         private Menu.Monitoring.FormMonitoring formMonitoring = new Menu.Monitoring.FormMonitoring();
         private Menu.IO.FormIO formIO = new Menu.IO.FormIO();
         private Menu.WaferMapping.FormWaferMapping formWafer = new Menu.WaferMapping.FormWaferMapping();
-        private Menu.Status.FormStatus formStatus = new Menu.Status.FormStatus();
+        //private Menu.Status.FormStatus formStatus = new Menu.Status.FormStatus();//20190529 取消
         //private Menu.OCR.FormOCR formOCR = new Menu.OCR.FormOCR();
         //private Menu.SystemSetting.FormSECSSet formSecs = new Menu.SystemSetting.FormSECSSet();
-        private Menu.SystemSetting.FormSystemSetting formSystem = new Menu.SystemSetting.FormSystemSetting();//舊設定方式
+        //private Menu.SystemSetting.FormSystemSetting formSystem = new Menu.SystemSetting.FormSystemSetting();//舊設定方式 20190529 取消
         private Menu.SystemSetting.FormSetting formSystemNew = new Menu.SystemSetting.FormSetting();//新設定方式
         private Menu.RunningScreen.FormDifferentialMonitor formTestMode = new Menu.RunningScreen.FormDifferentialMonitor();
         private Menu.Wafer.FormWafer WaferForm = new Menu.Wafer.FormWafer();
@@ -121,10 +121,18 @@ namespace Adam
             this.Width = 1;
             this.Height = 1;
 
-            Control[] ctrlForm = new Control[] { formMonitoring, formIO, formWafer, formStatus, formTestMode, WaferForm, formSystem, formSystemNew };
+            //Control[] ctrlForm = new Control[] { formMonitoring, formIO, formWafer, formStatus, formTestMode, WaferForm, formSystem, formSystemNew };
+            //20190529 取消 formStatus, formStatus
+            Control[] ctrlForm = new Control[] { formMonitoring, formIO, formWafer, formSystemNew }; //WaferForm 和 壓差監控之後再開放  , formTestMode
 
             try
             {
+                //20190529 移除未開放或使用不到的功能
+                tbcMian.TabPages.Remove(tbDiffMonitor);//壓差顯示
+                tbcMian.TabPages.Remove(tabStatus);//狀態查詢
+                tbcMian.TabPages.Remove(tabSetting);//舊設定功能
+                tbcMian.TabPages.Remove(tabWafer);//Wafer 刪帳功能
+
                 for (int i = 0; i < ctrlForm.Length; i++)
                 {
                     ((Form)ctrlForm[i]).TopLevel = false;
@@ -215,7 +223,7 @@ namespace Adam
                     AuthorityUpdate.UpdateLogoutInfo();
                     //disable authroity function
                     AuthorityUpdate.UpdateFuncGroupEnable("INIT");
-                    ((TabControl)formSystem.Controls["tbcSystemSetting"]).SelectTab(0);
+                    //((TabControl)formSystem.Controls["tbcSystemSetting"]).SelectTab(0);//20190529 取消
                     tbcMian.SelectTab(0);
                     tbcMian.Enabled = false;
                     Mode_btn.Text = "Online-Mode";
@@ -687,9 +695,6 @@ namespace Adam
                             break;
                         case "ALIGNER":
                             ManualAlignerStatusUpdate.UpdateGUI(Txn, Node.Name, Msg.Value);//update 手動功能畫面
-                            break;
-                        case "OCR":
-
                             break;
                     }
                     break;
@@ -1219,6 +1224,7 @@ namespace Adam
                 btnManual.BackColor = Color.Orange;
                 CurrentMode = "MANUAL";
                 tbcMian.Enabled = true;
+                AuthorityUpdate.UpdateFuncGroupEnable(lbl_login_group.Text);//20190529 add 依照權限開放權限
                 //}
                 //else
                 //{
@@ -1303,10 +1309,11 @@ namespace Adam
 
         private void tbcMian_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tbcMian.SelectedTab.Text.Equals("Status"))
-            {
-                formStatus.Focus();
-            }
+            //20190529 取消
+            //if (tbcMian.SelectedTab.Text.Equals("Status"))
+            //{
+            //    formStatus.Focus();
+            //}
             if (tbcMian.SelectedTab.Text.Equals("Monitoring"))
             {
                 Form form = Application.OpenForms["FormMonitoring"];

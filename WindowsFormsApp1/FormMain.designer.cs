@@ -79,8 +79,8 @@ namespace Adam
             this.tabComm = new System.Windows.Forms.TabPage();
             this.tabMapping = new System.Windows.Forms.TabPage();
             this.tabStatus = new System.Windows.Forms.TabPage();
-            this.TestMode = new System.Windows.Forms.TabPage();
-            this.Wafer = new System.Windows.Forms.TabPage();
+            this.tbDiffMonitor = new System.Windows.Forms.TabPage();
+            this.tabWafer = new System.Windows.Forms.TabPage();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.tabNewSetting = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -496,11 +496,11 @@ namespace Adam
             this.tbcMian.Controls.Add(this.tabMonitor);
             this.tbcMian.Controls.Add(this.tabComm);
             this.tbcMian.Controls.Add(this.tabMapping);
-            this.tbcMian.Controls.Add(this.tabStatus);
-            this.tbcMian.Controls.Add(this.TestMode);
-            this.tbcMian.Controls.Add(this.Wafer);
-            this.tbcMian.Controls.Add(this.tabSetting);
             this.tbcMian.Controls.Add(this.tabNewSetting);
+            this.tbcMian.Controls.Add(this.tbDiffMonitor);
+            this.tbcMian.Controls.Add(this.tabWafer);
+            this.tbcMian.Controls.Add(this.tabStatus);
+            this.tbcMian.Controls.Add(this.tabSetting);
             resources.ApplyResources(this.tbcMian, "tbcMian");
             this.tbcMian.Name = "tbcMian";
             this.tbcMian.SelectedIndex = 0;
@@ -536,17 +536,17 @@ namespace Adam
             resources.ApplyResources(this.tabStatus, "tabStatus");
             this.tabStatus.Name = "tabStatus";
             // 
-            // TestMode
+            // tbDiffMonitor
             // 
-            resources.ApplyResources(this.TestMode, "TestMode");
-            this.TestMode.Name = "TestMode";
-            this.TestMode.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.tbDiffMonitor, "tbDiffMonitor");
+            this.tbDiffMonitor.Name = "tbDiffMonitor";
+            this.tbDiffMonitor.UseVisualStyleBackColor = true;
             // 
-            // Wafer
+            // tabWafer
             // 
-            resources.ApplyResources(this.Wafer, "Wafer");
-            this.Wafer.Name = "Wafer";
-            this.Wafer.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.tabWafer, "tabWafer");
+            this.tabWafer.Name = "tabWafer";
+            this.tabWafer.UseVisualStyleBackColor = true;
             // 
             // tabSetting
             // 
@@ -941,9 +941,9 @@ namespace Adam
         private System.Windows.Forms.Button Mode_btn;
         private System.Windows.Forms.Button Connection_btn;
         private System.Windows.Forms.CheckBox Mute_chk;
-        private System.Windows.Forms.TabPage TestMode;
+        private System.Windows.Forms.TabPage tbDiffMonitor;
         private System.Windows.Forms.DataGridView Conn_gv;
-        private System.Windows.Forms.TabPage Wafer;
+        private System.Windows.Forms.TabPage tabWafer;
         private System.Windows.Forms.Button btnManual;
         private System.Windows.Forms.Button ALL_INIT_btn;
         private System.Windows.Forms.Button button1;
