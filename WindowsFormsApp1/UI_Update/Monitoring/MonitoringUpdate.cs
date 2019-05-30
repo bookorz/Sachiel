@@ -20,6 +20,36 @@ namespace Adam.UI_Update.Monitoring
         delegate void UpdateNode(string JobId);
         delegate void UpdateForSlot(Node Port, string Slot);
 
+
+        public static void ButtonEnabled(string Name, bool Enabled)
+        {
+            try
+            {
+                Form form = Application.OpenForms["FormMonitoring"];
+                Button W;
+                if (form == null)
+                    return;
+
+                W = form.Controls.Find(Name, true).FirstOrDefault() as Button;
+                if (W == null)
+                    return;
+
+                if (W.InvokeRequired)
+                {
+                    UpdatePortUsed ph = new UpdatePortUsed(ButtonEnabled);
+                    W.BeginInvoke(ph, Name, Enabled);
+                }
+                else
+                {
+                    W.Enabled = Enabled;
+
+                }
+            }
+            catch
+            {
+
+            }
+        }
         public static void DisableUpdate(string Name, bool Checked)
         {
             try

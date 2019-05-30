@@ -1505,7 +1505,12 @@ namespace Adam
                     }
 
                     break;
-                case "LOADPORT_CLOSE_NOMAP"://test mode
+                case "LOADPORT_CLOSE_NOMAP":
+                    if (Task.Id.Contains("Unload_btn"))
+                    {
+                        MonitoringUpdate.ButtonEnabled(Task.Params["@Target"].ToUpper()+"_Unload_btn", true);
+                    }
+                    //test mode
                     Node p = NodeManagement.Get(Task.Params["@Target"]);
                     TaskName = "LOADPORT_OPEN";
                     Message = "";
@@ -1513,6 +1518,7 @@ namespace Adam
                     param1.Add("@Target", p.Name);
 
                     RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+
                     break;
             }
 
@@ -1523,6 +1529,8 @@ namespace Adam
             var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
                                  where OPEN.Mode.Equals("LD") && OPEN.IsMapping
                                  orderby OPEN.LoadTime
+                                 from wafer in OPEN.JobList.Values
+                                 where wafer.MapFlag && !wafer.ErrPosition
                                  select OPEN;
             if (AvailableOPENs.Count() != 0)
             {
@@ -1681,23 +1689,28 @@ namespace Adam
             WaferAssignUpdate.UpdateEnabled("FORM", true);
         }
 
+        public void On_LoadPort_Selected(Node Port)
+        {
+            MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
+        }
 
+        public void On_UnLoadPort_Selected(Node Port)
+        {
+            MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
+        }
 
         public void On_LoadPort_Complete(Node Port)
         {
-            //var AvailableSlots = from eachSlot in Port.JobList.Values.ToList()
-            //                     where eachSlot.MapFlag && !eachSlot.ErrPosition && !eachSlot.Locked
-            //                     select eachSlot;
-            //if (AvailableSlots.Count() == 0)
-            //{
-            //取完片 自動退
+          
             string TaskName = "LOADPORT_CLOSE_NOMAP";
             string Message = "";
             Dictionary<string, string> param1 = new Dictionary<string, string>();
             param1.Add("@Target", Port.Name);
             TaskJobManagment.CurrentProceedTask tmpTask;
             RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
-            //}
+
+
+            MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
         }
 
         public void On_UnLoadPort_Complete(Node Port)
@@ -1715,6 +1728,7 @@ namespace Adam
                 TaskJobManagment.CurrentProceedTask tmpTask;
                 RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
             }
+            MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1891,5 +1905,7 @@ namespace Adam
                 }
             }
         }
+
+       
     }
 }

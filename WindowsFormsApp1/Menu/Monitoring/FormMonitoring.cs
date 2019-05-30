@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TransferControl.Engine;
 using TransferControl.Management;
 
 namespace Adam.Menu.Monitoring
@@ -255,6 +256,30 @@ namespace Adam.Menu.Monitoring
             }
 
             
+        }
+
+        private void Unload_btn(object sender, EventArgs e)
+        {
+            string PortName = ((Button)sender).Name.Substring(0, ((Button)sender).Name.IndexOf("_"));
+            Node port = NodeManagement.Get(PortName);
+            if (port == null)
+            {
+                MessageBox.Show(PortName+" not found");
+            }
+            if (port.Enable)
+            {
+                ((Button)sender).Enabled = false;
+                string TaskName = "LOADPORT_CLOSE_NOMAP";
+                string Message = "";
+                Dictionary<string, string> param1 = new Dictionary<string, string>();
+                param1.Add("@Target", port.Name);
+                TaskJobManagment.CurrentProceedTask tmpTask;
+                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString()+ "Unload_btn", out Message, out tmpTask, TaskName, param1);
+            }
+            else
+            {
+                MessageBox.Show(PortName+" is disabled");
+            }
         }
     }
 }
