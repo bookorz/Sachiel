@@ -111,6 +111,7 @@ namespace Adam
             {
                 MessageBox.Show("請先開啟HST OCR程式!");
                 this.Close();
+                return;
             }
 
             Int32 oldWidth = this.Width;
