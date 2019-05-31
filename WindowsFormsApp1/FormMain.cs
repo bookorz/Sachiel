@@ -631,6 +631,8 @@ namespace Adam
                 CurrentAlarm.IsStop = Detail.IsStop;
                 if (CurrentAlarm.IsStop)
                 {
+                    Start = false;
+                    Initial = false;
                     XfeCrossZone.Stop();
                 }
             }
@@ -648,8 +650,7 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
-            Start = false;
-            Initial = false;
+
         }
 
         public void On_Command_Finished(Node Node, Transaction Txn, ReturnMessage Msg)
@@ -782,7 +783,7 @@ namespace Adam
                             case "MANSW":
                                 if (Node.OPACCESS)
                                 {
-                                    Barcodeupdate.UpdateLoadport(Node.Name);
+                                    Barcodeupdate.UpdateLoadport(Node.Name,false);
                                     //Node.OPACCESS = false;
                                     //TaskName = "LOADPORT_OPEN";
                                     //Message = "";
@@ -947,7 +948,7 @@ namespace Adam
             ConnectionStatusUpdate.UpdateControllerStatus(DIOName, Status);
         }
 
-        
+
         public void On_Data_Chnaged(string Parameter, string Value, string Type)
         {
             switch (Parameter)
@@ -1414,8 +1415,7 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
             WaferAssignUpdate.UpdateEnabled("FORM", true);
-            Start = false;
-            Initial = false;
+
             if (Task.Id.IndexOf("FormManual") != -1)
             {
                 ManualPortStatusUpdate.LockUI(false);
@@ -1437,7 +1437,9 @@ namespace Adam
                     CurrentAlarm.IsStop = Detail.IsStop;
                     if (CurrentAlarm.IsStop)
                     {
-                        //RouteCtrl.Stop();
+                        Start = false;
+                        Initial = false;
+                        XfeCrossZone.Stop();
                     }
                     CurrentAlarm.TimeStamp = DateTime.Now;
 
