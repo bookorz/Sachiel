@@ -63,7 +63,7 @@ namespace Adam
 
         public FormMain()
         {
-            
+
 
             InitializeComponent();
             XmlConfigurator.Configure();
@@ -213,8 +213,9 @@ namespace Adam
                         var result = form.ShowDialog();
                         if (result == DialogResult.OK)
                         {
+                            tbcMian.Enabled = true;
                             Mode_btn.Enabled = true;
-
+                            DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                         }
                     }
                     break;
@@ -232,7 +233,7 @@ namespace Adam
                     btnManual.Enabled = false;
                     btnManual.BackColor = Color.Gray;
                     CurrentMode = "AUTO";
-                    
+
                     DIOUpdate.UpdateControlButton("Start_btn", Initial);
 
                     DIOUpdate.UpdateControlButton("Stop_btn", false);
@@ -946,7 +947,7 @@ namespace Adam
             ConnectionStatusUpdate.UpdateControllerStatus(DIOName, Status);
         }
 
-
+        
         public void On_Data_Chnaged(string Parameter, string Value, string Type)
         {
             switch (Parameter)
@@ -1182,15 +1183,15 @@ namespace Adam
             }
             if (Mode_btn.Text.Equals("Manual-Mode"))
             {
-                DIOUpdate.UpdateControlButton("Start_btn", Initial);
+                DIOUpdate.UpdateControlButton("Start_btn", false);
                 DIOUpdate.UpdateControlButton("Stop_btn", false);
                 DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                 Mode_btn.Text = "Online-Mode";
                 Mode_btn.BackColor = Color.Green;
                 btnManual.Enabled = false;
                 btnManual.BackColor = Color.Gray;
-                tbcMian.Enabled = false;
-                tbcMian.SelectTab(0);
+                //tbcMian.Enabled = false;
+                //tbcMian.SelectTab(0);
                 CurrentMode = "AUTO";
                 if (formManual != null)
                 {
@@ -1217,13 +1218,13 @@ namespace Adam
                 //{
                 DIOUpdate.UpdateControlButton("Start_btn", false);
                 DIOUpdate.UpdateControlButton("Stop_btn", false);
-                DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
                 Mode_btn.Text = "Manual-Mode";
                 Mode_btn.BackColor = Color.Orange;
                 btnManual.Enabled = true;
                 btnManual.BackColor = Color.Orange;
                 CurrentMode = "MANUAL";
-                tbcMian.Enabled = true;
+                //tbcMian.Enabled = true;
                 AuthorityUpdate.UpdateFuncGroupEnable(lbl_login_group.Text);//20190529 add 依照權限開放權限
                 //}
                 //else
@@ -1328,6 +1329,11 @@ namespace Adam
             }
             if (tbcMian.SelectedTab.Text.Equals("Wafer mapping"))
             {
+                if (Start)
+                {
+                    MessageBox.Show("請先切換至STOP");
+                    tbcMian.SelectTab(0);
+                }
                 FormWaferMapping.fromPort = "";
                 FormWaferMapping.fromSlot = "";
                 FormWaferMapping.toPort = "";
@@ -1407,6 +1413,7 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            WaferAssignUpdate.UpdateEnabled("FORM", true);
             Start = false;
             Initial = false;
             if (Task.Id.IndexOf("FormManual") != -1)
@@ -1503,21 +1510,21 @@ namespace Adam
                             AssignWafer(ld);
                         }
                     }
-
-                    break;
-                case "LOADPORT_CLOSE_NOMAP":
                     if (Task.Id.Contains("Unload_btn"))
                     {
-                        MonitoringUpdate.ButtonEnabled(Task.Params["@Target"].ToUpper()+"_Unload_btn", true);
+                        MonitoringUpdate.ButtonEnabled(Task.Params["@Target"].ToUpper() + "_Unload_btn", true);
                     }
-                    //test mode
-                    Node p = NodeManagement.Get(Task.Params["@Target"]);
-                    TaskName = "LOADPORT_OPEN";
-                    Message = "";
-                    Dictionary<string, string> param1 = new Dictionary<string, string>();
-                    param1.Add("@Target", p.Name);
+                    break;
+                case "LOADPORT_CLOSE_NOMAP":
 
-                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                    ////test mode
+                    //Node p = NodeManagement.Get(Task.Params["@Target"]);
+                    //TaskName = "LOADPORT_OPEN";
+                    //Message = "";
+                    //Dictionary<string, string> param1 = new Dictionary<string, string>();
+                    //param1.Add("@Target", p.Name);
+
+                    //RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
 
                     break;
             }
@@ -1540,107 +1547,117 @@ namespace Adam
             }
             return result;
         }
-
+        static object AssignLock = new object();
         private void AssignWafer(Node Loadport)
         {
-            if (XfeCrossZone.Running)
+            lock (AssignLock)
             {
-                return;
-            }
-            if (CurrentMode.Equals("MANUAL"))
-            {
-                return;
-            }
-            if (CurrentMode.Equals("AUTO") && !Start)
-            {
-                return;
-            }
-            if (CurrentMode.Equals("AUTO"))
-            {
-                //List<Job> LD_Jobs = Loadport.JobList.Values.ToList();
-                var LD_Jobs = from wafer in Loadport.JobList.Values
-                              where wafer.MapFlag && !wafer.ErrPosition
-                              orderby Convert.ToInt16(wafer.Slot)
-                              select wafer;
+                if (XfeCrossZone.Running)
+                {
+                    return;
+                }
+                if (CurrentMode.Equals("MANUAL"))
+                {
+                    return;
+                }
+                if (CurrentMode.Equals("AUTO") && !Start)
+                {
+                    return;
+                }
+                if (CurrentMode.Equals("AUTO"))
+                {
+                    //List<Job> LD_Jobs = Loadport.JobList.Values.ToList();
+                    var LD_Jobs = from wafer in Loadport.JobList.Values
+                                  where wafer.MapFlag && !wafer.ErrPosition
+                                  orderby Convert.ToInt16(wafer.Slot)
+                                  select wafer;
 
-                //LD_Jobs.Sort((x, y) => { return Convert.ToInt32(x.Slot).CompareTo(Convert.ToInt32(y.Slot)); });
-                var AvailableFOSBs = from FOSB in NodeManagement.GetLoadPortList()
-                                     where FOSB.Mode.Equals("ULD") && FOSB.IsMapping
-                                     orderby FOSB.LoadTime
-                                     select FOSB;
-                //List<Node> FOSBs = AvailableFOSBs.ToList();
-                //FOSBs.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
-                bool isAssign = false;
-                bool isAssign2 = false;
-                foreach (Node fosb in AvailableFOSBs)
-                {//找到能放的FOSB
+                    //LD_Jobs.Sort((x, y) => { return Convert.ToInt32(x.Slot).CompareTo(Convert.ToInt32(y.Slot)); });
+                    var AvailableFOSBs = from FOSB in NodeManagement.GetLoadPortList()
+                                         where FOSB.Mode.Equals("ULD") && FOSB.IsMapping
+                                         orderby FOSB.LoadTime
+                                         select FOSB;
+                    //List<Node> FOSBs = AvailableFOSBs.ToList();
+                    //FOSBs.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
+                    bool isAssign = false;
+                    bool isAssign2 = false;
+                    foreach (Node fosb in AvailableFOSBs)
+                    {//找到能放的FOSB
 
-                    var ULD_Jobs = (from Slot in fosb.JobList.Values
-                                    where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
-                                    select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
-                    //List<Job> ULD_Jobs = fosb.JobList.Values.ToList();
-                    //ULD_Jobs.Sort((x, y) => { return -Convert.ToInt32(x.Slot).CompareTo(Convert.ToInt32(y.Slot)); });
+                        var ULD_Jobs = (from Slot in fosb.JobList.Values
+                                        where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
+                                        select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
+                        //List<Job> ULD_Jobs = fosb.JobList.Values.ToList();
+                        //ULD_Jobs.Sort((x, y) => { return -Convert.ToInt32(x.Slot).CompareTo(Convert.ToInt32(y.Slot)); });
 
-                    foreach (Job wafer in LD_Jobs)
-                    {//檢查LD的所有WAFER
+                        foreach (Job wafer in LD_Jobs)
+                        {//檢查LD的所有WAFER
 
-                        isAssign = false;
-                        foreach (Job Slot in ULD_Jobs)
-                        {//搜尋所有FOSB Slot 找到能放的
-                         //if (!Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned)
-                         //{//空的 map正常 還沒被預約          
-                            if (Slot.PreviousSlotNotEmpty)
-                            {//下一層有片所以不能放
-                                Slot.Locked = true;
+                            isAssign = false;
+                            foreach (Job Slot in ULD_Jobs)
+                            {//搜尋所有FOSB Slot 找到能放的
+                             //if (!Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned)
+                             //{//空的 map正常 還沒被預約          
+                                if (Slot.PreviousSlotNotEmpty)
+                                {//下一層有片所以不能放
+                                    Slot.Locked = true;
+                                }
+                                else
+                                {
+                                    wafer.NeedProcess = true;
+                                    wafer.ProcessFlag = false;
+                                    wafer.AssignPort(fosb.Name, Slot.Slot);
+                                    isAssign = true;
+                                    isAssign2 = true;
+                                    Slot.IsAssigned = true;
+                                    logger.Debug("Assign booktest from " + Loadport.Name + " slot:" + wafer.Slot + " to " + fosb.Name + " slot:" + Slot.Slot);
+
+                                    break;
+                                }
+                                //}
                             }
-                            else
+                            if (!isAssign)
                             {
-                                wafer.NeedProcess = true;
-                                wafer.ProcessFlag = false;
-                                wafer.AssignPort(fosb.Name, Slot.Slot);
-                                isAssign = true;
-                                isAssign2 = true;
-                                Slot.IsAssigned = true;
                                 break;
                             }
-                            //}
                         }
-                        if (!isAssign)
-                        {
+                        if (isAssign2)
+                        {//已經指派過的話就跳脫
                             break;
                         }
                     }
-                    if (isAssign2)
-                    {//已經指派過的話就跳脫
-                        break;
+                    for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
+                    {//重新排序目的地for雙Arm
+                     //List<Job> JobList = LD_Jobs.ToList();
+                     //JobList.Sort((x, y) => { return x.Slot.CompareTo(y.LoadTime); });
+                        Job upper = LD_Jobs.ToList()[i];
+                        Job lower = LD_Jobs.ToList()[i - 1];
+                        if (upper.Destination.Equals(lower.Destination) && upper.NeedProcess && lower.NeedProcess)
+                        {
+                            string swapDes = upper.Destination;
+                            string swapSlot = upper.DestinationSlot;
+                            upper.AssignPort(lower.Destination, lower.DestinationSlot);
+                            lower.AssignPort(swapDes, swapSlot);
+                            logger.Debug("Reverse booktest from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
+                            logger.Debug("Reverse booktest from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
+                            logger.Debug("Reverse booktest ---------- ");
+                        }
+                        else
+                        {
+                            i--;
+                        }
                     }
-                }
-                for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
-                {//重新排序目的地for雙Arm
-                    Job upper = LD_Jobs.ToList()[i];
-                    Job lower = LD_Jobs.ToList()[i - 1];
-                    if (upper.Destination.Equals(lower.Destination) && upper.NeedProcess && lower.NeedProcess)
-                    {
-                        string swapDes = upper.Destination;
-                        string swapSlot = upper.DestinationSlot;
-                        upper.AssignPort(lower.Destination, lower.DestinationSlot);
-                        lower.AssignPort(swapDes, swapSlot);
-                    }
-                    else
-                    {
-                        i--;
-                    }
-                }
 
-                var NeedProcessSlot = from wafer in LD_Jobs
-                                      where wafer.NeedProcess
-                                      select wafer;
+                    var NeedProcessSlot = from wafer in LD_Jobs
+                                          where wafer.NeedProcess
+                                          select wafer;
 
-                if (!XfeCrossZone.Running && NeedProcessSlot.Count() != 0)
-                {
-                    if (!xfe.Start(Loadport.Name))
+                    if (!XfeCrossZone.Running && NeedProcessSlot.Count() != 0)
                     {
-                        MessageBox.Show("xfe.Start fail!");
+                        if (!xfe.Start(Loadport.Name))
+                        {
+                            MessageBox.Show("xfe.Start fail!");
+                        }
                     }
                 }
             }
@@ -1701,7 +1718,7 @@ namespace Adam
 
         public void On_LoadPort_Complete(Node Port)
         {
-          
+
             string TaskName = "LOADPORT_CLOSE_NOMAP";
             string Message = "";
             Dictionary<string, string> param1 = new Dictionary<string, string>();
@@ -1710,7 +1727,7 @@ namespace Adam
             RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
 
 
-            MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+            //MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
         }
 
         public void On_UnLoadPort_Complete(Node Port)
@@ -1728,7 +1745,11 @@ namespace Adam
                 TaskJobManagment.CurrentProceedTask tmpTask;
                 RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
             }
-            MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+            else
+            {
+                MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1906,6 +1927,6 @@ namespace Adam
             }
         }
 
-       
+
     }
 }

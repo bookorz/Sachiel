@@ -163,7 +163,7 @@
     <value>0</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 92</value>
+    <value>103, 247</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -176,18 +176,6 @@
   </data>
   <data name="button1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 247</value>
-  </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>button1</value>
   </data>
   <data name="&gt;&gt;button1.Name" xml:space="preserve">
     <value>button1</value>
@@ -309,6 +297,9 @@
   <data name="groupBox19.Text" xml:space="preserve">
     <value>Host</value>
   </data>
+  <data name="groupBox19.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;groupBox19.Name" xml:space="preserve">
     <value>groupBox19</value>
   </data>
@@ -331,6 +322,39 @@
     <value>splitContainer13</value>
   </data>
   <data name="&gt;&gt;splitContainer13.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="CDAAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="CDAAlarm_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="CDAAlarm_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CDAAlarm_Signal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 306</value>
+  </data>
+  <data name="CDAAlarm_Signal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 35</value>
+  </data>
+  <data name="CDAAlarm_Signal.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="CDAAlarm_Signal.Text" xml:space="preserve">
+    <value>CDA</value>
+  </data>
+  <data name="&gt;&gt;CDAAlarm_Signal.Name" xml:space="preserve">
+    <value>CDAAlarm_Signal</value>
+  </data>
+  <data name="&gt;&gt;CDAAlarm_Signal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CDAAlarm_Signal.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;CDAAlarm_Signal.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="EQP_State.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -361,7 +385,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;EQP_State.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Stop_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -394,7 +418,7 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;Stop_btn.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Start_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -427,34 +451,13 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;Start_btn.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 247</value>
-  </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>groupBox5</value>
-  </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="ALL_INIT_btn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="ALL_INIT_btn.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="ALL_INIT_btn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -651,37 +654,37 @@
   <data name="&gt;&gt;FFUAlarm_Signal.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="CDAAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="Vacuum_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="CDAAlarm_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="Vacuum_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="CDAAlarm_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="Vacuum_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="CDAAlarm_Signal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="Vacuum_Signal.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 347</value>
   </data>
-  <data name="CDAAlarm_Signal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="Vacuum_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
   </data>
-  <data name="CDAAlarm_Signal.TabIndex" type="System.Int32, mscorlib">
+  <data name="Vacuum_Signal.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="CDAAlarm_Signal.Text" xml:space="preserve">
-    <value>CDA</value>
+  <data name="Vacuum_Signal.Text" xml:space="preserve">
+    <value>VACUUM</value>
   </data>
-  <data name="&gt;&gt;CDAAlarm_Signal.Name" xml:space="preserve">
-    <value>CDAAlarm_Signal</value>
+  <data name="&gt;&gt;Vacuum_Signal.Name" xml:space="preserve">
+    <value>Vacuum_Signal</value>
   </data>
-  <data name="&gt;&gt;CDAAlarm_Signal.Type" xml:space="preserve">
+  <data name="&gt;&gt;Vacuum_Signal.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;CDAAlarm_Signal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Vacuum_Signal.Parent" xml:space="preserve">
     <value>groupBox5</value>
   </data>
-  <data name="&gt;&gt;CDAAlarm_Signal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;Vacuum_Signal.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
   <data name="DoorSwitch_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -694,7 +697,7 @@
     <value>NoControl</value>
   </data>
   <data name="DoorSwitch_Signal.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 306</value>
+    <value>6, 265</value>
   </data>
   <data name="DoorSwitch_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
@@ -1118,6 +1121,9 @@
   </data>
   <data name="Mute_chk.Text" xml:space="preserve">
     <value>Mute</value>
+  </data>
+  <data name="Mute_chk.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;Mute_chk.Name" xml:space="preserve">
     <value>Mute_chk</value>
@@ -1548,57 +1554,6 @@
   </data>
   <data name="&gt;&gt;RED_Signal.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1749, 3</value>
-  </data>
-  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 152</value>
-  </data>
-  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Signal tower</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1884, 158</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>1749, 3</value>

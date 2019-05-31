@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Adam.UI_Update.Barcode;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -279,6 +280,28 @@ namespace Adam.Menu.Monitoring
             else
             {
                 MessageBox.Show(PortName+" is disabled");
+            }
+        }
+
+        private void FoupID_Click(object sender, EventArgs e)
+        {
+            string PortName = ((TextBox)sender).Name.Substring(0, ((TextBox)sender).Name.IndexOf("_"));
+            Node port = NodeManagement.Get(PortName);
+            if (port.OrgSearchComplete && port.Foup_Placement)
+            {
+                Barcodeupdate.UpdateLoadport(PortName);
+            }
+            else
+            {
+                if (port.OrgSearchComplete)
+                {
+                    MessageBox.Show("Please excute org search");
+                }
+                if (!port.Foup_Placement)
+                {
+                    MessageBox.Show("No Foup exist");
+                }
+                
             }
         }
     }

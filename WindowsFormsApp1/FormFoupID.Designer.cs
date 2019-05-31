@@ -30,15 +30,17 @@
         {
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.Clear_btn = new System.Windows.Forms.Button();
+            this.LoadportName_lb = new System.Windows.Forms.Label();
             this.FoupID_Read_tb = new System.Windows.Forms.TextBox();
             this.FoupID_Read_Confirm_btn = new System.Windows.Forms.Button();
-            this.LoadportName_lb = new System.Windows.Forms.Label();
             this.FoupID_Status_lb = new System.Windows.Forms.Label();
+            this.ManualInput_ck = new System.Windows.Forms.CheckBox();
             this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.ManualInput_ck);
             this.groupBox7.Controls.Add(this.Clear_btn);
             this.groupBox7.Controls.Add(this.LoadportName_lb);
             this.groupBox7.Controls.Add(this.FoupID_Read_tb);
@@ -68,9 +70,20 @@
             this.Clear_btn.UseVisualStyleBackColor = false;
             this.Clear_btn.Click += new System.EventHandler(this.Clear_btn_Click);
             // 
+            // LoadportName_lb
+            // 
+            this.LoadportName_lb.AutoSize = true;
+            this.LoadportName_lb.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.LoadportName_lb.Location = new System.Drawing.Point(129, -2);
+            this.LoadportName_lb.Name = "LoadportName_lb";
+            this.LoadportName_lb.Size = new System.Drawing.Size(148, 31);
+            this.LoadportName_lb.TabIndex = 127;
+            this.LoadportName_lb.Text = "Loadport02";
+            this.LoadportName_lb.TextChanged += new System.EventHandler(this.LoadportName_lb_TextChanged);
+            // 
             // FoupID_Read_tb
             // 
-            this.FoupID_Read_tb.Location = new System.Drawing.Point(38, 54);
+            this.FoupID_Read_tb.Location = new System.Drawing.Point(38, 67);
             this.FoupID_Read_tb.Name = "FoupID_Read_tb";
             this.FoupID_Read_tb.Size = new System.Drawing.Size(298, 33);
             this.FoupID_Read_tb.TabIndex = 123;
@@ -93,17 +106,6 @@
             this.FoupID_Read_Confirm_btn.UseVisualStyleBackColor = false;
             this.FoupID_Read_Confirm_btn.Click += new System.EventHandler(this.FoupID_Read_Confirm_btn_Click);
             // 
-            // LoadportName_lb
-            // 
-            this.LoadportName_lb.AutoSize = true;
-            this.LoadportName_lb.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.LoadportName_lb.Location = new System.Drawing.Point(129, -2);
-            this.LoadportName_lb.Name = "LoadportName_lb";
-            this.LoadportName_lb.Size = new System.Drawing.Size(148, 31);
-            this.LoadportName_lb.TabIndex = 127;
-            this.LoadportName_lb.Text = "Loadport02";
-            this.LoadportName_lb.TextChanged += new System.EventHandler(this.LoadportName_lb_TextChanged);
-            // 
             // FoupID_Status_lb
             // 
             this.FoupID_Status_lb.AutoSize = true;
@@ -113,6 +115,16 @@
             this.FoupID_Status_lb.Size = new System.Drawing.Size(156, 16);
             this.FoupID_Status_lb.TabIndex = 128;
             this.FoupID_Status_lb.Text = "Waiting Barcode reader";
+            // 
+            // ManualInput_ck
+            // 
+            this.ManualInput_ck.AutoSize = true;
+            this.ManualInput_ck.Location = new System.Drawing.Point(38, 33);
+            this.ManualInput_ck.Name = "ManualInput_ck";
+            this.ManualInput_ck.Size = new System.Drawing.Size(149, 28);
+            this.ManualInput_ck.TabIndex = 128;
+            this.ManualInput_ck.Text = "Manual input";
+            this.ManualInput_ck.UseVisualStyleBackColor = true;
             // 
             // FormFoupID
             // 
@@ -140,5 +152,6 @@
         private System.Windows.Forms.Label FoupID_Status_lb;
         private System.Windows.Forms.TextBox FoupID_Read_tb;
         private System.Windows.Forms.Button Clear_btn;
+        private System.Windows.Forms.CheckBox ManualInput_ck;
     }
 }

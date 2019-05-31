@@ -35,6 +35,7 @@ namespace Adam
             this.splitContainer13 = new System.Windows.Forms.SplitContainer();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
             this.Mode_btn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.Connection_btn = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
@@ -42,14 +43,13 @@ namespace Adam
             this.EQP_State = new System.Windows.Forms.Button();
             this.Stop_btn = new System.Windows.Forms.Button();
             this.Start_btn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.ALL_INIT_btn = new System.Windows.Forms.Button();
             this.DifferentialPressureAlarm2_Signal = new System.Windows.Forms.Button();
             this.DifferentialPressureAlarm1_Signal = new System.Windows.Forms.Button();
             this.SafetyRelay_Signal = new System.Windows.Forms.Button();
             this.IonizerAlarm_Signal = new System.Windows.Forms.Button();
             this.FFUAlarm_Signal = new System.Windows.Forms.Button();
-            this.CDAAlarm_Signal = new System.Windows.Forms.Button();
+            this.Vacuum_Signal = new System.Windows.Forms.Button();
             this.DoorSwitch_Signal = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -78,11 +78,11 @@ namespace Adam
             this.tabMonitor = new System.Windows.Forms.TabPage();
             this.tabComm = new System.Windows.Forms.TabPage();
             this.tabMapping = new System.Windows.Forms.TabPage();
-            this.tabStatus = new System.Windows.Forms.TabPage();
+            this.tabNewSetting = new System.Windows.Forms.TabPage();
             this.tbDiffMonitor = new System.Windows.Forms.TabPage();
             this.tabWafer = new System.Windows.Forms.TabPage();
+            this.tabStatus = new System.Windows.Forms.TabPage();
             this.tabSetting = new System.Windows.Forms.TabPage();
-            this.tabNewSetting = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -114,6 +114,7 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
+            this.CDAAlarm_Signal = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -169,6 +170,13 @@ namespace Adam
             this.Mode_btn.UseVisualStyleBackColor = false;
             this.Mode_btn.Click += new System.EventHandler(this.Mode_btn_Click);
             // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // groupBox19
             // 
             this.groupBox19.Controls.Add(this.Connection_btn);
@@ -195,6 +203,7 @@ namespace Adam
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.CDAAlarm_Signal);
             this.groupBox5.Controls.Add(this.EQP_State);
             this.groupBox5.Controls.Add(this.Stop_btn);
             this.groupBox5.Controls.Add(this.Start_btn);
@@ -204,7 +213,7 @@ namespace Adam
             this.groupBox5.Controls.Add(this.SafetyRelay_Signal);
             this.groupBox5.Controls.Add(this.IonizerAlarm_Signal);
             this.groupBox5.Controls.Add(this.FFUAlarm_Signal);
-            this.groupBox5.Controls.Add(this.CDAAlarm_Signal);
+            this.groupBox5.Controls.Add(this.Vacuum_Signal);
             this.groupBox5.Controls.Add(this.DoorSwitch_Signal);
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
@@ -232,13 +241,6 @@ namespace Adam
             this.Start_btn.Name = "Start_btn";
             this.Start_btn.UseVisualStyleBackColor = false;
             this.Start_btn.Click += new System.EventHandler(this.Start_btn_Click);
-            // 
-            // button1
-            // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ALL_INIT_btn
             // 
@@ -283,12 +285,12 @@ namespace Adam
             this.FFUAlarm_Signal.Name = "FFUAlarm_Signal";
             this.FFUAlarm_Signal.UseVisualStyleBackColor = false;
             // 
-            // CDAAlarm_Signal
+            // Vacuum_Signal
             // 
-            resources.ApplyResources(this.CDAAlarm_Signal, "CDAAlarm_Signal");
-            this.CDAAlarm_Signal.BackColor = System.Drawing.Color.Gray;
-            this.CDAAlarm_Signal.Name = "CDAAlarm_Signal";
-            this.CDAAlarm_Signal.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.Vacuum_Signal, "Vacuum_Signal");
+            this.Vacuum_Signal.BackColor = System.Drawing.Color.Gray;
+            this.Vacuum_Signal.Name = "Vacuum_Signal";
+            this.Vacuum_Signal.UseVisualStyleBackColor = false;
             // 
             // DoorSwitch_Signal
             // 
@@ -529,12 +531,12 @@ namespace Adam
             resources.ApplyResources(this.tabMapping, "tabMapping");
             this.tabMapping.Name = "tabMapping";
             // 
-            // tabStatus
+            // tabNewSetting
             // 
-            this.tabStatus.BackColor = System.Drawing.SystemColors.Control;
-            this.tabStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.tabStatus, "tabStatus");
-            this.tabStatus.Name = "tabStatus";
+            this.tabNewSetting.BackColor = System.Drawing.SystemColors.Control;
+            this.tabNewSetting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.tabNewSetting, "tabNewSetting");
+            this.tabNewSetting.Name = "tabNewSetting";
             // 
             // tbDiffMonitor
             // 
@@ -548,19 +550,19 @@ namespace Adam
             this.tabWafer.Name = "tabWafer";
             this.tabWafer.UseVisualStyleBackColor = true;
             // 
+            // tabStatus
+            // 
+            this.tabStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.tabStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.tabStatus, "tabStatus");
+            this.tabStatus.Name = "tabStatus";
+            // 
             // tabSetting
             // 
             this.tabSetting.BackColor = System.Drawing.SystemColors.Control;
             this.tabSetting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.tabSetting, "tabSetting");
             this.tabSetting.Name = "tabSetting";
-            // 
-            // tabNewSetting
-            // 
-            this.tabNewSetting.BackColor = System.Drawing.SystemColors.Control;
-            this.tabNewSetting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.tabNewSetting, "tabNewSetting");
-            this.tabNewSetting.Name = "tabNewSetting";
             // 
             // panel2
             // 
@@ -829,6 +831,13 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
+            // CDAAlarm_Signal
+            // 
+            resources.ApplyResources(this.CDAAlarm_Signal, "CDAAlarm_Signal");
+            this.CDAAlarm_Signal.BackColor = System.Drawing.Color.Gray;
+            this.CDAAlarm_Signal.Name = "CDAAlarm_Signal";
+            this.CDAAlarm_Signal.UseVisualStyleBackColor = false;
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -892,7 +901,7 @@ namespace Adam
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button IonizerAlarm_Signal;
         private System.Windows.Forms.Button FFUAlarm_Signal;
-        private System.Windows.Forms.Button CDAAlarm_Signal;
+        private System.Windows.Forms.Button Vacuum_Signal;
         private System.Windows.Forms.Button DoorSwitch_Signal;
         private System.Windows.Forms.Button DifferentialPressureAlarm1_Signal;
         private System.Windows.Forms.Button SafetyRelay_Signal;
@@ -952,6 +961,7 @@ namespace Adam
         private System.Windows.Forms.Button EQP_State;
         private System.Windows.Forms.Button btnChgPWD;
         private System.Windows.Forms.TabPage tabNewSetting;
+        private System.Windows.Forms.Button CDAAlarm_Signal;
     }
 }
 

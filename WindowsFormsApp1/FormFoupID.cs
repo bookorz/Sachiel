@@ -48,30 +48,37 @@ namespace Adam
         }
 
         private void FoupID_Read_Confirm_btn_Click(object sender, EventArgs e)
-        {
+        {       
             if (!FoupID_Read_tb.Text.Equals(""))
             {
-                //open & mapping foup
-                string end = "";
-                switch (LoadportName_lb.Text)
+                if (!ManualInput_ck.Checked)
                 {
-                    case "LOADPORT01":
-                        end = "!";
-                        break;
-                    case "LOADPORT02":
-                        end = "\"";
-                        break;
-                    case "LOADPORT03":
-                        end = "#";
-                        break;
-                    case "LOADPORT04":
-                        end = "$";
-                        break;
+                    //open & mapping foup
+                    string end = "";
+                    switch (LoadportName_lb.Text)
+                    {
+                        case "LOADPORT01":
+                            end = "!";
+                            break;
+                        case "LOADPORT02":
+                            end = "\"";
+                            break;
+                        case "LOADPORT03":
+                            end = "#";
+                            break;
+                        case "LOADPORT04":
+                            end = "$";
+                            break;
+                    }
+                    if (!end.Equals(endCode))
+                    {
+                        MessageBox.Show("請使用正確的條碼槍");
+                        return;
+                    }
                 }
-                if (!end.Equals(endCode))
+                else
                 {
-                    MessageBox.Show("請使用正確的條碼槍");
-                    return;
+                    foupID = FoupID_Read_tb.Text;
                 }
 
                 TaskJobManagment.CurrentProceedTask Task;
@@ -105,37 +112,43 @@ namespace Adam
         public static string foupID = "";
         private void FoupID_Read_tb_TextChanged(object sender, EventArgs e)
         {
-            if (!startCode.Equals("") && !endCode.Equals(""))
+            if (!ManualInput_ck.Checked)
             {
-                FoupID_Read_tb.Text = foupID;
-                return;
-            }
-
-            if (startCode.Equals(""))
-            {
-                if (FoupID_Read_tb.Text[0].Equals('@'))
+                if (!startCode.Equals("") && !endCode.Equals(""))
                 {
-                    startCode = "@";
+                    FoupID_Read_tb.Text = foupID;
+                    return;
+                }
+
+                if (startCode.Equals(""))
+                {
+                    if (FoupID_Read_tb.Text != "")
+                    {
+                        if (FoupID_Read_tb.Text[0].Equals('@'))
+                        {
+                            startCode = "@";
+                        }
+                        else
+                        {
+                            MessageBox.Show("請使用條碼槍");
+                        }
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("請使用條碼槍");
-                }
-            }
-            else
-            {
-                if (!FoupID_Read_tb.Text.Equals(""))
-                {
-                    switch (FoupID_Read_tb.Text[FoupID_Read_tb.Text.Length - 1].ToString())
+                    if (!FoupID_Read_tb.Text.Equals(""))
                     {
-                        case "!":
-                        case "\"":
-                        case "#":
-                        case "$":
-                            endCode = FoupID_Read_tb.Text[FoupID_Read_tb.Text.Length - 1].ToString();
-                            foupID = FoupID_Read_tb.Text.Replace(startCode, "").Replace(endCode, "");
-                            FoupID_Read_tb.Text = foupID;
-                            break;
+                        switch (FoupID_Read_tb.Text[FoupID_Read_tb.Text.Length - 1].ToString())
+                        {
+                            case "!":
+                            case "\"":
+                            case "#":
+                            case "$":
+                                endCode = FoupID_Read_tb.Text[FoupID_Read_tb.Text.Length - 1].ToString();
+                                foupID = FoupID_Read_tb.Text.Replace(startCode, "").Replace(endCode, "");
+                                FoupID_Read_tb.Text = foupID;
+                                break;
+                        }
                     }
                 }
             }
