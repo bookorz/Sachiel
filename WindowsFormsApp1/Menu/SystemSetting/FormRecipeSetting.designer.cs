@@ -40,6 +40,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.gbRecipeBody = new System.Windows.Forms.GroupBox();
+            this.tbEqpID = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label25 = new System.Windows.Forms.Label();
             this.cbManualPutRule = new System.Windows.Forms.ComboBox();
@@ -120,8 +122,6 @@
             this.btnCreateRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
-            this.label23 = new System.Windows.Forms.Label();
-            this.tbEqpID = new System.Windows.Forms.TextBox();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -276,6 +276,23 @@
             this.gbRecipeBody.TabIndex = 8;
             this.gbRecipeBody.TabStop = false;
             // 
+            // tbEqpID
+            // 
+            this.tbEqpID.Location = new System.Drawing.Point(1049, 19);
+            this.tbEqpID.Name = "tbEqpID";
+            this.tbEqpID.Size = new System.Drawing.Size(165, 33);
+            this.tbEqpID.TabIndex = 1;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(980, 24);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(63, 24);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "EqpID";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.label25);
@@ -424,6 +441,7 @@
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "掃條碼需權限檢查";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
             // 
             // groupBox9
             // 
@@ -1111,6 +1129,7 @@
             this.checkBox2.TabIndex = 4;
             this.checkBox2.Text = "掃條碼是否需要權限檢查";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Visible = false;
             // 
             // groupBox4
             // 
@@ -1302,23 +1321,6 @@
             this.tlpAccount.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.20801F));
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(980, 24);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(63, 24);
-            this.label23.TabIndex = 0;
-            this.label23.Text = "EqpID";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tbEqpID
-            // 
-            this.tbEqpID.Location = new System.Drawing.Point(1049, 19);
-            this.tbEqpID.Name = "tbEqpID";
-            this.tbEqpID.Size = new System.Drawing.Size(165, 33);
-            this.tbEqpID.TabIndex = 1;
             // 
             // FormRecipeSetting
             // 

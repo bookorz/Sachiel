@@ -36,15 +36,18 @@ namespace Adam.Menu.SystemSetting
                 pnlSetting.Controls.Remove(foo);
                 foo.Dispose();
             }
-            form.TopLevel = false;
-            form.AutoScroll = true;
-            pnlSetting.Controls.Add(form);
-            form.Show();
+            if (form != null)
+            {
+                form.TopLevel = false;
+                form.AutoScroll = true;
+                pnlSetting.Controls.Add(form);
+                form.Show();
+            }
         }
 
         private void FormSetting_Load(object sender, EventArgs e)
         {
-            
+            AddForm(null);
         }
 
         private void btnAccountSetting_Click(object sender, EventArgs e)

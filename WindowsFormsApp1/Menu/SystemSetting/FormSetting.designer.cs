@@ -30,17 +30,12 @@
         {
             this.pnlSetting = new System.Windows.Forms.Panel();
             this.btnDeviceManager = new System.Windows.Forms.Button();
-            this.btnCommandScript = new System.Windows.Forms.Button();
             this.btnOnlineSettings = new System.Windows.Forms.Button();
             this.btnAccountSetting = new System.Windows.Forms.Button();
             this.btnSignalTtower = new System.Windows.Forms.Button();
             this.btnSECSSetting = new System.Windows.Forms.Button();
-            this.btnAlarmEventSet = new System.Windows.Forms.Button();
-            this.btnCodeSetting = new System.Windows.Forms.Button();
-            this.tbpDIOSetting = new System.Windows.Forms.Button();
             this.btnRecipeSetting = new System.Windows.Forms.Button();
             this.btnDIOSetting = new System.Windows.Forms.Button();
-            this.btnNodeSetting = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pnlSetting
@@ -54,7 +49,7 @@
             // btnDeviceManager
             // 
             this.btnDeviceManager.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnDeviceManager.Location = new System.Drawing.Point(1438, 12);
+            this.btnDeviceManager.Location = new System.Drawing.Point(1438, 63);
             this.btnDeviceManager.Name = "btnDeviceManager";
             this.btnDeviceManager.Size = new System.Drawing.Size(170, 45);
             this.btnDeviceManager.TabIndex = 1;
@@ -62,21 +57,10 @@
             this.btnDeviceManager.UseVisualStyleBackColor = true;
             this.btnDeviceManager.Click += new System.EventHandler(this.btnDeviceManager_Click);
             // 
-            // btnCommandScript
-            // 
-            this.btnCommandScript.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnCommandScript.Location = new System.Drawing.Point(1438, 63);
-            this.btnCommandScript.Name = "btnCommandScript";
-            this.btnCommandScript.Size = new System.Drawing.Size(170, 45);
-            this.btnCommandScript.TabIndex = 1;
-            this.btnCommandScript.Text = "Command script";
-            this.btnCommandScript.UseVisualStyleBackColor = true;
-            this.btnCommandScript.Click += new System.EventHandler(this.btnCommandScript_Click);
-            // 
             // btnOnlineSettings
             // 
             this.btnOnlineSettings.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnOnlineSettings.Location = new System.Drawing.Point(1438, 114);
+            this.btnOnlineSettings.Location = new System.Drawing.Point(1438, 216);
             this.btnOnlineSettings.Name = "btnOnlineSettings";
             this.btnOnlineSettings.Size = new System.Drawing.Size(170, 45);
             this.btnOnlineSettings.TabIndex = 1;
@@ -87,7 +71,7 @@
             // btnAccountSetting
             // 
             this.btnAccountSetting.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnAccountSetting.Location = new System.Drawing.Point(1438, 165);
+            this.btnAccountSetting.Location = new System.Drawing.Point(1438, 318);
             this.btnAccountSetting.Name = "btnAccountSetting";
             this.btnAccountSetting.Size = new System.Drawing.Size(170, 45);
             this.btnAccountSetting.TabIndex = 1;
@@ -98,7 +82,7 @@
             // btnSignalTtower
             // 
             this.btnSignalTtower.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnSignalTtower.Location = new System.Drawing.Point(1438, 216);
+            this.btnSignalTtower.Location = new System.Drawing.Point(1438, 114);
             this.btnSignalTtower.Name = "btnSignalTtower";
             this.btnSignalTtower.Size = new System.Drawing.Size(170, 45);
             this.btnSignalTtower.TabIndex = 1;
@@ -117,43 +101,10 @@
             this.btnSECSSetting.UseVisualStyleBackColor = true;
             this.btnSECSSetting.Click += new System.EventHandler(this.btnSECSSetting_Click);
             // 
-            // btnAlarmEventSet
-            // 
-            this.btnAlarmEventSet.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnAlarmEventSet.Location = new System.Drawing.Point(1438, 318);
-            this.btnAlarmEventSet.Name = "btnAlarmEventSet";
-            this.btnAlarmEventSet.Size = new System.Drawing.Size(170, 45);
-            this.btnAlarmEventSet.TabIndex = 1;
-            this.btnAlarmEventSet.Text = "Alarm event";
-            this.btnAlarmEventSet.UseVisualStyleBackColor = true;
-            this.btnAlarmEventSet.Click += new System.EventHandler(this.btnAlarmEventSet_Click);
-            // 
-            // btnCodeSetting
-            // 
-            this.btnCodeSetting.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnCodeSetting.Location = new System.Drawing.Point(1438, 369);
-            this.btnCodeSetting.Name = "btnCodeSetting";
-            this.btnCodeSetting.Size = new System.Drawing.Size(170, 45);
-            this.btnCodeSetting.TabIndex = 1;
-            this.btnCodeSetting.Text = "Code setting";
-            this.btnCodeSetting.UseVisualStyleBackColor = true;
-            this.btnCodeSetting.Click += new System.EventHandler(this.btnCodeSetting_Click);
-            // 
-            // tbpDIOSetting
-            // 
-            this.tbpDIOSetting.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tbpDIOSetting.Location = new System.Drawing.Point(1438, 420);
-            this.tbpDIOSetting.Name = "tbpDIOSetting";
-            this.tbpDIOSetting.Size = new System.Drawing.Size(170, 45);
-            this.tbpDIOSetting.TabIndex = 1;
-            this.tbpDIOSetting.Text = "DIO Setting";
-            this.tbpDIOSetting.UseVisualStyleBackColor = true;
-            this.tbpDIOSetting.Click += new System.EventHandler(this.tbpDIOSetting_Click);
-            // 
             // btnRecipeSetting
             // 
             this.btnRecipeSetting.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRecipeSetting.Location = new System.Drawing.Point(1438, 471);
+            this.btnRecipeSetting.Location = new System.Drawing.Point(1438, 12);
             this.btnRecipeSetting.Name = "btnRecipeSetting";
             this.btnRecipeSetting.Size = new System.Drawing.Size(170, 45);
             this.btnRecipeSetting.TabIndex = 1;
@@ -164,7 +115,7 @@
             // btnDIOSetting
             // 
             this.btnDIOSetting.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnDIOSetting.Location = new System.Drawing.Point(1438, 522);
+            this.btnDIOSetting.Location = new System.Drawing.Point(1438, 165);
             this.btnDIOSetting.Name = "btnDIOSetting";
             this.btnDIOSetting.Size = new System.Drawing.Size(170, 45);
             this.btnDIOSetting.TabIndex = 1;
@@ -172,33 +123,17 @@
             this.btnDIOSetting.UseVisualStyleBackColor = true;
             this.btnDIOSetting.Click += new System.EventHandler(this.btnDIOSetting_Click);
             // 
-            // btnNodeSetting
-            // 
-            this.btnNodeSetting.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNodeSetting.Location = new System.Drawing.Point(1438, 573);
-            this.btnNodeSetting.Name = "btnNodeSetting";
-            this.btnNodeSetting.Size = new System.Drawing.Size(170, 45);
-            this.btnNodeSetting.TabIndex = 1;
-            this.btnNodeSetting.Text = "Node Setting";
-            this.btnNodeSetting.UseVisualStyleBackColor = true;
-            this.btnNodeSetting.Click += new System.EventHandler(this.btnNodeSetting_Click);
-            // 
             // FormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1620, 760);
             this.Controls.Add(this.btnRecipeSetting);
-            this.Controls.Add(this.btnNodeSetting);
             this.Controls.Add(this.btnDIOSetting);
-            this.Controls.Add(this.tbpDIOSetting);
-            this.Controls.Add(this.btnCodeSetting);
-            this.Controls.Add(this.btnAlarmEventSet);
             this.Controls.Add(this.btnSECSSetting);
             this.Controls.Add(this.btnSignalTtower);
             this.Controls.Add(this.btnAccountSetting);
             this.Controls.Add(this.btnOnlineSettings);
-            this.Controls.Add(this.btnCommandScript);
             this.Controls.Add(this.btnDeviceManager);
             this.Controls.Add(this.pnlSetting);
             this.Font = new System.Drawing.Font("微軟正黑體", 12F);
@@ -207,6 +142,7 @@
             this.Name = "FormSetting";
             this.Text = "FormSetting";
             this.Load += new System.EventHandler(this.FormSetting_Load);
+            this.Leave += new System.EventHandler(this.FormSetting_Load);
             this.ResumeLayout(false);
 
         }
@@ -215,16 +151,11 @@
 
         private System.Windows.Forms.Panel pnlSetting;
         private System.Windows.Forms.Button btnDeviceManager;
-        private System.Windows.Forms.Button btnCommandScript;
         private System.Windows.Forms.Button btnOnlineSettings;
         private System.Windows.Forms.Button btnAccountSetting;
         private System.Windows.Forms.Button btnSignalTtower;
         private System.Windows.Forms.Button btnSECSSetting;
-        private System.Windows.Forms.Button btnAlarmEventSet;
-        private System.Windows.Forms.Button btnCodeSetting;
-        private System.Windows.Forms.Button tbpDIOSetting;
         private System.Windows.Forms.Button btnRecipeSetting;
         private System.Windows.Forms.Button btnDIOSetting;
-        private System.Windows.Forms.Button btnNodeSetting;
     }
 }
