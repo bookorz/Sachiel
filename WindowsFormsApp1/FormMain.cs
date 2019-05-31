@@ -48,7 +48,7 @@ namespace Adam
         FormFoupID BarcodeForm = new FormFoupID();
         private Menu.Monitoring.FormMonitoring formMonitoring = new Menu.Monitoring.FormMonitoring();
         private Menu.IO.FormIO formIO = new Menu.IO.FormIO();
-        private Menu.WaferMapping.FormWaferMapping formWafer = new Menu.WaferMapping.FormWaferMapping();
+        private Menu.WaferMapping.FormWaferMapping formWaferAssign = new Menu.WaferMapping.FormWaferMapping();
         //private Menu.Status.FormStatus formStatus = new Menu.Status.FormStatus();//20190529 取消
         //private Menu.OCR.FormOCR formOCR = new Menu.OCR.FormOCR();
         //private Menu.SystemSetting.FormSECSSet formSecs = new Menu.SystemSetting.FormSECSSet();
@@ -110,8 +110,8 @@ namespace Adam
             if (HST.Count() == 0)
             {
                 MessageBox.Show("請先開啟HST OCR程式!");
-                this.Close();
-                return;
+                //this.Close();
+                //return;
             }
 
             Int32 oldWidth = this.Width;
@@ -122,26 +122,34 @@ namespace Adam
             this.Height = 1;
 
             //Control[] ctrlForm = new Control[] { formMonitoring, formIO, formWafer, formStatus, formTestMode, WaferForm, formSystem, formSystemNew };
-            //20190529 取消 formStatus, formStatus
-            Control[] ctrlForm = new Control[] { formMonitoring, formIO, formWafer, formSystemNew }; //WaferForm 和 壓差監控之後再開放  , formTestMode
+            //20190529 取消 formStatus, formStatus          Control[] ctrlForm = new Control[] { formMonitoring, formWaferAssign, formIO,  formSystemNew, formTestMode }; //WaferForm 和 壓差監控之後再開放  , formTestMode
+            Control[] ctrlForm = new Control[] { formMonitoring, formWaferAssign, formIO, formSystemNew, formTestMode }; //WaferForm 和 壓差監控之後再開放  , formTestMode
+
 
             try
             {
                 //20190529 移除未開放或使用不到的功能
-                tbcMian.TabPages.Remove(tbDiffMonitor);//壓差顯示
-                tbcMian.TabPages.Remove(tabStatus);//狀態查詢
-                tbcMian.TabPages.Remove(tabSetting);//舊設定功能
-                tbcMian.TabPages.Remove(tabWafer);//Wafer 刪帳功能
+                tbcMain.TabPages.Remove(tabStatus);//狀態查詢
+                tbcMain.TabPages.Remove(tabSetting);//舊設定功能
+                tbcMain.TabPages.Remove(tabWafer);//Wafer 刪帳功能
 
                 for (int i = 0; i < ctrlForm.Length; i++)
                 {
                     ((Form)ctrlForm[i]).TopLevel = false;
-                    tbcMian.TabPages[i].Controls.Add(((Form)ctrlForm[i]));
+                    tbcMain.TabPages[i].Controls.Add(((Form)ctrlForm[i]));
                     ((Form)ctrlForm[i]).Show();
-                    tbcMian.SelectTab(i);
+                    tbcMain.SelectTab(i);
                 }
 
-                tbcMian.SelectTab(0);
+                //20190531 未登入時隱藏功能
+                AuthorityUpdate.tabPages.Add("tabDIO", tabDIO);
+                AuthorityUpdate.tabPages.Add("tabNewSetting", tabNewSetting);
+                AuthorityUpdate.tabPages.Add("tbDiffMonitor", tbDiffMonitor);
+                tbcMain.TabPages.Remove(tabDIO);//IO點檢
+                tbcMain.TabPages.Remove(tabNewSetting);//設定功能
+                tbcMain.TabPages.Remove(tbDiffMonitor);//壓差顯示
+
+                tbcMain.SelectTab(0);
 
                 alarmFrom.Show();
                 //alarmFrom.SendToBack();
@@ -213,7 +221,7 @@ namespace Adam
                         var result = form.ShowDialog();
                         if (result == DialogResult.OK)
                         {
-                            tbcMian.Enabled = true;
+                            tbcMain.Enabled = true;
                             Mode_btn.Enabled = true;
                             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                         }
@@ -225,8 +233,8 @@ namespace Adam
                     //disable authroity function
                     AuthorityUpdate.UpdateFuncGroupEnable("INIT");
                     //((TabControl)formSystem.Controls["tbcSystemSetting"]).SelectTab(0);//20190529 取消
-                    tbcMian.SelectTab(0);
-                    tbcMian.Enabled = false;
+                    tbcMain.SelectTab(0);
+                    tbcMain.Enabled = false;
                     Mode_btn.Text = "Online-Mode";
                     Mode_btn.BackColor = Color.Green;
                     Mode_btn.Enabled = false;
@@ -1316,7 +1324,7 @@ namespace Adam
             //{
             //    formStatus.Focus();
             //}
-            if (tbcMian.SelectedTab.Text.Equals("Monitoring"))
+            if (tbcMain.SelectedTab.Text.Equals("Monitoring"))
             {
                 Form form = Application.OpenForms["FormMonitoring"];
                 foreach (Node port in NodeManagement.GetLoadPortList())
@@ -1328,12 +1336,12 @@ namespace Adam
                     }
                 }
             }
-            if (tbcMian.SelectedTab.Text.Equals("Wafer mapping"))
+            if (tbcMain.SelectedTab.Text.Equals("Wafer mapping"))
             {
                 if (Start)
                 {
                     MessageBox.Show("請先切換至STOP");
-                    tbcMian.SelectTab(0);
+                    tbcMain.SelectTab(0);
                 }
                 FormWaferMapping.fromPort = "";
                 FormWaferMapping.fromSlot = "";

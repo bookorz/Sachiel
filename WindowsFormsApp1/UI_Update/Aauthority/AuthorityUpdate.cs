@@ -154,7 +154,7 @@ namespace Adam.UI_Update.Authority
             DataView dvTemp;
             var query = (from t in dtAuthority.AsEnumerable()
                          where t.Field<string>("user_group_id") == Group
-                         select t).ToList();
+                         select t).OrderBy(x => x.Field<string>("fun_ref")).ToList();
             if (query.Count > 0)
             {
                 dtTemp = query.CopyToDataTable();

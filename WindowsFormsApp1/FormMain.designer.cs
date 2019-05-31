@@ -30,8 +30,8 @@ namespace Adam
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer13 = new System.Windows.Forms.SplitContainer();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
             this.Mode_btn = new System.Windows.Forms.Button();
@@ -40,6 +40,7 @@ namespace Adam
             this.Connection_btn = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.CDAAlarm_Signal = new System.Windows.Forms.Button();
             this.EQP_State = new System.Windows.Forms.Button();
             this.Stop_btn = new System.Windows.Forms.Button();
             this.Start_btn = new System.Windows.Forms.Button();
@@ -74,10 +75,10 @@ namespace Adam
             this.GREEN_Signal = new System.Windows.Forms.Button();
             this.ORANGE_Signal = new System.Windows.Forms.Button();
             this.RED_Signal = new System.Windows.Forms.Button();
-            this.tbcMian = new System.Windows.Forms.TabControl();
+            this.tbcMain = new System.Windows.Forms.TabControl();
             this.tabMonitor = new System.Windows.Forms.TabPage();
-            this.tabComm = new System.Windows.Forms.TabPage();
-            this.tabMapping = new System.Windows.Forms.TabPage();
+            this.tabWaferAssign = new System.Windows.Forms.TabPage();
+            this.tabDIO = new System.Windows.Forms.TabPage();
             this.tabNewSetting = new System.Windows.Forms.TabPage();
             this.tbDiffMonitor = new System.Windows.Forms.TabPage();
             this.tabWafer = new System.Windows.Forms.TabPage();
@@ -114,7 +115,6 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.CDAAlarm_Signal = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -128,7 +128,7 @@ namespace Adam
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
-            this.tbcMian.SuspendLayout();
+            this.tbcMain.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -218,6 +218,13 @@ namespace Adam
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
+            // 
+            // CDAAlarm_Signal
+            // 
+            resources.ApplyResources(this.CDAAlarm_Signal, "CDAAlarm_Signal");
+            this.CDAAlarm_Signal.BackColor = System.Drawing.Color.Gray;
+            this.CDAAlarm_Signal.Name = "CDAAlarm_Signal";
+            this.CDAAlarm_Signal.UseVisualStyleBackColor = false;
             // 
             // EQP_State
             // 
@@ -387,21 +394,21 @@ namespace Adam
             this.Conn_gv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Conn_gv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Conn_gv.ColumnHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 12F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Conn_gv.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微軟正黑體", 12F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Conn_gv.DefaultCellStyle = dataGridViewCellStyle3;
             resources.ApplyResources(this.Conn_gv, "Conn_gv");
             this.Conn_gv.MultiSelect = false;
             this.Conn_gv.Name = "Conn_gv";
             this.Conn_gv.ReadOnly = true;
             this.Conn_gv.RowHeadersVisible = false;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Conn_gv.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Conn_gv.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.Conn_gv.RowTemplate.Height = 24;
             this.Conn_gv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.Conn_gv.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Conn_gv_CellFormatting);
@@ -493,21 +500,21 @@ namespace Adam
             this.RED_Signal.UseVisualStyleBackColor = false;
             this.RED_Signal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Signal_MouseClick);
             // 
-            // tbcMian
+            // tbcMain
             // 
-            this.tbcMian.Controls.Add(this.tabMonitor);
-            this.tbcMian.Controls.Add(this.tabComm);
-            this.tbcMian.Controls.Add(this.tabMapping);
-            this.tbcMian.Controls.Add(this.tabNewSetting);
-            this.tbcMian.Controls.Add(this.tbDiffMonitor);
-            this.tbcMian.Controls.Add(this.tabWafer);
-            this.tbcMian.Controls.Add(this.tabStatus);
-            this.tbcMian.Controls.Add(this.tabSetting);
-            resources.ApplyResources(this.tbcMian, "tbcMian");
-            this.tbcMian.Name = "tbcMian";
-            this.tbcMian.SelectedIndex = 0;
-            this.tbcMian.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tbcMian.SelectedIndexChanged += new System.EventHandler(this.tbcMian_SelectedIndexChanged);
+            this.tbcMain.Controls.Add(this.tabMonitor);
+            this.tbcMain.Controls.Add(this.tabWaferAssign);
+            this.tbcMain.Controls.Add(this.tabDIO);
+            this.tbcMain.Controls.Add(this.tabNewSetting);
+            this.tbcMain.Controls.Add(this.tbDiffMonitor);
+            this.tbcMain.Controls.Add(this.tabWafer);
+            this.tbcMain.Controls.Add(this.tabStatus);
+            this.tbcMain.Controls.Add(this.tabSetting);
+            resources.ApplyResources(this.tbcMain, "tbcMain");
+            this.tbcMain.Name = "tbcMain";
+            this.tbcMain.SelectedIndex = 0;
+            this.tbcMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tbcMain.SelectedIndexChanged += new System.EventHandler(this.tbcMian_SelectedIndexChanged);
             // 
             // tabMonitor
             // 
@@ -517,19 +524,19 @@ namespace Adam
             this.tabMonitor.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabMonitor.Name = "tabMonitor";
             // 
-            // tabComm
+            // tabWaferAssign
             // 
-            this.tabComm.BackColor = System.Drawing.SystemColors.Control;
-            this.tabComm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.tabComm, "tabComm");
-            this.tabComm.Name = "tabComm";
+            this.tabWaferAssign.BackColor = System.Drawing.SystemColors.Control;
+            this.tabWaferAssign.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.tabWaferAssign, "tabWaferAssign");
+            this.tabWaferAssign.Name = "tabWaferAssign";
             // 
-            // tabMapping
+            // tabDIO
             // 
-            this.tabMapping.BackColor = System.Drawing.SystemColors.Control;
-            this.tabMapping.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.tabMapping, "tabMapping");
-            this.tabMapping.Name = "tabMapping";
+            this.tabDIO.BackColor = System.Drawing.SystemColors.Control;
+            this.tabDIO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.tabDIO, "tabDIO");
+            this.tabDIO.Name = "tabDIO";
             // 
             // tabNewSetting
             // 
@@ -647,7 +654,7 @@ namespace Adam
             // panel3
             // 
             this.panel3.Controls.Add(this.splitContainer13);
-            this.panel3.Controls.Add(this.tbcMian);
+            this.panel3.Controls.Add(this.tbcMain);
             resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
             // 
@@ -831,13 +838,6 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
-            // CDAAlarm_Signal
-            // 
-            resources.ApplyResources(this.CDAAlarm_Signal, "CDAAlarm_Signal");
-            this.CDAAlarm_Signal.BackColor = System.Drawing.Color.Gray;
-            this.CDAAlarm_Signal.Name = "CDAAlarm_Signal";
-            this.CDAAlarm_Signal.UseVisualStyleBackColor = false;
-            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -863,7 +863,7 @@ namespace Adam
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            this.tbcMian.ResumeLayout(false);
+            this.tbcMain.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -880,13 +880,13 @@ namespace Adam
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TabControl tbcMian;
+        private System.Windows.Forms.TabControl tbcMain;
         private System.Windows.Forms.TabPage tabMonitor;
-        private System.Windows.Forms.TabPage tabComm;
+        private System.Windows.Forms.TabPage tabDIO;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TabPage tabMapping;
+        private System.Windows.Forms.TabPage tabWaferAssign;
         private System.Windows.Forms.TabPage tabSetting;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnHelp;
