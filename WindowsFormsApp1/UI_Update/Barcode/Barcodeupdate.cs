@@ -11,8 +11,8 @@ namespace Adam.UI_Update.Barcode
     class Barcodeupdate
     {
         static ILog logger = LogManager.GetLogger(typeof(Barcodeupdate));
-        delegate void UpdateName(string Msg);
-        public static void UpdateLoadport(string Name)
+        delegate void UpdateName(string Msg, bool Manual);
+        public static void UpdateLoadport(string Name, bool Manual)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace Adam.UI_Update.Barcode
                     return;
 
 
-                name = form.Controls.Find("LoadportName_lb", true).FirstOrDefault() as Label ;
+                name = form.Controls.Find("LoadportName_lb", true).FirstOrDefault() as Label;
                 if (name == null)
                     return;
 
@@ -34,7 +34,7 @@ namespace Adam.UI_Update.Barcode
                 {
                     UpdateName ph = new UpdateName(UpdateLoadport);
 
-                    name.BeginInvoke(ph, Name);
+                    name.BeginInvoke(ph, Name, Manual);
 
                 }
                 else
@@ -42,7 +42,8 @@ namespace Adam.UI_Update.Barcode
                     name.Text = Name;
 
                     form.Visible = true;
-
+                    CheckBox manualChk = form.Controls.Find("ManualInput_ck", true).FirstOrDefault() as CheckBox;
+                    manualChk.Checked = Manual;
                     TextBox FoupID = form.Controls.Find("FoupID_Read_tb", true).FirstOrDefault() as TextBox;
                     FoupID.Text = "";
                     FoupID.Focus();

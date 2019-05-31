@@ -289,7 +289,7 @@ namespace Adam.Menu.Monitoring
             Node port = NodeManagement.Get(PortName);
             if (port.OrgSearchComplete && port.Foup_Placement)
             {
-                Barcodeupdate.UpdateLoadport(PortName);
+                Barcodeupdate.UpdateLoadport(PortName,true);
             }
             else
             {
