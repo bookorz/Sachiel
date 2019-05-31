@@ -19,6 +19,7 @@ namespace Adam.UI_Update.Authority
         delegate void UpdateLogin(string Id, string Name, string Group);
         delegate void UpdateLogout();
         delegate void UpdateFuncEnable_D(string Form, string Control, string active);
+        public static Dictionary<string, TabPage> tabPages = new Dictionary<string, TabPage>();
 
         public static void UpdateLoginInfo(string Id, string Name, string Group)
         {
@@ -208,23 +209,53 @@ namespace Adam.UI_Update.Authority
                 }
                 else
                 {
-                    Control control = form.Controls.Find(Control, true).FirstOrDefault() as Control;
-                    if(control != null)
+                    //20190531 Add tab controller 移除頁面功能
+                    if (Control.IndexOf(".") > 0)
                     {
-                        switch (active)
+                        string tabCtrlName = Control.Substring(0, Control.IndexOf("."));
+                        TabControl control = form.Controls.Find(tabCtrlName, true).FirstOrDefault() as TabControl;
+                        string tabPageName = Control.Substring(Control.IndexOf(".") + 1);
+                        tabPages.TryGetValue(tabPageName, out TabPage foo);
+                        if (control != null && foo != null)
                         {
-                            case "Y":
-                                control.Enabled = true;
-                                break;
-                            case "N":
-                                control.Enabled = false;
-                                break;
+                            switch (active)
+                            {
+                                case "Y":
+                                    if(!control.Contains(foo))
+                                        control.TabPages.Add(foo);
+                                    break;
+                                case "N":
+                                    if (control.Contains(foo))
+                                        control.TabPages.Remove(foo);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Control not found. Form:" + Form + " Control:" + tabPageName + " active" + active);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Control not found. Form:" + Form + " Control:" + Control + " active" + active);
+                        Control control = form.Controls.Find(Control, true).FirstOrDefault() as Control;
+                        if (control != null)
+                        {
+                            switch (active)
+                            {
+                                case "Y":
+                                    control.Enabled = true;
+                                    break;
+                                case "N":
+                                    control.Enabled = false;
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Control not found. Form:" + Form + " Control:" + Control + " active" + active);
+                        }
                     }
+
 
                 }
             }
