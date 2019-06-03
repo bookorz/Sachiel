@@ -19,6 +19,7 @@ namespace Adam.Menu.SystemSetting
             InitializeComponent();
         }
 
+        
         private void btnCreateRecipe_Click(object sender, EventArgs e)
         {
             //gbRecipe.Enabled = true;
@@ -81,10 +82,10 @@ namespace Adam.Menu.SystemSetting
             trvRecipe.Enabled = true;
             //Recipe 存檔
             Recipe recipe = new Recipe();
-            recipe.aligner1_angle = tbA1_angle.Text;
-            recipe.aligner1_speed = tbA1_speed.Text;
-            recipe.aligner2_angle = tbA2_angle.Text;
-            recipe.aligner2_speed = tbA2_speed.Text;
+            recipe.aligner1_angle = tbA1_angle.Text.Equals("") ? "0" : Int32.Parse(tbA1_angle.Text).ToString();
+            recipe.aligner1_speed = tbA1_speed.Text.Equals("") ? "20" : Int32.Parse(tbA1_speed.Text).ToString();
+            recipe.aligner2_angle = tbA2_angle.Text.Equals("") ? "0" : Int32.Parse(tbA2_angle.Text).ToString();
+            recipe.aligner2_speed = tbA2_speed.Text.Equals("") ? "20" : Int32.Parse(tbA2_speed.Text).ToString();
 
             recipe.auto_fin_unclamp = "Y";//固定Y
 
@@ -119,10 +120,30 @@ namespace Adam.Menu.SystemSetting
 
             recipe.recipe_id = tbRecipeID.Text;
             recipe.recipe_name = tbRecipeName.Text;
-            recipe.robot1_speed = tbR1Speed.Text;
-            recipe.robot2_speed = tbR2Speed.Text;
+            recipe.robot1_speed = tbR1Speed.Text.Equals("") ? "20" : Int32.Parse(tbR1Speed.Text).ToString();
+            recipe.robot2_speed = tbR2Speed.Text.Equals("") ? "20" : Int32.Parse(tbR2Speed.Text).ToString();
+
+            recipe.notch_angle = tbNotch_angle.Text.Equals("") ? "0" : Int32.Parse(tbNotch_angle.Text).ToString();
 
             Recipe.Set(recipe.recipe_id, recipe);
+
+            string CurrentRecipe = SystemConfig.Get().CurrentRecipe;
+            if (cbActive.Checked)//設定生效
+            {
+                SystemConfig config = SystemConfig.Get();
+                config.CurrentRecipe = tbRecipeID.Text;
+                config.Save();
+            }
+            else if(CurrentRecipe.Equals(tbRecipeID.Text))//取消生效
+            {
+                SystemConfig config = SystemConfig.Get();
+                config.CurrentRecipe = "default";
+                config.Save();
+            }
+            //紀錄修改Log
+
+            //SanwaUtil.addActionLog("Authority", "Login", user_id, "使用者登錄");// add record to log_system_action
+
             refreshList();
             MessageBox.Show("Execute successfully.", "Success");
         }
@@ -132,6 +153,7 @@ namespace Adam.Menu.SystemSetting
             if(trvRecipe.SelectedNode == null)
             {
                 MessageBox.Show("Please select a recipe first.", "Notice");
+                return;
             }
             updateInfo(trvRecipe.SelectedNode.Text);
             //gbRecipe.Enabled = true;
@@ -235,11 +257,35 @@ namespace Adam.Menu.SystemSetting
                 tbRecipeName.Text = recipe.recipe_name;
                 tbR1Speed.Text = recipe.robot1_speed;
                 tbR2Speed.Text = recipe.robot2_speed;
+
+                tbNotch_angle.Text = recipe.notch_angle;
+
                 //gbRecipe.Enabled = false;
+                string CurrentRecipe = SystemConfig.Get().CurrentRecipe;
+                if (CurrentRecipe.Equals(tbRecipeID.Text))//取消生效
+                {
+                    cbActive.Checked = true;
+                }
+                else
+                {
+                    cbActive.Checked = false;
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Recipe 格式錯誤，讀取失敗! " + ex.StackTrace);
+            }
+        }
+
+        private void digit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
             }
         }
     }

@@ -105,6 +105,7 @@
             this.label30 = new System.Windows.Forms.Label();
             this.tbR2Speed = new System.Windows.Forms.TextBox();
             this.tbR1Speed = new System.Windows.Forms.TextBox();
+            this.cbActive = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -122,6 +123,8 @@
             this.btnCreateRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
+            this.tbNotch_angle = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -215,9 +218,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(363, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 24);
+            this.label1.Size = new System.Drawing.Size(103, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Recipe ID";
+            this.label1.Text = "Recipe ID*";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
@@ -226,14 +229,14 @@
             this.label2.ForeColor = System.Drawing.Color.DodgerBlue;
             this.label2.Location = new System.Drawing.Point(9, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 24);
+            this.label2.Size = new System.Drawing.Size(138, 24);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Recipe Name";
+            this.label2.Text = "Recipe Name*";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tbRecipeName
             // 
-            this.tbRecipeName.Location = new System.Drawing.Point(144, 26);
+            this.tbRecipeName.Location = new System.Drawing.Point(148, 26);
             this.tbRecipeName.Name = "tbRecipeName";
             this.tbRecipeName.ReadOnly = true;
             this.tbRecipeName.Size = new System.Drawing.Size(201, 33);
@@ -241,6 +244,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Enabled = false;
             this.btnCancel.Location = new System.Drawing.Point(968, 34);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
@@ -251,6 +255,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(1100, 34);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(126, 38);
@@ -268,6 +273,7 @@
             this.gbRecipeBody.Controls.Add(this.groupBox9);
             this.gbRecipeBody.Controls.Add(this.groupBox2);
             this.gbRecipeBody.Controls.Add(this.groupBox3);
+            this.gbRecipeBody.Controls.Add(this.cbActive);
             this.gbRecipeBody.Controls.Add(this.checkBox2);
             this.gbRecipeBody.Controls.Add(this.groupBox4);
             this.gbRecipeBody.Location = new System.Drawing.Point(6, 98);
@@ -435,7 +441,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(975, 58);
+            this.checkBox1.Location = new System.Drawing.Point(976, 114);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(181, 28);
             this.checkBox1.TabIndex = 4;
@@ -775,10 +781,12 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label29);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label26);
             this.groupBox2.Controls.Add(this.cbP4LoadType);
             this.groupBox2.Controls.Add(this.cbP3LoadType);
+            this.groupBox2.Controls.Add(this.tbNotch_angle);
             this.groupBox2.Controls.Add(this.cbP2LoadType);
             this.groupBox2.Controls.Add(this.label35);
             this.groupBox2.Controls.Add(this.cbP1LoadType);
@@ -1111,6 +1119,7 @@
             this.tbR2Speed.Size = new System.Drawing.Size(61, 33);
             this.tbR2Speed.TabIndex = 1;
             this.tbR2Speed.Text = "100";
+            this.tbR2Speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // tbR1Speed
             // 
@@ -1119,11 +1128,24 @@
             this.tbR1Speed.Size = new System.Drawing.Size(61, 33);
             this.tbR1Speed.TabIndex = 1;
             this.tbR1Speed.Text = "100";
+            this.tbR1Speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            // 
+            // cbActive
+            // 
+            this.cbActive.AutoSize = true;
+            this.cbActive.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbActive.ForeColor = System.Drawing.Color.Red;
+            this.cbActive.Location = new System.Drawing.Point(984, 58);
+            this.cbActive.Name = "cbActive";
+            this.cbActive.Size = new System.Drawing.Size(176, 34);
+            this.cbActive.TabIndex = 4;
+            this.cbActive.Text = "生產參數生效";
+            this.cbActive.UseVisualStyleBackColor = true;
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(975, 85);
+            this.checkBox2.Location = new System.Drawing.Point(976, 142);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(238, 28);
             this.checkBox2.TabIndex = 4;
@@ -1165,9 +1187,9 @@
             this.label8.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label8.Location = new System.Drawing.Point(190, 27);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(123, 24);
+            this.label8.Size = new System.Drawing.Size(113, 24);
             this.label8.TabIndex = 0;
-            this.label8.Text = "Notch Angle";
+            this.label8.Text = " OCR Angle";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tbA2_angle
@@ -1177,6 +1199,7 @@
             this.tbA2_angle.Size = new System.Drawing.Size(61, 33);
             this.tbA2_angle.TabIndex = 1;
             this.tbA2_angle.Text = "100";
+            this.tbA2_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // tbA1_speed
             // 
@@ -1185,6 +1208,7 @@
             this.tbA1_speed.Size = new System.Drawing.Size(61, 33);
             this.tbA1_speed.TabIndex = 1;
             this.tbA1_speed.Text = "100";
+            this.tbA1_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // tbA2_speed
             // 
@@ -1193,6 +1217,7 @@
             this.tbA2_speed.Size = new System.Drawing.Size(109, 33);
             this.tbA2_speed.TabIndex = 1;
             this.tbA2_speed.Text = "0";
+            this.tbA2_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // label6
             // 
@@ -1212,6 +1237,7 @@
             this.tbA1_angle.Size = new System.Drawing.Size(109, 33);
             this.tbA1_angle.TabIndex = 1;
             this.tbA1_angle.Text = "0";
+            this.tbA1_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // label7
             // 
@@ -1321,6 +1347,26 @@
             this.tlpAccount.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.20801F));
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
+            // 
+            // tbNotch_angle
+            // 
+            this.tbNotch_angle.Location = new System.Drawing.Point(384, 59);
+            this.tbNotch_angle.Name = "tbNotch_angle";
+            this.tbNotch_angle.Size = new System.Drawing.Size(109, 33);
+            this.tbNotch_angle.TabIndex = 1;
+            this.tbNotch_angle.Text = "0";
+            this.tbNotch_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label29.Location = new System.Drawing.Point(380, 29);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(123, 24);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "Notch Angle";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FormRecipeSetting
             // 
@@ -1461,5 +1507,8 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox tbEqpID;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.CheckBox cbActive;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox tbNotch_angle;
     }
 }

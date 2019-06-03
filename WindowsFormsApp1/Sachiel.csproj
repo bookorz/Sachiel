@@ -577,7 +577,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="recipe\default.json" />
+    <None Include="recipe\default.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\like.png" />
   </ItemGroup>
   <ItemGroup>
