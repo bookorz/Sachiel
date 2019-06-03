@@ -34,8 +34,9 @@ namespace Adam
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer13 = new System.Windows.Forms.SplitContainer();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
+            this.CurrentRecipe_lb = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.Mode_btn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.Connection_btn = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
@@ -52,6 +53,7 @@ namespace Adam
             this.FFUAlarm_Signal = new System.Windows.Forms.Button();
             this.Vacuum_Signal = new System.Windows.Forms.Button();
             this.DoorSwitch_Signal = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbl_login_date = new System.Windows.Forms.Label();
@@ -94,9 +96,9 @@ namespace Adam
             this.aAAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bBBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnVersion = new System.Windows.Forms.Button();
+            this.btnHelp = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnTeach = new System.Windows.Forms.Button();
-            this.btnHelp = new System.Windows.Forms.Button();
             this.btnSysLog = new System.Controls.SplitButton();
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,7 +118,6 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -157,11 +158,22 @@ namespace Adam
             // 
             // groupBox54
             // 
+            this.groupBox54.Controls.Add(this.CurrentRecipe_lb);
+            this.groupBox54.Controls.Add(this.label5);
             this.groupBox54.Controls.Add(this.Mode_btn);
-            this.groupBox54.Controls.Add(this.button1);
             resources.ApplyResources(this.groupBox54, "groupBox54");
             this.groupBox54.Name = "groupBox54";
             this.groupBox54.TabStop = false;
+            // 
+            // CurrentRecipe_lb
+            // 
+            resources.ApplyResources(this.CurrentRecipe_lb, "CurrentRecipe_lb");
+            this.CurrentRecipe_lb.Name = "CurrentRecipe_lb";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
             // Mode_btn
             // 
@@ -171,13 +183,6 @@ namespace Adam
             this.Mode_btn.Tag = "Manual";
             this.Mode_btn.UseVisualStyleBackColor = false;
             this.Mode_btn.Click += new System.EventHandler(this.Mode_btn_Click);
-            // 
-            // button1
-            // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox19
             // 
@@ -308,13 +313,20 @@ namespace Adam
             this.DoorSwitch_Signal.Name = "DoorSwitch_Signal";
             this.DoorSwitch_Signal.UseVisualStyleBackColor = false;
             // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.Conn_gv);
             this.panel1.Controls.Add(this.groupBox4);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.groupBox2);
@@ -600,6 +612,7 @@ namespace Adam
             this.tableLayoutPanel1.Controls.Add(this.btnManual, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnAlarm, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnVersion, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnHelp, 3, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // btnManual
@@ -661,6 +674,17 @@ namespace Adam
             this.btnVersion.UseVisualStyleBackColor = true;
             this.btnVersion.Click += new System.EventHandler(this.btnVersion_Click);
             // 
+            // btnHelp
+            // 
+            resources.ApplyResources(this.btnHelp, "btnHelp");
+            this.btnHelp.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnHelp.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnHelp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.splitContainer13);
@@ -679,17 +703,6 @@ namespace Adam
             this.btnTeach.Name = "btnTeach";
             this.btnTeach.UseVisualStyleBackColor = false;
             this.btnTeach.Click += new System.EventHandler(this.btnTeach_Click);
-            // 
-            // btnHelp
-            // 
-            resources.ApplyResources(this.btnHelp, "btnHelp");
-            this.btnHelp.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnHelp.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnHelp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.btnHelp.Name = "btnHelp";
-            this.btnHelp.UseVisualStyleBackColor = true;
-            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // btnSysLog
             // 
@@ -848,13 +861,6 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -869,6 +875,7 @@ namespace Adam
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).EndInit();
             this.splitContainer13.ResumeLayout(false);
             this.groupBox54.ResumeLayout(false);
+            this.groupBox54.PerformLayout();
             this.groupBox19.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -980,7 +987,8 @@ namespace Adam
         private System.Windows.Forms.TabPage tabNewSetting;
         private System.Windows.Forms.Button CDAAlarm_Signal;
         private System.Windows.Forms.TabPage tabRunning;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label CurrentRecipe_lb;
+        private System.Windows.Forms.Label label5;
     }
 }
 

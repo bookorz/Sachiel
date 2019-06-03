@@ -1,6 +1,7 @@
 using Adam.UI_Update.Monitoring;
 using Adam.UI_Update.WaferMapping;
 using Adam.Util;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,7 @@ namespace Adam.Menu.WaferMapping
 {
     public partial class FormWaferMapping : Adam.Menu.FormFrame
     {
-
+        static ILog logger = LogManager.GetLogger(typeof(FormWaferMapping));
 
         public FormWaferMapping()
         {
@@ -58,48 +59,91 @@ namespace Adam.Menu.WaferMapping
             }
 
         }
+        private void RefreshMap()
+        {
+            fromPort = "";
+            fromSlot = "";
+            toPort = "";
+            toSlot = "";
+            Form form = this;
+            foreach (Node p in NodeManagement.GetLoadPortList())//更新所有目的地slot被選的狀態
+            {
+                if (p.Enable && p.IsMapping)
+                {
+                    foreach (Job eachSlot in p.JobList.Values)
+                    {
+                        if (!eachSlot.MapFlag && !eachSlot.ErrPosition)//找到空slot
+                        {
 
+                            Label present = form.Controls.Find(p.Name + "_Slot_" + eachSlot.Slot, true).FirstOrDefault() as Label;
+                            if (present != null)
+                            {
+                                if (eachSlot.ReservePort.Equals("") && eachSlot.ReserveSlot.Equals(""))
+                                {//沒被選
+                                    present.BackColor = Color.DimGray;
+                                    present.ForeColor = Color.White;
+                                }
+                                else
+                                {//已被選
+                                    present.BackColor = Color.Brown;
+                                    present.ForeColor = Color.White;
+                                }
+                            }
+                        }
+                        if (eachSlot.MapFlag && !eachSlot.ErrPosition)//找到wafer
+                        {
+                            Label present = form.Controls.Find(p.Name + "_Slot_" + eachSlot.Slot, true).FirstOrDefault() as Label;
+                            if (present != null)
+                            {
+                                if (!eachSlot.Destination.Equals("") && !eachSlot.DestinationSlot.Equals("") && (!eachSlot.Destination.Equals(eachSlot.Position) && !eachSlot.DestinationSlot.Equals(eachSlot.Slot)))
+                                {//已被選
+                                    present.BackColor = Color.Brown;
+                                    present.ForeColor = Color.White;
+                                }
+                                else
+                                {//沒被選
+                                    present.BackColor = Color.Green;
+                                    present.ForeColor = Color.White;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+      
         private Node SearchLoadport()
         {
             Node result = null;
-            var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
-                                 where OPEN.Mode.Equals("LD") && OPEN.IsMapping
-                                 orderby OPEN.LoadTime
-                                 select OPEN;
-            if (AvailableOPENs.Count() != 0)
+            var AvailableWafers = from job in JobManagement.GetJobList()
+                                 where job.NeedProcess
+                                 orderby job.AssignTime
+                                  select job;
+            if (AvailableWafers.Count() != 0)
             {
-                result = AvailableOPENs.First();
+                result = NodeManagement.Get(AvailableWafers.First().Position);
             }
             return result;
         }
-
         private void Assign_finish_btn_Click(object sender, EventArgs e)
         {
-            if (Source_cb.Text.Equals(""))
-            {
-                MessageBox.Show("請選擇來源LOADPORT");
-                return;
-            }
-            
-            
+
             if (XfeCrossZone.Running)
             {
                 MessageBox.Show("請先執行整機初始化");
             }
             else
             {
-                Node Loadport = NodeManagement.Get(Source_cb.Text);
+                Node Loadport = SearchLoadport();
                 if (Loadport == null)
                 {
                     MessageBox.Show("找不到"+Loadport.Name);
                 }
                 else
                 {
-                    foreach (Job j in JobManagement.GetJobList())
-                    {
-                        j.AbortProcess = false;
-
-                    }
+                    
                     if (!FormMain.xfe.Start(Loadport.Name))
                     {
                         MessageBox.Show("xfe.Start fail!");
@@ -675,7 +719,98 @@ namespace Adam.Menu.WaferMapping
 
         }
 
+        private void AutoAssign_btn_Click(object sender, EventArgs e)
+        {
+            if (Source_cb.Text.Equals(To_cb.Text))
+            {
+                MessageBox.Show("Not support assign to the same loadport");
+                return;
+            }
+            
+            Node Loadport = NodeManagement.Get(Source_cb.Text);
+            Node UnLoadport = NodeManagement.Get(To_cb.Text);
+            if (Loadport == null)
+            {
+                MessageBox.Show("Source loadport not found!");
+                return;
+            }
+            if (UnLoadport == null)
+            {
+                MessageBox.Show("To loadport not found!");
+                return;
+            }
+            var LD_Jobs = from wafer in Loadport.JobList.Values
+                          where wafer.MapFlag && !wafer.ErrPosition && wafer.Destination.Equals("")
+                          orderby Convert.ToInt16(wafer.Slot)
+                          select wafer;
+            int assignCnt = LD_Jobs.Count();
+           
 
-       
+            bool isAssign = false;
+           
+          
+
+                var ULD_Jobs = (from Slot in UnLoadport.JobList.Values
+                                where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
+                                select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
+
+                foreach (Job wafer in LD_Jobs)
+                {//檢查LD的所有WAFER
+
+                    isAssign = false;
+                    foreach (Job Slot in ULD_Jobs)
+                    {//搜尋所有FOSB Slot 找到能放的     
+                        if (Slot.PreviousSlotNotEmpty)
+                        {//下一層有片所以不能放
+                            Slot.Locked = true;
+                        }
+                        else
+                        {
+                            wafer.NeedProcess = true;
+                            wafer.ProcessFlag = false;
+                            wafer.AssignPort(UnLoadport.Name, Slot.Slot);
+                            isAssign = true;
+                          
+                            Slot.IsAssigned = true;
+                            logger.Debug("Assign booktest2 from " + Loadport.Name + " slot:" + wafer.Slot + " to " + UnLoadport.Name + " slot:" + Slot.Slot);
+
+                            break;
+                        }
+                    }
+                    if (!isAssign)
+                    {
+                        break;
+                    }
+                }
+            if (assignCnt != 0)
+            {
+                LD_Jobs = from wafer in Loadport.JobList.Values
+                          where wafer.NeedProcess
+                          orderby Convert.ToInt16(wafer.Slot)
+                          select wafer;
+
+                for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
+                {//重新排序目的地for雙Arm
+                    Job upper = LD_Jobs.ToList()[i];
+                    Job lower = LD_Jobs.ToList()[i - 1];
+                    if (upper.Destination.Equals(lower.Destination) && upper.NeedProcess && lower.NeedProcess && Math.Abs(Convert.ToInt16(upper.DestinationSlot)- Convert.ToInt16(lower.DestinationSlot))==1)
+                    {//目的地Slot相鄰 才進來
+                        string swapDes = upper.Destination;
+                        string swapSlot = upper.DestinationSlot;
+                        upper.AssignPort(lower.Destination, lower.DestinationSlot);
+                        lower.AssignPort(swapDes, swapSlot);
+                        logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
+                        logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
+                        logger.Debug("Reverse booktest2 ---------- ");
+                    }
+                    //else
+                    //{
+                    //    i--;
+                    //}
+                }
+            }
+            RefreshMap();
+            
+        }
     }
 }

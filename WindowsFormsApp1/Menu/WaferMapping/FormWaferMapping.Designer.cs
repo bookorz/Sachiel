@@ -29,8 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.AutoAssign_btn = new System.Windows.Forms.Button();
             this.Source_cb = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.To_cb = new System.Windows.Forms.ComboBox();
             this.Assign_finish_btn = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.LoadPort04_Slot_1 = new System.Windows.Forms.Label();
@@ -245,6 +249,7 @@
             this.LOADPORT01_FID = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox11.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -253,8 +258,7 @@
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.label1);
-            this.groupBox11.Controls.Add(this.Source_cb);
+            this.groupBox11.Controls.Add(this.groupBox1);
             this.groupBox11.Controls.Add(this.Assign_finish_btn);
             this.groupBox11.Controls.Add(this.tableLayoutPanel3);
             this.groupBox11.Controls.Add(this.tableLayoutPanel2);
@@ -276,14 +280,38 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Load Port";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.AutoAssign_btn);
+            this.groupBox1.Controls.Add(this.Source_cb);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.To_cb);
+            this.groupBox1.Location = new System.Drawing.Point(1412, 18);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(180, 263);
+            this.groupBox1.TabIndex = 180;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Auto Assign";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1425, 563);
+            this.label1.Location = new System.Drawing.Point(17, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 20);
+            this.label1.Size = new System.Drawing.Size(123, 20);
             this.label1.TabIndex = 176;
-            this.label1.Text = "選擇取片Loadport";
+            this.label1.Text = "Fetch Loadport";
+            // 
+            // AutoAssign_btn
+            // 
+            this.AutoAssign_btn.Location = new System.Drawing.Point(21, 204);
+            this.AutoAssign_btn.Name = "AutoAssign_btn";
+            this.AutoAssign_btn.Size = new System.Drawing.Size(136, 30);
+            this.AutoAssign_btn.TabIndex = 179;
+            this.AutoAssign_btn.Text = "Assign";
+            this.AutoAssign_btn.UseVisualStyleBackColor = true;
+            this.AutoAssign_btn.Click += new System.EventHandler(this.AutoAssign_btn_Click);
             // 
             // Source_cb
             // 
@@ -294,10 +322,33 @@
             "LOADPORT02",
             "LOADPORT03",
             "LOADPORT04"});
-            this.Source_cb.Location = new System.Drawing.Point(1429, 592);
+            this.Source_cb.Location = new System.Drawing.Point(21, 66);
             this.Source_cb.Name = "Source_cb";
             this.Source_cb.Size = new System.Drawing.Size(136, 28);
             this.Source_cb.TabIndex = 175;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(17, 118);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(101, 20);
+            this.label7.TabIndex = 178;
+            this.label7.Text = "To Loadport";
+            // 
+            // To_cb
+            // 
+            this.To_cb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.To_cb.FormattingEnabled = true;
+            this.To_cb.Items.AddRange(new object[] {
+            "LOADPORT01",
+            "LOADPORT02",
+            "LOADPORT03",
+            "LOADPORT04"});
+            this.To_cb.Location = new System.Drawing.Point(21, 147);
+            this.To_cb.Name = "To_cb";
+            this.To_cb.Size = new System.Drawing.Size(136, 28);
+            this.To_cb.TabIndex = 177;
             // 
             // Assign_finish_btn
             // 
@@ -305,7 +356,7 @@
             this.Assign_finish_btn.Name = "Assign_finish_btn";
             this.Assign_finish_btn.Size = new System.Drawing.Size(136, 65);
             this.Assign_finish_btn.TabIndex = 174;
-            this.Assign_finish_btn.Text = "開始";
+            this.Assign_finish_btn.Text = "Start";
             this.Assign_finish_btn.UseVisualStyleBackColor = true;
             this.Assign_finish_btn.Click += new System.EventHandler(this.Assign_finish_btn_Click);
             // 
@@ -4191,6 +4242,8 @@
             this.Load += new System.EventHandler(this.FormWaferMapping_Load);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -4421,5 +4474,9 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox Source_cb;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button AutoAssign_btn;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox To_cb;
     }
 }

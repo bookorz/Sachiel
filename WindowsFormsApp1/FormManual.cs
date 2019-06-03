@@ -56,7 +56,7 @@ namespace GUI
                                 Cb_LoadPortSelect.Items.Add(node.Name);
                             }
                             break;
-                        
+
                     }
                 }
             }
@@ -273,7 +273,7 @@ namespace GUI
                     udA1AngleOffset.Text = "0";
                 }
                 angle = Convert.ToString(int.Parse(cbA1Angle.Text) + int.Parse(udA1AngleOffset.Text));
-                speed = nudA1Speed.Text.Equals("100") ? "0" : nudA1Speed.Text;
+                speed = nudA1Speed.Text;
             }
             if (btn.Name.IndexOf("A2") > 0)
             {
@@ -287,7 +287,7 @@ namespace GUI
                     udA2AngleOffset.Text = "0";
                 }
                 angle = Convert.ToString(int.Parse(cbA2Angle.Text) + int.Parse(udA2AngleOffset.Text));
-                speed = nudA2Speed.Text.Equals("100") ? "0" : nudA2Speed.Text;
+                speed = nudA2Speed.Text;
             };
             this.ActiveAligner = nodeName;
             Node aligner = NodeManagement.Get(nodeName);
@@ -750,7 +750,7 @@ namespace GUI
                 case "btnRChgSpeed":
                     TaskName = "SPEED";
                     param.Add("@Target", nodeName);
-                    param.Add("@Value", nudRSpeed.Text.Equals("100") ? "0" : nudRSpeed.Text);
+                    param.Add("@Value", nudRSpeed.Text);
                     break;
                 case "btnRRVacuOn":
                     TaskName = "SET_CLAMP_ON";
@@ -1029,7 +1029,7 @@ namespace GUI
             return vars;
         }
 
-        
+
 
         private void setRobotStatus()
         {
@@ -1061,9 +1061,9 @@ namespace GUI
         private void setLoadportStatus()
         {
             string Message = "";
-            
+
             String nodeName = Cb_LoadPortSelect.Text;
-            
+
             Dictionary<string, string> param = new Dictionary<string, string>();
             string TaskName = "LOADPORT_INIT";
             param.Add("@Target", nodeName);
@@ -1139,7 +1139,7 @@ namespace GUI
                     tbStatus = tbA2Status;
                     Aligner02Connection_tb.Text = node.ConnectionStatus;
                     break;
-                
+
             }
             if (tbStatus == null)
                 return;
@@ -1199,7 +1199,7 @@ namespace GUI
                 setRobotStatus();
             if (tbcManual.SelectedTab.Text.Equals("Aligner"))
                 setAlignerStatus();
-            
+
             if (tbcManual.SelectedTab.Text.Equals("LoadPort"))
                 setLoadportStatus();
         }
@@ -1283,8 +1283,8 @@ namespace GUI
             ThreadPool.QueueUserWorkItem(new WaitCallback(node.GetController().Start));
         }
 
-       
 
-        
+
+
     }
 }

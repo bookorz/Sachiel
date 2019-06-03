@@ -332,8 +332,7 @@
             this.LL_cb.FormattingEnabled = true;
             this.LL_cb.Items.AddRange(new object[] {
             "Not use",
-            "BF1",
-            "BF2"});
+            "ALIGNER01"});
             this.LL_cb.Location = new System.Drawing.Point(16, 21);
             this.LL_cb.Name = "LL_cb";
             this.LL_cb.Size = new System.Drawing.Size(116, 35);

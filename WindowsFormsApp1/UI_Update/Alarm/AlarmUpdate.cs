@@ -90,7 +90,7 @@ namespace Adam.UI_Update.Alarm
                     return;
 
 
-                AlarmList_gv = form.Controls.Find("AlarmHistory_gv", true).FirstOrDefault() as DataGridView;
+                AlarmList_gv = form.Controls.Find("dg1", true).FirstOrDefault() as DataGridView;
                 if (AlarmList_gv == null)
                     return;
 

@@ -50,7 +50,7 @@ namespace Adam.Menu.RunningScreen
                     MessageBox.Show("請選擇兩個Loadport!");
                     return;
                 }
-                if(LL_cb.Text.Equals("BF1")|| LL_cb.Text.Equals("BF2"))
+                if(LL_cb.Text.ToUpper().Equals("ALIGNER01"))
                 {
                     LL = LL_cb.Text;
                 }
@@ -128,30 +128,30 @@ namespace Adam.Menu.RunningScreen
            
             //org
             
-            if (!NextAction("ROBOT_ORGSH", "ROBOT01", "", "", ""))
+            if (!NextAction("ROBOT_ORGSH", "ROBOT01", "", "", "", ""))
             {
                 return;
             }
-            if (!NextAction("ALIGNER_ORGSH", "ALIGNER01", "", "", ""))
+            if (!NextAction("ALIGNER_ORGSH", "ALIGNER01", "", "", "", ""))
             {
                 return;
             }
-            if (!NextAction("LOADPORT_ORGSH", LD.Name, "", "", ""))
+            if (!NextAction("LOADPORT_ORGSH", LD.Name, "", "", "", ""))
             {
                 return;
             }
-            if (!NextAction("LOADPORT_ORGSH", ULD.Name, "", "", ""))
+            if (!NextAction("LOADPORT_ORGSH", ULD.Name, "", "", "", ""))
             {
                 return;
             }
             //set speed
 
-            if (!NextAction("SPEED", "ROBOT01", "", "", SpeedSet))
+            if (!NextAction("SPEED", "ROBOT01", "", "", "", SpeedSet))
             {
                 return;
             }
 
-            if (!NextAction("SPEED", "ALIGNER01", "", "", SpeedSet))
+            if (!NextAction("SPEED", "ALIGNER01", "", "", "", SpeedSet))
             {
                 return;
             }
@@ -163,11 +163,11 @@ namespace Adam.Menu.RunningScreen
                 ULD = swap;
                 //loadport open
                 
-                if (!NextAction("LOADPORT_OPEN", LD.Name, "", "", ""))
+                if (!NextAction("LOADPORT_OPEN", LD.Name, "", "", "", ""))
                 {
                     return;
                 }
-                if (!NextAction("LOADPORT_OPEN", ULD.Name, "", "", ""))
+                if (!NextAction("LOADPORT_OPEN", ULD.Name, "", "", "", ""))
                 {
                     return;
                 }
@@ -183,7 +183,7 @@ namespace Adam.Menu.RunningScreen
                     }
                     int slotNo = i + 1;
                     bool needProcess = ProcessSlotList[i];
-                    if (needProcess)
+                    if (needProcess && ULD.JobList.ContainsKey(slotNo.ToString()) && LD.JobList.ContainsKey(slotNo.ToString()))
                     {
                         Job FromSlot = LD.JobList[slotNo.ToString()];
                         Job ToSlot = ULD.JobList[slotNo.ToString()];
@@ -192,37 +192,37 @@ namespace Adam.Menu.RunningScreen
                             if (!LL.Equals(""))
                             {//ALIGNER use
                                 
-                                if (!NextAction("LOAD", "ROBOT01", LD.Name, slotNo.ToString(), ""))
+                                if (!NextAction("LOAD", "ROBOT01", LD.Name, slotNo.ToString(), "1", ""))
                                 {
                                     return;
                                 }
-                                if (!NextAction("UNLOAD", "ROBOT01", LL, "1", ""))
-                                {
-                                    return;
-                                }
-
-                                if (!NextAction("ALIGNER_WAFER_HOLD", LL, "", "", ""))
-                                {
-                                    return;
-                                }
-                                if (!NextAction("ALIGNER_ALIGN", LL, "", "", "336"))
-                                {
-                                    return;
-                                }
-                                if (!NextAction("ALIGNER_WAFER_RELEASE", LL, "", "", ""))
+                                if (!NextAction("UNLOAD", "ROBOT01", LL, "1", "1", ""))
                                 {
                                     return;
                                 }
 
-                                if (!NextAction("LOAD", "ROBOT01", LL, "1", ""))
+                                if (!NextAction("ALIGNER_WAFER_HOLD", LL, "", "", "", ""))
                                 {
                                     return;
                                 }
-                                if (!NextAction("ALIGNER_HOME", LL, "", "", ""))
+                                if (!NextAction("ALIGNER_ALIGN", LL, "", "", "", "336"))
                                 {
                                     return;
                                 }
-                                if (!NextAction("UNLOAD", "ROBOT01", ULD.Name, slotNo.ToString(), ""))
+                                if (!NextAction("ALIGNER_WAFER_RELEASE", LL, "", "", "", ""))
+                                {
+                                    return;
+                                }
+
+                                if (!NextAction("LOAD", "ROBOT01", LL, "1", "1", ""))
+                                {
+                                    return;
+                                }
+                                if (!NextAction("ALIGNER_HOME", LL, "", "", "", ""))
+                                {
+                                    return;
+                                }
+                                if (!NextAction("UNLOAD", "ROBOT01", ULD.Name, slotNo.ToString(), "1", ""))
                                 {
                                     return;
                                 }
@@ -239,11 +239,11 @@ namespace Adam.Menu.RunningScreen
                             {//ALIGNER not use
                                 
 
-                                if (!NextAction("LOAD", "ROBOT01", LD.Name, slotNo.ToString(), ""))
+                                if (!NextAction("LOAD", "ROBOT01", LD.Name, slotNo.ToString(), "1", ""))
                                 {
                                     return;
                                 }
-                                if (!NextAction("UNLOAD", "ROBOT01", ULD.Name, slotNo.ToString(), ""))
+                                if (!NextAction("UNLOAD", "ROBOT01", ULD.Name, slotNo.ToString(), "1", ""))
                                 {
                                     return;
                                 }
@@ -269,12 +269,12 @@ namespace Adam.Menu.RunningScreen
                 LapsedLotCount++;
                 RunningUpdate.UpdateRunningInfo("LapsedLotCount", LapsedLotCount.ToString());
 
-                if (!NextAction("LOADPORT_CLOSE", LD.Name, "", "", ""))
+                if (!NextAction("LOADPORT_CLOSE_NOMAP", LD.Name, "", "", "", ""))
                 {
                     return;
                 }
                
-               if(!NextAction("LOADPORT_CLOSE", ULD.Name, "", "", ""))
+               if(!NextAction("LOADPORT_CLOSE_NOMAP", ULD.Name, "", "", "", ""))
                 {
                     return;
                 }
@@ -288,15 +288,15 @@ namespace Adam.Menu.RunningScreen
             ThreadEnd = true;
         }
 
-        private bool NextAction(string TaskName,string Target,string Position,string Slot,string Value)
+        private bool NextAction(string TaskName,string Target,string Position,string Slot, string Arm,string Value)
         {
             bool result = true;
             string Message = "";
 
             TaskJobManagment.CurrentProceedTask CurrTask;
             Dictionary<string, string> param = new Dictionary<string, string>();
-            TaskName = "UNLOAD";
-            param.Clear();
+           
+           
             if (!Target.Trim().Equals(""))
             {
                 param.Add("@Target", Target);
@@ -308,6 +308,10 @@ namespace Adam.Menu.RunningScreen
             if (!Slot.Trim().Equals(""))
             {
                 param.Add("@Slot", Slot);
+            }
+            if (!Arm.Trim().Equals(""))
+            {
+                param.Add("@Arm", Arm);
             }
             if (!Value.Trim().Equals(""))
             {

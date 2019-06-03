@@ -254,5 +254,6 @@ namespace Adam.UI_Update.Layout
                 logger.Error("UpdateSignalTower: Update fail.");
             }
         }
+        
     }
 }
