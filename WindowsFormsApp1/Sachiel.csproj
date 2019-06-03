@@ -155,6 +155,24 @@
     <Compile Include="Menu\DifferentialMonitor\FormDifferentialMonitor.Designer.cs">
       <DependentUpon>FormDifferentialMonitor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Menu\RunningScreen\FormEndOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\RunningScreen\FormEndOption.Designer.cs">
+      <DependentUpon>FormEndOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\RunningScreen\FormOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\RunningScreen\FormOption.Designer.cs">
+      <DependentUpon>FormOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\RunningScreen\RunningScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\RunningScreen\RunningScreen.Designer.cs">
+      <DependentUpon>RunningScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu\SystemSetting\FormDIOSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -453,6 +471,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu\OCR\FormOCR.resx">
       <DependentUpon>FormOCR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\RunningScreen\FormEndOption.resx">
+      <DependentUpon>FormEndOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\RunningScreen\FormOption.resx">
+      <DependentUpon>FormOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\RunningScreen\RunningScreen.resx">
+      <DependentUpon>RunningScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu\Status\FormStatus.resx">
       <DependentUpon>FormStatus.cs</DependentUpon>

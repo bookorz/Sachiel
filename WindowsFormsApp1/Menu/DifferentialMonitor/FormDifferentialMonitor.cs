@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TransferControl.Management;
 
-namespace Adam.Menu.RunningScreen
+namespace Adam.Menu.DifferentialMonitor
 {
     public partial class FormDifferentialMonitor : Adam.Menu.FormFrame
     {

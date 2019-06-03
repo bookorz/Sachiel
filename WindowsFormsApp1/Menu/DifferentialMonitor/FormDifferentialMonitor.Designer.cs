@@ -1,4 +1,4 @@
-﻿namespace Adam.Menu.RunningScreen
+﻿namespace Adam.Menu.DifferentialMonitor
 {
     partial class FormDifferentialMonitor
     {

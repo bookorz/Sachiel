@@ -54,7 +54,8 @@ namespace Adam
         //private Menu.SystemSetting.FormSECSSet formSecs = new Menu.SystemSetting.FormSECSSet();
         //private Menu.SystemSetting.FormSystemSetting formSystem = new Menu.SystemSetting.FormSystemSetting();//舊設定方式 20190529 取消
         private Menu.SystemSetting.FormSetting formSystemNew = new Menu.SystemSetting.FormSetting();//新設定方式
-        private Menu.RunningScreen.FormDifferentialMonitor formTestMode = new Menu.RunningScreen.FormDifferentialMonitor();
+        private Menu.DifferentialMonitor.FormDifferentialMonitor formTestMode = new Menu.DifferentialMonitor.FormDifferentialMonitor();
+        private Menu.RunningScreen.FormRunningScreen formRun = new Menu.RunningScreen.FormRunningScreen();
         private Menu.Wafer.FormWafer WaferForm = new Menu.Wafer.FormWafer();
         public static GUI.FormManual formManual = null;
         public static string CurrentMode = "AUTO";
@@ -123,7 +124,7 @@ namespace Adam
 
             //Control[] ctrlForm = new Control[] { formMonitoring, formIO, formWafer, formStatus, formTestMode, WaferForm, formSystem, formSystemNew };
             //20190529 取消 formStatus, formStatus          Control[] ctrlForm = new Control[] { formMonitoring, formWaferAssign, formIO,  formSystemNew, formTestMode }; //WaferForm 和 壓差監控之後再開放  , formTestMode
-            Control[] ctrlForm = new Control[] { formMonitoring, formWaferAssign, formIO, formSystemNew, formTestMode }; //WaferForm 和 壓差監控之後再開放  , formTestMode
+            Control[] ctrlForm = new Control[] { formMonitoring, formWaferAssign, formRun, formIO, formSystemNew, formTestMode }; //WaferForm 和 壓差監控之後再開放  , formTestMode
 
 
             try
@@ -142,12 +143,15 @@ namespace Adam
                 }
 
                 //20190531 未登入時隱藏功能
+                
+                AuthorityUpdate.tabPages.Add("tabRunning", tabRunning);
                 AuthorityUpdate.tabPages.Add("tabDIO", tabDIO);
                 AuthorityUpdate.tabPages.Add("tabNewSetting", tabNewSetting);
                 AuthorityUpdate.tabPages.Add("tbDiffMonitor", tbDiffMonitor);
                 tbcMain.TabPages.Remove(tabDIO);//IO點檢
                 tbcMain.TabPages.Remove(tabNewSetting);//設定功能
                 tbcMain.TabPages.Remove(tbDiffMonitor);//壓差顯示
+                tbcMain.TabPages.Remove(tabRunning);//壓差顯示
 
                 tbcMain.SelectTab(0);
 
@@ -1937,6 +1941,11 @@ namespace Adam
             }
         }
 
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SystemConfig sss = SystemConfig.Get();
+            sss.CurrentRecipe = "tttttt";
+            sss.Save();
+        }
     }
 }
