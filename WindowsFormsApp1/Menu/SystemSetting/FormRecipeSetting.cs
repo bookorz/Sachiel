@@ -1,4 +1,5 @@
 ﻿using SANWA;
+using SANWA.Utility;
 using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
@@ -134,12 +135,16 @@ namespace Adam.Menu.SystemSetting
                 SystemConfig config = SystemConfig.Get();
                 config.CurrentRecipe = tbRecipeID.Text;
                 config.Save();
+                //update node config
+                updateLoadPortConfig(recipe);
             }
             else if(CurrentRecipe.Equals(tbRecipeID.Text))//取消生效
             {
                 SystemConfig config = SystemConfig.Get();
                 config.CurrentRecipe = "default";
                 config.Save();
+                //update node config
+                updateLoadPortConfig(Recipe.Get("default"));
             }
             //紀錄修改Log
             if(tbRecipeID.Enabled)
@@ -149,6 +154,87 @@ namespace Adam.Menu.SystemSetting
 
             refreshList();
             MessageBox.Show("Execute successfully.", "Success");
+        }
+
+        private void updateLoadPortConfig(Recipe recipe)
+        {
+            Boolean result = false;
+            try
+            {
+                DBUtil dBUtil = new DBUtil();
+                Dictionary<string, object> keyValues = new Dictionary<string, object>();
+                string strSql = " UPDATE config_node SET carrier_type = CASE node_id WHEN 'LOADPORT01' THEN @ctype1 " +
+                                "                                                    WHEN 'LOADPORT02' THEN @ctype2 " +
+                                "                                                    WHEN 'LOADPORT03' THEN @ctype3 " +
+                                "                                                    WHEN 'LOADPORT04' THEN @ctype4 " +
+                                "                                                    ELSE carrier_type END, " +
+                                "                          mode = CASE node_id WHEN 'LOADPORT01' THEN @mode1 " +
+                                "                                              WHEN 'LOADPORT02' THEN @mode2 " +
+                                "                                              WHEN 'LOADPORT03' THEN @mode3 " +
+                                "                                              WHEN 'LOADPORT04' THEN @mode4 " +
+                                "                                              ELSE mode END," +
+                                "                          enable_flg = CASE node_id WHEN 'LOADPORT01' THEN @enable1 " +
+                                "                                                    WHEN 'LOADPORT02' THEN @enable2 " +
+                                "                                                    WHEN 'LOADPORT03' THEN @enable3 " +
+                                "                                                    WHEN 'LOADPORT04' THEN @enable4 " +
+                                "                                                    ELSE enable_flg END," +
+                                "                          modify_user = @modify_user, modify_timestamp = NOW() " +
+                                " WHERE equipment_model_id = @equipment_model_id " +
+                                "   AND node_type = 'LOADPORT' ;";
+
+                keyValues.Add("@equipment_model_id", SystemConfig.Get().SystemMode);
+                keyValues.Add("@modify_user", Global.currentUser);
+                keyValues.Add("@ctype1", recipe.port1_carrier_type);
+                keyValues.Add("@ctype2", recipe.port2_carrier_type);
+                keyValues.Add("@ctype3", recipe.port3_carrier_type);
+                keyValues.Add("@ctype4", recipe.port4_carrier_type);
+                keyValues.Add("@mode1", getPortType(recipe.port1_type));
+                keyValues.Add("@mode2", getPortType(recipe.port2_type));
+                keyValues.Add("@mode3", getPortType(recipe.port3_type));
+                keyValues.Add("@mode4", getPortType(recipe.port4_type));
+                keyValues.Add("@enable1", getEnable(recipe.port1_type));
+                keyValues.Add("@enable2", getEnable(recipe.port2_type));
+                keyValues.Add("@enable3", getEnable(recipe.port3_type));
+                keyValues.Add("@enable4", getEnable(recipe.port4_type));
+                dBUtil.ExecuteNonQuery(strSql, keyValues);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Update load port 資訊失敗! " + ex.StackTrace);
+            }
+        }
+
+        private string getPortType(string port_type)
+        {
+            string result = "";
+            switch (port_type)
+            {
+                case "L":
+                    result = "LD";
+                    break;
+                case "U":
+                    result = "ULD";
+                    break;
+                case "N":
+                    result = "";
+                    break;
+            }
+            return result;
+        }
+        private int getEnable(string port_type)
+        {
+            int result = 0;
+            switch (port_type)
+            {
+                case "L":
+                case "U":
+                    result = 1;
+                    break;
+                case "N":
+                    result = 0;
+                    break;
+            }
+            return result;
         }
 
         private void btnModifyRecipe_Click(object sender, EventArgs e)
@@ -290,6 +376,15 @@ namespace Adam.Menu.SystemSetting
             {
                 e.Handled = true;
             }
+        }
+
+        private void modeCheck(object sender, EventArgs e)
+        {
+            if (!btnSave.Enabled)
+            {
+                MessageBox.Show("請先選擇新增或修改功能，再做調整!!","Notice");
+            }
+
         }
     }
 }
