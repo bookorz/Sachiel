@@ -1,4 +1,5 @@
-﻿using SANWA.Utility.Config;
+﻿using SANWA;
+using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -118,7 +119,7 @@ namespace Adam.Menu.SystemSetting
             recipe.port4_priority = Int32.Parse(cbP4Seq.Text);
             recipe.port4_type = cbP4LoadType.Text;
 
-            recipe.recipe_id = tbRecipeID.Text;
+            recipe.recipe_id = tbRecipeID.Text.Trim();
             recipe.recipe_name = tbRecipeName.Text;
             recipe.robot1_speed = tbR1Speed.Text.Equals("") ? "20" : Int32.Parse(tbR1Speed.Text).ToString();
             recipe.robot2_speed = tbR2Speed.Text.Equals("") ? "20" : Int32.Parse(tbR2Speed.Text).ToString();
@@ -141,8 +142,10 @@ namespace Adam.Menu.SystemSetting
                 config.Save();
             }
             //紀錄修改Log
-
-            //SanwaUtil.addActionLog("Authority", "Login", user_id, "使用者登錄");// add record to log_system_action
+            if(tbRecipeID.Enabled)
+                Util.SanwaUtil.addActionLog("Recipe", "Create", Global.currentUser, "建立 Recipe:" + recipe.recipe_id);
+            if (tbRecipeID.Enabled)
+                Util.SanwaUtil.addActionLog("Recipe", "Modify", Global.currentUser, "修改 Recipe:" + recipe.recipe_id);
 
             refreshList();
             MessageBox.Show("Execute successfully.", "Success");

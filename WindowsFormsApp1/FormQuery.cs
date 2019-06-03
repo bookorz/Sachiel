@@ -278,6 +278,7 @@ namespace GUI
             ClearUI();
             switch (cbQueryType.SelectedItem)
             {
+                //20190603 只留  Alarm Log & User Action Log
                 case "Alarm Log":
                     sqlScript = "Alarm Log";
                     //this.labCondition1.Text = "User ID";

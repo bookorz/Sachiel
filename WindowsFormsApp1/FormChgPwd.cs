@@ -1,4 +1,6 @@
-﻿using SANWA.Utility;
+﻿using Adam.Util;
+using SANWA;
+using SANWA.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,6 +39,18 @@ namespace GUI
             }
             else
             {
+                DBUtil dBUtil = new DBUtil();
+                Dictionary<string, object> keyValues = new Dictionary<string, object>();
+                string strSql = "UPDATE account SET PASSWORD = MD5(@password), " +
+                                                "modify_user = @modify_user, " +
+                                                "modify_timestamp = NOW() " +
+                                                "WHERE user_id = @user_id ";
+
+                keyValues.Add("@user_id", tbUserID.Text.Trim());
+                keyValues.Add("@password", tbNewPwd.Text.Trim());
+                keyValues.Add("@modify_user", Global.currentUser);
+                dBUtil.ExecuteNonQuery(strSql, keyValues);
+                SanwaUtil.addActionLog("GUI.FormChgPwd", "Change password", Global.currentUser, "變更本人密碼");
                 MessageBox.Show("變更密碼成功!!", "Success");
                 this.DialogResult = DialogResult.OK;
                 this.Close();

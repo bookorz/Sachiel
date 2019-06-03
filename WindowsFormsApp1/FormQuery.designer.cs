@@ -140,11 +140,7 @@
             this.cbQueryType.FormattingEnabled = true;
             this.cbQueryType.Items.AddRange(new object[] {
             "Alarm Log",
-            "User Action Log",
-            "Process Job Log",
-            "Process Wafer Log",
-            "Command Log",
-            "DIO Change Log"});
+            "User Action Log"});
             this.cbQueryType.Location = new System.Drawing.Point(177, 3);
             this.cbQueryType.Name = "cbQueryType";
             this.cbQueryType.Size = new System.Drawing.Size(400, 35);

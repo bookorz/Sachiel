@@ -1,6 +1,7 @@
 ﻿using Adam.UI_Update.Authority;
 using Adam.Util;
 using log4net;
+using SANWA;
 using SANWA.Utility;
 using System;
 using System.Collections.Generic;
@@ -67,6 +68,7 @@ namespace GUI
                     log.Info(msg);
                     //SanwaUtil.addActionLog("Authority", "Login", user_id);// add record to log_system_action
                     SanwaUtil.addActionLog("Authority", "Login", user_id, "使用者登錄");// add record to log_system_action
+                    Global.currentUser = "user_id";
                     this.DialogResult = DialogResult.OK;
                     //log.Debug(msg);
                     this.Close();
