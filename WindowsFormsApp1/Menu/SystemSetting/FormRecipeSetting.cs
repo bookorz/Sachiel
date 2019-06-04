@@ -37,34 +37,36 @@ namespace Adam.Menu.SystemSetting
             tbRecipeID.ReadOnly = false;
             tbRecipeName.Focus();
             trvRecipe.Enabled = false;
-            //gbRecipeHeader.Enabled = true;
-            cbAutoFin1.SelectedIndex = 0;
-            cbAutoFin2.SelectedIndex = 0;
-            cbAutoGetRule.SelectedIndex = 0;
-            cbAutoPutRule.SelectedIndex = 0;
-            cbInputFin1.SelectedIndex = 0;
-            cbInputFin2.SelectedIndex = 0;
-            cbInputFin3.SelectedIndex = 0;
-            cbManualFin1.SelectedIndex = 0;
-            cbManualFin2.SelectedIndex = 0;
-            cbManualGetRule.SelectedIndex = 0;
-            cbManualPutRule.SelectedIndex = 0;
-            cbOutputFin1.SelectedIndex = 0;
-            cbOutputFin2.SelectedIndex = 0;
-            cbOutputFin3.SelectedIndex = 0;
-            cbP1CstType.SelectedIndex = 0;
-            cbP1LoadType.SelectedIndex = 0;
-            cbP1Seq.SelectedIndex = 0;
-            cbP1Seq.SelectedIndex = 0;
-            cbP2CstType.SelectedIndex = 0;
-            cbP2LoadType.SelectedIndex = 0;
-            cbP2Seq.SelectedIndex = 0;
-            cbP3CstType.SelectedIndex = 0;
-            cbP3LoadType.SelectedIndex = 0;
-            cbP3Seq.SelectedIndex = 0;
-            cbP4CstType.SelectedIndex = 0;
-            cbP4LoadType.SelectedIndex = 0;
-            cbP4Seq.SelectedIndex = 0;
+            ////gbRecipeHeader.Enabled = true;
+            //cbAutoFin1.SelectedIndex = 0;
+            //cbAutoFin2.SelectedIndex = 0;
+            //cbAutoGetRule.SelectedIndex = 0;
+            //cbAutoPutRule.SelectedIndex = 0;
+            //cbInputFin1.SelectedIndex = 0;
+            //cbInputFin2.SelectedIndex = 0;
+            //cbInputFin3.SelectedIndex = 0;
+            //cbManualFin1.SelectedIndex = 0;
+            //cbManualFin2.SelectedIndex = 0;
+            //cbManualGetRule.SelectedIndex = 0;
+            //cbManualPutRule.SelectedIndex = 0;
+            //cbOutputFin1.SelectedIndex = 0;
+            //cbOutputFin2.SelectedIndex = 0;
+            //cbOutputFin3.SelectedIndex = 0;
+            //cbP1CstType.SelectedIndex = 0;
+            //cbP1LoadType.SelectedIndex = 0;
+            //cbP1Seq.SelectedIndex = 0;
+            //cbP1Seq.SelectedIndex = 0;
+            //cbP2CstType.SelectedIndex = 0;
+            //cbP2LoadType.SelectedIndex = 0;
+            //cbP2Seq.SelectedIndex = 0;
+            //cbP3CstType.SelectedIndex = 0;
+            //cbP3LoadType.SelectedIndex = 0;
+            //cbP3Seq.SelectedIndex = 0;
+            //cbP4CstType.SelectedIndex = 0;
+            //cbP4LoadType.SelectedIndex = 0;
+            //cbP4Seq.SelectedIndex = 0;
+
+            lblMode.Text = "新增模式";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -91,6 +93,16 @@ namespace Adam.Menu.SystemSetting
             recipe.aligner1_speed = tbA1_speed.Text.Equals("") ? "20" : Int32.Parse(tbA1_speed.Text).ToString();
             recipe.aligner2_angle = tbA2_angle.Text.Equals("") ? "0" : Int32.Parse(tbA2_angle.Text).ToString();
             recipe.aligner2_speed = tbA2_speed.Text.Equals("") ? "20" : Int32.Parse(tbA2_speed.Text).ToString();
+
+            recipe.is_use_aligner1 = cbUseA1.Checked;
+            recipe.is_use_aligner2 = cbUseA2.Checked;
+            recipe.is_use_ocr_ttl = cbUseOcrTTL.Checked;
+            recipe.is_use_ocr_t7 = cbUseOcrT7.Checked;
+            recipe.is_use_ocr_m12 = cbUseOcrM12.Checked;
+
+            recipe.ocr_ttl_config = tbOcrTTL.Text;
+            recipe.ocr_t7_config = tbOcrT7.Text;
+            recipe.ocr_m12_config = tbOcrM12.Text;
 
             recipe.auto_fin_unclamp = "Y";//固定Y
 
@@ -157,6 +169,7 @@ namespace Adam.Menu.SystemSetting
                 Util.SanwaUtil.addActionLog("Recipe", "Modify", Global.currentUser, "修改 Recipe:" + recipe.recipe_id);
 
             refreshList();
+            lblMode.Text = "瀏覽模式";
             MessageBox.Show("Execute successfully.", "Success");
         }
 
@@ -259,6 +272,8 @@ namespace Adam.Menu.SystemSetting
             tbRecipeName.ReadOnly = true;
             tbRecipeID.ReadOnly = true;
             trvRecipe.Enabled = false;
+
+            lblMode.Text = "編輯模式";
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -271,11 +286,13 @@ namespace Adam.Menu.SystemSetting
             tbRecipeName.ReadOnly = true;
             tbRecipeID.ReadOnly = true;
             trvRecipe.Enabled = true;
+            lblMode.Text = "瀏覽模式";
         }
 
         private void FormRecipeSetting_Load(object sender, EventArgs e)
         {
             refreshList();
+            lblMode.Text = "瀏覽模式";
         }
 
         private void refreshList()
@@ -365,6 +382,16 @@ namespace Adam.Menu.SystemSetting
 
                 tbNotch_angle.Text = recipe.notch_angle;
 
+                cbUseA1.Checked = recipe.is_use_aligner1;
+                cbUseA2.Checked = recipe.is_use_aligner2;
+                cbUseOcrTTL.Checked = recipe.is_use_ocr_ttl;
+                cbUseOcrT7.Checked = recipe.is_use_ocr_t7;
+                cbUseOcrM12.Checked = recipe.is_use_ocr_m12;
+
+                tbOcrTTL.Text = recipe.ocr_ttl_config;
+                tbOcrT7.Text = recipe.ocr_t7_config;
+                tbOcrM12.Text = recipe.ocr_m12_config;
+
                 //gbRecipe.Enabled = false;
                 string CurrentRecipe = SystemConfig.Get().CurrentRecipe;
                 if (CurrentRecipe.Equals(tbRecipeID.Text))//取消生效
@@ -384,7 +411,7 @@ namespace Adam.Menu.SystemSetting
 
         private void digit_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar))
+            if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar) || e.KeyChar.Equals(',') || e.KeyChar.Equals('.'))
             {
                 e.Handled = false;
             }
@@ -396,7 +423,9 @@ namespace Adam.Menu.SystemSetting
 
         private void modeCheck(object sender, EventArgs e)
         {
-            if (!btnSave.Enabled)
+
+            //if (!btnSave.Enabled)
+            if (lblMode.Text.Equals("瀏覽模式"))
             {
                 MessageBox.Show("請先選擇新增或修改功能，再做調整!!","Notice");
             }
