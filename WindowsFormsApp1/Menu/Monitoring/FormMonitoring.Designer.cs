@@ -269,6 +269,8 @@
             this.Aligner01_State = new System.Windows.Forms.TextBox();
             this.LOADPORT01_FID = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.Aligner01_tb.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -1429,6 +1431,8 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.OCR01ReadT7_Tb);
             this.panel2.Controls.Add(this.OCR01_Pic);
             this.panel2.Controls.Add(this.OCR01Read_Tb);
@@ -1440,7 +1444,7 @@
             // OCR01ReadT7_Tb
             // 
             this.OCR01ReadT7_Tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.OCR01ReadT7_Tb.Location = new System.Drawing.Point(14, 331);
+            this.OCR01ReadT7_Tb.Location = new System.Drawing.Point(82, 327);
             this.OCR01ReadT7_Tb.Name = "OCR01ReadT7_Tb";
             this.OCR01ReadT7_Tb.Size = new System.Drawing.Size(215, 16);
             this.OCR01ReadT7_Tb.TabIndex = 2;
@@ -1461,7 +1465,7 @@
             // OCR01Read_Tb
             // 
             this.OCR01Read_Tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.OCR01Read_Tb.Location = new System.Drawing.Point(14, 306);
+            this.OCR01Read_Tb.Location = new System.Drawing.Point(82, 301);
             this.OCR01Read_Tb.Name = "OCR01Read_Tb";
             this.OCR01Read_Tb.Size = new System.Drawing.Size(215, 16);
             this.OCR01Read_Tb.TabIndex = 0;
@@ -4568,6 +4572,24 @@
             this.label9.Text = "LoadPort01";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(35, 301);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "M12";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(35, 327);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(21, 15);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "T7";
+            // 
             // FormMonitoring
             // 
             this.ClientSize = new System.Drawing.Size(1620, 760);
@@ -4837,5 +4859,7 @@
         internal System.Windows.Forms.Label label140;
         internal System.Windows.Forms.Label LoadPort03_Slot_25;
         internal System.Windows.Forms.Label label142;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label1;
     }
 }
