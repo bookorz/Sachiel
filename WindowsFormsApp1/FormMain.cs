@@ -746,6 +746,14 @@ namespace Adam
                                     OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
                                     OCRStatusUpdate.UpdateOCRRead(Node.Name, Msg.Value);
                                     break;
+                                case Transaction.Command.OCRType.ReadM12:
+                                    OCRUpdate.UpdateOCRM12Read(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
+                                    OCRStatusUpdate.UpdateOCRM12Read(Node.Name, Msg.Value);
+                                    break;
+                                case Transaction.Command.OCRType.ReadT7:
+                                    OCRUpdate.UpdateOCRT7Read(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
+                                    OCRStatusUpdate.UpdateOCRT7Read(Node.Name, Msg.Value);
+                                    break;
                             }
                             break;
                     }
