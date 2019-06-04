@@ -149,6 +149,7 @@
     <Compile Include="FormQuery.designer.cs">
       <DependentUpon>FormQuery.cs</DependentUpon>
     </Compile>
+    <Compile Include="FoupInfo.cs" />
     <Compile Include="Menu\DifferentialMonitor\FormDifferentialMonitor.cs">
       <SubType>Form</SubType>
     </Compile>
