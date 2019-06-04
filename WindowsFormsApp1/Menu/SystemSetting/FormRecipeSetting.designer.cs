@@ -153,6 +153,7 @@
             this.trvRecipe.Size = new System.Drawing.Size(140, 603);
             this.trvRecipe.TabIndex = 0;
             this.trvRecipe.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvRecipe_AfterSelect);
+            this.trvRecipe.Validating += new System.ComponentModel.CancelEventHandler(this.trvRecipe_Validating);
             // 
             // gbAccountCondition
             // 
@@ -1148,6 +1149,7 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Robot 2";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label5.Visible = false;
             // 
             // label30
             // 
@@ -1167,6 +1169,7 @@
             this.tbR2Speed.Size = new System.Drawing.Size(61, 33);
             this.tbR2Speed.TabIndex = 1;
             this.tbR2Speed.Text = "100";
+            this.tbR2Speed.Visible = false;
             this.tbR2Speed.Click += new System.EventHandler(this.modeCheck);
             this.tbR2Speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
@@ -1250,6 +1253,7 @@
             this.tbA2_angle.Size = new System.Drawing.Size(61, 33);
             this.tbA2_angle.TabIndex = 1;
             this.tbA2_angle.Text = "100";
+            this.tbA2_angle.Visible = false;
             this.tbA2_angle.Click += new System.EventHandler(this.modeCheck);
             this.tbA2_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
@@ -1270,6 +1274,7 @@
             this.tbA2_speed.Size = new System.Drawing.Size(109, 33);
             this.tbA2_speed.TabIndex = 1;
             this.tbA2_speed.Text = "0";
+            this.tbA2_speed.Visible = false;
             this.tbA2_speed.Click += new System.EventHandler(this.modeCheck);
             this.tbA2_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
@@ -1283,6 +1288,7 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Aligner 2";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label6.Visible = false;
             // 
             // tbA1_angle
             // 

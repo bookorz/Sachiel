@@ -16,6 +16,7 @@ namespace Adam.Menu.SystemSetting
 {
     public partial class FormRecipeSetting : Form
     {
+        public TreeNode previousSelectedNode = null;
         public FormRecipeSetting()
         {
             InitializeComponent();
@@ -279,18 +280,30 @@ namespace Adam.Menu.SystemSetting
             trvRecipe.Nodes.Clear();
             DirectoryInfo d = new DirectoryInfo(@".\recipe");
             FileInfo[] Files = d.GetFiles("*.json"); //Getting Json files
+            TreeNode firstNode = null;
             foreach (FileInfo file in Files)
             {
                 string recipeId = file.Name.Replace(".json", "");
                 TreeNode tmp = new TreeNode(recipeId);
                 trvRecipe.Nodes.Add(tmp);
+                if (firstNode == null)
+                    firstNode = tmp;
             }
             trvRecipe.ExpandAll();
+            if (firstNode != null)
+                trvRecipe.SelectedNode = firstNode;
+            //if(trvRecipe.Nodes.Count>0)
+            //    trvRecipe.Nodes.
         }
 
         private void trvRecipe_AfterSelect(object sender, TreeViewEventArgs e)
         {
             updateInfo(trvRecipe.SelectedNode.Text);
+            if (previousSelectedNode != null)
+            {
+                previousSelectedNode.BackColor = trvRecipe.BackColor;
+                previousSelectedNode.ForeColor = trvRecipe.ForeColor;
+            }
         }
 
         private void updateInfo(string recipeID)
@@ -385,6 +398,13 @@ namespace Adam.Menu.SystemSetting
                 MessageBox.Show("請先選擇新增或修改功能，再做調整!!","Notice");
             }
 
+        }
+
+        private void trvRecipe_Validating(object sender, CancelEventArgs e)
+        {
+            trvRecipe.SelectedNode.BackColor = SystemColors.Highlight;
+            trvRecipe.SelectedNode.ForeColor = Color.White;
+            previousSelectedNode = trvRecipe.SelectedNode;
         }
     }
 }
