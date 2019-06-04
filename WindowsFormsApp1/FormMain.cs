@@ -62,6 +62,7 @@ namespace Adam
         public static string CurrentMode = "AUTO";
         public static bool Start = false;
         public static bool Initial = false;
+        public static string RunMode = "";
 
         public FormMain()
         {
@@ -144,7 +145,7 @@ namespace Adam
                 }
 
                 //20190531 未登入時隱藏功能
-                
+
                 AuthorityUpdate.tabPages.Add("tabRunning", tabRunning);
                 AuthorityUpdate.tabPages.Add("tabDIO", tabDIO);
                 AuthorityUpdate.tabPages.Add("tabNewSetting", tabNewSetting);
@@ -245,7 +246,7 @@ namespace Adam
                     Mode_btn.Enabled = false;
                     btnManual.Enabled = false;
                     btnManual.BackColor = Color.Gray;
-                    
+
 
                     DIOUpdate.UpdateControlButton("Start_btn", Initial);
                     Global.currentUser = "";
@@ -444,6 +445,7 @@ namespace Adam
                             //WaferAssignUpdate.RefreshMapping(Node.Name);
                             MonitoringUpdate.UpdateNodesJob(Node.Name);
                             WaferAssignUpdate.UpdateNodesJob(Node.Name);
+                            RunningUpdate.UpdateNodesJob(Node.Name);
                             break;
                     }
                     break;
@@ -663,7 +665,7 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
-
+            RunMode = "";
         }
 
         public void On_Command_Finished(Node Node, Transaction Txn, ReturnMessage Msg)
@@ -727,7 +729,14 @@ namespace Adam
                         case "LOADPORT":
                             switch (Txn.Method)
                             {
-
+                                case Transaction.Command.LoadPortType.Unload:
+                                case Transaction.Command.LoadPortType.MappingUnload:
+                                case Transaction.Command.LoadPortType.DoorUp:
+                                case Transaction.Command.LoadPortType.InitialPos:
+                                case Transaction.Command.LoadPortType.ForceInitialPos:
+                                    MonitoringUpdate.UpdateFoupID(Node.Name,"");
+                                    WaferAssignUpdate.UpdateFoupID(Node.Name,"");
+                                    break;
                             }
                             break;
                         case "OCR":
@@ -796,7 +805,7 @@ namespace Adam
                             case "MANSW":
                                 if (Node.OPACCESS)
                                 {
-                                    Barcodeupdate.UpdateLoadport(Node.Name,false);
+                                    Barcodeupdate.UpdateLoadport(Node.Name, false);
                                     //Node.OPACCESS = false;
                                     //TaskName = "LOADPORT_OPEN";
                                     //Message = "";
@@ -946,7 +955,7 @@ namespace Adam
             logger.Debug("On_Job_Location_Changed");
             MonitoringUpdate.UpdateJobMove(Job.Job_Id);
             WaferAssignUpdate.UpdateJobMove(Job.Job_Id);
-
+            RunningUpdate.UpdateJobMove(Job.Job_Id);
         }
 
 
@@ -1206,7 +1215,7 @@ namespace Adam
                 btnManual.BackColor = Color.Gray;
                 //tbcMian.Enabled = false;
                 //tbcMian.SelectTab(0);
-                
+                CurrentMode = "AUTO";
                 if (formManual != null)
                 {
                     formManual.Close();
@@ -1237,7 +1246,7 @@ namespace Adam
                 Mode_btn.BackColor = Color.Orange;
                 btnManual.Enabled = true;
                 btnManual.BackColor = Color.Orange;
-                
+                CurrentMode = "MANUAL";
                 //tbcMian.Enabled = true;
                 AuthorityUpdate.UpdateFuncGroupEnable(lbl_login_group.Text);//20190529 add 依照權限開放權限
                 //}
@@ -1329,6 +1338,21 @@ namespace Adam
             //{
             //    formStatus.Focus();
             //}
+            if (Start)
+            {
+                
+                if (RunMode.ToUpper().Equals("FULLAUTO") && !tbcMain.SelectedTab.Name.Equals("tabMonitor"))
+                {
+                    tbcMain.SelectTab("tabMonitor");
+                    MessageBox.Show("請先切換至STOP");
+                }
+                else if(RunMode.ToUpper().Equals("SEMIAUTO") && !tbcMain.SelectedTab.Name.Equals("tabWaferAssign"))
+                {
+                    tbcMain.SelectTab("tabWaferAssign");
+                    MessageBox.Show("請先切換至STOP");
+                }
+               
+            }
             if (tbcMain.SelectedTab.Text.Equals("Monitoring"))
             {
                 Form form = Application.OpenForms["FormMonitoring"];
@@ -1341,14 +1365,10 @@ namespace Adam
                     }
                 }
             }
-            if (tbcMain.SelectedTab.Text.Equals("Wafer mapping"))
+            if (tbcMain.SelectedTab.Text.Equals("Wafer Assign"))
             {
-                if (Start)
-                {
-                    MessageBox.Show("請先切換至STOP");
-                    tbcMain.SelectTab(0);
-                }
-                CurrentMode = "MANUAL";
+                
+
                 FormWaferMapping.fromPort = "";
                 FormWaferMapping.fromSlot = "";
                 FormWaferMapping.toPort = "";
@@ -1432,6 +1452,7 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            RunMode = "";
             WaferAssignUpdate.UpdateEnabled("FORM", true);
 
             if (Task.Id.IndexOf("FormManual") != -1)
@@ -1496,6 +1517,7 @@ namespace Adam
                     }
                     //讓INIT按鈕由黃變綠色
                     DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                    DIOUpdate.UpdateControlButton("Mode_btn", true);
                     xfe.Initial();
 
                     foreach (Node port in NodeManagement.GetLoadPortList())
@@ -1516,7 +1538,8 @@ namespace Adam
                     break;
                 case "LOADPORT_OPEN":
                     Node currentPort = NodeManagement.Get(Task.Params["@Target"]);
-                    
+                    if (Start)
+                    {
                         if (currentPort.Mode.Equals("LD"))
                         {
                             AssignWafer(currentPort);
@@ -1531,7 +1554,7 @@ namespace Adam
                                 AssignWafer(ld);
                             }
                         }
-                    
+                    }
                     if (Task.Id.Contains("Unload_btn"))
                     {
                         MonitoringUpdate.ButtonEnabled(Task.Params["@Target"].ToUpper() + "_Unload_btn", true);
@@ -1555,17 +1578,24 @@ namespace Adam
         private Node SearchLoadport()
         {
             Node result = null;
-            var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
-                                 where OPEN.Mode.Equals("LD") && OPEN.IsMapping
-                                 orderby OPEN.LoadTime
-                                 from wafer in OPEN.JobList.Values
-                                 where wafer.MapFlag && !wafer.ErrPosition
-                                 select OPEN;
-            if (AvailableOPENs.Count() != 0)
+            if (RunMode.Equals("FULLAUTO"))
             {
-                //List<Node> OPENS = AvailableOPENs.ToList();
-                //OPENS.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
-                result = AvailableOPENs.First();
+                var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
+                                     where OPEN.Mode.Equals("LD") && OPEN.IsMapping
+                                     orderby OPEN.LoadTime
+                                     from wafer in OPEN.JobList.Values
+                                     where wafer.MapFlag && !wafer.ErrPosition
+                                     select OPEN;
+                if (AvailableOPENs.Count() != 0)
+                {
+                    //List<Node> OPENS = AvailableOPENs.ToList();
+                    //OPENS.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
+                    result = AvailableOPENs.First();
+                }
+            }
+            else if (RunMode.Equals("SEMIAUTO"))
+            {
+                result = SearchAvailableWafer();
             }
             return result;
         }
@@ -1573,12 +1603,21 @@ namespace Adam
         {
             Node result = null;
             var AvailableWafers = from job in JobManagement.GetJobList()
-                                 where job.NeedProcess
-                                 orderby job.AssignTime
+                                  where job.NeedProcess
+                                  orderby job.AssignTime
                                   select job;
             if (AvailableWafers.Count() != 0)
             {
                 result = NodeManagement.Get(AvailableWafers.First().Position);
+            }
+            if (result == null)
+            {
+                DIOUpdate.UpdateControlButton("Start_btn", true);
+                DIOUpdate.UpdateControlButton("Stop_btn", false);
+                DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                DIOUpdate.UpdateControlButton("Mode_btn", true);
+                MessageBox.Show("Transfer finished");
+                Start = false;
             }
             return result;
         }
@@ -1599,9 +1638,11 @@ namespace Adam
                 {
                     return;
                 }
-                if (CurrentMode.Equals("AUTO"))
+
+
+                if (CurrentMode.Equals("AUTO") && RunMode.Equals("FULLAUTO"))
                 {
-                    
+
                     var LD_Jobs = from wafer in Loadport.JobList.Values
                                   where wafer.MapFlag && !wafer.ErrPosition && wafer.Destination.Equals("")
                                   orderby Convert.ToInt16(wafer.Slot)
@@ -1677,7 +1718,6 @@ namespace Adam
                         //    i--;
                         //}
                     }
-
                     var NeedProcessSlot = from wafer in LD_Jobs
                                           where wafer.NeedProcess
                                           select wafer;
@@ -1689,7 +1729,24 @@ namespace Adam
                             MessageBox.Show("xfe.Start fail!");
                         }
                     }
+
                 }
+                else
+                { 
+
+                    var NeedProcessSlot = from wafer in Loadport.JobList.Values
+                                          where wafer.NeedProcess
+                                          select wafer;
+
+                    if (!XfeCrossZone.Running && NeedProcessSlot.Count() != 0)
+                    {
+                        if (!xfe.Start(Loadport.Name))
+                        {
+                            MessageBox.Show("xfe.Start fail!");
+                        }
+                    }
+                }
+
             }
         }
 
@@ -1728,22 +1785,13 @@ namespace Adam
 
             MonitoringUpdate.UpdateWPH((xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
 
-            Node AvailablePort = SearchAvailableWafer();
-            if (AvailablePort != null)
-            {
-                if (!xfe.Start(AvailablePort.Name))
-                {
-                    MessageBox.Show("xfe.Start fail!");
-                }
-            }
-            else
-            {
+            
                 Node ld = SearchLoadport();
                 if (ld != null)
                 {
                     AssignWafer(ld);
                 }
-            }
+            
             WaferAssignUpdate.UpdateEnabled("FORM", true);
         }
 
@@ -1759,6 +1807,17 @@ namespace Adam
 
         public void On_LoadPort_Complete(Node Port)
         {
+            Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
+            foreach (Job j in Port.JobList.Values)
+            {
+                int slot = Convert.ToInt16(j.Slot);
+                foup.record[slot - 1] = new Adam.waferInfo("LOADPORT01", "KUMAFOUPF", slot, "LOADPORT02", "KUMAFOUPT", slot);
+                foup.record[slot - 1].SetStartTime(j.StartTime);
+                foup.record[slot - 1].setM12("");
+                foup.record[slot - 1].setT7("");
+                foup.record[slot - 1].SetEndTime(j.EndTime);
+            }
+            foup.Save();
 
             string TaskName = "LOADPORT_CLOSE_NOMAP";
             string Message = "";
@@ -1915,6 +1974,7 @@ namespace Adam
             else
             {
                 DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
+                DIOUpdate.UpdateControlButton("Mode_btn", false);
                 ALL_INIT_btn.BackColor = Color.Yellow;
             }
         }
@@ -1924,7 +1984,22 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", true);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
+            DIOUpdate.UpdateControlButton("Mode_btn", false);
             Start = true;
+            if (tbcMain.SelectedTab.Text.ToUpper().Equals("MONITORING"))
+            {
+
+                RunMode = "FULLAUTO";
+            }
+            else
+            {
+                RunMode = "SEMIAUTO";
+                foreach (Job j in JobManagement.GetJobList())
+                {
+                    j.AbortProcess = false;
+
+                }
+            }
             Node ld = SearchLoadport();
             if (ld != null)
             {
@@ -1937,6 +2012,7 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", true);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            DIOUpdate.UpdateControlButton("Mode_btn", true);
             Start = false;
 
             foreach (Job j in JobManagement.GetJobList())
@@ -1972,6 +2048,6 @@ namespace Adam
             }
         }
 
-      
+
     }
 }

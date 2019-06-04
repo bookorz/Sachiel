@@ -1,4 +1,5 @@
-﻿using SANWA;
+﻿using Adam.UI_Update.Layout;
+using SANWA;
 using SANWA.Utility;
 using SANWA.Utility.Config;
 using System;
@@ -74,6 +75,7 @@ namespace Adam.Menu.SystemSetting
                 MessageBox.Show("Recipe Name or recipe id should not be empty.");
                 return;
             }
+            
             //GUI 處理
             //gbRecipe.Enabled = false;
             btnCreateRecipe.Enabled = true;
@@ -147,8 +149,9 @@ namespace Adam.Menu.SystemSetting
                 //update node config
                 updateLoadPortConfig(Recipe.Get("default"));
             }
+            FormMainUpdate.UpdateRecipe(tbRecipeID.Text);
             //紀錄修改Log
-            if(tbRecipeID.Enabled)
+            if (tbRecipeID.Enabled)
                 Util.SanwaUtil.addActionLog("Recipe", "Create", Global.currentUser, "建立 Recipe:" + recipe.recipe_id);
             if (tbRecipeID.Enabled)
                 Util.SanwaUtil.addActionLog("Recipe", "Modify", Global.currentUser, "修改 Recipe:" + recipe.recipe_id);
