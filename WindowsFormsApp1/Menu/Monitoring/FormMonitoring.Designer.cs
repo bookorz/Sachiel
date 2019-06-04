@@ -1274,6 +1274,7 @@
             this.LOADPORT02_Unload_btn.TabIndex = 174;
             this.LOADPORT02_Unload_btn.Text = "Uuload";
             this.LOADPORT02_Unload_btn.UseVisualStyleBackColor = true;
+            this.LOADPORT02_Unload_btn.Click += new System.EventHandler(this.Unload_btn);
             // 
             // LOADPORT03_Unload_btn
             // 
@@ -1285,6 +1286,7 @@
             this.LOADPORT03_Unload_btn.TabIndex = 173;
             this.LOADPORT03_Unload_btn.Text = "Uuload";
             this.LOADPORT03_Unload_btn.UseVisualStyleBackColor = true;
+            this.LOADPORT03_Unload_btn.Click += new System.EventHandler(this.Unload_btn);
             // 
             // LOADPORT04_Unload_btn
             // 
@@ -1296,6 +1298,7 @@
             this.LOADPORT04_Unload_btn.TabIndex = 172;
             this.LOADPORT04_Unload_btn.Text = "Uuload";
             this.LOADPORT04_Unload_btn.UseVisualStyleBackColor = true;
+            this.LOADPORT04_Unload_btn.Click += new System.EventHandler(this.Unload_btn);
             // 
             // LOADPORT01_Unload_btn
             // 

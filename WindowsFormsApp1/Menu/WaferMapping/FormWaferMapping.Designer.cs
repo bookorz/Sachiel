@@ -35,7 +35,6 @@
             this.Source_cb = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.To_cb = new System.Windows.Forms.ComboBox();
-            this.Assign_finish_btn = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.LoadPort04_Slot_1 = new System.Windows.Forms.Label();
             this.label144 = new System.Windows.Forms.Label();
@@ -259,7 +258,6 @@
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.groupBox1);
-            this.groupBox11.Controls.Add(this.Assign_finish_btn);
             this.groupBox11.Controls.Add(this.tableLayoutPanel3);
             this.groupBox11.Controls.Add(this.tableLayoutPanel2);
             this.groupBox11.Controls.Add(this.tableLayoutPanel1);
@@ -349,16 +347,6 @@
             this.To_cb.Name = "To_cb";
             this.To_cb.Size = new System.Drawing.Size(136, 28);
             this.To_cb.TabIndex = 177;
-            // 
-            // Assign_finish_btn
-            // 
-            this.Assign_finish_btn.Location = new System.Drawing.Point(1429, 655);
-            this.Assign_finish_btn.Name = "Assign_finish_btn";
-            this.Assign_finish_btn.Size = new System.Drawing.Size(136, 65);
-            this.Assign_finish_btn.TabIndex = 174;
-            this.Assign_finish_btn.Text = "Start";
-            this.Assign_finish_btn.UseVisualStyleBackColor = true;
-            this.Assign_finish_btn.Click += new System.EventHandler(this.Assign_finish_btn_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -4134,6 +4122,7 @@
             this.LOADPORT04_FID.TabIndex = 169;
             this.LOADPORT04_FID.Text = "Foup ID";
             this.LOADPORT04_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LOADPORT04_FID.Click += new System.EventHandler(this.LOADPORT_FID_Click);
             // 
             // label4
             // 
@@ -4162,6 +4151,7 @@
             this.LOADPORT03_FID.TabIndex = 167;
             this.LOADPORT03_FID.Text = "Foup ID";
             this.LOADPORT03_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LOADPORT03_FID.Click += new System.EventHandler(this.LOADPORT_FID_Click);
             // 
             // label3
             // 
@@ -4190,6 +4180,7 @@
             this.LOADPORT02_FID.TabIndex = 165;
             this.LOADPORT02_FID.Text = "Foup ID";
             this.LOADPORT02_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LOADPORT02_FID.Click += new System.EventHandler(this.LOADPORT_FID_Click);
             // 
             // label2
             // 
@@ -4218,6 +4209,7 @@
             this.LOADPORT01_FID.TabIndex = 163;
             this.LOADPORT01_FID.Text = "Foup ID";
             this.LOADPORT01_FID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LOADPORT01_FID.Click += new System.EventHandler(this.LOADPORT_FID_Click);
             // 
             // label9
             // 
@@ -4259,7 +4251,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.Button Assign_finish_btn;
         internal System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         internal System.Windows.Forms.Label LoadPort04_Slot_1;
         internal System.Windows.Forms.Label label144;

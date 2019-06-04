@@ -1,3 +1,4 @@
+using Adam.UI_Update.Barcode;
 using Adam.UI_Update.Monitoring;
 using Adam.UI_Update.WaferMapping;
 using Adam.Util;
@@ -811,6 +812,28 @@ namespace Adam.Menu.WaferMapping
             }
             RefreshMap();
             
+        }
+
+        private void LOADPORT_FID_Click(object sender, EventArgs e)
+        {
+            string PortName = ((TextBox)sender).Name.Substring(0, ((TextBox)sender).Name.IndexOf("_"));
+            Node port = NodeManagement.Get(PortName);
+            if (port.OrgSearchComplete && port.Foup_Placement)
+            {
+                Barcodeupdate.UpdateLoadport(PortName, true);
+            }
+            else
+            {
+                if (port.OrgSearchComplete)
+                {
+                    MessageBox.Show("Please excute org search");
+                }
+                if (!port.Foup_Placement)
+                {
+                    MessageBox.Show("No Foup exist");
+                }
+
+            }
         }
     }
 }
