@@ -1607,6 +1607,7 @@ namespace Adam
                 DIOUpdate.UpdateControlButton("Start_btn", true);
                 DIOUpdate.UpdateControlButton("Stop_btn", false);
                 DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                DIOUpdate.UpdateControlButton("Mode_btn", true);
                 MessageBox.Show("Transfer finished");
                 Start = false;
             }
@@ -1964,6 +1965,7 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", true);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
+            DIOUpdate.UpdateControlButton("Mode_btn", false);
             Start = true;
             if (tbcMain.SelectedTab.Text.ToUpper().Equals("MONITORING"))
             {
@@ -1986,6 +1988,7 @@ namespace Adam
             DIOUpdate.UpdateControlButton("Start_btn", true);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
             DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            DIOUpdate.UpdateControlButton("Mode_btn", true);
             Start = false;
 
             foreach (Job j in JobManagement.GetJobList())
