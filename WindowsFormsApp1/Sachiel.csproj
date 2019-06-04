@@ -180,6 +180,12 @@
     <Compile Include="Menu\SystemSetting\FormDIOSetting.Designer.cs">
       <DependentUpon>FormDIOSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Menu\SystemSetting\FormSysConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\SystemSetting\FormSysConfig.designer.cs">
+      <DependentUpon>FormSysConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu\SystemSetting\FormRecipeSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -505,6 +511,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu\SystemSetting\FormOnlineSettings.resx">
       <DependentUpon>FormOnlineSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\SystemSetting\FormSysConfig.resx">
+      <DependentUpon>FormSysConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu\SystemSetting\FormRecipeSetting.resx">
       <DependentUpon>FormRecipeSetting.cs</DependentUpon>

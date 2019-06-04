@@ -36,6 +36,7 @@
             this.btnSECSSetting = new System.Windows.Forms.Button();
             this.btnRecipeSetting = new System.Windows.Forms.Button();
             this.btnDIOSetting = new System.Windows.Forms.Button();
+            this.btnSysConfig = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pnlSetting
@@ -123,6 +124,17 @@
             this.btnDIOSetting.UseVisualStyleBackColor = true;
             this.btnDIOSetting.Click += new System.EventHandler(this.btnDIOSetting_Click);
             // 
+            // btnSysConfig
+            // 
+            this.btnSysConfig.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnSysConfig.Location = new System.Drawing.Point(1438, 369);
+            this.btnSysConfig.Name = "btnSysConfig";
+            this.btnSysConfig.Size = new System.Drawing.Size(170, 45);
+            this.btnSysConfig.TabIndex = 1;
+            this.btnSysConfig.Text = "System config";
+            this.btnSysConfig.UseVisualStyleBackColor = true;
+            this.btnSysConfig.Click += new System.EventHandler(this.btnSysConfig_Click);
+            // 
             // FormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -132,6 +144,7 @@
             this.Controls.Add(this.btnDIOSetting);
             this.Controls.Add(this.btnSECSSetting);
             this.Controls.Add(this.btnSignalTtower);
+            this.Controls.Add(this.btnSysConfig);
             this.Controls.Add(this.btnAccountSetting);
             this.Controls.Add(this.btnOnlineSettings);
             this.Controls.Add(this.btnDeviceManager);
@@ -157,5 +170,6 @@
         private System.Windows.Forms.Button btnSECSSetting;
         private System.Windows.Forms.Button btnRecipeSetting;
         private System.Windows.Forms.Button btnDIOSetting;
+        private System.Windows.Forms.Button btnSysConfig;
     }
 }
