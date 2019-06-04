@@ -98,13 +98,13 @@ namespace Adam
             this.to_slot = to_slot.ToString();
         }
 
-        public void start()
+        public void SetStartTime(DateTime timeStamp)
         {
-            this.start_datetime =  System.DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff");
+            this.start_datetime = timeStamp.ToString("dd-MM-yyyy HH:mm:ss.fff");
         }
-        public void end()
+        public void SetEndTime(DateTime timeStamp)
         {
-            this.end_datetime = System.DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff");
+            this.end_datetime = timeStamp.ToString("dd-MM-yyyy HH:mm:ss.fff");
         }
         public void setM12(string m12)
         {

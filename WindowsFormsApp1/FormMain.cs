@@ -445,6 +445,7 @@ namespace Adam
                             //WaferAssignUpdate.RefreshMapping(Node.Name);
                             MonitoringUpdate.UpdateNodesJob(Node.Name);
                             WaferAssignUpdate.UpdateNodesJob(Node.Name);
+                            RunningUpdate.UpdateNodesJob(Node.Name);
                             break;
                     }
                     break;
@@ -728,7 +729,14 @@ namespace Adam
                         case "LOADPORT":
                             switch (Txn.Method)
                             {
-
+                                case Transaction.Command.LoadPortType.Unload:
+                                case Transaction.Command.LoadPortType.MappingUnload:
+                                case Transaction.Command.LoadPortType.DoorUp:
+                                case Transaction.Command.LoadPortType.InitialPos:
+                                case Transaction.Command.LoadPortType.ForceInitialPos:
+                                    MonitoringUpdate.UpdateFoupID(Node.Name,"");
+                                    WaferAssignUpdate.UpdateFoupID(Node.Name,"");
+                                    break;
                             }
                             break;
                         case "OCR":
@@ -947,7 +955,7 @@ namespace Adam
             logger.Debug("On_Job_Location_Changed");
             MonitoringUpdate.UpdateJobMove(Job.Job_Id);
             WaferAssignUpdate.UpdateJobMove(Job.Job_Id);
-
+            RunningUpdate.UpdateJobMove(Job.Job_Id);
         }
 
 
@@ -1799,6 +1807,17 @@ namespace Adam
 
         public void On_LoadPort_Complete(Node Port)
         {
+            Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
+            foreach (Job j in Port.JobList.Values)
+            {
+                int slot = Convert.ToInt16(j.Slot);
+                foup.record[slot - 1] = new Adam.waferInfo("LOADPORT01", "KUMAFOUPF", slot, "LOADPORT02", "KUMAFOUPT", slot);
+                foup.record[slot - 1].SetStartTime(j.StartTime);
+                foup.record[slot - 1].setM12("");
+                foup.record[slot - 1].setT7("");
+                foup.record[slot - 1].SetEndTime(j.EndTime);
+            }
+            foup.Save();
 
             string TaskName = "LOADPORT_CLOSE_NOMAP";
             string Message = "";
@@ -1975,6 +1994,11 @@ namespace Adam
             else
             {
                 RunMode = "SEMIAUTO";
+                foreach (Job j in JobManagement.GetJobList())
+                {
+                    j.AbortProcess = false;
+
+                }
             }
             Node ld = SearchLoadport();
             if (ld != null)
