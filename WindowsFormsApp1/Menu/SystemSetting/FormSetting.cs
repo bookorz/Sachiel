@@ -117,5 +117,11 @@ namespace Adam.Menu.SystemSetting
             Recipe recipe = new Recipe();
             Recipe.Set("default", recipe);
         }
+
+        private void btnSysConfig_Click(object sender, EventArgs e)
+        {
+            FormSysConfig form = new FormSysConfig();
+            AddForm(form);
+        }
     }
 }
