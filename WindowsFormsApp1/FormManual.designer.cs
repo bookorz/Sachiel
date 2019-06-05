@@ -1351,9 +1351,7 @@
             this.cbRMode.FormattingEnabled = true;
             this.cbRMode.Items.AddRange(new object[] {
             "Normal",
-            "Dry Mode",
-            "Test Mode",
-            "Step Mode"});
+            "Dry Mode"});
             this.cbRMode.Location = new System.Drawing.Point(224, 603);
             this.cbRMode.Name = "cbRMode";
             this.cbRMode.Size = new System.Drawing.Size(248, 38);
