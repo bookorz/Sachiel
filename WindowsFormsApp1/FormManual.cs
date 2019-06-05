@@ -256,8 +256,20 @@ namespace GUI
 
         private void AlignerFunction_Click(object sender, EventArgs e)
         {
+            
             string Message = "";
             Button btn = (Button)sender;
+            string runMode = "";
+            if(btn.Name.IndexOf("A1") > 0)
+            {
+                runMode = cbA1Mode.SelectedItem != null ? cbA1Mode.SelectedItem.ToString() : "";
+            }
+            else
+            {
+                runMode = cbA2Mode.SelectedItem != null ? cbA2Mode.SelectedItem.ToString() : "";
+            }
+            if (!checkDryMode(runMode))
+                return;
             String nodeName = "NA";
             String angle = "0";
             string speed = "0";
@@ -502,8 +514,25 @@ namespace GUI
             //    MessageBox.Show("Command is empty!");
             //}
         }
+        private Boolean checkDryMode(string mode)
+        {
+            if (mode.Equals("Normal"))
+                return true;
+
+            DialogResult dialogResult = MessageBox.Show("目前 Robot / Aligner 不在 Normal Mode下， 不會做相關安全檢查，\n確定要執行?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (dialogResult == DialogResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private void RobotFunction_Click(object sender, EventArgs e)
         {
+            if (!checkDryMode(cbRMode.SelectedItem != null ? cbRMode.SelectedItem.ToString() : ""))
+                return;
             string Message = "";
             Button btn = (Button)sender;
             //if (!btn.Name.Equals("btnRConn") && !btn.Name.Equals("btnRConn"))
