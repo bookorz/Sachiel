@@ -93,6 +93,8 @@
             this.LoadPort01_Mode = new System.Windows.Forms.Label();
             this.Ocr1_lb = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.OCR01ReadT7_Tb = new System.Windows.Forms.TextBox();
             this.OCR01_Pic = new System.Windows.Forms.PictureBox();
             this.OCR01Read_Tb = new System.Windows.Forms.TextBox();
@@ -269,8 +271,6 @@
             this.Aligner01_State = new System.Windows.Forms.TextBox();
             this.LOADPORT01_FID = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.Aligner01_tb.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -1440,6 +1440,24 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(422, 358);
             this.panel2.TabIndex = 152;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(35, 327);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(21, 15);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "T7";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(35, 301);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "M12";
             // 
             // OCR01ReadT7_Tb
             // 
@@ -4571,24 +4589,6 @@
             this.label9.TabIndex = 53;
             this.label9.Text = "LoadPort01";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 301);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "M12";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(35, 327);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(21, 15);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "T7";
             // 
             // FormMonitoring
             // 

@@ -3,6 +3,7 @@ using Adam.UI_Update.Monitoring;
 using Adam.UI_Update.WaferMapping;
 using Adam.Util;
 using log4net;
+using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -761,11 +762,15 @@ namespace Adam.Menu.WaferMapping
                     isAssign = false;
                     foreach (Job Slot in ULD_Jobs)
                     {//搜尋所有FOSB Slot 找到能放的     
-                        if (Slot.PreviousSlotNotEmpty)
-                        {//下一層有片所以不能放
-                            Slot.Locked = true;
-                        }
-                        else
+                    if (Recipe.Get(SystemConfig.Get().CurrentRecipe).manual_put_constrict.Equals("1") && UnLoadport.CheckPreviousPresence(Slot.Slot))
+                    {//下一層有片所以不能放
+                        Slot.Locked = true;
+                    }
+                    else if (Recipe.Get(SystemConfig.Get().CurrentRecipe).manual_put_constrict.Equals("2") && UnLoadport.CheckForwardPresence(Slot.Slot))
+                    {//下方所有都不能有片
+                        Slot.Locked = true;
+                    }
+                    else
                         {
                             wafer.NeedProcess = true;
                             wafer.ProcessFlag = false;

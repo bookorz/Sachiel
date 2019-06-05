@@ -157,6 +157,14 @@ namespace Adam.UI_Update.OCR
                                             return;
                                         t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
                                         Pic_OCR.Image = t;
+                                        if (Pic_OCR.Tag != null)
+                                        { 
+                                            if (!Pic_OCR.Tag.Equals(Job))
+                                            {//不同片
+                                                TextBox tb = form.Controls.Find(OCRName + "ReadT7_Tb", true).FirstOrDefault() as TextBox;
+                                                tb.Text = "";
+                                            }
+                                        }
                                         Pic_OCR.Tag = Job;
                                         Job.OCRImgPath = savePath;
                                         Job.OCRScore = ocrResult[1];
@@ -176,7 +184,280 @@ namespace Adam.UI_Update.OCR
                 logger.Error("UpdateOCRRead: Update fail.");
             }
         }
+        public static void UpdateOCRM12Read(string OCRName, string WaferID, Job Job)
+        {
+            try
+            {
+                Form form = Application.OpenForms["FormMonitoring"];
+                TextBox Tb_OCRRead;
+                if (form == null)
+                    return;
 
+                Tb_OCRRead = form.Controls.Find(OCRName + "Read_Tb", true).FirstOrDefault() as TextBox;
+                if (Tb_OCRRead == null)
+                    return;
+
+                if (Tb_OCRRead.InvokeRequired)
+                {
+                    UpdateOCR ph = new UpdateOCR(UpdateOCRM12Read);
+                    Tb_OCRRead.BeginInvoke(ph, OCRName, WaferID, Job);
+                }
+                else
+                {
+                    string save = "";
+                    string src = "";
+                    string OCRResult = WaferID;
+                    if (WaferID.IndexOf("*") != -1)
+                    {
+                        WaferID = "Failed";
+                    }
+                    switch (OCRName)
+                    {
+                        case "OCR01":
+                            save = SystemConfig.Get().OCR1ImgToJpgPath;
+                            src = SystemConfig.Get().OCR1ImgSourcePath;
+                            break;
+                        case "OCR02":
+                            save = SystemConfig.Get().OCR2ImgToJpgPath;
+                            src = SystemConfig.Get().OCR2ImgSourcePath;
+                            break;
+                    }
+
+                    Thread.Sleep(500);
+                    Node OCR = NodeManagement.Get(OCRName);
+                    if (OCR != null)
+                    {
+
+                        if (!Directory.Exists(save))
+                        {
+                            Directory.CreateDirectory(save);
+                        }
+                        string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + ".bmp";
+                        string FileName = WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + "_M12.jpg";
+                        string savePath = save + "/" + FileName;
+
+                        if (savePath != "")
+                        {
+                            switch (OCR.Brand)
+                            {
+                                case "COGNEX":
+                                    string[] ocrResult = OCRResult.Replace("[", "").Replace("]", "").Split(',');
+                                    string info = ocrResult[0];
+                                    if (ocrResult.Length >= 2)
+                                    {
+                                        info += " Score:" + ocrResult[1];
+                                    }
+                                    else
+                                    {
+                                        info += " Score:0";
+                                    }
+                                    Tb_OCRRead.Text = info;
+                                    FTP ftp = new FTP(OCR.GetController().GetConfig().IPAdress, "21", "", "admin", "");
+                                    string imgPath = ftp.Get("image.jpg", FileName, save);
+                                    PictureBox Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
+                                    if (Pic_OCR == null)
+                                        return;
+                                    Bitmap t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
+                                    Pic_OCR.Image = t;
+                                    Pic_OCR.Tag = Job;
+                                    Job.OCR_M12_ImgPath = savePath;
+                                    Job.OCR_M12_Score = ocrResult[1];
+                                    ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                                    break;
+                                case "HST":
+                                    ocrResult = OCRResult.Replace("[", "").Replace("]", "").Split(',');
+                                    WaferID = ocrResult[0];
+                                    if (ocrResult.Length >= 2)
+                                    {
+                                        WaferID += " Score:" + ocrResult[1];
+                                    }
+                                    else
+                                    {
+                                        WaferID += " Score:0";
+                                    }
+                                    Tb_OCRRead.Text = WaferID;
+
+                                    string[] files = Directory.GetFiles(src);
+                                    List<string> fileList = files.ToList();
+                                    if (fileList.Count != 0)
+                                    {
+                                        fileList.Sort((x, y) => { return -File.GetLastWriteTime(x).CompareTo(File.GetLastWriteTime(y)); });
+
+                                        File.Copy(fileList[0], saveTmpPath);
+                                        Image bmp = Image.FromFile(saveTmpPath);
+
+                                        bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        bmp.Dispose();
+                                        Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
+                                        File.Delete(saveTmpPath);
+                                        if (Pic_OCR == null)
+                                            return;
+                                        t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
+                                        Pic_OCR.Image = t;
+                                        if (Pic_OCR.Tag != null)
+                                        {
+                                            if (!Pic_OCR.Tag.Equals(Job))
+                                            {//不同片
+                                                TextBox tb = form.Controls.Find(OCRName + "ReadT7_Tb", true).FirstOrDefault() as TextBox;
+                                                tb.Text = "";
+                                            }
+                                        }
+                                        Pic_OCR.Tag = Job;
+                                        Job.OCR_M12_ImgPath = savePath;
+                                        Job.OCR_M12_Score = ocrResult[1];
+                                        ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                                    }
+                                    break;
+                            }
+
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                logger.Error("UpdateOCRM12Read: Update fail.");
+            }
+        }
+        public static void UpdateOCRT7Read(string OCRName, string WaferID, Job Job)
+        {
+            try
+            {
+                Form form = Application.OpenForms["FormMonitoring"];
+                TextBox Tb_OCRRead;
+                if (form == null)
+                    return;
+
+                Tb_OCRRead = form.Controls.Find(OCRName + "ReadT7_Tb", true).FirstOrDefault() as TextBox;
+                if (Tb_OCRRead == null)
+                    return;
+
+                if (Tb_OCRRead.InvokeRequired)
+                {
+                    UpdateOCR ph = new UpdateOCR(UpdateOCRT7Read);
+                    Tb_OCRRead.BeginInvoke(ph, OCRName, WaferID, Job);
+                }
+                else
+                {
+                    string save = "";
+                    string src = "";
+                    string OCRResult = WaferID;
+                    if (WaferID.IndexOf("*") != -1)
+                    {
+                        WaferID = "Failed";
+                    }
+                    switch (OCRName)
+                    {
+                        case "OCR01":
+                            save = SystemConfig.Get().OCR1ImgToJpgPath;
+                            src = SystemConfig.Get().OCR1ImgSourcePath;
+                            break;
+                        case "OCR02":
+                            save = SystemConfig.Get().OCR2ImgToJpgPath;
+                            src = SystemConfig.Get().OCR2ImgSourcePath;
+                            break;
+                    }
+
+                    Thread.Sleep(500);
+                    Node OCR = NodeManagement.Get(OCRName);
+                    if (OCR != null)
+                    {
+
+                        if (!Directory.Exists(save))
+                        {
+                            Directory.CreateDirectory(save);
+                        }
+                        string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + ".bmp";
+                        string FileName = WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + "_T7.jpg";
+                        string savePath = save + "/" + FileName;
+
+                        if (savePath != "")
+                        {
+                            switch (OCR.Brand)
+                            {
+                                case "COGNEX":
+                                    string[] ocrResult = OCRResult.Replace("[", "").Replace("]", "").Split(',');
+                                    string info = ocrResult[0];
+                                    if (ocrResult.Length >= 2)
+                                    {
+                                        info += " Score:" + ocrResult[1];
+                                    }
+                                    else
+                                    {
+                                        info += " Score:0";
+                                    }
+                                    Tb_OCRRead.Text = info;
+                                    FTP ftp = new FTP(OCR.GetController().GetConfig().IPAdress, "21", "", "admin", "");
+                                    string imgPath = ftp.Get("image.jpg", FileName, save);
+                                    PictureBox Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
+                                    if (Pic_OCR == null)
+                                        return;
+                                    Bitmap t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
+                                    Pic_OCR.Image = t;
+                                    Pic_OCR.Tag = Job;
+                                    Job.OCR_T7_ImgPath = savePath;
+                                    Job.OCR_T7_Score = ocrResult[1];
+                                    ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                                    break;
+                                case "HST":
+                                    ocrResult = OCRResult.Replace("[", "").Replace("]", "").Split(',');
+                                    WaferID = ocrResult[0];
+                                    if (ocrResult.Length >= 2)
+                                    {
+                                        WaferID += " Score:" + ocrResult[1];
+                                    }
+                                    else
+                                    {
+                                        WaferID += " Score:0";
+                                    }
+                                    Tb_OCRRead.Text = WaferID;
+
+                                    string[] files = Directory.GetFiles(src);
+                                    List<string> fileList = files.ToList();
+                                    if (fileList.Count != 0)
+                                    {
+                                        fileList.Sort((x, y) => { return -File.GetLastWriteTime(x).CompareTo(File.GetLastWriteTime(y)); });
+
+                                        File.Copy(fileList[0], saveTmpPath);
+                                        Image bmp = Image.FromFile(saveTmpPath);
+
+                                        bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        bmp.Dispose();
+                                        Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
+                                        File.Delete(saveTmpPath);
+                                        if (Pic_OCR == null)
+                                            return;
+                                        t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
+                                        Pic_OCR.Image = t;
+                                        if (Pic_OCR.Tag != null)
+                                        {
+                                            if (!Pic_OCR.Tag.Equals(Job))
+                                            {//不同片
+                                                TextBox tb = form.Controls.Find(OCRName + "Read_Tb", true).FirstOrDefault() as TextBox;
+                                                tb.Text = "";
+                                            }
+                                        }
+                                        Pic_OCR.Tag = Job;
+                                        Job.OCR_T7_ImgPath = savePath;
+                                        Job.OCR_T7_Score = ocrResult[1];
+                                        ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                                    }
+                                    break;
+                            }
+
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                logger.Error("UpdateOCRT7Read: Update fail.");
+            }
+        }
         public static void UpdateOCRReadXML(string OCRName,OCRInfo OcrResult, Job Job)
         {
             try

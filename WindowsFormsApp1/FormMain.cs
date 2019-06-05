@@ -744,7 +744,15 @@ namespace Adam
                             {
                                 case Transaction.Command.OCRType.Read:
                                     OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
-                                    OCRStatusUpdate.UpdateOCRRead(Node.Name, Msg.Value);
+                                    //OCRStatusUpdate.UpdateOCRRead(Node.Name, Msg.Value);
+                                    break;
+                                case Transaction.Command.OCRType.ReadM12:
+                                    OCRUpdate.UpdateOCRM12Read(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
+                                    //OCRStatusUpdate.UpdateOCRM12Read(Node.Name, Msg.Value);
+                                    break;
+                                case Transaction.Command.OCRType.ReadT7:
+                                    OCRUpdate.UpdateOCRT7Read(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
+                                   //OCRStatusUpdate.UpdateOCRT7Read(Node.Name, Msg.Value);
                                     break;
                             }
                             break;
@@ -1555,10 +1563,10 @@ namespace Adam
                             }
                         }
                     }
-                    if (Task.Id.Contains("Unload_btn"))
-                    {
+                    //if (Task.Id.Contains("Unload_btn"))
+                    //{
                         MonitoringUpdate.ButtonEnabled(Task.Params["@Target"].ToUpper() + "_Unload_btn", true);
-                    }
+                    //}
                     break;
                 case "LOADPORT_CLOSE_NOMAP":
 
@@ -1668,8 +1676,12 @@ namespace Adam
                             isAssign = false;
                             foreach (Job Slot in ULD_Jobs)
                             {//搜尋所有FOSB Slot 找到能放的     
-                                if (Slot.PreviousSlotNotEmpty)
+                                if (Recipe.Get(SystemConfig.Get().CurrentRecipe).auto_put_constrict.Equals("1") && fosb.CheckPreviousPresence(Slot.Slot))
                                 {//下一層有片所以不能放
+                                    Slot.Locked = true;
+                                }
+                                else if(Recipe.Get(SystemConfig.Get().CurrentRecipe).auto_put_constrict.Equals("2") && fosb.CheckForwardPresence(Slot.Slot))
+                                {//下方所有都不能有片
                                     Slot.Locked = true;
                                 }
                                 else
@@ -1807,17 +1819,7 @@ namespace Adam
 
         public void On_LoadPort_Complete(Node Port)
         {
-            Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
-            foreach (Job j in Port.JobList.Values)
-            {
-                int slot = Convert.ToInt16(j.Slot);
-                foup.record[slot - 1] = new Adam.waferInfo("LOADPORT01", "KUMAFOUPF", slot, "LOADPORT02", "KUMAFOUPT", slot);
-                foup.record[slot - 1].SetStartTime(j.StartTime);
-                foup.record[slot - 1].setM12("");
-                foup.record[slot - 1].setT7("");
-                foup.record[slot - 1].SetEndTime(j.EndTime);
-            }
-            foup.Save();
+            
 
             string TaskName = "LOADPORT_CLOSE_NOMAP";
             string Message = "";
@@ -1838,6 +1840,19 @@ namespace Adam
                             select each;
             if (Available.Count() == 0)
             {//Unloadport 滿了 自動退
+                Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
+                foreach (Job j in Port.JobList.Values)
+                {
+                    int slot = Convert.ToInt16(j.Slot);
+                    foup.record[slot - 1] = new Adam.waferInfo(j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position,Port.FoupID, j.Slot);
+                    foup.record[slot - 1].SetStartTime(j.StartTime);
+                    foup.record[slot - 1].setM12(j.OCR_M12_ImgPath);
+                    foup.record[slot - 1].setT7(j.OCR_T7_ImgPath);
+                    foup.record[slot - 1].SetEndTime(j.EndTime);
+                }
+                foup.Save();
+
+
                 string TaskName = "LOADPORT_CLOSE_NOMAP";
                 string Message = "";
                 Dictionary<string, string> param1 = new Dictionary<string, string>();
