@@ -34,6 +34,7 @@ namespace Adam
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer13 = new System.Windows.Forms.SplitContainer();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
+            this.btnChangeRecipe = new System.Windows.Forms.Button();
             this.CurrentRecipe_lb = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.Mode_btn = new System.Windows.Forms.Button();
@@ -118,7 +119,6 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.btnChangeRecipe = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -166,6 +166,13 @@ namespace Adam
             resources.ApplyResources(this.groupBox54, "groupBox54");
             this.groupBox54.Name = "groupBox54";
             this.groupBox54.TabStop = false;
+            // 
+            // btnChangeRecipe
+            // 
+            resources.ApplyResources(this.btnChangeRecipe, "btnChangeRecipe");
+            this.btnChangeRecipe.Name = "btnChangeRecipe";
+            this.btnChangeRecipe.UseVisualStyleBackColor = true;
+            this.btnChangeRecipe.Click += new System.EventHandler(this.btnChangeRecipe_Click);
             // 
             // CurrentRecipe_lb
             // 
@@ -862,13 +869,6 @@ namespace Adam
             this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            // 
-            // btnChangeRecipe
-            // 
-            resources.ApplyResources(this.btnChangeRecipe, "btnChangeRecipe");
-            this.btnChangeRecipe.Name = "btnChangeRecipe";
-            this.btnChangeRecipe.UseVisualStyleBackColor = true;
-            this.btnChangeRecipe.Click += new System.EventHandler(this.btnChangeRecipe_Click);
             // 
             // FormMain
             // 

@@ -128,13 +128,16 @@
   <data name="splitContainer13.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnChangeRecipe.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="btnChangeRecipe.Location" type="System.Drawing.Point, System.Drawing">
     <value>164, 80</value>
   </data>
   <data name="btnChangeRecipe.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 35</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnChangeRecipe.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>

@@ -90,7 +90,7 @@ namespace Adam
         private void Confirm_btn_Click(object sender, EventArgs e)
         {
             running = false;
-
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
     }

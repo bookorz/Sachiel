@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TransferControl.Management;
 
 namespace Adam.UI_Update.Layout
 {
@@ -42,6 +43,10 @@ namespace Adam.UI_Update.Layout
             {
                 logger.Error("UpdateRecipe: Update fail. err:" + e.StackTrace);
             }
+        }
+        private void UpdateNode(Recipe rcp)
+        {
+            
         }
         private static string getPortType(string port_type)
         {
@@ -117,6 +122,36 @@ namespace Adam.UI_Update.Layout
                 keyValues.Add("@enable3", getEnable(recipe.port3_type));
                 keyValues.Add("@enable4", getEnable(recipe.port4_type));
                 dBUtil.ExecuteNonQuery(strSql, keyValues);
+                foreach(Node port in NodeManagement.GetList())
+                {
+                    switch (port.Name.ToUpper())
+                    {
+                        case "LOADPORT01":
+                            port.CarrierType = recipe.port1_carrier_type;
+                            port.Mode = getPortType(recipe.port1_type);
+                            port.Enable = getEnable(recipe.port1_type) == 1 ? true : false;
+                            port.OrgSearchComplete = false;
+                            break;
+                        case "LOADPORT02":
+                            port.CarrierType = recipe.port2_carrier_type;
+                            port.Mode = getPortType(recipe.port2_type);
+                            port.Enable = getEnable(recipe.port2_type) == 1 ? true : false;
+                            port.OrgSearchComplete = false;
+                            break;
+                        case "LOADPORT03":
+                            port.CarrierType = recipe.port3_carrier_type;
+                            port.Mode = getPortType(recipe.port3_type);
+                            port.Enable = getEnable(recipe.port3_type) == 1 ? true : false;
+                            port.OrgSearchComplete = false;
+                            break;
+                        case "LOADPORT04":
+                            port.CarrierType = recipe.port4_carrier_type;
+                            port.Mode = getPortType(recipe.port4_type);
+                            port.Enable = getEnable(recipe.port4_type) == 1 ? true : false;
+                            port.OrgSearchComplete = false;
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {

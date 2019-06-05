@@ -50,6 +50,34 @@ namespace Adam.Menu.RunningScreen
                     MessageBox.Show("請選擇兩個Loadport!");
                     return;
                 }
+
+                foreach(Node port in NodeManagement.GetLoadPortList())
+                {
+                    if (port.Enable)
+                    {
+                        port.ManaulControl = false;
+                        string TaskName = "LOADPORT_UNLOADCOMPLETE";
+                        string Message = "";
+                        TaskJobManagment.CurrentProceedTask CurrTask;
+                        Dictionary<string, string> param1 = new Dictionary<string, string>();
+                        param1.Add("@Target", port.Name);
+
+                        RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out CurrTask, TaskName, param1);
+                        SpinWait.SpinUntil(() => CurrTask.Finished, 99999999);
+                        if (CurrTask.HasError)
+                        {
+                            ThreadEnd = true;
+                            RunningUpdate.UpdateModeStatus("Start Running");
+                            
+                        }
+                    }
+                }
+
+
+
+
+
+
                 if(LL_cb.Text.ToUpper().Equals("ALIGNER01"))
                 {
                     LL = LL_cb.Text;
@@ -338,11 +366,16 @@ namespace Adam.Menu.RunningScreen
 
         private void RunningSpeed_cb_TextChanged(object sender, EventArgs e)
         {
-            //string strMsg = "確定要修改整機速度?";
-            //if (MessageBox.Show(strMsg, "ChangeSpeed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1) == DialogResult.OK)
-            //{
-            //    ChangeSpeed();
-            //}
+            string strMsg = "確定要修改整機速度?";
+            if (MessageBox.Show(strMsg, "ChangeSpeed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1) == DialogResult.OK)
+            {
+                string Message = "";
+                TaskJobManagment.CurrentProceedTask CurrTask;
+                Dictionary<string, string> param = new Dictionary<string, string>();
+                string TaskName = "SORTER_SPEED";
+                param.Add("@Value", RunningSpeed_cb.Text.Replace("%", ""));
+                RouteControl.Instance.TaskJob.Excute("RunningScreen2", out Message, out CurrTask, TaskName, param);
+            }
         }
 
         //private void ChangeSpeed()

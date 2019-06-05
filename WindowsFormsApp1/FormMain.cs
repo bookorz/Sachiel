@@ -187,27 +187,10 @@ namespace Adam
             this.Width = oldWidth;
             this.Height = oldHeight;
             this.WindowState = FormWindowState.Maximized;
-            ThreadPool.QueueUserWorkItem(new WaitCallback(UpdateCheckBox));
+            
         }
 
-        private void UpdateCheckBox(object input)
-        {
-
-
-            //DIOUpdate.UpdateDIOStatus("RED", "False");
-            //DIOUpdate.UpdateDIOStatus("ORANGE", "False");
-            //DIOUpdate.UpdateDIOStatus("GREEN", "False");
-            //DIOUpdate.UpdateDIOStatus("BLUE", "False");
-            //DIOUpdate.UpdateDIOStatus("BUZZER1", "False");
-            //DIOUpdate.UpdateDIOStatus("BUZZER2", "False");
-
-            foreach (Node node in NodeManagement.GetList())
-            {
-                MonitoringUpdate.DisableUpdate(node.Name + "_disable", !node.Enable);
-            }
-
-
-        }
+        
 
         private void LoadPort01_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -830,7 +813,7 @@ namespace Adam
 
                                 break;
                             case "PODOF":
-                                if (Node.OrgSearchComplete && !Node.CurrentStatus.Equals("UnloadComplete"))
+                                if (Node.OrgSearchComplete && Node.ManaulControl && !Node.CurrentStatus.Equals("UnloadComplete"))
                                 {
                                     Node.CurrentStatus = "UnloadComplete";
                                     TaskName = "LOADPORT_UNLOADCOMPLETE";
@@ -843,7 +826,7 @@ namespace Adam
                                 break;
                             case "PODON":
                                 //Foup Arrived
-                                if (Node.OrgSearchComplete && !Node.CurrentStatus.Equals("ReadyToLoad"))
+                                if (Node.OrgSearchComplete && Node.ManaulControl && !Node.CurrentStatus.Equals("ReadyToLoad"))
                                 {
                                     Node.CurrentStatus = "ReadyToLoad";
                                     TaskName = "LOADPORT_READYTOLOAD";
@@ -1372,6 +1355,39 @@ namespace Adam
                         present.Text = port.Mode;
                     }
                 }
+
+             
+                foreach (Node port in NodeManagement.GetLoadPortList())
+                {
+
+                    for (int i = 1; i <= 25; i++)
+                    {
+                        Label present = form.Controls.Find(port.Name + "_Slot_" + i.ToString(), true).FirstOrDefault() as Label;
+                        if (present != null)
+                        {
+                            switch (port.CarrierType.ToUpper())
+                            {
+                                case "FOSB":
+                                case "FOUP":
+                                    present.Visible = true;
+                                    break;
+                                case "OPEN":
+                                    if (i > 13)
+                                    {
+                                        present.Visible = false;
+                                    }
+                                    else
+                                    {
+                                        present.Visible = true;
+                                    }
+                                    break;
+                            }
+
+                        }
+                    }
+
+
+                }
             }
             if (tbcMain.SelectedTab.Text.Equals("Wafer Assign"))
             {
@@ -1426,6 +1442,37 @@ namespace Adam
                             }
                         }
                     }
+                }
+                foreach (Node port in NodeManagement.GetLoadPortList())
+                {
+
+                    for (int i = 1; i <= 25; i++)
+                    {
+                        Label present = form.Controls.Find(port.Name + "_Slot_" + i.ToString(), true).FirstOrDefault() as Label;
+                        if (present != null)
+                        {
+                            switch (port.CarrierType.ToUpper())
+                            {
+                                case "FOSB":
+                                case "FOUP":
+                                    present.Visible = true;
+                                    break;
+                                case "OPEN":
+                                    if (i > 13)
+                                    {
+                                        present.Visible = false;
+                                    }
+                                    else
+                                    {
+                                        present.Visible = true;
+                                    }
+                                    break;
+                            }
+
+                        }
+                    }
+
+
                 }
             }
             else
@@ -1819,15 +1866,23 @@ namespace Adam
 
         public void On_LoadPort_Complete(Node Port)
         {
-            
+            RouteControl.Instance.DIO.SetBlink("RED","True");
+            using (var form = new FormNotify("Loadport Finished",Port.Name,Port.FoupID))
+            {
+                var result = form.ShowDialog();
 
-            string TaskName = "LOADPORT_CLOSE_NOMAP";
-            string Message = "";
-            Dictionary<string, string> param1 = new Dictionary<string, string>();
-            param1.Add("@Target", Port.Name);
-            TaskJobManagment.CurrentProceedTask tmpTask;
-            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                string TaskName = "LOADPORT_CLOSE_NOMAP";
+                string Message = "";
+                Dictionary<string, string> param1 = new Dictionary<string, string>();
+                param1.Add("@Target", Port.Name);
+                TaskJobManagment.CurrentProceedTask tmpTask;
+                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
 
+                if (result == DialogResult.OK)
+                {
+                    RouteControl.Instance.DIO.SetBlink("RED", "False");
+                }
+            }
 
             //MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
         }
@@ -1852,13 +1907,25 @@ namespace Adam
                 }
                 foup.Save();
 
+                RouteControl.Instance.DIO.SetBlink("RED", "True");
+                using (var form = new FormNotify("UnLoadport Finished", Port.Name, Port.FoupID))
+                {
+                    var result = form.ShowDialog();
 
-                string TaskName = "LOADPORT_CLOSE_NOMAP";
-                string Message = "";
-                Dictionary<string, string> param1 = new Dictionary<string, string>();
-                param1.Add("@Target", Port.Name);
-                TaskJobManagment.CurrentProceedTask tmpTask;
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                    string TaskName = "LOADPORT_CLOSE_NOMAP";
+                    string Message = "";
+                    Dictionary<string, string> param1 = new Dictionary<string, string>();
+                    param1.Add("@Target", Port.Name);
+                    TaskJobManagment.CurrentProceedTask tmpTask;
+                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+
+                    if (result == DialogResult.OK)
+                    {
+                        RouteControl.Instance.DIO.SetBlink("RED", "False");
+                    }
+                }
+
+                
             }
             else
             {

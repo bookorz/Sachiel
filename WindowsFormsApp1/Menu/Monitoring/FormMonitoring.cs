@@ -309,7 +309,7 @@ namespace Adam.Menu.Monitoring
             }
             else
             {
-                if (port.OrgSearchComplete)
+                if (!port.OrgSearchComplete)
                 {
                     MessageBox.Show("Please excute org search");
                 }
