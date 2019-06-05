@@ -118,6 +118,7 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
+            this.btnChangeRecipe = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -158,6 +159,7 @@ namespace Adam
             // 
             // groupBox54
             // 
+            this.groupBox54.Controls.Add(this.btnChangeRecipe);
             this.groupBox54.Controls.Add(this.CurrentRecipe_lb);
             this.groupBox54.Controls.Add(this.label5);
             this.groupBox54.Controls.Add(this.Mode_btn);
@@ -861,6 +863,13 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
+            // btnChangeRecipe
+            // 
+            resources.ApplyResources(this.btnChangeRecipe, "btnChangeRecipe");
+            this.btnChangeRecipe.Name = "btnChangeRecipe";
+            this.btnChangeRecipe.UseVisualStyleBackColor = true;
+            this.btnChangeRecipe.Click += new System.EventHandler(this.btnChangeRecipe_Click);
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -989,6 +998,7 @@ namespace Adam
         private System.Windows.Forms.TabPage tabRunning;
         private System.Windows.Forms.Label CurrentRecipe_lb;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnChangeRecipe;
     }
 }
 

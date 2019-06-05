@@ -77,7 +77,24 @@ namespace Adam.Menu.SystemSetting
                 MessageBox.Show("Recipe Name or recipe id should not be empty.");
                 return;
             }
-            
+            if (!checkRecipe(cbUseOcrTTL.Checked, tbOcrTTL.Text))
+            {
+                MessageBox.Show("OCR config format error.","Error");
+                tbOcrTTL.Focus();
+                return;
+            }
+            if (!checkRecipe(cbUseOcrT7.Checked, tbOcrT7.Text))
+            {
+                MessageBox.Show("OCR T7 config format error.", "Error");
+                tbOcrT7.Focus();
+                return;
+            }
+            if (!checkRecipe(cbUseOcrM12.Checked, tbOcrM12.Text))
+            {
+                MessageBox.Show("OCR M12 config format error.", "Error");
+                tbOcrM12.Focus();
+                return;
+            }
             //GUI 處理
             //gbRecipe.Enabled = false;
             btnCreateRecipe.Enabled = true;
@@ -171,6 +188,39 @@ namespace Adam.Menu.SystemSetting
             refreshList();
             lblMode.Text = "瀏覽模式";
             MessageBox.Show("Execute successfully.", "Success");
+        }
+
+        private Boolean checkRecipe(bool isUse, string content)
+        {
+            Boolean result = false;
+            if (!isUse)
+            {
+                result = true;
+            }else if (content.Trim().Equals("")|| content.Contains("."))
+            {
+                result = false;
+            }
+            else
+            {
+                try
+                {
+                    string[] configs = content.Split(',');
+                    foreach (string id in configs)
+                    {
+                        if (Int32.Parse(id) > 50)
+                        {
+                            result = false;
+                            return result;
+                        }
+                    }
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
 
         private void updateLoadPortConfig(Recipe recipe)

@@ -128,12 +128,36 @@
   <data name="splitContainer13.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
+  <data name="btnChangeRecipe.Location" type="System.Drawing.Point, System.Drawing">
+    <value>164, 80</value>
+  </data>
+  <data name="btnChangeRecipe.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 35</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnChangeRecipe.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="btnChangeRecipe.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="&gt;&gt;btnChangeRecipe.Name" xml:space="preserve">
+    <value>btnChangeRecipe</value>
+  </data>
+  <data name="&gt;&gt;btnChangeRecipe.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnChangeRecipe.Parent" xml:space="preserve">
+    <value>groupBox54</value>
+  </data>
+  <data name="&gt;&gt;btnChangeRecipe.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="CurrentRecipe_lb.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="CurrentRecipe_lb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 87</value>
+    <value>72, 87</value>
   </data>
   <data name="CurrentRecipe_lb.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 20</value>
@@ -154,13 +178,13 @@
     <value>groupBox54</value>
   </data>
   <data name="&gt;&gt;CurrentRecipe_lb.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 87</value>
+    <value>3, 87</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 20</value>
@@ -181,7 +205,7 @@
     <value>groupBox54</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Mode_btn.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -214,7 +238,7 @@
     <value>groupBox54</value>
   </data>
   <data name="&gt;&gt;Mode_btn.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="groupBox54.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>

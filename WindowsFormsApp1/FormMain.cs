@@ -2048,6 +2048,16 @@ namespace Adam
             }
         }
 
+        private void btnChangeRecipe_Click(object sender, EventArgs e)
+        {
+            using (var form = new FormSelectRecipe(CurrentRecipe_lb.Text))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
 
+                }
+            }
+        }
     }
 }

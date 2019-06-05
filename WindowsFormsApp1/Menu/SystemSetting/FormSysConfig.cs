@@ -51,7 +51,7 @@ namespace Adam.Menu.SystemSetting
         private void btnSave_Click(object sender, EventArgs e)
         {
             SystemConfig config = SystemConfig.Get();
-            //目前只開放查詢以下資料，其餘
+            //目前只開放查詢以下資料
             config.EquipmentID = tbEqpId.Text;
             config.OCR1ImgToJpgPath = tbOcr1ImgBak.Text;
             config.FoupTxfLogPath = tbTxfLogPath.Text;
@@ -59,6 +59,7 @@ namespace Adam.Menu.SystemSetting
 
             config.Save();
             MessageBox.Show("Update Completed.","Success");
+            FormMainUpdate.UpdateRecipe(config.CurrentRecipe);
         }
     }
 }
