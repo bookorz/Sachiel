@@ -1,4 +1,6 @@
 ﻿using Adam.UI_Update.Barcode;
+using SANWA;
+using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -140,7 +142,7 @@ namespace Adam.Menu.Monitoring
                     Job j;
                     if(p.JobList.TryGetValue(Slot,out j))
                     {
-                        if(j.OCRImgPath == "")
+                        if(j.OCRImgPath.Equals("")&& j.OCR_M12_ImgPath.Equals("")&& j.OCR_T7_ImgPath.Equals(""))
                         {
                             MessageBox.Show("未找到OCR紀錄");
                         }
@@ -269,6 +271,20 @@ namespace Adam.Menu.Monitoring
             }
             if (port.Enable)
             {
+                Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, port.FoupID);
+                foreach (Job j in port.JobList.Values)
+                {
+                    if (j.MapFlag && !j.ErrPosition)
+                    {
+                        int slot = Convert.ToInt16(j.Slot);
+                        foup.record[slot - 1] = new Adam.waferInfo(j.FromPort, j.FromFoupID, j.FromPortSlot, j.ToPort, j.ToFoupID, j.ToPortSlot);
+                        foup.record[slot - 1].SetStartTime(j.StartTime);
+                        foup.record[slot - 1].setM12(j.OCR_M12_ImgPath);
+                        foup.record[slot - 1].setT7(j.OCR_T7_ImgPath);
+                        foup.record[slot - 1].SetEndTime(j.EndTime);
+                    }
+                }
+                foup.Save();
                 ((Button)sender).Enabled = false;
                 string TaskName = "LOADPORT_CLOSE_NOMAP";
                 string Message = "";

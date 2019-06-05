@@ -157,6 +157,14 @@ namespace Adam.UI_Update.OCR
                                             return;
                                         t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
                                         Pic_OCR.Image = t;
+                                        if (Pic_OCR.Tag != null)
+                                        { 
+                                            if (!Pic_OCR.Tag.Equals(Job))
+                                            {//不同片
+                                                TextBox tb = form.Controls.Find(OCRName + "ReadT7_Tb", true).FirstOrDefault() as TextBox;
+                                                tb.Text = "";
+                                            }
+                                        }
                                         Pic_OCR.Tag = Job;
                                         Job.OCRImgPath = savePath;
                                         Job.OCRScore = ocrResult[1];
@@ -286,6 +294,14 @@ namespace Adam.UI_Update.OCR
                                             return;
                                         t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
                                         Pic_OCR.Image = t;
+                                        if (Pic_OCR.Tag != null)
+                                        {
+                                            if (!Pic_OCR.Tag.Equals(Job))
+                                            {//不同片
+                                                TextBox tb = form.Controls.Find(OCRName + "ReadT7_Tb", true).FirstOrDefault() as TextBox;
+                                                tb.Text = "";
+                                            }
+                                        }
                                         Pic_OCR.Tag = Job;
                                         Job.OCR_M12_ImgPath = savePath;
                                         Job.OCR_M12_Score = ocrResult[1];
@@ -314,7 +330,7 @@ namespace Adam.UI_Update.OCR
                 if (form == null)
                     return;
 
-                Tb_OCRRead = form.Controls.Find(OCRName + "Read_Tb", true).FirstOrDefault() as TextBox;
+                Tb_OCRRead = form.Controls.Find(OCRName + "ReadT7_Tb", true).FirstOrDefault() as TextBox;
                 if (Tb_OCRRead == null)
                     return;
 
@@ -415,6 +431,14 @@ namespace Adam.UI_Update.OCR
                                             return;
                                         t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
                                         Pic_OCR.Image = t;
+                                        if (Pic_OCR.Tag != null)
+                                        {
+                                            if (!Pic_OCR.Tag.Equals(Job))
+                                            {//不同片
+                                                TextBox tb = form.Controls.Find(OCRName + "Read_Tb", true).FirstOrDefault() as TextBox;
+                                                tb.Text = "";
+                                            }
+                                        }
                                         Pic_OCR.Tag = Job;
                                         Job.OCR_T7_ImgPath = savePath;
                                         Job.OCR_T7_Score = ocrResult[1];

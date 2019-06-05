@@ -48,6 +48,10 @@ namespace Adam
                 //寫出各行數據
                 for (int i = 0; i < record.Length; i++)
                 {
+                    if (record[i] == null)
+                    {
+                        continue;
+                    }
                     data = "";
                     string[] column = record[i].getData();
                     for (int j = 0; j < column.Length; j++)
@@ -88,14 +92,14 @@ namespace Adam
         {
             return new string[] { from_port, from_id, from_slot, to_port_id, to_id, to_slot, t7, m12, start_datetime, end_datetime };
         }
-        public waferInfo(string from_port, string from_id, int from_slot, string to_port_id, string to_id, int to_slot)
+        public waferInfo(string from_port, string from_id, string from_slot, string to_port_id, string to_id, string to_slot)
         {
             this.from_port = from_port;
             this.from_id = from_id;
-            this.from_slot = from_slot.ToString();
+            this.from_slot = from_slot;
             this.to_port_id = to_port_id;
             this.to_id = to_id;
-            this.to_slot = to_slot.ToString();
+            this.to_slot = to_slot;
         }
 
         public void SetStartTime(DateTime timeStamp)

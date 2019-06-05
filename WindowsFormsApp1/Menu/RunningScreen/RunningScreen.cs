@@ -171,10 +171,18 @@ namespace Adam.Menu.RunningScreen
                 {
                     return;
                 }
+                string useArm = "2";
                 for (int i = 0; i < ProcessSlotList.Length; i++)
                 {
-                   
 
+                    if (useArm.Equals("2"))
+                    {
+                        useArm = "1";
+                    }
+                    else
+                    {
+                        useArm = "2";
+                    }
                     if (TransCount == 0)
                     {
                         ThreadEnd = true;
@@ -192,11 +200,11 @@ namespace Adam.Menu.RunningScreen
                             if (!LL.Equals(""))
                             {//ALIGNER use
                                 
-                                if (!NextAction("LOAD", "ROBOT01", LD.Name, slotNo.ToString(), "1", ""))
+                                if (!NextAction("LOAD", "ROBOT01", LD.Name, slotNo.ToString(), useArm, ""))
                                 {
                                     return;
                                 }
-                                if (!NextAction("UNLOAD", "ROBOT01", LL, "1", "1", ""))
+                                if (!NextAction("UNLOAD", "ROBOT01", LL, "1", useArm, ""))
                                 {
                                     return;
                                 }
@@ -214,7 +222,7 @@ namespace Adam.Menu.RunningScreen
                                     return;
                                 }
 
-                                if (!NextAction("LOAD", "ROBOT01", LL, "1", "1", ""))
+                                if (!NextAction("LOAD", "ROBOT01", LL, "1", useArm, ""))
                                 {
                                     return;
                                 }
@@ -222,7 +230,7 @@ namespace Adam.Menu.RunningScreen
                                 {
                                     return;
                                 }
-                                if (!NextAction("UNLOAD", "ROBOT01", ULD.Name, slotNo.ToString(), "1", ""))
+                                if (!NextAction("UNLOAD", "ROBOT01", ULD.Name, slotNo.ToString(), useArm, ""))
                                 {
                                     return;
                                 }
@@ -239,11 +247,11 @@ namespace Adam.Menu.RunningScreen
                             {//ALIGNER not use
                                 
 
-                                if (!NextAction("LOAD", "ROBOT01", LD.Name, slotNo.ToString(), "1", ""))
+                                if (!NextAction("LOAD", "ROBOT01", LD.Name, slotNo.ToString(), useArm, ""))
                                 {
                                     return;
                                 }
-                                if (!NextAction("UNLOAD", "ROBOT01", ULD.Name, slotNo.ToString(), "1", ""))
+                                if (!NextAction("UNLOAD", "ROBOT01", ULD.Name, slotNo.ToString(), useArm, ""))
                                 {
                                     return;
                                 }

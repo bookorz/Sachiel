@@ -31,6 +31,7 @@
             this.WaferID = new System.Windows.Forms.Label();
             this.OCR_Score = new System.Windows.Forms.Label();
             this.OCR_Img = new System.Windows.Forms.PictureBox();
+            this.OCR_Config_cb = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.OCR_Img)).BeginInit();
             this.SuspendLayout();
             // 
@@ -38,7 +39,7 @@
             // 
             this.WaferID.AutoSize = true;
             this.WaferID.Font = new System.Drawing.Font("新細明體", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.WaferID.Location = new System.Drawing.Point(12, 765);
+            this.WaferID.Location = new System.Drawing.Point(184, 765);
             this.WaferID.Name = "WaferID";
             this.WaferID.Size = new System.Drawing.Size(227, 48);
             this.WaferID.TabIndex = 1;
@@ -62,11 +63,27 @@
             this.OCR_Img.TabIndex = 0;
             this.OCR_Img.TabStop = false;
             // 
+            // OCR_Config_cb
+            // 
+            this.OCR_Config_cb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.OCR_Config_cb.Font = new System.Drawing.Font("新細明體", 16F);
+            this.OCR_Config_cb.FormattingEnabled = true;
+            this.OCR_Config_cb.Items.AddRange(new object[] {
+            "TTL",
+            "M12",
+            "T7"});
+            this.OCR_Config_cb.Location = new System.Drawing.Point(13, 765);
+            this.OCR_Config_cb.Name = "OCR_Config_cb";
+            this.OCR_Config_cb.Size = new System.Drawing.Size(121, 29);
+            this.OCR_Config_cb.TabIndex = 3;
+            this.OCR_Config_cb.SelectedIndexChanged += new System.EventHandler(this.OCR_Config_cb_SelectedIndexChanged);
+            // 
             // OCRResult
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1311, 822);
+            this.Controls.Add(this.OCR_Config_cb);
             this.Controls.Add(this.OCR_Score);
             this.Controls.Add(this.WaferID);
             this.Controls.Add(this.OCR_Img);
@@ -84,5 +101,6 @@
         private System.Windows.Forms.PictureBox OCR_Img;
         private System.Windows.Forms.Label WaferID;
         private System.Windows.Forms.Label OCR_Score;
+        private System.Windows.Forms.ComboBox OCR_Config_cb;
     }
 }
