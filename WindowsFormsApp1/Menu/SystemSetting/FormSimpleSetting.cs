@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using GUI;
+using MySql.Data.MySqlClient;
 using SANWA;
 using SANWA.Utility.Config;
 using System;
@@ -90,6 +91,17 @@ namespace Adam.Menu.SystemSetting
         {
             try
             {
+                //權限檢查
+                using (var form = new FormConfirm("是否儲存變更?"))
+                {
+                    var result = form.ShowDialog();
+                    if (result != DialogResult.OK)
+                    {
+                        MessageBox.Show("Cancel.", "Notice");
+                        return;
+                    }
+                }
+
                 SCB = new MySqlCommandBuilder(sda);
                 sda.Update(ds);
                 SCB.RefreshSchema();

@@ -113,6 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveLog.cs" />
+    <Compile Include="FormConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConfirm.designer.cs">
+      <DependentUpon>FormConfirm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSelectRecipe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -424,6 +430,9 @@
     <Compile Include="Util\XmlObjectSerializer.cs" />
     <EmbeddedResource Include="FormAlarm.resx">
       <DependentUpon>FormAlarm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConfirm.resx">
+      <DependentUpon>FormConfirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSelectRecipe.resx">
       <DependentUpon>FormSelectRecipe.cs</DependentUpon>

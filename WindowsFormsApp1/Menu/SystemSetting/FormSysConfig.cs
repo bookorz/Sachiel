@@ -1,4 +1,5 @@
 ﻿using Adam.UI_Update.Layout;
+using GUI;
 using SANWA;
 using SANWA.Utility;
 using SANWA.Utility.Config;
@@ -50,6 +51,17 @@ namespace Adam.Menu.SystemSetting
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            //權限檢查
+            using (var form = new FormConfirm("是否儲存變更?"))
+            {
+                var result = form.ShowDialog();
+                if (result != DialogResult.OK)
+                {
+                    MessageBox.Show("Cancel.", "Notice");
+                    return;
+                }
+            }
+
             SystemConfig config = SystemConfig.Get();
             //目前只開放查詢以下資料
             config.EquipmentID = tbEqpId.Text;

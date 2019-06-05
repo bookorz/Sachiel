@@ -13,6 +13,7 @@ using TransferControl.Management;
 using Adam.UI_Update.OCR;
 using log4net;
 using TransferControl.Controller;
+using GUI;
 
 namespace Adam.Menu.SystemSetting
 {
@@ -177,6 +178,8 @@ namespace Adam.Menu.SystemSetting
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            
+
             string strSql = string.Empty;
             StringBuilder sbErrorMessage = new StringBuilder();
             Dictionary<string, object> keyValues = new Dictionary<string, object>();
@@ -198,6 +201,16 @@ namespace Adam.Menu.SystemSetting
                 {
                     MessageBox.Show("Controller "+currentNode.Controller + " is not exist!");
                     return;
+                }
+                //權限檢查
+                using (var form = new FormConfirm("是否儲存變更?"))
+                {
+                    var result = form.ShowDialog();
+                    if (result != DialogResult.OK)
+                    {
+                        MessageBox.Show("Cancel.", "Notice");
+                        return;
+                    }
                 }
                 currentNode.Enable = Setting_NodeEnable_rb.Checked;
                 currentNode.CarrierType = Setting_CarrierType_cb.Text;

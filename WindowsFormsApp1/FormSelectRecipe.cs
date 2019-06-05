@@ -48,13 +48,28 @@ namespace GUI
 
         private void btnChange_Click_1(object sender, EventArgs e)
         {
-            SystemConfig config = SystemConfig.Get();
-            config.CurrentRecipe = cbRecipe.SelectedItem.ToString();
-            config.Save();
-            FormMainUpdate.UpdateRecipe(config.CurrentRecipe);
-            MessageBox.Show("Update Completed.", "Success");
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            string oldRecipeId = SystemConfig.Get().CurrentRecipe;
+            string newRecipeId = cbRecipe.SelectedItem.ToString();
+
+            using (var form = new FormConfirm("是否變更生產 Recipe:" + oldRecipeId + "=>" + newRecipeId))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    SystemConfig config = SystemConfig.Get();
+                    config.CurrentRecipe = cbRecipe.SelectedItem.ToString();
+                    config.Save();
+                    FormMainUpdate.UpdateRecipe(config.CurrentRecipe);
+                    SanwaUtil.addActionLog("Recipe", "Change", Global.currentUser, "變更生產 Recipe:" + oldRecipeId + "=>" + newRecipeId);
+                    MessageBox.Show("Change recipe completed.", "Success");
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Cancel.", "Notice");
+                }
+            }
         }
 
         private void cbRecipe_SelectedIndexChanged(object sender, EventArgs e)

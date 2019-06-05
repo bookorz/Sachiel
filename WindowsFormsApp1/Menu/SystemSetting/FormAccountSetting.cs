@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using SANWA.Utility;
 using System.Linq;
+using GUI;
 
 namespace Adam.Menu.SystemSetting
 {
@@ -287,6 +288,17 @@ namespace Adam.Menu.SystemSetting
 
             try
             {
+                //權限檢查
+                using (var form = new FormConfirm("是否儲存變更?"))
+                {
+                    var result = form.ShowDialog();
+                    if (result != DialogResult.OK)
+                    {
+                        MessageBox.Show("Cancel.", "Notice");
+                        return;
+                    }
+                }
+
                 if (btnCreateUser.BackColor == Color.RoyalBlue)
                 {
                     if (txbUserID.Text.Trim().Equals(string.Empty) || txbUserName.Text.Trim().Equals(string.Empty) ||

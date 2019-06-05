@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using SANWA.Utility;
 using System.Linq;
 using Adam.UI_Update.Monitoring;
+using GUI;
 
 namespace Adam.Menu.SystemSetting
 {
@@ -153,6 +154,17 @@ namespace Adam.Menu.SystemSetting
             {
                 MessageBox.Show("Choose the condition.", this.Name, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 return;
+            }
+
+            //權限檢查
+            using (var form = new FormConfirm("是否儲存變更?"))
+            {
+                var result = form.ShowDialog();
+                if (result != DialogResult.OK)
+                {
+                    MessageBox.Show("Cancel.", "Notice");
+                    return;
+                }
             }
 
             string strSql = string.Empty;

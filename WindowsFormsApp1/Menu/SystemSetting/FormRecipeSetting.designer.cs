@@ -40,8 +40,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.gbRecipeBody = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbR2Speed = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tbEqpID = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -50,10 +49,8 @@
             this.cbManualGetRule = new System.Windows.Forms.ComboBox();
             this.cbAutoPutRule = new System.Windows.Forms.ComboBox();
             this.cbAutoGetRule = new System.Windows.Forms.ComboBox();
-            this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -103,6 +100,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.lblMode = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbOcrT7 = new System.Windows.Forms.TextBox();
             this.cbUseOcrT7 = new System.Windows.Forms.CheckBox();
@@ -112,7 +110,9 @@
             this.cbUseOcrTTL = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
+            this.tbR2Speed = new System.Windows.Forms.TextBox();
             this.tbR1Speed = new System.Windows.Forms.TextBox();
             this.cbActive = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -129,10 +129,10 @@
             this.tlpAccountMenu = new System.Windows.Forms.TableLayoutPanel();
             this.btnModifyRecipe = new System.Windows.Forms.Button();
             this.btnCreateRecipe = new System.Windows.Forms.Button();
+            this.btnDeleteRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblMode = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -293,28 +293,17 @@
             this.gbRecipeBody.TabIndex = 8;
             this.gbRecipeBody.TabStop = false;
             // 
-            // label5
+            // label6
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label5.Location = new System.Drawing.Point(190, 39);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 24);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Robot 2";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label5.Visible = false;
-            // 
-            // tbR2Speed
-            // 
-            this.tbR2Speed.Location = new System.Drawing.Point(227, 12);
-            this.tbR2Speed.Name = "tbR2Speed";
-            this.tbR2Speed.Size = new System.Drawing.Size(61, 33);
-            this.tbR2Speed.TabIndex = 1;
-            this.tbR2Speed.Text = "100";
-            this.tbR2Speed.Visible = false;
-            this.tbR2Speed.Click += new System.EventHandler(this.modeCheck);
-            this.tbR2Speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label6.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label6.Location = new System.Drawing.Point(7, 481);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(116, 31);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "目前模式:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tbEqpID
             // 
@@ -336,22 +325,21 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.label7);
             this.groupBox10.Controls.Add(this.label25);
             this.groupBox10.Controls.Add(this.cbManualPutRule);
             this.groupBox10.Controls.Add(this.cbManualGetRule);
             this.groupBox10.Controls.Add(this.cbAutoPutRule);
             this.groupBox10.Controls.Add(this.cbAutoGetRule);
-            this.groupBox10.Controls.Add(this.label33);
             this.groupBox10.Controls.Add(this.label32);
             this.groupBox10.Controls.Add(this.label31);
-            this.groupBox10.Controls.Add(this.label28);
             this.groupBox10.Controls.Add(this.label27);
             this.groupBox10.Location = new System.Drawing.Point(557, 21);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(446, 215);
+            this.groupBox10.Size = new System.Drawing.Size(389, 215);
             this.groupBox10.TabIndex = 5;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "取放片限制";
+            this.groupBox10.Text = "放片限制";
             // 
             // label25
             // 
@@ -360,84 +348,75 @@
             this.label25.ForeColor = System.Drawing.Color.Chocolate;
             this.label25.Location = new System.Drawing.Point(197, 21);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(73, 24);
+            this.label25.Size = new System.Drawing.Size(85, 24);
             this.label25.TabIndex = 0;
-            this.label25.Text = "Option";
+            this.label25.Text = "Put Rule";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cbManualPutRule
             // 
+            this.cbManualPutRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbManualPutRule.FormattingEnabled = true;
             this.cbManualPutRule.Items.AddRange(new object[] {
             "0",
             "1",
             "2"});
-            this.cbManualPutRule.Location = new System.Drawing.Point(212, 177);
+            this.cbManualPutRule.Location = new System.Drawing.Point(201, 100);
             this.cbManualPutRule.Name = "cbManualPutRule";
-            this.cbManualPutRule.Size = new System.Drawing.Size(46, 32);
+            this.cbManualPutRule.Size = new System.Drawing.Size(70, 32);
             this.cbManualPutRule.TabIndex = 2;
-            this.cbManualPutRule.Text = "1";
             this.cbManualPutRule.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbManualGetRule
             // 
+            this.cbManualGetRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbManualGetRule.FormattingEnabled = true;
             this.cbManualGetRule.Items.AddRange(new object[] {
             "0",
             "1",
             "2"});
-            this.cbManualGetRule.Location = new System.Drawing.Point(212, 137);
+            this.cbManualGetRule.Location = new System.Drawing.Point(292, 100);
             this.cbManualGetRule.Name = "cbManualGetRule";
-            this.cbManualGetRule.Size = new System.Drawing.Size(46, 32);
+            this.cbManualGetRule.Size = new System.Drawing.Size(70, 32);
             this.cbManualGetRule.TabIndex = 2;
-            this.cbManualGetRule.Text = "1";
+            this.cbManualGetRule.Visible = false;
             this.cbManualGetRule.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbAutoPutRule
             // 
+            this.cbAutoPutRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAutoPutRule.FormattingEnabled = true;
             this.cbAutoPutRule.Items.AddRange(new object[] {
             "0",
             "1",
             "2"});
-            this.cbAutoPutRule.Location = new System.Drawing.Point(212, 97);
+            this.cbAutoPutRule.Location = new System.Drawing.Point(201, 54);
             this.cbAutoPutRule.Name = "cbAutoPutRule";
-            this.cbAutoPutRule.Size = new System.Drawing.Size(46, 32);
+            this.cbAutoPutRule.Size = new System.Drawing.Size(70, 32);
             this.cbAutoPutRule.TabIndex = 2;
-            this.cbAutoPutRule.Text = "1";
             this.cbAutoPutRule.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbAutoGetRule
             // 
+            this.cbAutoGetRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAutoGetRule.FormattingEnabled = true;
             this.cbAutoGetRule.Items.AddRange(new object[] {
             "0",
             "1",
             "2"});
-            this.cbAutoGetRule.Location = new System.Drawing.Point(212, 57);
+            this.cbAutoGetRule.Location = new System.Drawing.Point(292, 54);
             this.cbAutoGetRule.Name = "cbAutoGetRule";
-            this.cbAutoGetRule.Size = new System.Drawing.Size(46, 32);
+            this.cbAutoGetRule.Size = new System.Drawing.Size(70, 32);
             this.cbAutoGetRule.TabIndex = 2;
-            this.cbAutoGetRule.Text = "1";
+            this.cbAutoGetRule.Visible = false;
             this.cbAutoGetRule.Click += new System.EventHandler(this.modeCheck);
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label33.Location = new System.Drawing.Point(15, 180);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(170, 24);
-            this.label33.TabIndex = 0;
-            this.label33.Text = "Manual Mode Put";
-            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label32
             // 
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label32.ForeColor = System.Drawing.Color.Brown;
-            this.label32.Location = new System.Drawing.Point(270, 148);
+            this.label32.Location = new System.Drawing.Point(42, 141);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(155, 60);
             this.label32.TabIndex = 0;
@@ -448,23 +427,12 @@
             // 
             this.label31.AutoSize = true;
             this.label31.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label31.Location = new System.Drawing.Point(15, 140);
+            this.label31.Location = new System.Drawing.Point(40, 102);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(172, 24);
+            this.label31.Size = new System.Drawing.Size(140, 24);
             this.label31.TabIndex = 0;
-            this.label31.Text = "Manual Mode Get";
+            this.label31.Text = "Manual Mode ";
             this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label28.Location = new System.Drawing.Point(40, 100);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(147, 24);
-            this.label28.TabIndex = 0;
-            this.label28.Text = "Auto Mode Put";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label27
             // 
@@ -472,9 +440,9 @@
             this.label27.ForeColor = System.Drawing.Color.DodgerBlue;
             this.label27.Location = new System.Drawing.Point(40, 60);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(149, 24);
+            this.label27.Size = new System.Drawing.Size(117, 24);
             this.label27.TabIndex = 0;
-            this.label27.Text = "Auto Mode Get";
+            this.label27.Text = "Auto Mode ";
             this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox9
@@ -543,6 +511,7 @@
             // 
             // cbOutputFin1
             // 
+            this.cbOutputFin1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOutputFin1.FormattingEnabled = true;
             this.cbOutputFin1.Items.AddRange(new object[] {
             "N",
@@ -552,11 +521,11 @@
             this.cbOutputFin1.Name = "cbOutputFin1";
             this.cbOutputFin1.Size = new System.Drawing.Size(42, 32);
             this.cbOutputFin1.TabIndex = 2;
-            this.cbOutputFin1.Text = "P";
             this.cbOutputFin1.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbOutputFin2
             // 
+            this.cbOutputFin2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOutputFin2.FormattingEnabled = true;
             this.cbOutputFin2.Items.AddRange(new object[] {
             "N",
@@ -568,11 +537,11 @@
             this.cbOutputFin2.Name = "cbOutputFin2";
             this.cbOutputFin2.Size = new System.Drawing.Size(43, 32);
             this.cbOutputFin2.TabIndex = 2;
-            this.cbOutputFin2.Text = "N";
             this.cbOutputFin2.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbOutputFin3
             // 
+            this.cbOutputFin3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOutputFin3.FormattingEnabled = true;
             this.cbOutputFin3.Items.AddRange(new object[] {
             "N",
@@ -582,7 +551,6 @@
             this.cbOutputFin3.Name = "cbOutputFin3";
             this.cbOutputFin3.Size = new System.Drawing.Size(43, 32);
             this.cbOutputFin3.TabIndex = 2;
-            this.cbOutputFin3.Text = "N";
             this.cbOutputFin3.Click += new System.EventHandler(this.modeCheck);
             // 
             // label11
@@ -651,6 +619,7 @@
             // 
             // cbInputFin1
             // 
+            this.cbInputFin1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbInputFin1.FormattingEnabled = true;
             this.cbInputFin1.Items.AddRange(new object[] {
             "N",
@@ -660,11 +629,11 @@
             this.cbInputFin1.Name = "cbInputFin1";
             this.cbInputFin1.Size = new System.Drawing.Size(42, 32);
             this.cbInputFin1.TabIndex = 2;
-            this.cbInputFin1.Text = "P";
             this.cbInputFin1.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbInputFin2
             // 
+            this.cbInputFin2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbInputFin2.FormattingEnabled = true;
             this.cbInputFin2.Items.AddRange(new object[] {
             "N",
@@ -676,11 +645,11 @@
             this.cbInputFin2.Name = "cbInputFin2";
             this.cbInputFin2.Size = new System.Drawing.Size(43, 32);
             this.cbInputFin2.TabIndex = 2;
-            this.cbInputFin2.Text = "N";
             this.cbInputFin2.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbInputFin3
             // 
+            this.cbInputFin3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbInputFin3.FormattingEnabled = true;
             this.cbInputFin3.Items.AddRange(new object[] {
             "N",
@@ -690,7 +659,6 @@
             this.cbInputFin3.Name = "cbInputFin3";
             this.cbInputFin3.Size = new System.Drawing.Size(43, 32);
             this.cbInputFin3.TabIndex = 2;
-            this.cbInputFin3.Text = "N";
             this.cbInputFin3.Click += new System.EventHandler(this.modeCheck);
             // 
             // groupBox8
@@ -758,6 +726,7 @@
             // 
             // cbManualFin1
             // 
+            this.cbManualFin1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbManualFin1.FormattingEnabled = true;
             this.cbManualFin1.Items.AddRange(new object[] {
             "N",
@@ -769,11 +738,11 @@
             this.cbManualFin1.Name = "cbManualFin1";
             this.cbManualFin1.Size = new System.Drawing.Size(43, 32);
             this.cbManualFin1.TabIndex = 2;
-            this.cbManualFin1.Text = "N";
             this.cbManualFin1.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbAutoFin1
             // 
+            this.cbAutoFin1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAutoFin1.FormattingEnabled = true;
             this.cbAutoFin1.Items.AddRange(new object[] {
             "N",
@@ -785,11 +754,11 @@
             this.cbAutoFin1.Name = "cbAutoFin1";
             this.cbAutoFin1.Size = new System.Drawing.Size(43, 32);
             this.cbAutoFin1.TabIndex = 2;
-            this.cbAutoFin1.Text = "N";
             this.cbAutoFin1.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbManualFin2
             // 
+            this.cbManualFin2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbManualFin2.FormattingEnabled = true;
             this.cbManualFin2.Items.AddRange(new object[] {
             "N",
@@ -799,11 +768,11 @@
             this.cbManualFin2.Name = "cbManualFin2";
             this.cbManualFin2.Size = new System.Drawing.Size(43, 32);
             this.cbManualFin2.TabIndex = 2;
-            this.cbManualFin2.Text = "N";
             this.cbManualFin2.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbAutoFin2
             // 
+            this.cbAutoFin2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAutoFin2.FormattingEnabled = true;
             this.cbAutoFin2.Items.AddRange(new object[] {
             "N",
@@ -813,7 +782,6 @@
             this.cbAutoFin2.Name = "cbAutoFin2";
             this.cbAutoFin2.Size = new System.Drawing.Size(43, 32);
             this.cbAutoFin2.TabIndex = 2;
-            this.cbAutoFin2.Text = "N";
             this.cbAutoFin2.Click += new System.EventHandler(this.modeCheck);
             // 
             // groupBox2
@@ -896,6 +864,7 @@
             // 
             // cbP4LoadType
             // 
+            this.cbP4LoadType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP4LoadType.FormattingEnabled = true;
             this.cbP4LoadType.Items.AddRange(new object[] {
             "L",
@@ -905,11 +874,11 @@
             this.cbP4LoadType.Name = "cbP4LoadType";
             this.cbP4LoadType.Size = new System.Drawing.Size(52, 32);
             this.cbP4LoadType.TabIndex = 2;
-            this.cbP4LoadType.Text = "U";
             this.cbP4LoadType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP3LoadType
             // 
+            this.cbP3LoadType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP3LoadType.FormattingEnabled = true;
             this.cbP3LoadType.Items.AddRange(new object[] {
             "L",
@@ -919,7 +888,6 @@
             this.cbP3LoadType.Name = "cbP3LoadType";
             this.cbP3LoadType.Size = new System.Drawing.Size(52, 32);
             this.cbP3LoadType.TabIndex = 2;
-            this.cbP3LoadType.Text = "U";
             this.cbP3LoadType.Click += new System.EventHandler(this.modeCheck);
             // 
             // tbNotch_angle
@@ -934,6 +902,7 @@
             // 
             // cbP2LoadType
             // 
+            this.cbP2LoadType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP2LoadType.FormattingEnabled = true;
             this.cbP2LoadType.Items.AddRange(new object[] {
             "L",
@@ -943,7 +912,6 @@
             this.cbP2LoadType.Name = "cbP2LoadType";
             this.cbP2LoadType.Size = new System.Drawing.Size(52, 32);
             this.cbP2LoadType.TabIndex = 2;
-            this.cbP2LoadType.Text = "L";
             this.cbP2LoadType.Click += new System.EventHandler(this.modeCheck);
             // 
             // label35
@@ -960,6 +928,7 @@
             // 
             // cbP1LoadType
             // 
+            this.cbP1LoadType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP1LoadType.FormattingEnabled = true;
             this.cbP1LoadType.Items.AddRange(new object[] {
             "L",
@@ -969,11 +938,11 @@
             this.cbP1LoadType.Name = "cbP1LoadType";
             this.cbP1LoadType.Size = new System.Drawing.Size(52, 32);
             this.cbP1LoadType.TabIndex = 2;
-            this.cbP1LoadType.Text = "L";
             this.cbP1LoadType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP4Seq
             // 
+            this.cbP4Seq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP4Seq.FormattingEnabled = true;
             this.cbP4Seq.Items.AddRange(new object[] {
             "1",
@@ -988,11 +957,11 @@
             this.cbP4Seq.Name = "cbP4Seq";
             this.cbP4Seq.Size = new System.Drawing.Size(49, 32);
             this.cbP4Seq.TabIndex = 2;
-            this.cbP4Seq.Text = "1";
             this.cbP4Seq.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP3Seq
             // 
+            this.cbP3Seq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP3Seq.FormattingEnabled = true;
             this.cbP3Seq.Items.AddRange(new object[] {
             "1",
@@ -1007,11 +976,11 @@
             this.cbP3Seq.Name = "cbP3Seq";
             this.cbP3Seq.Size = new System.Drawing.Size(49, 32);
             this.cbP3Seq.TabIndex = 2;
-            this.cbP3Seq.Text = "1";
             this.cbP3Seq.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP2Seq
             // 
+            this.cbP2Seq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP2Seq.FormattingEnabled = true;
             this.cbP2Seq.Items.AddRange(new object[] {
             "1",
@@ -1026,11 +995,11 @@
             this.cbP2Seq.Name = "cbP2Seq";
             this.cbP2Seq.Size = new System.Drawing.Size(49, 32);
             this.cbP2Seq.TabIndex = 2;
-            this.cbP2Seq.Text = "1";
             this.cbP2Seq.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP1Seq
             // 
+            this.cbP1Seq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP1Seq.FormattingEnabled = true;
             this.cbP1Seq.Items.AddRange(new object[] {
             "1",
@@ -1045,11 +1014,11 @@
             this.cbP1Seq.Name = "cbP1Seq";
             this.cbP1Seq.Size = new System.Drawing.Size(49, 32);
             this.cbP1Seq.TabIndex = 2;
-            this.cbP1Seq.Text = "1";
             this.cbP1Seq.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP4CstType
             // 
+            this.cbP4CstType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP4CstType.FormattingEnabled = true;
             this.cbP4CstType.Items.AddRange(new object[] {
             "FOSB",
@@ -1059,11 +1028,11 @@
             this.cbP4CstType.Name = "cbP4CstType";
             this.cbP4CstType.Size = new System.Drawing.Size(86, 32);
             this.cbP4CstType.TabIndex = 2;
-            this.cbP4CstType.Text = "FOUP";
             this.cbP4CstType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP3CstType
             // 
+            this.cbP3CstType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP3CstType.FormattingEnabled = true;
             this.cbP3CstType.Items.AddRange(new object[] {
             "FOSB",
@@ -1073,11 +1042,11 @@
             this.cbP3CstType.Name = "cbP3CstType";
             this.cbP3CstType.Size = new System.Drawing.Size(86, 32);
             this.cbP3CstType.TabIndex = 2;
-            this.cbP3CstType.Text = "FOUP";
             this.cbP3CstType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP2CstType
             // 
+            this.cbP2CstType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP2CstType.FormattingEnabled = true;
             this.cbP2CstType.Items.AddRange(new object[] {
             "FOSB",
@@ -1087,11 +1056,11 @@
             this.cbP2CstType.Name = "cbP2CstType";
             this.cbP2CstType.Size = new System.Drawing.Size(86, 32);
             this.cbP2CstType.TabIndex = 2;
-            this.cbP2CstType.Text = "OPEN";
             this.cbP2CstType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP1CstType
             // 
+            this.cbP1CstType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbP1CstType.FormattingEnabled = true;
             this.cbP1CstType.Items.AddRange(new object[] {
             "FOSB",
@@ -1101,7 +1070,6 @@
             this.cbP1CstType.Name = "cbP1CstType";
             this.cbP1CstType.Size = new System.Drawing.Size(86, 32);
             this.cbP1CstType.TabIndex = 2;
-            this.cbP1CstType.Text = "OPEN";
             this.cbP1CstType.Click += new System.EventHandler(this.modeCheck);
             // 
             // label15
@@ -1147,6 +1115,19 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Port1";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblMode
+            // 
+            this.lblMode.AutoSize = true;
+            this.lblMode.BackColor = System.Drawing.Color.Yellow;
+            this.lblMode.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lblMode.ForeColor = System.Drawing.Color.Red;
+            this.lblMode.Location = new System.Drawing.Point(128, 481);
+            this.lblMode.Name = "lblMode";
+            this.lblMode.Size = new System.Drawing.Size(110, 31);
+            this.lblMode.TabIndex = 0;
+            this.lblMode.Text = "瀏覽模式";
+            this.lblMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBox1
             // 
@@ -1258,6 +1239,18 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Robot Speed Setting";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label5.Location = new System.Drawing.Point(190, 39);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 24);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Robot 2";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label5.Visible = false;
+            // 
             // label30
             // 
             this.label30.AutoSize = true;
@@ -1268,6 +1261,17 @@
             this.label30.TabIndex = 0;
             this.label30.Text = "Robot 1";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // tbR2Speed
+            // 
+            this.tbR2Speed.Location = new System.Drawing.Point(227, 12);
+            this.tbR2Speed.Name = "tbR2Speed";
+            this.tbR2Speed.Size = new System.Drawing.Size(61, 33);
+            this.tbR2Speed.TabIndex = 1;
+            this.tbR2Speed.Text = "100";
+            this.tbR2Speed.Visible = false;
+            this.tbR2Speed.Click += new System.EventHandler(this.modeCheck);
+            this.tbR2Speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // tbR1Speed
             // 
@@ -1434,6 +1438,7 @@
             this.tlpAccountMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tlpAccountMenu.Controls.Add(this.btnModifyRecipe, 0, 0);
             this.tlpAccountMenu.Controls.Add(this.btnCreateRecipe, 0, 0);
+            this.tlpAccountMenu.Controls.Add(this.btnDeleteRecipe, 2, 0);
             this.tlpAccountMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpAccountMenu.Location = new System.Drawing.Point(5, 5);
             this.tlpAccountMenu.Name = "tlpAccountMenu";
@@ -1474,6 +1479,22 @@
             this.btnCreateRecipe.UseVisualStyleBackColor = false;
             this.btnCreateRecipe.Click += new System.EventHandler(this.btnCreateRecipe_Click);
             // 
+            // btnDeleteRecipe
+            // 
+            this.btnDeleteRecipe.BackColor = System.Drawing.Color.Silver;
+            this.btnDeleteRecipe.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDeleteRecipe.FlatAppearance.BorderSize = 2;
+            this.btnDeleteRecipe.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDeleteRecipe.Font = new System.Drawing.Font("微軟正黑體", 14.25F);
+            this.btnDeleteRecipe.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnDeleteRecipe.Location = new System.Drawing.Point(405, 3);
+            this.btnDeleteRecipe.Name = "btnDeleteRecipe";
+            this.btnDeleteRecipe.Size = new System.Drawing.Size(191, 45);
+            this.btnDeleteRecipe.TabIndex = 65;
+            this.btnDeleteRecipe.Text = "Delete Recipe";
+            this.btnDeleteRecipe.UseVisualStyleBackColor = false;
+            this.btnDeleteRecipe.Click += new System.EventHandler(this.btnDeleteRecipe_Click);
+            // 
             // palContainer
             // 
             this.palContainer.Controls.Add(this.gbAccount);
@@ -1498,30 +1519,18 @@
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
             // 
-            // label6
+            // label7
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label6.Location = new System.Drawing.Point(7, 481);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(116, 31);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "目前模式:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblMode
-            // 
-            this.lblMode.AutoSize = true;
-            this.lblMode.BackColor = System.Drawing.Color.Yellow;
-            this.lblMode.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lblMode.ForeColor = System.Drawing.Color.Red;
-            this.lblMode.Location = new System.Drawing.Point(128, 481);
-            this.lblMode.Name = "lblMode";
-            this.lblMode.Size = new System.Drawing.Size(110, 31);
-            this.lblMode.TabIndex = 0;
-            this.lblMode.Text = "瀏覽模式";
-            this.lblMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label7.ForeColor = System.Drawing.Color.Chocolate;
+            this.label7.Location = new System.Drawing.Point(288, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(87, 24);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Get Rule";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label7.Visible = false;
             // 
             // FormRecipeSetting
             // 
@@ -1628,10 +1637,8 @@
         private System.Windows.Forms.ComboBox cbManualPutRule;
         private System.Windows.Forms.ComboBox cbManualGetRule;
         private System.Windows.Forms.ComboBox cbAutoPutRule;
-        private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
@@ -1675,5 +1682,7 @@
         private System.Windows.Forms.CheckBox cbUseA1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblMode;
+        private System.Windows.Forms.Button btnDeleteRecipe;
+        private System.Windows.Forms.Label label7;
     }
 }

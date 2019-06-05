@@ -1,4 +1,5 @@
 ﻿using Adam.UI_Update.Layout;
+using GUI;
 using SANWA;
 using SANWA.Utility;
 using SANWA.Utility.Config;
@@ -74,26 +75,36 @@ namespace Adam.Menu.SystemSetting
             //檢查資料
             if (tbRecipeID.Text.Trim().Equals("") || tbRecipeName.Text.Trim().Equals(""))
             {
-                MessageBox.Show("Recipe Name or recipe id should not be empty.");
+                MessageBox.Show("Recipe Name or recipe id should not be empty.", "Data check error");
                 return;
             }
-            if (!checkRecipe(cbUseOcrTTL.Checked, tbOcrTTL.Text))
+            if (!checkOCRConfig(cbUseOcrTTL.Checked, tbOcrTTL.Text))
             {
-                MessageBox.Show("OCR config format error.","Error");
+                MessageBox.Show("OCR config format error.", "Data check error");
                 tbOcrTTL.Focus();
                 return;
             }
-            if (!checkRecipe(cbUseOcrT7.Checked, tbOcrT7.Text))
+            if (!checkOCRConfig(cbUseOcrT7.Checked, tbOcrT7.Text))
             {
                 MessageBox.Show("OCR T7 config format error.", "Error");
                 tbOcrT7.Focus();
                 return;
             }
-            if (!checkRecipe(cbUseOcrM12.Checked, tbOcrM12.Text))
+            if (!checkOCRConfig(cbUseOcrM12.Checked, tbOcrM12.Text))
             {
                 MessageBox.Show("OCR M12 config format error.", "Error");
                 tbOcrM12.Focus();
                 return;
+            }
+            //權限檢查
+            using (var form = new FormConfirm("確認是否儲存 Recipe:" + tbRecipeID.Text))
+            {
+                var result = form.ShowDialog();
+                if (result != DialogResult.OK)
+                {
+                    MessageBox.Show("Cancel.", "Notice");
+                    return;
+                }
             }
             //GUI 處理
             //gbRecipe.Enabled = false;
@@ -167,8 +178,7 @@ namespace Adam.Menu.SystemSetting
                 SystemConfig config = SystemConfig.Get();
                 config.CurrentRecipe = tbRecipeID.Text;
                 config.Save();
-                //update node config
-                updateLoadPortConfig(recipe);
+                FormMainUpdate.UpdateRecipe(tbRecipeID.Text);
             }
             else if(CurrentRecipe.Equals(tbRecipeID.Text))//取消生效
             {
@@ -176,9 +186,8 @@ namespace Adam.Menu.SystemSetting
                 config.CurrentRecipe = "default";
                 config.Save();
                 //update node config
-                updateLoadPortConfig(Recipe.Get("default"));
+                FormMainUpdate.UpdateRecipe("default");
             }
-            FormMainUpdate.UpdateRecipe(tbRecipeID.Text);
             //紀錄修改Log
             if (tbRecipeID.Enabled)
                 Util.SanwaUtil.addActionLog("Recipe", "Create", Global.currentUser, "建立 Recipe:" + recipe.recipe_id);
@@ -190,7 +199,7 @@ namespace Adam.Menu.SystemSetting
             MessageBox.Show("Execute successfully.", "Success");
         }
 
-        private Boolean checkRecipe(bool isUse, string content)
+        private Boolean checkOCRConfig(bool isUse, string content)
         {
             Boolean result = false;
             if (!isUse)
@@ -223,86 +232,6 @@ namespace Adam.Menu.SystemSetting
             return result;
         }
 
-        private void updateLoadPortConfig(Recipe recipe)
-        {
-            Boolean result = false;
-            try
-            {
-                DBUtil dBUtil = new DBUtil();
-                Dictionary<string, object> keyValues = new Dictionary<string, object>();
-                string strSql = " UPDATE config_node SET carrier_type = CASE node_id WHEN 'LOADPORT01' THEN @ctype1 " +
-                                "                                                    WHEN 'LOADPORT02' THEN @ctype2 " +
-                                "                                                    WHEN 'LOADPORT03' THEN @ctype3 " +
-                                "                                                    WHEN 'LOADPORT04' THEN @ctype4 " +
-                                "                                                    ELSE carrier_type END, " +
-                                "                          mode = CASE node_id WHEN 'LOADPORT01' THEN @mode1 " +
-                                "                                              WHEN 'LOADPORT02' THEN @mode2 " +
-                                "                                              WHEN 'LOADPORT03' THEN @mode3 " +
-                                "                                              WHEN 'LOADPORT04' THEN @mode4 " +
-                                "                                              ELSE mode END," +
-                                "                          enable_flg = CASE node_id WHEN 'LOADPORT01' THEN @enable1 " +
-                                "                                                    WHEN 'LOADPORT02' THEN @enable2 " +
-                                "                                                    WHEN 'LOADPORT03' THEN @enable3 " +
-                                "                                                    WHEN 'LOADPORT04' THEN @enable4 " +
-                                "                                                    ELSE enable_flg END," +
-                                "                          modify_user = @modify_user, modify_timestamp = NOW() " +
-                                " WHERE equipment_model_id = @equipment_model_id " +
-                                "   AND node_type = 'LOADPORT' ;";
-
-                keyValues.Add("@equipment_model_id", SystemConfig.Get().SystemMode);
-                keyValues.Add("@modify_user", Global.currentUser);
-                keyValues.Add("@ctype1", recipe.port1_carrier_type);
-                keyValues.Add("@ctype2", recipe.port2_carrier_type);
-                keyValues.Add("@ctype3", recipe.port3_carrier_type);
-                keyValues.Add("@ctype4", recipe.port4_carrier_type);
-                keyValues.Add("@mode1", getPortType(recipe.port1_type));
-                keyValues.Add("@mode2", getPortType(recipe.port2_type));
-                keyValues.Add("@mode3", getPortType(recipe.port3_type));
-                keyValues.Add("@mode4", getPortType(recipe.port4_type));
-                keyValues.Add("@enable1", getEnable(recipe.port1_type));
-                keyValues.Add("@enable2", getEnable(recipe.port2_type));
-                keyValues.Add("@enable3", getEnable(recipe.port3_type));
-                keyValues.Add("@enable4", getEnable(recipe.port4_type));
-                dBUtil.ExecuteNonQuery(strSql, keyValues);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Update load port 資訊失敗! " + ex.StackTrace);
-            }
-        }
-
-        private string getPortType(string port_type)
-        {
-            string result = "";
-            switch (port_type)
-            {
-                case "L":
-                    result = "LD";
-                    break;
-                case "U":
-                    result = "ULD";
-                    break;
-                case "N":
-                    result = "";
-                    break;
-            }
-            return result;
-        }
-        private int getEnable(string port_type)
-        {
-            int result = 0;
-            switch (port_type)
-            {
-                case "L":
-                case "U":
-                    result = 1;
-                    break;
-                case "N":
-                    result = 0;
-                    break;
-            }
-            return result;
-        }
 
         private void btnModifyRecipe_Click(object sender, EventArgs e)
         {
@@ -487,6 +416,47 @@ namespace Adam.Menu.SystemSetting
             trvRecipe.SelectedNode.BackColor = SystemColors.Highlight;
             trvRecipe.SelectedNode.ForeColor = Color.White;
             previousSelectedNode = trvRecipe.SelectedNode;
+        }
+
+        private void btnDeleteRecipe_Click(object sender, EventArgs e)
+        {
+            if (trvRecipe.SelectedNode == null)
+            {
+                MessageBox.Show("Please select a recipe first.", "Notice");
+                return;
+            }
+            Recipe recipe = Recipe.Get(trvRecipe.SelectedNode.Text);
+            if (recipe.recipe_id.Equals("default"))
+            {
+                MessageBox.Show("default recipe 不得刪除.", "Notice");
+                return;
+            }
+            else if (SystemConfig.Get().CurrentRecipe.Equals(recipe.recipe_id))
+            {
+                MessageBox.Show("Recipe 使用中，請先切換 recipe 後再刪除.", "Notice");
+                return;
+            }
+            using (var form = new FormConfirm("確認是否刪除 Recipe:" + recipe.recipe_id))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    if (Recipe.Delete(recipe.recipe_id))
+                    {
+                        refreshList();
+                        Util.SanwaUtil.addActionLog("Recipe", "Delete", Global.currentUser, "刪除 Recipe:" + recipe.recipe_id);
+                        MessageBox.Show("Delete completed.", "Success");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Delete fail.", "Error");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Cancel.", "Notice");
+                }
+            }
         }
     }
 }
