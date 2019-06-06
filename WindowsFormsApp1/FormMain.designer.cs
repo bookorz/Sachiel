@@ -540,6 +540,7 @@ namespace Adam
             this.tbcMain.SelectedIndex = 0;
             this.tbcMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tbcMain.SelectedIndexChanged += new System.EventHandler(this.tbcMian_SelectedIndexChanged);
+            this.tbcMain.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tbcMain_Selecting);
             // 
             // tabMonitor
             // 

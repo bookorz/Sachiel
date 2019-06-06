@@ -62,6 +62,7 @@ namespace Adam
         public static string CurrentMode = "AUTO";
         public static bool Start = false;
         public static bool Initial = false;
+        bool Initializing = false;
         public static string RunMode = "";
 
         public FormMain()
@@ -187,10 +188,10 @@ namespace Adam
             this.Width = oldWidth;
             this.Height = oldHeight;
             this.WindowState = FormWindowState.Maximized;
-            
+
         }
 
-        
+
 
         private void LoadPort01_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -645,10 +646,10 @@ namespace Adam
 
             AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
             AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
-            DIOUpdate.UpdateControlButton("Start_btn", false);
-            DIOUpdate.UpdateControlButton("Stop_btn", false);
-            DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
-            RunMode = "";
+            //DIOUpdate.UpdateControlButton("Start_btn", false);
+            //DIOUpdate.UpdateControlButton("Stop_btn", false);
+            //DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            //RunMode = "";
         }
 
         public void On_Command_Finished(Node Node, Transaction Txn, ReturnMessage Msg)
@@ -717,8 +718,8 @@ namespace Adam
                                 case Transaction.Command.LoadPortType.DoorUp:
                                 case Transaction.Command.LoadPortType.InitialPos:
                                 case Transaction.Command.LoadPortType.ForceInitialPos:
-                                    MonitoringUpdate.UpdateFoupID(Node.Name,"");
-                                    WaferAssignUpdate.UpdateFoupID(Node.Name,"");
+                                    MonitoringUpdate.UpdateFoupID(Node.Name, "");
+                                    WaferAssignUpdate.UpdateFoupID(Node.Name, "");
                                     break;
                             }
                             break;
@@ -735,7 +736,7 @@ namespace Adam
                                     break;
                                 case Transaction.Command.OCRType.ReadT7:
                                     OCRUpdate.UpdateOCRT7Read(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
-                                   //OCRStatusUpdate.UpdateOCRT7Read(Node.Name, Msg.Value);
+                                    //OCRStatusUpdate.UpdateOCRT7Read(Node.Name, Msg.Value);
                                     break;
                             }
                             break;
@@ -1197,9 +1198,18 @@ namespace Adam
             }
             if (Mode_btn.Text.Equals("Manual-Mode"))
             {
+                Initial = false;
                 DIOUpdate.UpdateControlButton("Start_btn", false);
                 DIOUpdate.UpdateControlButton("Stop_btn", false);
-                DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                if (tbcMain.SelectedTab.Text.Equals("Monitoring") || tbcMain.SelectedTab.Text.Equals("Wafer Assign"))
+                {
+                    DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                }
+                else
+                {
+                    DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
+                }
+
                 Mode_btn.Text = "Online-Mode";
                 Mode_btn.BackColor = Color.Green;
                 btnManual.Enabled = false;
@@ -1329,23 +1339,39 @@ namespace Adam
             //{
             //    formStatus.Focus();
             //}
-            if (Start)
+
+
+            if (RunMode.ToUpper().Equals("FULLAUTO") && !tbcMain.SelectedTab.Name.Equals("tabMonitor"))
             {
-                
-                if (RunMode.ToUpper().Equals("FULLAUTO") && !tbcMain.SelectedTab.Name.Equals("tabMonitor"))
+
+
+                if (Start)
                 {
                     tbcMain.SelectTab("tabMonitor");
-                    MessageBox.Show("請先切換至STOP");
+                    MessageBox.Show("Please switch to STOP");
                 }
-                else if(RunMode.ToUpper().Equals("SEMIAUTO") && !tbcMain.SelectedTab.Name.Equals("tabWaferAssign"))
+
+            }
+            else if (RunMode.ToUpper().Equals("SEMIAUTO") && !tbcMain.SelectedTab.Name.Equals("tabWaferAssign"))
+            {
+
+                if (Start)
                 {
                     tbcMain.SelectTab("tabWaferAssign");
-                    MessageBox.Show("請先切換至STOP");
+                    MessageBox.Show("Please switch to STOP");
                 }
-               
+
             }
+
+
+
             if (tbcMain.SelectedTab.Text.Equals("Monitoring"))
             {
+                if (Mode_btn.Text.Equals("Online-Mode"))
+                {
+                    DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                    DIOUpdate.UpdateControlButton("Start_btn", Initial);
+                }
                 Form form = Application.OpenForms["FormMonitoring"];
                 foreach (Node port in NodeManagement.GetLoadPortList())
                 {
@@ -1356,7 +1382,7 @@ namespace Adam
                     }
                 }
 
-             
+
                 foreach (Node port in NodeManagement.GetLoadPortList())
                 {
 
@@ -1389,10 +1415,13 @@ namespace Adam
 
                 }
             }
-            if (tbcMain.SelectedTab.Text.Equals("Wafer Assign"))
+            else if (tbcMain.SelectedTab.Text.Equals("Wafer Assign"))
             {
-                
-
+                if (Mode_btn.Text.Equals("Online-Mode"))
+                {
+                    DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+                    DIOUpdate.UpdateControlButton("Start_btn", Initial);
+                }
                 FormWaferMapping.fromPort = "";
                 FormWaferMapping.fromSlot = "";
                 FormWaferMapping.toPort = "";
@@ -1477,7 +1506,8 @@ namespace Adam
             }
             else
             {
-                CurrentMode = "AUTO";
+                DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
+                DIOUpdate.UpdateControlButton("Start_btn", false);
             }
 
 
@@ -1504,12 +1534,28 @@ namespace Adam
 
         public void On_TaskJob_Aborted(TaskJobManagment.CurrentProceedTask Task, string NodeName, string ReportType, string Message)
         {
+            switch (Task.ProceedTask.TaskName)
+            {
+                case "SORTER_INIT":
+
+                    Initializing = false;
+                    break;
+            }
             DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
-            DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            if (Mode_btn.Text.Equals("Online-Mode"))
+            {
+                DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            }
+            else
+            {
+                DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
+            }
+            DIOUpdate.UpdateControlButton("Mode_btn", true);
+            Start = false;
             RunMode = "";
             WaferAssignUpdate.UpdateEnabled("FORM", true);
-
+            XfeCrossZone.Stop();
             if (Task.Id.IndexOf("FormManual") != -1)
             {
                 ManualPortStatusUpdate.LockUI(false);
@@ -1522,26 +1568,26 @@ namespace Adam
             {
 
                 AlarmMessage Detail = AlmMapping.Get("SYSTEM", CurrentAlarm.AlarmCode);
-                if (!Detail.Code_Group.Equals("UNDEFINITION"))
+                //if (!Detail.Code_Group.Equals("UNDEFINITION"))
+                //{
+                CurrentAlarm.SystemAlarmCode = Detail.CodeID;
+                CurrentAlarm.Desc = Detail.Code_Cause;
+                CurrentAlarm.EngDesc = Detail.Code_Cause_English;
+                CurrentAlarm.Type = Detail.Code_Type;
+                CurrentAlarm.IsStop = Detail.IsStop;
+                if (CurrentAlarm.IsStop)
                 {
-                    CurrentAlarm.SystemAlarmCode = Detail.CodeID;
-                    CurrentAlarm.Desc = Detail.Code_Cause;
-                    CurrentAlarm.EngDesc = Detail.Code_Cause_English;
-                    CurrentAlarm.Type = Detail.Code_Type;
-                    CurrentAlarm.IsStop = Detail.IsStop;
-                    if (CurrentAlarm.IsStop)
-                    {
-                        Start = false;
-                        Initial = false;
-                        XfeCrossZone.Stop();
-                    }
-                    CurrentAlarm.TimeStamp = DateTime.Now;
-
-                    AlarmManagement.Add(CurrentAlarm);
-
-                    AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
-                    AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
+                    Start = false;
+                    Initial = false;
+                    XfeCrossZone.Stop();
                 }
+                CurrentAlarm.TimeStamp = DateTime.Now;
+
+                AlarmManagement.Add(CurrentAlarm);
+
+                AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
+                AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
+                // }
             }
             catch (Exception e)
             {
@@ -1589,7 +1635,12 @@ namespace Adam
                             CarrierManagement.Add().SetLocation(port.Name);
                         }
                     }
+                    foreach (Job eachJob in JobManagement.GetJobList())
+                    {
+                        eachJob.InProcess = false;
+                    }
                     Initial = true;
+                    Initializing = false;
                     break;
                 case "LOADPORT_OPEN":
                     Node currentPort = NodeManagement.Get(Task.Params["@Target"]);
@@ -1612,7 +1663,7 @@ namespace Adam
                     }
                     //if (Task.Id.Contains("Unload_btn"))
                     //{
-                        MonitoringUpdate.ButtonEnabled(Task.Params["@Target"].ToUpper() + "_Unload_btn", true);
+                    MonitoringUpdate.ButtonEnabled(Task.Params["@Target"].ToUpper() + "_Unload_btn", true);
                     //}
                     break;
                 case "LOADPORT_CLOSE_NOMAP":
@@ -1685,17 +1736,14 @@ namespace Adam
                 {
                     return;
                 }
-                if (CurrentMode.Equals("MANUAL"))
-                {
-                    return;
-                }
-                if (CurrentMode.Equals("AUTO") && !Start)
+
+                if (!Start)
                 {
                     return;
                 }
 
 
-                if (CurrentMode.Equals("AUTO") && RunMode.Equals("FULLAUTO"))
+                if (RunMode.Equals("FULLAUTO"))
                 {
 
                     var LD_Jobs = from wafer in Loadport.JobList.Values
@@ -1727,7 +1775,7 @@ namespace Adam
                                 {//下一層有片所以不能放
                                     Slot.Locked = true;
                                 }
-                                else if(Recipe.Get(SystemConfig.Get().CurrentRecipe).auto_put_constrict.Equals("2") && fosb.CheckForwardPresence(Slot.Slot))
+                                else if (Recipe.Get(SystemConfig.Get().CurrentRecipe).auto_put_constrict.Equals("2") && fosb.CheckForwardPresence(Slot.Slot))
                                 {//下方所有都不能有片
                                     Slot.Locked = true;
                                 }
@@ -1791,7 +1839,7 @@ namespace Adam
 
                 }
                 else
-                { 
+                {
 
                     var NeedProcessSlot = from wafer in Loadport.JobList.Values
                                           where wafer.NeedProcess
@@ -1844,18 +1892,19 @@ namespace Adam
 
             MonitoringUpdate.UpdateWPH((xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
 
-            
-                Node ld = SearchLoadport();
-                if (ld != null)
-                {
-                    AssignWafer(ld);
-                }
-            
+
+            Node ld = SearchLoadport();
+            if (ld != null)
+            {
+                AssignWafer(ld);
+            }
+
             WaferAssignUpdate.UpdateEnabled("FORM", true);
         }
 
         public void On_LoadPort_Selected(Node Port)
         {
+            NodeStatusUpdate.UpdateCurrentState("RUN");
             MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
         }
 
@@ -1866,72 +1915,249 @@ namespace Adam
 
         public void On_LoadPort_Complete(Node Port)
         {
-            RouteControl.Instance.DIO.SetBlink("RED","True");
-            using (var form = new FormNotify("Loadport Finished",Port.Name,Port.FoupID))
+            try
             {
-                var result = form.ShowDialog();
-
-                string TaskName = "LOADPORT_CLOSE_NOMAP";
-                string Message = "";
-                Dictionary<string, string> param1 = new Dictionary<string, string>();
-                param1.Add("@Target", Port.Name);
-                TaskJobManagment.CurrentProceedTask tmpTask;
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
-
-                if (result == DialogResult.OK)
+                string constrict = Recipe.Get(SystemConfig.Get().CurrentRecipe).input_proc_fin;
+                string Light = "";
+                string Buzzer = "";
+                switch (constrict[1])
                 {
-                    RouteControl.Instance.DIO.SetBlink("RED", "False");
+                    case '0':
+                        Light = "RED";
+                        break;
+                    case '1':
+                        Light = "ORANGE";
+                        break;
+                    case '2':
+                        Light = "GREEN";
+                        break;
+                    case '3':
+                        Light = "BLUE";
+                        break;
+                }
+                switch (constrict[2])
+                {
+                    case '4':
+                        Buzzer = "BUZZER1";
+                        break;
+                    case '5':
+                        Buzzer = "BUZZER2";
+                        break;
+
+                }
+                if (!constrict[0].Equals('N'))
+                {//N:無動作
+                    if (!Light.Equals(""))
+                    {
+                        RouteControl.Instance.DIO.SetBlink(Light, "True");
+                    }
+                    if (!Buzzer.Equals(""))
+                    {
+                        RouteControl.Instance.DIO.SetIO(Buzzer, "True");
+                    }
+
+             
+                    using (var form = new FormNotify("Loadport Finished", Port.Name, Port.FoupID))
+                    {
+                        
+                        switch (constrict.Substring(0,1))
+                        {
+                            case "M"://跳出不暫停
+                                     // new Thread(() =>
+                                     // {
+                             
+                                try
+                                    {
+                                       
+                                        //Thread.CurrentThread.IsBackground = true;
+                                      
+                                        var result = form.ShowDialog();
+                                      
+                                        if (result == DialogResult.OK)
+                                        {
+                                          
+                                            if (!Light.Equals(""))
+                                            {
+                                             
+                                                RouteControl.Instance.DIO.SetIO(Light, "False");
+                                            }
+                                            if (!Buzzer.Equals(""))
+                                            {
+                                                
+                                                RouteControl.Instance.DIO.SetIO(Buzzer, "False");
+                                            }
+                                        }
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        
+                                        logger.Error(e.Message + "\n" + e.StackTrace);
+                                    }
+                               // }).Start();
+                               
+
+                                break;
+                            case "P"://跳出暫停
+                               
+                               // new Thread(() =>
+                                //{
+                                    //Thread.CurrentThread.IsBackground = true;
+                                    var result2 = form.ShowDialog();
+                                    if (result2 == DialogResult.OK)
+                                    {
+                                        if (!Light.Equals(""))
+                                        {
+                                            RouteControl.Instance.DIO.SetIO(Light, "False");
+                                        }
+                                        if (!Buzzer.Equals(""))
+                                        {
+                                            RouteControl.Instance.DIO.SetIO(Buzzer, "False");
+                                        }
+                                    }
+                                //}).Start();
+                                break;
+                        }
+                       
+                        string TaskName = "LOADPORT_CLOSE_NOMAP";
+                        string Message = "";
+                        Dictionary<string, string> param1 = new Dictionary<string, string>();
+                        param1.Add("@Target", Port.Name);
+                        TaskJobManagment.CurrentProceedTask tmpTask;
+                        RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+
+
+                    }
                 }
             }
-
+            catch (Exception e)
+            {
+                logger.Error(e.Message + "\n" + e.StackTrace);
+            }
             //MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
         }
 
         public void On_UnLoadPort_Complete(Node Port)
         {
-
-            var Available = from each in Port.JobList.Values
-                            where !each.MapFlag && !each.ErrPosition && !each.Locked
-                            select each;
-            if (Available.Count() == 0)
-            {//Unloadport 滿了 自動退
-                Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
-                foreach (Job j in Port.JobList.Values)
-                {
-                    int slot = Convert.ToInt16(j.Slot);
-                    foup.record[slot - 1] = new Adam.waferInfo(j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position,Port.FoupID, j.Slot);
-                    foup.record[slot - 1].SetStartTime(j.StartTime);
-                    foup.record[slot - 1].setM12(j.OCR_M12_ImgPath);
-                    foup.record[slot - 1].setT7(j.OCR_T7_ImgPath);
-                    foup.record[slot - 1].SetEndTime(j.EndTime);
-                }
-                foup.Save();
-
-                RouteControl.Instance.DIO.SetBlink("RED", "True");
-                using (var form = new FormNotify("UnLoadport Finished", Port.Name, Port.FoupID))
-                {
-                    var result = form.ShowDialog();
-
-                    string TaskName = "LOADPORT_CLOSE_NOMAP";
-                    string Message = "";
-                    Dictionary<string, string> param1 = new Dictionary<string, string>();
-                    param1.Add("@Target", Port.Name);
-                    TaskJobManagment.CurrentProceedTask tmpTask;
-                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
-
-                    if (result == DialogResult.OK)
-                    {
-                        RouteControl.Instance.DIO.SetBlink("RED", "False");
-                    }
-                }
-
-                
-            }
-            else
+            try
             {
-                MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
-            }
+                var Available = from each in Port.JobList.Values
+                                where !each.MapFlag && !each.ErrPosition && !each.Locked
+                                select each;
+                if (Available.Count() == 0)
+                {//Unloadport 滿了 自動退
+                    Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
+                    foreach (Job j in Port.JobList.Values)
+                    {
+                        int slot = Convert.ToInt16(j.Slot);
+                        foup.record[slot - 1] = new Adam.waferInfo(j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position, Port.FoupID, j.Slot);
+                        foup.record[slot - 1].SetStartTime(j.StartTime);
+                        foup.record[slot - 1].setM12(j.OCR_M12_Result);
+                        foup.record[slot - 1].setT7(j.OCR_T7_Result);
+                        foup.record[slot - 1].SetEndTime(j.EndTime);
+                    }
+                    foup.Save();
+                    string constrict = Recipe.Get(SystemConfig.Get().CurrentRecipe).output_proc_fin;
+                    string Light = "";
+                    string Buzzer = "";
+                    switch (constrict[1])
+                    {
+                        case '0':
+                            Light = "RED";
+                            break;
+                        case '1':
+                            Light = "ORANGE";
+                            break;
+                        case '2':
+                            Light = "GREEN";
+                            break;
+                        case '3':
+                            Light = "BLUE";
+                            break;
+                    }
+                    switch (constrict[2])
+                    {
+                        case '4':
+                            Buzzer = "BUZZER1";
+                            break;
+                        case '5':
+                            Buzzer = "BUZZER2";
+                            break;
 
+                    }
+                    if (!constrict[0].Equals('N'))
+                    {//N:無動作
+                        if (!Light.Equals(""))
+                        {
+                            RouteControl.Instance.DIO.SetBlink(Light, "True");
+                        }
+                        if (!Buzzer.Equals(""))
+                        {
+                            RouteControl.Instance.DIO.SetIO(Buzzer, "True");
+                        }
+                        using (var form = new FormNotify("UnLoadport Finished", Port.Name, Port.FoupID))
+                        {
+                            switch (constrict[0])
+                            {
+                                case 'M'://跳出不暫停
+                                    //new Thread(() =>
+                                    //{
+                                       // Thread.CurrentThread.IsBackground = true;
+                                        var result = form.ShowDialog();
+                                        if (result == DialogResult.OK)
+                                        {
+                                            if (!Light.Equals(""))
+                                            {
+                                                RouteControl.Instance.DIO.SetIO(Light, "False");
+                                            }
+                                            if (!Buzzer.Equals(""))
+                                            {
+                                                RouteControl.Instance.DIO.SetIO(Buzzer, "False");
+                                            }
+                                        }
+                                    //}).Start();
+
+                                    break;
+                                case 'P'://跳出暫停
+                                    //new Thread(() =>
+                                    //{
+
+                                        //Thread.CurrentThread.IsBackground = true;
+                                        var result2 = form.ShowDialog();
+                                        if (result2 == DialogResult.OK)
+                                        {
+                                            if (!Light.Equals(""))
+                                            {
+                                                RouteControl.Instance.DIO.SetIO(Light, "False");
+                                            }
+                                            if (!Buzzer.Equals(""))
+                                            {
+                                                RouteControl.Instance.DIO.SetIO(Buzzer, "False");
+                                            }
+                                        }
+                                   // }).Start();
+                                    break;
+                            }
+                            string TaskName = "LOADPORT_CLOSE_NOMAP";
+                            string Message = "";
+                            Dictionary<string, string> param1 = new Dictionary<string, string>();
+                            param1.Add("@Target", Port.Name);
+                            TaskJobManagment.CurrentProceedTask tmpTask;
+                            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+
+
+                        }
+                    }
+
+                }
+                else
+                {
+                    MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message + "\n" + e.StackTrace);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -2058,6 +2284,7 @@ namespace Adam
                 DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
                 DIOUpdate.UpdateControlButton("Mode_btn", false);
                 ALL_INIT_btn.BackColor = Color.Yellow;
+                Initializing = true;
             }
         }
 
@@ -2139,6 +2366,15 @@ namespace Adam
                 {
 
                 }
+            }
+        }
+
+        private void tbcMain_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (Initializing)
+            {
+                MessageBox.Show("Please wait for initialize.");
+                e.Cancel = true;
             }
         }
     }

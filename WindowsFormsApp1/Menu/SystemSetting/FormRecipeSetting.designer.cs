@@ -44,6 +44,7 @@
             this.tbEqpID = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.cbManualPutRule = new System.Windows.Forms.ComboBox();
             this.cbManualGetRule = new System.Windows.Forms.ComboBox();
@@ -132,7 +133,6 @@
             this.btnDeleteRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
-            this.label7 = new System.Windows.Forms.Label();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -340,6 +340,19 @@
             this.groupBox10.TabIndex = 5;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "放片限制";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label7.ForeColor = System.Drawing.Color.Chocolate;
+            this.label7.Location = new System.Drawing.Point(288, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(87, 24);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Get Rule";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label7.Visible = false;
             // 
             // label25
             // 
@@ -677,6 +690,7 @@
             this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "整機完工";
+            this.groupBox8.Visible = false;
             // 
             // label10
             // 
@@ -1518,19 +1532,6 @@
             this.tlpAccount.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.20801F));
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label7.ForeColor = System.Drawing.Color.Chocolate;
-            this.label7.Location = new System.Drawing.Point(288, 21);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(87, 24);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Get Rule";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label7.Visible = false;
             // 
             // FormRecipeSetting
             // 

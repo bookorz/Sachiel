@@ -95,8 +95,8 @@ namespace Adam.UI_Update.OCR
                         {
                             Directory.CreateDirectory(save);
                         }
-                        string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + ".bmp";
-                        string FileName = WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + ".jpg";
+                        string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bmp";
+                        string FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss") + ".jpg";
                         string savePath = save +"/"+ FileName;
 
                         if (savePath != "")
@@ -232,8 +232,8 @@ namespace Adam.UI_Update.OCR
                         {
                             Directory.CreateDirectory(save);
                         }
-                        string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + ".bmp";
-                        string FileName = WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + "_M12.jpg";
+                        string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bmp";
+                        string FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_M12.jpg";
                         string savePath = save + "/" + FileName;
 
                         if (savePath != "")
@@ -369,8 +369,8 @@ namespace Adam.UI_Update.OCR
                         {
                             Directory.CreateDirectory(save);
                         }
-                        string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + ".bmp";
-                        string FileName = WaferID + "_" + DateTime.Now.ToString("yyyy_mm_dd_HH_MM_ss") + "_T7.jpg";
+                        string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bmp";
+                        string FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_T7.jpg";
                         string savePath = save + "/" + FileName;
 
                         if (savePath != "")

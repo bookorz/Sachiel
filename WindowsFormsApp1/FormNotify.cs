@@ -17,7 +17,7 @@ namespace Adam
         bool running = true;
 
         delegate void UpdatePort(string Name, string text);
-
+        string FormName = "";
         ILog logger = LogManager.GetLogger("FormNotify");
         public FormNotify()
         {
@@ -25,13 +25,39 @@ namespace Adam
         }
         public FormNotify(string title, string PortName, string FoupID)
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            this.Text = title;
-            this.LoadportName_lb.Text = PortName;
-            this.FoupID_lb.Text = FoupID;
+                this.Text = title;
+                this.LoadportName_lb.Text = PortName;
+                this.FoupID_lb.Text = FoupID;
+                switch (PortName.ToUpper())
+                {
+                    case "LOADPORT01":
+                        this.LOADPORT01_lb.Text = "■";
+                        this.LOADPORT01_lb.ForeColor = Color.Red;
+                        break;
+                    case "LOADPORT02":
+                        this.LOADPORT02_lb.Text = "■";
+                        this.LOADPORT02_lb.ForeColor = Color.Red;
+                        break;
+                    case "LOADPORT03":
+                        this.LOADPORT03_lb.Text = "■";
+                        this.LOADPORT03_lb.ForeColor = Color.Red;
+                        break;
+                    case "LOADPORT04":
+                        this.LOADPORT04_lb.Text = "■";
+                        this.LOADPORT04_lb.ForeColor = Color.Red;
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message + "\n" + e.StackTrace);
+            }
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(PortBlink), PortName);
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(PortBlink), PortName);
         }
 
         private void PortBlink(object PortName)
@@ -58,7 +84,7 @@ namespace Adam
 
             try
             {
-                Form form = Application.OpenForms["FormNotify"];
+                Form form = Application.OpenForms[FormName];
                 Label port;
                 if (form == null)
                     return;
@@ -93,17 +119,22 @@ namespace Adam
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-    }
 
-    public static class NotifyMessageBox
-    {
-        public static void Show(string title, string PortName, string FoupID)
+        private void FormNotify_Load(object sender, EventArgs e)
         {
-            // using construct ensures the resources are freed when form is closed
-            using (var form = new FormNotify(title, PortName, FoupID))
-            {
-                form.ShowDialog();
-            }
+            // port = form.Controls.Find(PortName + "_lb", true).FirstOrDefault() as Label;
         }
     }
+
+    //public static class NotifyMessageBox
+    //{
+    //    public static void Show(string title, string PortName, string FoupID)
+    //    {
+    //        // using construct ensures the resources are freed when form is closed
+    //        using (var form = new FormNotify(title, PortName, FoupID))
+    //        {
+    //            form.ShowDialog();
+    //        }
+    //    }
+    //}
 }

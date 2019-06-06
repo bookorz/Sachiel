@@ -279,8 +279,8 @@ namespace Adam.Menu.Monitoring
                         int slot = Convert.ToInt16(j.Slot);
                         foup.record[slot - 1] = new Adam.waferInfo(j.FromPort, j.FromFoupID, j.FromPortSlot, j.ToPort, j.ToFoupID, j.ToPortSlot);
                         foup.record[slot - 1].SetStartTime(j.StartTime);
-                        foup.record[slot - 1].setM12(j.OCR_M12_ImgPath);
-                        foup.record[slot - 1].setT7(j.OCR_T7_ImgPath);
+                        foup.record[slot - 1].setM12(j.OCR_M12_Result);
+                        foup.record[slot - 1].setT7(j.OCR_T7_Result);
                         foup.record[slot - 1].SetEndTime(j.EndTime);
                     }
                 }

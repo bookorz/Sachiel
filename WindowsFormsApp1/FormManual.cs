@@ -1130,12 +1130,16 @@ namespace GUI
             param.Add("@Target", "ALIGNER01");
 
             TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
-
+            if (aligner1 != null)
+            {
+                RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
+            }
             param = new Dictionary<string, string>();
             param.Add("@Target", "ALIGNER02");
-
-            RouteControl.Instance.TaskJob.Excute("FormManual-1", out Message, out Task, TaskName, param);
+            if (aligner2 != null)
+            {
+                RouteControl.Instance.TaskJob.Excute("FormManual-1", out Message, out Task, TaskName, param);
+            }
         }
 
         private void SetDeviceStatus(string name)
