@@ -32,32 +32,32 @@ namespace Adam
                 this.Text = title;
                 this.LoadportName_lb.Text = PortName;
                 this.FoupID_lb.Text = FoupID;
-                switch (PortName.ToUpper())
-                {
-                    case "LOADPORT01":
-                        this.LOADPORT01_lb.Text = "■";
-                        this.LOADPORT01_lb.ForeColor = Color.Red;
-                        break;
-                    case "LOADPORT02":
-                        this.LOADPORT02_lb.Text = "■";
-                        this.LOADPORT02_lb.ForeColor = Color.Red;
-                        break;
-                    case "LOADPORT03":
-                        this.LOADPORT03_lb.Text = "■";
-                        this.LOADPORT03_lb.ForeColor = Color.Red;
-                        break;
-                    case "LOADPORT04":
-                        this.LOADPORT04_lb.Text = "■";
-                        this.LOADPORT04_lb.ForeColor = Color.Red;
-                        break;
-                }
+                //switch (PortName.ToUpper())
+                //{
+                //    case "LOADPORT01":
+                //        this.LOADPORT01_lb.Text = "■";
+                //        this.LOADPORT01_lb.ForeColor = Color.Red;
+                //        break;
+                //    case "LOADPORT02":
+                //        this.LOADPORT02_lb.Text = "■";
+                //        this.LOADPORT02_lb.ForeColor = Color.Red;
+                //        break;
+                //    case "LOADPORT03":
+                //        this.LOADPORT03_lb.Text = "■";
+                //        this.LOADPORT03_lb.ForeColor = Color.Red;
+                //        break;
+                //    case "LOADPORT04":
+                //        this.LOADPORT04_lb.Text = "■";
+                //        this.LOADPORT04_lb.ForeColor = Color.Red;
+                //        break;
+                //}
             }
             catch (Exception e)
             {
                 logger.Error(e.Message + "\n" + e.StackTrace);
             }
 
-            //ThreadPool.QueueUserWorkItem(new WaitCallback(PortBlink), PortName);
+            ThreadPool.QueueUserWorkItem(new WaitCallback(PortBlink), PortName);
         }
 
         private void PortBlink(object PortName)

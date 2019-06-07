@@ -965,8 +965,19 @@ namespace Adam
 
         public void On_Data_Chnaged(string Parameter, string Value, string Type)
         {
-            switch (Parameter)
+            switch (Parameter.ToUpper())
             {
+                case "SAFETYRELAY":
+                    if (Value.ToUpper().Equals("FALSE"))
+                    {
+                        FormReconnect.Show(true);
+                    }
+                    else
+                    {
+                        FormReconnect.Show(false);
+                    }
+                    break;
+            
                 case "DIFFERENTIAL":
                     DifferentialMonitorUpdate.UpdateChart(Parameter, Value);
                     break;
@@ -2377,5 +2388,7 @@ namespace Adam
                 e.Cancel = true;
             }
         }
+
+      
     }
 }
