@@ -967,17 +967,17 @@ namespace Adam
         {
             switch (Parameter.ToUpper())
             {
-                case "SAFETYRELAY":
-                    if (Value.ToUpper().Equals("FALSE"))
-                    {
-                        FormReconnect.Show(true);
-                    }
-                    else
-                    {
-                        FormReconnect.Show(false);
-                    }
-                    break;
-            
+                //case "SAFETYRELAY":
+                //    if (Value.ToUpper().Equals("FALSE"))
+                //    {
+                //        FormReconnect.Show(true);
+                //    }
+                //    else
+                //    {
+                //        FormReconnect.Show(false);
+                //    }
+                //    break;
+
                 case "DIFFERENTIAL":
                     DifferentialMonitorUpdate.UpdateChart(Parameter, Value);
                     break;
@@ -992,17 +992,14 @@ namespace Adam
                 default:
                     DIOUpdate.UpdateDIOStatus(Parameter, Value);
                     IOUpdate.UpdateDIO(Parameter, Value, Type);
-                    //if (Parameter.ToUpper().Equals("SAFETYRELAY")&&Value.ToUpper().Equals("TRUE"))
-                    //{
-                    //    SpinWait.SpinUntil(() => false, 3000);
-                    //    foreach(Node port in NodeManagement.GetLoadPortList())
-                    //    {
-                    //        if (port.Enable)
-                    //        {
-                    //            ThreadPool.QueueUserWorkItem(new WaitCallback(port.GetController().Start));
-                    //        }
-                    //    }
-                    //}
+                    if (Parameter.ToUpper().Equals("SAFETYRELAY") && Value.ToUpper().Equals("FALSE"))
+                    {
+                        FormReconnect.Show(true);
+                    }
+                    else if (Parameter.ToUpper().Equals("SAFETYRELAY") && Value.ToUpper().Equals("TRUE"))
+                    {
+                        FormReconnect.Show(false);
+                    }
                     break;
             }
 
@@ -1378,7 +1375,7 @@ namespace Adam
 
             if (tbcMain.SelectedTab.Text.Equals("Monitoring"))
             {
-                if (Mode_btn.Text.Equals("Online-Mode"))
+                if (Mode_btn.Text.Equals("Online-Mode") && !Global.currentUser.Equals(""))
                 {
                     DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                     DIOUpdate.UpdateControlButton("Start_btn", Initial);
@@ -1428,7 +1425,7 @@ namespace Adam
             }
             else if (tbcMain.SelectedTab.Text.Equals("Wafer Assign"))
             {
-                if (Mode_btn.Text.Equals("Online-Mode"))
+                if (Mode_btn.Text.Equals("Online-Mode") && !Global.currentUser.Equals(""))
                 {
                     DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                     DIOUpdate.UpdateControlButton("Start_btn", Initial);
@@ -1649,7 +1646,20 @@ namespace Adam
                     foreach (Job eachJob in JobManagement.GetJobList())
                     {
                         eachJob.InProcess = false;
+                        if(eachJob.Position.ToUpper().Equals("ROBOT01")|| eachJob.Position.ToUpper().Equals("ALIGNER01"))
+                        {
+                            JobManagement.Remove(eachJob.Job_Id);
+                            Node pos = NodeManagement.Get(eachJob.Position);
+                            if (pos != null)
+                            {
+                                MonitoringUpdate.UpdateNodesJob(pos.Name);
+                                WaferAssignUpdate.UpdateNodesJob(pos.Name);
+                                RunningUpdate.UpdateNodesJob(pos.Name);
+                            }
+                        }
                     }
+
+                    
                     Initial = true;
                     Initializing = false;
                     break;
@@ -1733,7 +1743,7 @@ namespace Adam
                 DIOUpdate.UpdateControlButton("Stop_btn", false);
                 DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                 DIOUpdate.UpdateControlButton("Mode_btn", true);
-                MessageBox.Show("Transfer finished");
+               // MessageBox.Show("Transfer finished");
                 Start = false;
             }
             return result;
@@ -1899,7 +1909,7 @@ namespace Adam
         public static bool cycleRun = false;
         public void On_Transfer_Complete(XfeCrossZone xfe)
         {
-            NodeStatusUpdate.UpdateCurrentState("IDLE");
+            
 
             MonitoringUpdate.UpdateWPH((xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
 
@@ -1908,6 +1918,10 @@ namespace Adam
             if (ld != null)
             {
                 AssignWafer(ld);
+            }
+            else
+            {
+                NodeStatusUpdate.UpdateCurrentState("IDLE");
             }
 
             WaferAssignUpdate.UpdateEnabled("FORM", true);
@@ -1967,68 +1981,68 @@ namespace Adam
                         RouteControl.Instance.DIO.SetIO(Buzzer, "True");
                     }
 
-             
+
                     using (var form = new FormNotify("Loadport Finished", Port.Name, Port.FoupID))
                     {
-                        
-                        switch (constrict.Substring(0,1))
+
+                        switch (constrict.Substring(0, 1))
                         {
                             case "M"://跳出不暫停
                                      // new Thread(() =>
                                      // {
-                             
-                                try
-                                    {
-                                       
-                                        //Thread.CurrentThread.IsBackground = true;
-                                      
-                                        var result = form.ShowDialog();
-                                      
-                                        if (result == DialogResult.OK)
-                                        {
-                                          
-                                            if (!Light.Equals(""))
-                                            {
-                                             
-                                                RouteControl.Instance.DIO.SetIO(Light, "False");
-                                            }
-                                            if (!Buzzer.Equals(""))
-                                            {
-                                                
-                                                RouteControl.Instance.DIO.SetIO(Buzzer, "False");
-                                            }
-                                        }
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        
-                                        logger.Error(e.Message + "\n" + e.StackTrace);
-                                    }
-                               // }).Start();
-                               
 
-                                break;
-                            case "P"://跳出暫停
-                               
-                               // new Thread(() =>
-                                //{
+                                try
+                                {
+
                                     //Thread.CurrentThread.IsBackground = true;
-                                    var result2 = form.ShowDialog();
-                                    if (result2 == DialogResult.OK)
+
+                                    var result = form.ShowDialog();
+
+                                    if (result == DialogResult.OK)
                                     {
+
                                         if (!Light.Equals(""))
                                         {
+
                                             RouteControl.Instance.DIO.SetIO(Light, "False");
                                         }
                                         if (!Buzzer.Equals(""))
                                         {
+
                                             RouteControl.Instance.DIO.SetIO(Buzzer, "False");
                                         }
                                     }
+                                }
+                                catch (Exception e)
+                                {
+
+                                    logger.Error(e.Message + "\n" + e.StackTrace);
+                                }
+                                // }).Start();
+
+
+                                break;
+                            case "P"://跳出暫停
+
+                                // new Thread(() =>
+                                //{
+                                //Thread.CurrentThread.IsBackground = true;
+                                var result2 = form.ShowDialog();
+                                if (result2 == DialogResult.OK)
+                                {
+                                    if (!Light.Equals(""))
+                                    {
+                                        RouteControl.Instance.DIO.SetIO(Light, "False");
+                                    }
+                                    if (!Buzzer.Equals(""))
+                                    {
+                                        RouteControl.Instance.DIO.SetIO(Buzzer, "False");
+                                    }
+                                }
                                 //}).Start();
                                 break;
                         }
-                       
+
                         string TaskName = "LOADPORT_CLOSE_NOMAP";
                         string Message = "";
                         Dictionary<string, string> param1 = new Dictionary<string, string>();
@@ -2110,42 +2124,42 @@ namespace Adam
                             switch (constrict[0])
                             {
                                 case 'M'://跳出不暫停
-                                    //new Thread(() =>
-                                    //{
-                                       // Thread.CurrentThread.IsBackground = true;
-                                        var result = form.ShowDialog();
-                                        if (result == DialogResult.OK)
+                                         //new Thread(() =>
+                                         //{
+                                         // Thread.CurrentThread.IsBackground = true;
+                                    var result = form.ShowDialog();
+                                    if (result == DialogResult.OK)
+                                    {
+                                        if (!Light.Equals(""))
                                         {
-                                            if (!Light.Equals(""))
-                                            {
-                                                RouteControl.Instance.DIO.SetIO(Light, "False");
-                                            }
-                                            if (!Buzzer.Equals(""))
-                                            {
-                                                RouteControl.Instance.DIO.SetIO(Buzzer, "False");
-                                            }
+                                            RouteControl.Instance.DIO.SetIO(Light, "False");
                                         }
+                                        if (!Buzzer.Equals(""))
+                                        {
+                                            RouteControl.Instance.DIO.SetIO(Buzzer, "False");
+                                        }
+                                    }
                                     //}).Start();
 
                                     break;
                                 case 'P'://跳出暫停
-                                    //new Thread(() =>
-                                    //{
+                                         //new Thread(() =>
+                                         //{
 
-                                        //Thread.CurrentThread.IsBackground = true;
-                                        var result2 = form.ShowDialog();
-                                        if (result2 == DialogResult.OK)
+                                    //Thread.CurrentThread.IsBackground = true;
+                                    var result2 = form.ShowDialog();
+                                    if (result2 == DialogResult.OK)
+                                    {
+                                        if (!Light.Equals(""))
                                         {
-                                            if (!Light.Equals(""))
-                                            {
-                                                RouteControl.Instance.DIO.SetIO(Light, "False");
-                                            }
-                                            if (!Buzzer.Equals(""))
-                                            {
-                                                RouteControl.Instance.DIO.SetIO(Buzzer, "False");
-                                            }
+                                            RouteControl.Instance.DIO.SetIO(Light, "False");
                                         }
-                                   // }).Start();
+                                        if (!Buzzer.Equals(""))
+                                        {
+                                            RouteControl.Instance.DIO.SetIO(Buzzer, "False");
+                                        }
+                                    }
+                                    // }).Start();
                                     break;
                             }
                             string TaskName = "LOADPORT_CLOSE_NOMAP";
@@ -2329,11 +2343,9 @@ namespace Adam
 
         private void Stop_btn_Click(object sender, EventArgs e)
         {
-            DIOUpdate.UpdateControlButton("Start_btn", true);
-            DIOUpdate.UpdateControlButton("Stop_btn", false);
-            DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
-            DIOUpdate.UpdateControlButton("Mode_btn", true);
             Start = false;
+            
+            
 
             foreach (Job j in JobManagement.GetJobList())
             {
@@ -2354,6 +2366,10 @@ namespace Adam
                     }
                 }
             }
+            DIOUpdate.UpdateControlButton("Start_btn", true);
+            DIOUpdate.UpdateControlButton("Stop_btn", false);
+            DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
+            DIOUpdate.UpdateControlButton("Mode_btn", true);
         }
 
         private void btnChgPWD_Click(object sender, EventArgs e)
@@ -2389,6 +2405,6 @@ namespace Adam
             }
         }
 
-      
+
     }
 }

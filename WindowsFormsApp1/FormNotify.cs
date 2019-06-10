@@ -84,7 +84,8 @@ namespace Adam
 
             try
             {
-                Form form = Application.OpenForms[FormName];
+                //Form form = Application.OpenForms[FormName];
+                Form form = this;
                 Label port;
                 if (form == null)
                     return;

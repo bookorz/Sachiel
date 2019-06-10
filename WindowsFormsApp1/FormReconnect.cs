@@ -37,7 +37,7 @@ namespace Adam
             _EMO = EMO;
             if (!EMO)
             {
-                countDownSecs = 15;
+                countDownSecs = 30;
                 NotifyUpdate(false);
             }
             else
@@ -166,7 +166,6 @@ namespace Adam
                         form.WindowState = FormWindowState.Maximized;
                         form.ShowDialog();
                     }
-                    
                 }
                 else
                 {
@@ -174,8 +173,7 @@ namespace Adam
                     {
                         form.Close();
                     }
-                }
-                
+                }     
             }
         }
 
