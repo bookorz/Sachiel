@@ -225,7 +225,7 @@ namespace Adam
                     //((TabControl)formSystem.Controls["tbcSystemSetting"]).SelectTab(0);//20190529 取消
                     tbcMain.SelectTab(0);
                     tbcMain.Enabled = false;
-                    Mode_btn.Text = "Online-Mode";
+                    Mode_btn.Text = "Auto-Mode";
                     Mode_btn.BackColor = Color.Green;
                     Mode_btn.Enabled = false;
                     btnManual.Enabled = false;
@@ -992,13 +992,43 @@ namespace Adam
                 default:
                     DIOUpdate.UpdateDIOStatus(Parameter, Value);
                     IOUpdate.UpdateDIO(Parameter, Value, Type);
-                    if (Parameter.ToUpper().Equals("SAFETYRELAY") && Value.ToUpper().Equals("FALSE"))
+                    //if (Parameter.ToUpper().Equals("SAFETYRELAY") && Value.ToUpper().Equals("FALSE"))
+                    //{
+                    //    FormReconnect.Show(true);
+                    //}
+                    //else if (Parameter.ToUpper().Equals("SAFETYRELAY") && Value.ToUpper().Equals("TRUE"))
+                    //{
+                    //    FormReconnect.Show(false);
+                    //}
+                    switch (Parameter.ToUpper())
                     {
-                        FormReconnect.Show(true);
-                    }
-                    else if (Parameter.ToUpper().Equals("SAFETYRELAY") && Value.ToUpper().Equals("TRUE"))
-                    {
-                        FormReconnect.Show(false);
+                        case "SAFETYRELAY":
+                            if (Value.ToUpper().Equals("TRUE"))
+                            {
+                                FormReconnect.Show(false);
+                            }
+                            else if (Value.ToUpper().Equals("FALSE"))
+                            {
+                                FormReconnect.Show(true);
+                            }
+                            break;
+                        case "DOORSWITCH":
+                            Node ffu = NodeManagement.Get("FFU01");
+                            string TaskName = "FFU_SET_SPEED";
+                            string Message = "";
+                            Dictionary<string, string> param1 = new Dictionary<string, string>();
+                            param1.Add("@Target", ffu.Name);
+                            if (Value.ToUpper().Equals("TRUE"))
+                            {
+                                param1.Add("@Value", "0");
+                            }
+                            else
+                            {
+                                param1.Add("@Value", "800");
+                            }
+                            TaskJobManagment.CurrentProceedTask tmpTask;
+                            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                            break;
                     }
                     break;
             }
@@ -1218,7 +1248,7 @@ namespace Adam
                     DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
                 }
 
-                Mode_btn.Text = "Online-Mode";
+                Mode_btn.Text = "Auto-Mode";
                 Mode_btn.BackColor = Color.Green;
                 btnManual.Enabled = false;
                 btnManual.BackColor = Color.Gray;
@@ -1375,7 +1405,7 @@ namespace Adam
 
             if (tbcMain.SelectedTab.Text.Equals("Monitoring"))
             {
-                if (Mode_btn.Text.Equals("Online-Mode") && !Global.currentUser.Equals(""))
+                if (Mode_btn.Text.Equals("Auto-Mode") && !Global.currentUser.Equals(""))
                 {
                     DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                     DIOUpdate.UpdateControlButton("Start_btn", Initial);
@@ -1425,7 +1455,7 @@ namespace Adam
             }
             else if (tbcMain.SelectedTab.Text.Equals("Wafer Assign"))
             {
-                if (Mode_btn.Text.Equals("Online-Mode") && !Global.currentUser.Equals(""))
+                if (Mode_btn.Text.Equals("Auto-Mode") && !Global.currentUser.Equals(""))
                 {
                     DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                     DIOUpdate.UpdateControlButton("Start_btn", Initial);
@@ -1551,7 +1581,7 @@ namespace Adam
             }
             DIOUpdate.UpdateControlButton("Start_btn", false);
             DIOUpdate.UpdateControlButton("Stop_btn", false);
-            if (Mode_btn.Text.Equals("Online-Mode"))
+            if (Mode_btn.Text.Equals("Auto-Mode"))
             {
                 DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
             }
@@ -2405,6 +2435,6 @@ namespace Adam
             }
         }
 
-
+     
     }
 }
