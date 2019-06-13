@@ -1,4 +1,5 @@
 ﻿using log4net;
+using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,7 +26,7 @@ namespace Adam
             this.foup_id = foup_id;
             string date = System.DateTime.Now.ToString("yyyyMMdd");
             string time = System.DateTime.Now.ToString("HHmmss");
-            this.file_name = foup_id + "_" + date + "_" + time + ".csv";
+            this.file_name = SystemConfig.Get().EquipmentID + "_" + foup_id + "_" + date + "_" + time + ".csv";
             record = new waferInfo[25];
         }
         public void Save()
@@ -43,7 +44,7 @@ namespace Adam
                 StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8);
                 string data = "";
                 //寫出列名稱
-                data = "from_port,from_id,from_slot,to_port_id,to_id,to_slot,t7,m12,start_datedime,end_date_time,recipe_file,login_user";
+                data = "from_port,from_id,from_slot,to_port_id,to_id,to_slot,t7,m12,start_datedime,end_datetime,load_datetime,unload_datetime,recipe_file,login_user";
                 sw.WriteLine(data);
                 //寫出各行數據
                 for (int i = 0; i < record.Length; i++)
@@ -87,10 +88,12 @@ namespace Adam
         string m12;
         string start_datetime;
         string end_datetime;
+        string load_datetime;
+        string unload_datetime;
 
         public string[] getData()
         {
-            return new string[] { from_port, from_id, from_slot, to_port_id, to_id, to_slot, t7, m12, start_datetime, end_datetime };
+            return new string[] { from_port, from_id, from_slot, to_port_id, to_id, to_slot, t7, m12, start_datetime, end_datetime, load_datetime, unload_datetime };
         }
         public waferInfo(string from_port, string from_id, string from_slot, string to_port_id, string to_id, string to_slot)
         {
@@ -117,6 +120,14 @@ namespace Adam
         public void setT7(string t7)
         {
             this.t7 = t7;
+        }
+        public void SetLoadTime(DateTime timeStamp)
+        {
+            this.load_datetime = timeStamp.ToString("dd-MM-yyyy HH:mm:ss.fff");
+        }
+        public void SetUnloadTime(DateTime timeStamp)
+        {
+            this.unload_datetime = timeStamp.ToString("dd-MM-yyyy HH:mm:ss.fff");
         }
     }
 }
