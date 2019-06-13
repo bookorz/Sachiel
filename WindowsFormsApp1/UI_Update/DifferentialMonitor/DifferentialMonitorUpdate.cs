@@ -16,8 +16,40 @@ namespace Adam.UI_Update.DifferentialMonitor
 
         static ILog logger = LogManager.GetLogger(typeof(DifferentialMonitorUpdate));
         delegate void UpdateDIO(string Parameter, string Value);
+        delegate void UpdateValue(string Value);
         static List<double> tmpDataCol = new List<double>();
 
+        public static void UpdateFFU(string Value)
+        {
+            try
+            {
+                Form form = Application.OpenForms["FormDifferentialMonitor"];
+
+                if (form == null)
+                    return;
+
+                Label rpm = form.Controls.Find("FFU_rpm_lb", true).FirstOrDefault() as Label;
+
+                if (rpm == null)
+                    return;
+
+                if (rpm.InvokeRequired)
+                {
+                    UpdateValue ph = new UpdateValue(UpdateFFU);
+                    rpm.BeginInvoke(ph,  Value);
+                }
+                else
+                {
+                    rpm.Text = Value;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                logger.Error("UpdateFFU: Update fail. err:" + e.StackTrace);
+            }
+        }
         public static void UpdateChart(string Parameter, string Value)
         {
             try

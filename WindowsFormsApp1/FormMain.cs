@@ -442,6 +442,14 @@ namespace Adam
                             break;
                     }
                     break;
+                case "FFU":
+                    switch (Txn.Method)
+                    {
+                        case Transaction.Command.FFUType.GetStatus:
+                            DifferentialMonitorUpdate.UpdateFFU(Msg.Value);
+                            break;
+                    }
+                    break;
             }
 
             switch (Txn.FormName)
@@ -482,6 +490,7 @@ namespace Adam
                                     break;
                             }
                             break;
+                            
                             //case Transaction.Command.AlignerType.GetError:
 
                             //    break;
@@ -1013,21 +1022,24 @@ namespace Adam
                             }
                             break;
                         case "DOORSWITCH":
-                            Node ffu = NodeManagement.Get("FFU01");
-                            string TaskName = "FFU_SET_SPEED";
-                            string Message = "";
-                            Dictionary<string, string> param1 = new Dictionary<string, string>();
-                            param1.Add("@Target", ffu.Name);
-                            if (Value.ToUpper().Equals("TRUE"))
-                            {
-                                param1.Add("@Value", "0");
-                            }
-                            else
-                            {
-                                param1.Add("@Value", "800");
-                            }
-                            TaskJobManagment.CurrentProceedTask tmpTask;
-                            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                            //string TaskName = "FFU_SET_SPEED";
+                            //RouteControl.Instance.TaskJob.ForceFinishTask(TaskName);
+
+                            //Node ffu = NodeManagement.Get("FFU01");
+                            
+                            //string Message = "";
+                            //Dictionary<string, string> param1 = new Dictionary<string, string>();
+                            //param1.Add("@Target", ffu.Name);
+                            //if (Value.ToUpper().Equals("TRUE"))
+                            //{
+                            //    param1.Add("@Value", "0");
+                            //}
+                            //else
+                            //{
+                            //    param1.Add("@Value", "800");
+                            //}
+                            //TaskJobManagment.CurrentProceedTask tmpTask;
+                            //RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
                             break;
                     }
                     break;

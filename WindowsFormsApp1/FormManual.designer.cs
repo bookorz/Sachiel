@@ -2704,6 +2704,7 @@
             this.LblLED_A.TabIndex = 48;
             this.LblLED_A.Tag = "1";
             this.LblLED_A.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LblLED_A.Visible = false;
             // 
             // Btn_ReadLED_A
             // 
@@ -3334,6 +3335,8 @@
             // ChkWithSlotMap_A
             // 
             this.ChkWithSlotMap_A.AutoSize = true;
+            this.ChkWithSlotMap_A.Checked = true;
+            this.ChkWithSlotMap_A.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ChkWithSlotMap_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.ChkWithSlotMap_A.Location = new System.Drawing.Point(27, 27);
             this.ChkWithSlotMap_A.Name = "ChkWithSlotMap_A";
