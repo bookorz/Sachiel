@@ -359,7 +359,7 @@ namespace Adam.UI_Update.OCR
                             src = SystemConfig.Get().OCR2ImgSourcePath;
                             break;
                     }
-
+                    save += "/"+ DateTime.Now.ToString("yyyyMMdd") + "/" + Job.FromFoupID;
                     Thread.Sleep(500);
                     Node OCR = NodeManagement.Get(OCRName);
                     if (OCR != null)
