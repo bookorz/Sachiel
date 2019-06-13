@@ -1022,24 +1022,26 @@ namespace Adam
                             }
                             break;
                         case "DOORSWITCH":
-                            //string TaskName = "FFU_SET_SPEED";
+                            string TaskName = "FFU_SET_SPEED";
                             //RouteControl.Instance.TaskJob.ForceFinishTask(TaskName);
 
-                            //Node ffu = NodeManagement.Get("FFU01");
-                            
-                            //string Message = "";
-                            //Dictionary<string, string> param1 = new Dictionary<string, string>();
-                            //param1.Add("@Target", ffu.Name);
-                            //if (Value.ToUpper().Equals("TRUE"))
-                            //{
-                            //    param1.Add("@Value", "0");
-                            //}
-                            //else
-                            //{
-                            //    param1.Add("@Value", "800");
-                            //}
-                            //TaskJobManagment.CurrentProceedTask tmpTask;
-                            //RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                            Node ffu = NodeManagement.Get("FFU01");
+
+                            string Message = "";
+                            Dictionary<string, string> param1 = new Dictionary<string, string>();
+                            param1.Add("@Target", ffu.Name);
+                            if (Value.ToUpper().Equals("TRUE"))
+                            {
+                                param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
+                                DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
+                            }
+                            else
+                            {
+                                param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
+                                DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
+                            }
+                            TaskJobManagment.CurrentProceedTask tmpTask;
+                            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
                             break;
                     }
                     break;
@@ -2121,6 +2123,8 @@ namespace Adam
                         foup.record[slot - 1].setM12(j.OCR_M12_Result);
                         foup.record[slot - 1].setT7(j.OCR_T7_Result);
                         foup.record[slot - 1].SetEndTime(j.EndTime);
+                        foup.record[slot - 1].SetLoadTime(Port.LoadTime);
+                        foup.record[slot - 1].SetUnloadTime(DateTime.Now);
                     }
                     foup.Save();
                     string constrict = Recipe.Get(SystemConfig.Get().CurrentRecipe).output_proc_fin;

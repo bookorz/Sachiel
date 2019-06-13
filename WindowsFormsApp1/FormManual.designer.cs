@@ -481,6 +481,7 @@
             // 
             // cbRA1Point
             // 
+            this.cbRA1Point.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRA1Point.FormattingEnabled = true;
             this.cbRA1Point.Items.AddRange(new object[] {
             "LOADPORT01",
@@ -492,6 +493,7 @@
             this.cbRA1Point.Name = "cbRA1Point";
             this.cbRA1Point.Size = new System.Drawing.Size(208, 38);
             this.cbRA1Point.TabIndex = 22;
+            this.cbRA1Point.SelectedIndexChanged += new System.EventHandler(this.cbRA1Point_SelectedIndexChanged);
             // 
             // label58
             // 
@@ -588,6 +590,7 @@
             // 
             // cbRA1Slot
             // 
+            this.cbRA1Slot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRA1Slot.FormattingEnabled = true;
             this.cbRA1Slot.Items.AddRange(new object[] {
             "25",
@@ -622,6 +625,7 @@
             // 
             // cbRA1Arm
             // 
+            this.cbRA1Arm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRA1Arm.FormattingEnabled = true;
             this.cbRA1Arm.Items.AddRange(new object[] {
             "Upper",
@@ -631,7 +635,6 @@
             this.cbRA1Arm.Name = "cbRA1Arm";
             this.cbRA1Arm.Size = new System.Drawing.Size(208, 38);
             this.cbRA1Arm.TabIndex = 41;
-            this.cbRA1Arm.Text = "Upper";
             // 
             // pnlRobotCmdA2
             // 
@@ -679,6 +682,7 @@
             // 
             // cbRA2Point
             // 
+            this.cbRA2Point.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRA2Point.FormattingEnabled = true;
             this.cbRA2Point.Items.AddRange(new object[] {
             "LOADPORT01",
@@ -690,6 +694,7 @@
             this.cbRA2Point.Name = "cbRA2Point";
             this.cbRA2Point.Size = new System.Drawing.Size(208, 38);
             this.cbRA2Point.TabIndex = 22;
+            this.cbRA2Point.SelectedIndexChanged += new System.EventHandler(this.cbRA2Point_SelectedIndexChanged);
             // 
             // btnRMoveUp
             // 
@@ -786,6 +791,7 @@
             // 
             // cbRA2Slot
             // 
+            this.cbRA2Slot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRA2Slot.FormattingEnabled = true;
             this.cbRA2Slot.Items.AddRange(new object[] {
             "25",
@@ -820,6 +826,7 @@
             // 
             // cbRA2Arm
             // 
+            this.cbRA2Arm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRA2Arm.FormattingEnabled = true;
             this.cbRA2Arm.Items.AddRange(new object[] {
             "Upper",
@@ -829,7 +836,6 @@
             this.cbRA2Arm.Name = "cbRA2Arm";
             this.cbRA2Arm.Size = new System.Drawing.Size(208, 38);
             this.cbRA2Arm.TabIndex = 41;
-            this.cbRA2Arm.Text = "Upper";
             // 
             // pnlRCmd
             // 
@@ -1348,6 +1354,7 @@
             // 
             // cbRMode
             // 
+            this.cbRMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRMode.FormattingEnabled = true;
             this.cbRMode.Items.AddRange(new object[] {
             "Normal",
@@ -1740,6 +1747,7 @@
             // 
             // cbA2Mode
             // 
+            this.cbA2Mode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbA2Mode.FormattingEnabled = true;
             this.cbA2Mode.Items.AddRange(new object[] {
             "Normal",
@@ -2257,6 +2265,7 @@
             // 
             // cbA1Mode
             // 
+            this.cbA1Mode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbA1Mode.FormattingEnabled = true;
             this.cbA1Mode.Items.AddRange(new object[] {
             "Normal",
@@ -2735,6 +2744,7 @@
             // Cb_LoadPortSelect
             // 
             this.Cb_LoadPortSelect.BackColor = System.Drawing.SystemColors.Window;
+            this.Cb_LoadPortSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Cb_LoadPortSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Cb_LoadPortSelect.FormattingEnabled = true;
             this.Cb_LoadPortSelect.Location = new System.Drawing.Point(6, 31);

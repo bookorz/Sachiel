@@ -1316,8 +1316,72 @@ namespace GUI
             ThreadPool.QueueUserWorkItem(new WaitCallback(node.GetController().Start));
         }
 
+        private void cbRA1Point_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Node node = NodeManagement.Get(cbRA1Point.Text);
+            if (node == null)
+            {
+                MessageBox.Show(cbRA1Point.Text+" exist!");
+                return;
+            }
+            switch (node.Type.ToUpper())
+            {
+                case "ALIGNER":
+                    cbRA1Slot.Items.Clear();
+                    cbRA1Slot.Items.Add("1");       
+                    break;
+                case "LOADPORT":
+                    cbRA1Slot.Items.Clear();
+                    if (node.CarrierType.ToUpper().Equals("OPEN"))
+                    {
+                        for (int i = 13; i >= 1; i--)
+                        {
+                            cbRA1Slot.Items.Add(i.ToString());
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 25; i >= 1; i--)
+                        {
+                            cbRA1Slot.Items.Add(i.ToString());
+                        }
+                    }
+                    break;
+            }
+        }
 
-
-
+        private void cbRA2Point_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Node node = NodeManagement.Get(cbRA2Point.Text);
+            if (node == null)
+            {
+                MessageBox.Show(cbRA2Point.Text + " exist!");
+                return;
+            }
+            switch (node.Type.ToUpper())
+            {
+                case "ALIGNER":
+                    cbRA2Slot.Items.Clear();
+                    cbRA2Slot.Items.Add("1");
+                    break;
+                case "LOADPORT":
+                    cbRA2Slot.Items.Clear();
+                    if (node.CarrierType.ToUpper().Equals("OPEN"))
+                    {
+                        for (int i = 13; i >= 1; i--)
+                        {
+                            cbRA2Slot.Items.Add(i.ToString());
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 25; i >= 1; i--)
+                        {
+                            cbRA2Slot.Items.Add(i.ToString());
+                        }
+                    }
+                    break;
+            }
+        }
     }
 }
