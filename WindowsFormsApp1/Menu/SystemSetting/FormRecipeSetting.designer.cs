@@ -41,8 +41,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.gbRecipeBody = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tbEqpID = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -133,6 +131,12 @@
             this.btnDeleteRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.tbFFUOpenRpm = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.tbFFUCloseRpm = new System.Windows.Forms.TextBox();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -152,6 +156,7 @@
             this.tlpAccountMenu.SuspendLayout();
             this.palContainer.SuspendLayout();
             this.tlpAccount.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // trvRecipe
@@ -276,9 +281,8 @@
             // 
             // gbRecipeBody
             // 
+            this.gbRecipeBody.Controls.Add(this.groupBox5);
             this.gbRecipeBody.Controls.Add(this.label6);
-            this.gbRecipeBody.Controls.Add(this.tbEqpID);
-            this.gbRecipeBody.Controls.Add(this.label23);
             this.gbRecipeBody.Controls.Add(this.groupBox10);
             this.gbRecipeBody.Controls.Add(this.groupBox9);
             this.gbRecipeBody.Controls.Add(this.groupBox2);
@@ -304,24 +308,6 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "目前模式:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tbEqpID
-            // 
-            this.tbEqpID.Location = new System.Drawing.Point(1078, 19);
-            this.tbEqpID.Name = "tbEqpID";
-            this.tbEqpID.Size = new System.Drawing.Size(136, 33);
-            this.tbEqpID.TabIndex = 1;
-            this.tbEqpID.Click += new System.EventHandler(this.modeCheck);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(1009, 22);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(63, 24);
-            this.label23.TabIndex = 0;
-            this.label23.Text = "EqpID";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox10
             // 
@@ -911,6 +897,7 @@
             this.tbNotch_angle.Size = new System.Drawing.Size(109, 33);
             this.tbNotch_angle.TabIndex = 1;
             this.tbNotch_angle.Text = "0";
+            this.tbNotch_angle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbNotch_angle.Click += new System.EventHandler(this.modeCheck);
             this.tbNotch_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
@@ -1302,7 +1289,7 @@
             this.cbActive.AutoSize = true;
             this.cbActive.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbActive.ForeColor = System.Drawing.Color.Red;
-            this.cbActive.Location = new System.Drawing.Point(1049, 58);
+            this.cbActive.Location = new System.Drawing.Point(1065, 32);
             this.cbActive.Name = "cbActive";
             this.cbActive.Size = new System.Drawing.Size(176, 34);
             this.cbActive.TabIndex = 4;
@@ -1377,6 +1364,7 @@
             this.tbA2_speed.Size = new System.Drawing.Size(95, 33);
             this.tbA2_speed.TabIndex = 1;
             this.tbA2_speed.Text = "0";
+            this.tbA2_speed.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbA2_speed.Visible = false;
             this.tbA2_speed.Click += new System.EventHandler(this.modeCheck);
             this.tbA2_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
@@ -1415,6 +1403,7 @@
             this.tbA1_angle.Size = new System.Drawing.Size(95, 33);
             this.tbA1_angle.TabIndex = 1;
             this.tbA1_angle.Text = "0";
+            this.tbA1_angle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbA1_angle.Click += new System.EventHandler(this.modeCheck);
             this.tbA1_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
@@ -1533,6 +1522,75 @@
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label23);
+            this.groupBox5.Controls.Add(this.tbFFUCloseRpm);
+            this.groupBox5.Controls.Add(this.tbFFUOpenRpm);
+            this.groupBox5.Controls.Add(this.label33);
+            this.groupBox5.Controls.Add(this.label28);
+            this.groupBox5.Location = new System.Drawing.Point(962, 68);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(270, 168);
+            this.groupBox5.TabIndex = 8;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "FFU";
+            // 
+            // tbFFUOpenRpm
+            // 
+            this.tbFFUOpenRpm.Location = new System.Drawing.Point(129, 59);
+            this.tbFFUOpenRpm.Name = "tbFFUOpenRpm";
+            this.tbFFUOpenRpm.Size = new System.Drawing.Size(109, 33);
+            this.tbFFUOpenRpm.TabIndex = 1;
+            this.tbFFUOpenRpm.Text = "0";
+            this.tbFFUOpenRpm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbFFUOpenRpm.Click += new System.EventHandler(this.modeCheck);
+            this.tbFFUOpenRpm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label23.Location = new System.Drawing.Point(157, 30);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(48, 24);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "轉速";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label28.Location = new System.Drawing.Point(37, 62);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(86, 24);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "一般狀況";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label33.Location = new System.Drawing.Point(37, 104);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(86, 24);
+            this.label33.TabIndex = 0;
+            this.label33.Text = "開門狀況";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // tbFFUCloseRpm
+            // 
+            this.tbFFUCloseRpm.Location = new System.Drawing.Point(129, 101);
+            this.tbFFUCloseRpm.Name = "tbFFUCloseRpm";
+            this.tbFFUCloseRpm.Size = new System.Drawing.Size(109, 33);
+            this.tbFFUCloseRpm.TabIndex = 1;
+            this.tbFFUCloseRpm.Text = "0";
+            this.tbFFUCloseRpm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbFFUCloseRpm.Click += new System.EventHandler(this.modeCheck);
+            this.tbFFUCloseRpm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            // 
             // FormRecipeSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -1575,6 +1633,8 @@
             this.tlpAccountMenu.ResumeLayout(false);
             this.palContainer.ResumeLayout(false);
             this.tlpAccount.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1666,8 +1726,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox gbRecipeHeader;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.TextBox tbEqpID;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.CheckBox cbActive;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox tbNotch_angle;
@@ -1685,5 +1743,11 @@
         private System.Windows.Forms.Label lblMode;
         private System.Windows.Forms.Button btnDeleteRecipe;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox tbFFUOpenRpm;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox tbFFUCloseRpm;
+        private System.Windows.Forms.Label label33;
     }
 }

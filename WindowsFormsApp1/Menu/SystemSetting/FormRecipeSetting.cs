@@ -137,7 +137,9 @@ namespace Adam.Menu.SystemSetting
             recipe.auto_get_constrict = cbAutoGetRule.Text;
             recipe.auto_proc_fin = cbAutoFin1.Text + cbAutoFin2.Text;
             recipe.auto_put_constrict = cbAutoPutRule.Text;
-            recipe.equip_id = tbEqpID.Text;
+            //recipe.equip_id = tbEqpID.Text;
+            recipe.ffu_rpm_close = tbFFUCloseRpm.Text;
+            recipe.ffu_rpm_open = tbFFUOpenRpm.Text;
             recipe.input_proc_fin = cbInputFin1.Text + cbInputFin2.Text + cbInputFin3.Text;
 
             recipe.manual_fin_unclamp = "Y";//固定Y
@@ -322,7 +324,10 @@ namespace Adam.Menu.SystemSetting
                 cbAutoFin1.SelectedItem = recipe.auto_proc_fin.Substring(0, 1);
                 cbAutoFin2.SelectedItem = recipe.auto_proc_fin.Substring(1, 1);
                 cbAutoPutRule.SelectedItem = recipe.auto_put_constrict;
-                tbEqpID.Text = recipe.equip_id;
+                //tbEqpID.Text = recipe.equip_id;
+
+                tbFFUCloseRpm.Text = recipe.ffu_rpm_close;
+                tbFFUOpenRpm.Text = recipe.ffu_rpm_open;
                 cbInputFin1.SelectedItem = recipe.input_proc_fin.Substring(0, 1);
                 cbInputFin2.SelectedItem = recipe.input_proc_fin.Substring(1, 1);
                 cbInputFin3.SelectedItem = recipe.input_proc_fin.Substring(2, 1);
