@@ -40,6 +40,12 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.gbRecipeBody = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.tbFFUCloseRpm = new System.Windows.Forms.TextBox();
+            this.tbFFUOpenRpm = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -131,17 +137,14 @@
             this.btnDeleteRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.tbFFUOpenRpm = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.tbFFUCloseRpm = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.tbMotionTimeout = new System.Windows.Forms.TextBox();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
             this.gbRecipeHeader.SuspendLayout();
             this.gbRecipeBody.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -156,7 +159,6 @@
             this.tlpAccountMenu.SuspendLayout();
             this.palContainer.SuspendLayout();
             this.tlpAccount.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // trvRecipe
@@ -281,11 +283,13 @@
             // 
             // gbRecipeBody
             // 
+            this.gbRecipeBody.Controls.Add(this.label37);
             this.gbRecipeBody.Controls.Add(this.groupBox5);
             this.gbRecipeBody.Controls.Add(this.label6);
             this.gbRecipeBody.Controls.Add(this.groupBox10);
             this.gbRecipeBody.Controls.Add(this.groupBox9);
             this.gbRecipeBody.Controls.Add(this.groupBox2);
+            this.gbRecipeBody.Controls.Add(this.tbMotionTimeout);
             this.gbRecipeBody.Controls.Add(this.lblMode);
             this.gbRecipeBody.Controls.Add(this.groupBox1);
             this.gbRecipeBody.Controls.Add(this.groupBox3);
@@ -296,6 +300,75 @@
             this.gbRecipeBody.Size = new System.Drawing.Size(1247, 531);
             this.gbRecipeBody.TabIndex = 8;
             this.gbRecipeBody.TabStop = false;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label23);
+            this.groupBox5.Controls.Add(this.tbFFUCloseRpm);
+            this.groupBox5.Controls.Add(this.tbFFUOpenRpm);
+            this.groupBox5.Controls.Add(this.label33);
+            this.groupBox5.Controls.Add(this.label28);
+            this.groupBox5.Location = new System.Drawing.Point(962, 68);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(270, 168);
+            this.groupBox5.TabIndex = 8;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "FFU";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label23.Location = new System.Drawing.Point(157, 30);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(48, 24);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "轉速";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // tbFFUCloseRpm
+            // 
+            this.tbFFUCloseRpm.Location = new System.Drawing.Point(129, 101);
+            this.tbFFUCloseRpm.Name = "tbFFUCloseRpm";
+            this.tbFFUCloseRpm.Size = new System.Drawing.Size(109, 33);
+            this.tbFFUCloseRpm.TabIndex = 1;
+            this.tbFFUCloseRpm.Text = "0";
+            this.tbFFUCloseRpm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbFFUCloseRpm.Click += new System.EventHandler(this.modeCheck);
+            this.tbFFUCloseRpm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            // 
+            // tbFFUOpenRpm
+            // 
+            this.tbFFUOpenRpm.Location = new System.Drawing.Point(129, 59);
+            this.tbFFUOpenRpm.Name = "tbFFUOpenRpm";
+            this.tbFFUOpenRpm.Size = new System.Drawing.Size(109, 33);
+            this.tbFFUOpenRpm.TabIndex = 1;
+            this.tbFFUOpenRpm.Text = "0";
+            this.tbFFUOpenRpm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbFFUOpenRpm.Click += new System.EventHandler(this.modeCheck);
+            this.tbFFUOpenRpm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label33.Location = new System.Drawing.Point(37, 104);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(86, 24);
+            this.label33.TabIndex = 0;
+            this.label33.Text = "開門狀況";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label28.Location = new System.Drawing.Point(37, 62);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(86, 24);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "一般狀況";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label6
             // 
@@ -1309,7 +1382,7 @@
             this.groupBox4.Controls.Add(this.tbA1_angle);
             this.groupBox4.Location = new System.Drawing.Point(6, 313);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(288, 147);
+            this.groupBox4.Size = new System.Drawing.Size(288, 96);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Aligner Setting";
@@ -1522,74 +1595,25 @@
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
             // 
-            // groupBox5
+            // label37
             // 
-            this.groupBox5.Controls.Add(this.label23);
-            this.groupBox5.Controls.Add(this.tbFFUCloseRpm);
-            this.groupBox5.Controls.Add(this.tbFFUOpenRpm);
-            this.groupBox5.Controls.Add(this.label33);
-            this.groupBox5.Controls.Add(this.label28);
-            this.groupBox5.Location = new System.Drawing.Point(962, 68);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(270, 168);
-            this.groupBox5.TabIndex = 8;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "FFU";
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(9, 436);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(128, 24);
+            this.label37.TabIndex = 9;
+            this.label37.Text = "動作逾時秒數:";
             // 
-            // tbFFUOpenRpm
+            // tbMotionTimeout
             // 
-            this.tbFFUOpenRpm.Location = new System.Drawing.Point(129, 59);
-            this.tbFFUOpenRpm.Name = "tbFFUOpenRpm";
-            this.tbFFUOpenRpm.Size = new System.Drawing.Size(109, 33);
-            this.tbFFUOpenRpm.TabIndex = 1;
-            this.tbFFUOpenRpm.Text = "0";
-            this.tbFFUOpenRpm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbFFUOpenRpm.Click += new System.EventHandler(this.modeCheck);
-            this.tbFFUOpenRpm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label23.Location = new System.Drawing.Point(157, 30);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(48, 24);
-            this.label23.TabIndex = 0;
-            this.label23.Text = "轉速";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label28.Location = new System.Drawing.Point(37, 62);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(86, 24);
-            this.label28.TabIndex = 0;
-            this.label28.Text = "一般狀況";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label33.Location = new System.Drawing.Point(37, 104);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(86, 24);
-            this.label33.TabIndex = 0;
-            this.label33.Text = "開門狀況";
-            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tbFFUCloseRpm
-            // 
-            this.tbFFUCloseRpm.Location = new System.Drawing.Point(129, 101);
-            this.tbFFUCloseRpm.Name = "tbFFUCloseRpm";
-            this.tbFFUCloseRpm.Size = new System.Drawing.Size(109, 33);
-            this.tbFFUCloseRpm.TabIndex = 1;
-            this.tbFFUCloseRpm.Text = "0";
-            this.tbFFUCloseRpm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbFFUCloseRpm.Click += new System.EventHandler(this.modeCheck);
-            this.tbFFUCloseRpm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbMotionTimeout.Location = new System.Drawing.Point(143, 429);
+            this.tbMotionTimeout.Name = "tbMotionTimeout";
+            this.tbMotionTimeout.Size = new System.Drawing.Size(109, 33);
+            this.tbMotionTimeout.TabIndex = 1;
+            this.tbMotionTimeout.Text = "10";
+            this.tbMotionTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbMotionTimeout.Click += new System.EventHandler(this.modeCheck);
+            this.tbMotionTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // FormRecipeSetting
             // 
@@ -1610,6 +1634,8 @@
             this.gbRecipeHeader.PerformLayout();
             this.gbRecipeBody.ResumeLayout(false);
             this.gbRecipeBody.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox9.ResumeLayout(false);
@@ -1633,8 +1659,6 @@
             this.tlpAccountMenu.ResumeLayout(false);
             this.palContainer.ResumeLayout(false);
             this.tlpAccount.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1749,5 +1773,7 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.TextBox tbFFUCloseRpm;
         private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TextBox tbMotionTimeout;
     }
 }

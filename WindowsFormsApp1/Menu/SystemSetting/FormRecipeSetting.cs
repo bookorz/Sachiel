@@ -171,6 +171,7 @@ namespace Adam.Menu.SystemSetting
             recipe.robot2_speed = tbR2Speed.Text.Equals("") ? "20" : Int32.Parse(tbR2Speed.Text).ToString();
 
             recipe.notch_angle = tbNotch_angle.Text.Equals("") ? "0" : Int32.Parse(tbNotch_angle.Text).ToString();
+            recipe.motion_timeout = tbMotionTimeout.Text;
 
             Recipe.Set(recipe.recipe_id, recipe);
 
@@ -326,6 +327,7 @@ namespace Adam.Menu.SystemSetting
                 cbAutoPutRule.SelectedItem = recipe.auto_put_constrict;
                 //tbEqpID.Text = recipe.equip_id;
 
+                tbMotionTimeout.Text = recipe.motion_timeout;
                 tbFFUCloseRpm.Text = recipe.ffu_rpm_close;
                 tbFFUOpenRpm.Text = recipe.ffu_rpm_open;
                 cbInputFin1.SelectedItem = recipe.input_proc_fin.Substring(0, 1);

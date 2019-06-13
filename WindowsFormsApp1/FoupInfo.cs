@@ -33,7 +33,11 @@ namespace Adam
         {
             try
             {
-                string fullPath = @"d:\log\foup\" + file_name;
+                //string fullPath = @"d:\log\foup\" + file_name;
+                string path = SystemConfig.Get().FoupTxfLogPath.Replace("\\","/");
+                path = path.EndsWith("/") ? path : path + "/" ;
+                string date = System.DateTime.Now.ToString("yyyyMMdd");
+                string fullPath = path + date  + "/" + file_name;
                 FileInfo fi = new FileInfo(fullPath);
                 if (!fi.Directory.Exists)
                 {
