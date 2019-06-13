@@ -16,7 +16,7 @@ namespace Adam
         static string filePath = "";
         static string bakPath = "";
 
-        private static void doWork(string srcPath, string destPath)
+        public static void doWork(string srcPath, string destPath)
         {
             if (isRun)
                 return;//如果正在執行中，跳過此次執行
