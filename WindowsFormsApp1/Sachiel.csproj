@@ -112,7 +112,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArchiveLog.cs" />
     <Compile Include="FormConfirm.cs">
       <SubType>Form</SubType>
     </Compile>

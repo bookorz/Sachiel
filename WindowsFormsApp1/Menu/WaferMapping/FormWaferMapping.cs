@@ -794,25 +794,24 @@ namespace Adam.Menu.WaferMapping
                           where wafer.NeedProcess
                           orderby Convert.ToInt16(wafer.Slot)
                           select wafer;
-
-                for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
-                {//重新排序目的地for雙Arm
-                    Job upper = LD_Jobs.ToList()[i];
-                    Job lower = LD_Jobs.ToList()[i - 1];
-                    if (upper.Destination.Equals(lower.Destination) && upper.NeedProcess && lower.NeedProcess && Math.Abs(Convert.ToInt16(upper.DestinationSlot)- Convert.ToInt16(lower.DestinationSlot))==1)
-                    {//目的地Slot相鄰 才進來
-                        string swapDes = upper.Destination;
-                        string swapSlot = upper.DestinationSlot;
-                        upper.AssignPort(lower.Destination, lower.DestinationSlot);
-                        lower.AssignPort(swapDes, swapSlot);
-                        logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
-                        logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
-                        logger.Debug("Reverse booktest2 ---------- ");
+                Node Rbt = NodeManagement.Get("ROBOT01");
+                if (Rbt.RArmActive && Rbt.LArmActive && Rbt.DoubleArmActive)
+                {
+                    for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
+                    {//重新排序目的地for雙Arm
+                        Job upper = LD_Jobs.ToList()[i];
+                        Job lower = LD_Jobs.ToList()[i - 1];
+                        if (upper.Destination.Equals(lower.Destination) && upper.NeedProcess && lower.NeedProcess && Math.Abs(Convert.ToInt16(upper.DestinationSlot) - Convert.ToInt16(lower.DestinationSlot)) == 1)
+                        {//目的地Slot相鄰 才進來
+                            string swapDes = upper.Destination;
+                            string swapSlot = upper.DestinationSlot;
+                            upper.AssignPort(lower.Destination, lower.DestinationSlot);
+                            lower.AssignPort(swapDes, swapSlot);
+                            logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
+                            logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
+                            logger.Debug("Reverse booktest2 ---------- ");
+                        }
                     }
-                    //else
-                    //{
-                    //    i--;
-                    //}
                 }
             }
             RefreshMap();
