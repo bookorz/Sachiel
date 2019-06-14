@@ -165,6 +165,7 @@ namespace Adam
                 BarcodeForm.Hide();
 
                 CurrentRecipe_lb.Text = SystemConfig.Get().CurrentRecipe;
+                ArchiveLog.doWork(@"D:\log\", @"D:\log_backup\");//自動壓縮LOG檔案
             }
             catch (Exception ex)
             {
