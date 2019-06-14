@@ -31,7 +31,10 @@ namespace Adam.UI_Update.IO
 
                 if (lb == null)
                 {
-                    lb = InsertDIO(Parameter, Type);
+                    lock (form)
+                    {
+                        lb = InsertDIO(Parameter, Type);
+                    }
                     UpdateDIO(Parameter, Value, Type);
                     return;
                 }

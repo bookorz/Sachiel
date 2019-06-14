@@ -54,6 +54,7 @@ namespace GUI
                                     Cb_LoadPortSelect.Text = node.Name;
                                 }
                                 Cb_LoadPortSelect.Items.Add(node.Name);
+                                Cb_LoadPortSelect.SelectedIndex=0;
                             }
                             break;
 
@@ -1321,7 +1322,7 @@ namespace GUI
             Node node = NodeManagement.Get(cbRA1Point.Text);
             if (node == null)
             {
-                MessageBox.Show(cbRA1Point.Text+" exist!");
+                //MessageBox.Show(cbRA1Point.Text+" exist!");
                 return;
             }
             switch (node.Type.ToUpper())
@@ -1355,7 +1356,7 @@ namespace GUI
             Node node = NodeManagement.Get(cbRA2Point.Text);
             if (node == null)
             {
-                MessageBox.Show(cbRA2Point.Text + " exist!");
+                //MessageBox.Show(cbRA2Point.Text + " exist!");
                 return;
             }
             switch (node.Type.ToUpper())
