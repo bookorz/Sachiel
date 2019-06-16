@@ -40,6 +40,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.gbRecipeBody = new System.Windows.Forms.GroupBox();
+            this.label37 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
             this.tbFFUCloseRpm = new System.Windows.Forms.TextBox();
@@ -105,6 +106,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.tbMotionTimeout = new System.Windows.Forms.TextBox();
             this.lblMode = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbOcrT7 = new System.Windows.Forms.TextBox();
@@ -137,8 +139,9 @@
             this.btnDeleteRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
-            this.label37 = new System.Windows.Forms.Label();
-            this.tbMotionTimeout = new System.Windows.Forms.TextBox();
+            this.cbUseRArm = new System.Windows.Forms.CheckBox();
+            this.cbUseLArm = new System.Windows.Forms.CheckBox();
+            this.cbUserBothArm = new System.Windows.Forms.CheckBox();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -301,6 +304,15 @@
             this.gbRecipeBody.TabIndex = 8;
             this.gbRecipeBody.TabStop = false;
             // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(9, 461);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(128, 24);
+            this.label37.TabIndex = 9;
+            this.label37.Text = "動作逾時秒數:";
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.label23);
@@ -375,7 +387,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label6.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label6.Location = new System.Drawing.Point(7, 481);
+            this.label6.Location = new System.Drawing.Point(7, 491);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(116, 31);
             this.label6.TabIndex = 0;
@@ -1190,13 +1202,24 @@
             this.label12.Text = "Port1";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // tbMotionTimeout
+            // 
+            this.tbMotionTimeout.Location = new System.Drawing.Point(143, 454);
+            this.tbMotionTimeout.Name = "tbMotionTimeout";
+            this.tbMotionTimeout.Size = new System.Drawing.Size(109, 33);
+            this.tbMotionTimeout.TabIndex = 1;
+            this.tbMotionTimeout.Text = "10";
+            this.tbMotionTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbMotionTimeout.Click += new System.EventHandler(this.modeCheck);
+            this.tbMotionTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            // 
             // lblMode
             // 
             this.lblMode.AutoSize = true;
             this.lblMode.BackColor = System.Drawing.Color.Yellow;
             this.lblMode.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblMode.ForeColor = System.Drawing.Color.Red;
-            this.lblMode.Location = new System.Drawing.Point(128, 481);
+            this.lblMode.Location = new System.Drawing.Point(128, 491);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(110, 31);
             this.lblMode.TabIndex = 0;
@@ -1306,9 +1329,12 @@
             this.groupBox3.Controls.Add(this.label30);
             this.groupBox3.Controls.Add(this.tbR2Speed);
             this.groupBox3.Controls.Add(this.tbR1Speed);
+            this.groupBox3.Controls.Add(this.cbUserBothArm);
+            this.groupBox3.Controls.Add(this.cbUseLArm);
+            this.groupBox3.Controls.Add(this.cbUseRArm);
             this.groupBox3.Location = new System.Drawing.Point(6, 237);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(288, 70);
+            this.groupBox3.Size = new System.Drawing.Size(288, 105);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Robot Speed Setting";
@@ -1380,7 +1406,7 @@
             this.groupBox4.Controls.Add(this.cbUseA2);
             this.groupBox4.Controls.Add(this.cbUseA1);
             this.groupBox4.Controls.Add(this.tbA1_angle);
-            this.groupBox4.Location = new System.Drawing.Point(6, 313);
+            this.groupBox4.Location = new System.Drawing.Point(6, 348);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(288, 96);
             this.groupBox4.TabIndex = 3;
@@ -1595,25 +1621,47 @@
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
             // 
-            // label37
+            // cbUseRArm
             // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(9, 436);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(128, 24);
-            this.label37.TabIndex = 9;
-            this.label37.Text = "動作逾時秒數:";
+            this.cbUseRArm.AutoSize = true;
+            this.cbUseRArm.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUseRArm.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUseRArm.Location = new System.Drawing.Point(5, 66);
+            this.cbUseRArm.Name = "cbUseRArm";
+            this.cbUseRArm.Size = new System.Drawing.Size(91, 28);
+            this.cbUseRArm.TabIndex = 4;
+            this.cbUseRArm.Text = "上臂(R)";
+            this.cbUseRArm.UseVisualStyleBackColor = true;
+            this.cbUseRArm.CheckedChanged += new System.EventHandler(this.cbUseRArm_CheckedChanged);
+            this.cbUseRArm.Click += new System.EventHandler(this.modeCheck);
             // 
-            // tbMotionTimeout
+            // cbUseLArm
             // 
-            this.tbMotionTimeout.Location = new System.Drawing.Point(143, 429);
-            this.tbMotionTimeout.Name = "tbMotionTimeout";
-            this.tbMotionTimeout.Size = new System.Drawing.Size(109, 33);
-            this.tbMotionTimeout.TabIndex = 1;
-            this.tbMotionTimeout.Text = "10";
-            this.tbMotionTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbMotionTimeout.Click += new System.EventHandler(this.modeCheck);
-            this.tbMotionTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.cbUseLArm.AutoSize = true;
+            this.cbUseLArm.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUseLArm.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUseLArm.Location = new System.Drawing.Point(102, 66);
+            this.cbUseLArm.Name = "cbUseLArm";
+            this.cbUseLArm.Size = new System.Drawing.Size(89, 28);
+            this.cbUseLArm.TabIndex = 4;
+            this.cbUseLArm.Text = "下臂(L)";
+            this.cbUseLArm.UseVisualStyleBackColor = true;
+            this.cbUseLArm.CheckedChanged += new System.EventHandler(this.cbUseLArm_CheckedChanged);
+            this.cbUseLArm.Click += new System.EventHandler(this.modeCheck);
+            // 
+            // cbUserBothArm
+            // 
+            this.cbUserBothArm.AutoSize = true;
+            this.cbUserBothArm.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUserBothArm.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUserBothArm.Location = new System.Drawing.Point(193, 66);
+            this.cbUserBothArm.Name = "cbUserBothArm";
+            this.cbUserBothArm.Size = new System.Drawing.Size(81, 28);
+            this.cbUserBothArm.TabIndex = 4;
+            this.cbUserBothArm.Text = "上+下";
+            this.cbUserBothArm.UseVisualStyleBackColor = true;
+            this.cbUserBothArm.CheckedChanged += new System.EventHandler(this.cbUserBothArm_CheckedChanged);
+            this.cbUserBothArm.Click += new System.EventHandler(this.modeCheck);
             // 
             // FormRecipeSetting
             // 
@@ -1775,5 +1823,8 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.TextBox tbMotionTimeout;
+        private System.Windows.Forms.CheckBox cbUserBothArm;
+        private System.Windows.Forms.CheckBox cbUseLArm;
+        private System.Windows.Forms.CheckBox cbUseRArm;
     }
 }

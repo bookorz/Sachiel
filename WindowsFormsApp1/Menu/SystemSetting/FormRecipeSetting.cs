@@ -173,6 +173,10 @@ namespace Adam.Menu.SystemSetting
             recipe.notch_angle = tbNotch_angle.Text.Equals("") ? "0" : Int32.Parse(tbNotch_angle.Text).ToString();
             recipe.motion_timeout = tbMotionTimeout.Text;
 
+            recipe.is_use_l_arm = cbUseLArm.Checked;
+            recipe.is_use_r_arm = cbUseRArm.Checked;
+            recipe.is_use_double_arm = cbUserBothArm.Checked;
+
             Recipe.Set(recipe.recipe_id, recipe);
 
             string CurrentRecipe = SystemConfig.Get().CurrentRecipe;
@@ -374,6 +378,10 @@ namespace Adam.Menu.SystemSetting
                 cbUseOcrT7.Checked = recipe.is_use_ocr_t7;
                 cbUseOcrM12.Checked = recipe.is_use_ocr_m12;
 
+                cbUseLArm.Checked = recipe.is_use_l_arm;
+                cbUseRArm.Checked = recipe.is_use_r_arm;
+                cbUserBothArm.Checked = recipe.is_use_double_arm;
+
                 tbOcrTTL.Text = recipe.ocr_ttl_config;
                 tbOcrT7.Text = recipe.ocr_t7_config;
                 tbOcrM12.Text = recipe.ocr_m12_config;
@@ -462,6 +470,41 @@ namespace Adam.Menu.SystemSetting
                 else
                 {
                     MessageBox.Show("Cancel.", "Notice");
+                }
+            }
+        }
+
+        private void cbUseRArm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Name.Equals("cbUseRArm"))
+            {
+                if (!cbUseRArm.Checked || !cbUseLArm.Checked)
+                {
+                    cbUserBothArm.Checked = false;
+                }
+            }
+        }
+
+        private void cbUseLArm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Name.Equals("cbUseLArm"))
+            {
+                if (!cbUseRArm.Checked || !cbUseLArm.Checked)
+                {
+                    cbUserBothArm.Checked = false;
+                }
+            }
+        }
+
+        private void cbUserBothArm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Name.Equals("cbUserBothArm"))
+            {
+                if (cbUserBothArm.Checked)
+                {
+                    cbUseRArm.Checked = true;
+                    cbUseLArm.Checked = true;
+                    cbUserBothArm.Checked = true;
                 }
             }
         }
