@@ -1,5 +1,4 @@
 ﻿using log4net;
-using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransferControl.Config;
 
 namespace Adam
 {

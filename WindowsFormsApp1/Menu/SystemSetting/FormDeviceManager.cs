@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Text;
 using System.Linq;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SANWA.Utility;
 using TransferControl.Management;
-using Adam.UI_Update.OCR;
 using log4net;
 using TransferControl.Controller;
 using GUI;
+using TransferControl.Config;
+using TransferControl.Comm;
 
 namespace Adam.Menu.SystemSetting
 {
@@ -24,7 +20,7 @@ namespace Adam.Menu.SystemSetting
             InitializeComponent();
         }
 
-        private SANWA.Utility.config_equipment_model equipment_Model = new SANWA.Utility.config_equipment_model();
+        //private SANWA.Utility.config_equipment_model equipment_Model = new SANWA.Utility.config_equipment_model();
         private DataTable dtConfigNode = new DataTable();
         private DataTable dtControllerTable = new DataTable();
         private static readonly ILog logger = LogManager.GetLogger(typeof(FormDeviceManager));
@@ -63,7 +59,7 @@ namespace Adam.Menu.SystemSetting
                             FROM config_node
                             WHERE equipment_model_id = @equipment_model_id
                             ORDER BY node_id";
-                keyValues.Add("@equipment_model_id", SANWA.Utility.Config.SystemConfig.Get().SystemMode);
+                keyValues.Add("@equipment_model_id", SystemConfig.Get().SystemMode);
                 dtConfigNode = dBUtil.GetDataTable(strSql, keyValues);
 
                 if (dtConfigNode.Rows.Count > 0)
@@ -196,7 +192,7 @@ namespace Adam.Menu.SystemSetting
                     MessageBox.Show("Node "+Setting_NodeName_lb.Text + " is not exist!");
                     return;
                 }
-                DeviceController currentController = ControllerManagement.Get(currentNode.Controller);
+                IController currentController = ControllerManagement.Get(currentNode.Controller);
                 if (currentController == null)
                 {
                     MessageBox.Show("Controller "+currentNode.Controller + " is not exist!");
@@ -217,7 +213,7 @@ namespace Adam.Menu.SystemSetting
                 currentNode.Mode = Setting_Mode_cb.Text;
                 strSql = @"UPDATE config_node SET enable_flg = @enable_flg ,carrier_type = @carrier_type, mode = @mode WHERE equipment_model_id = @equipment_model_id AND node_id = @node_id";
 
-                keyValues.Add("@equipment_model_id", equipment_Model.EquipmentModel.equipment_model_id);
+                keyValues.Add("@equipment_model_id", SystemConfig.Get().SystemMode);
                 keyValues.Add("@node_id", currentNode.Name);
                 keyValues.Add("@enable_flg", currentNode.Enable ? 1 : 0);
                 keyValues.Add("@carrier_type", currentNode.CarrierType);
@@ -226,16 +222,14 @@ namespace Adam.Menu.SystemSetting
                 dBUtil.ExecuteNonQuery(strSql, keyValues);
 
                 keyValues.Clear();
-                currentController.ConnectionType = Setting_connectType_cb.Text;
-                currentController.IPAdress = Setting_Address_tb.Text;
-                currentController.Port = Convert.ToInt32(Setting_Port_tb.Text);
+       
                 strSql = "UPDATE config_controller_setting SET conn_type = @conn_type, conn_address = @conn_address , conn_port = @conn_port WHERE equipment_model_id = @equipment_model_id AND device_name = @device_name";
 
-                keyValues.Add("@equipment_model_id", equipment_Model.EquipmentModel.equipment_model_id);
+                keyValues.Add("@equipment_model_id", SystemConfig.Get().SystemMode);
                 keyValues.Add("@device_name", currentNode.Controller);
-                keyValues.Add("@conn_type", currentController.ConnectionType);
+                keyValues.Add("@conn_type", Setting_connectType_cb.Text);
                 keyValues.Add("@conn_address", Setting_Address_tb.Text);
-                keyValues.Add("@conn_port", currentController.Port.ToString());
+                keyValues.Add("@conn_port", Setting_Port_tb.Text);
                 dBUtil.ExecuteNonQuery(strSql, keyValues);
 
 

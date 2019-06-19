@@ -1,18 +1,11 @@
 using Adam.UI_Update.Barcode;
-using Adam.UI_Update.Monitoring;
-using Adam.UI_Update.WaferMapping;
-using Adam.Util;
 using log4net;
-using SANWA.Utility.Config;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
+using TransferControl.Config;
 using TransferControl.Management;
 using TransferControl.Operation;
 

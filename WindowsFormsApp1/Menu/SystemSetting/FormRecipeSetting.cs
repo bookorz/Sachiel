@@ -1,8 +1,5 @@
 ﻿using Adam.UI_Update.Layout;
 using GUI;
-using SANWA;
-using SANWA.Utility;
-using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TransferControl.Config;
 
 namespace Adam.Menu.SystemSetting
 {

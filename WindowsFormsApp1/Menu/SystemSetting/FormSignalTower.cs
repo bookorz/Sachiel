@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using SANWA.Utility;
 using System.Linq;
 using Adam.UI_Update.Monitoring;
 using GUI;
+using TransferControl.Comm;
 
 namespace Adam.Menu.SystemSetting
 {

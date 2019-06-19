@@ -1,19 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using Adam.Util;
-using System.Linq;
-using System.IO.Ports;
-using System.Diagnostics;
-using SANWA.Utility;
-using Newtonsoft.Json;
-using SANWA.Utility.Config;
-using TransferControl.Management;
-using TransferControl.Controller;
 
 
 namespace Adam.Menu.Communications

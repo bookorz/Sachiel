@@ -1,14 +1,6 @@
-﻿using SANWA;
-using SANWA.Utility.Config;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using TransferControl.Config;
 
 namespace Adam.Menu.SystemSetting
 {
@@ -88,8 +80,7 @@ namespace Adam.Menu.SystemSetting
 
         private void btnCodeSetting_Click(object sender, EventArgs e)
         {
-            FormCodeSetting form = new FormCodeSetting();
-            AddForm(form);
+            
         }
 
         private void tbpDIOSetting_Click(object sender, EventArgs e)

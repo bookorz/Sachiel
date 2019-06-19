@@ -30,8 +30,8 @@ namespace Adam
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer13 = new System.Windows.Forms.SplitContainer();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
             this.btnChangeRecipe = new System.Windows.Forms.Button();
@@ -119,6 +119,7 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
+            this.Demo_mode_ck = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -219,6 +220,7 @@ namespace Adam
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.Demo_mode_ck);
             this.groupBox5.Controls.Add(this.CDAAlarm_Signal);
             this.groupBox5.Controls.Add(this.EQP_State);
             this.groupBox5.Controls.Add(this.Stop_btn);
@@ -418,21 +420,21 @@ namespace Adam
             this.Conn_gv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Conn_gv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Conn_gv.ColumnHeadersVisible = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微軟正黑體", 12F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Conn_gv.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 12F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Conn_gv.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.Conn_gv, "Conn_gv");
             this.Conn_gv.MultiSelect = false;
             this.Conn_gv.Name = "Conn_gv";
             this.Conn_gv.ReadOnly = true;
             this.Conn_gv.RowHeadersVisible = false;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Conn_gv.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Conn_gv.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.Conn_gv.RowTemplate.Height = 24;
             this.Conn_gv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.Conn_gv.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Conn_gv_CellFormatting);
@@ -871,6 +873,13 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
+            // Demo_mode_ck
+            // 
+            resources.ApplyResources(this.Demo_mode_ck, "Demo_mode_ck");
+            this.Demo_mode_ck.Name = "Demo_mode_ck";
+            this.Demo_mode_ck.UseVisualStyleBackColor = true;
+            this.Demo_mode_ck.CheckedChanged += new System.EventHandler(this.Demo_mode_ck_CheckedChanged);
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -888,6 +897,7 @@ namespace Adam
             this.groupBox54.PerformLayout();
             this.groupBox19.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1000,6 +1010,7 @@ namespace Adam
         private System.Windows.Forms.Label CurrentRecipe_lb;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnChangeRecipe;
+        private System.Windows.Forms.CheckBox Demo_mode_ck;
     }
 }
 

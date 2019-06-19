@@ -1,18 +1,11 @@
-﻿using Adam.UI_Update.Authority;
-using Adam.Util;
-using log4net;
-using SANWA;
-using SANWA.Utility;
+﻿using log4net;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using TransferControl.Comm;
+using TransferControl.Config;
 
 namespace GUI
 {

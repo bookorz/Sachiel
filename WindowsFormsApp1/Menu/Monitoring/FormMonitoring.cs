@@ -1,6 +1,4 @@
 ﻿using Adam.UI_Update.Barcode;
-using SANWA;
-using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TransferControl.Config;
 using TransferControl.Engine;
 using TransferControl.Management;
 

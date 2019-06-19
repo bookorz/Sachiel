@@ -1,11 +1,9 @@
-using SANWA.Utility;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using TransferControl.Engine;
 using TransferControl.Management;
-using TransferControl.Parser;
 using log4net.Config;
 using Adam.UI_Update.Monitoring;
 using log4net;
@@ -19,20 +17,16 @@ using Adam.UI_Update.Alarm;
 using GUI;
 using Adam.UI_Update.Running;
 using System.Linq;
-using System.Collections.Concurrent;
 using Adam.Util;
-
-
-using System.Security.Cryptography;
-using System.Text;
-using SANWA.Utility.Config;
 using TransferControl.Operation;
 using Adam.UI_Update.DifferentialMonitor;
 using Adam.UI_Update.Barcode;
 using Adam.UI_Update.IO;
 using Adam.Menu.WaferMapping;
 using System.Diagnostics;
-using SANWA;
+using TransferControl.CommandConvert;
+using TransferControl.Comm;
+using TransferControl.Config;
 
 namespace Adam
 {
@@ -64,6 +58,8 @@ namespace Adam
         public static bool Initial = false;
         bool Initializing = false;
         public static string RunMode = "";
+        bool DemoMode = false;
+        string DemoLD = "";
 
         public FormMain()
         {
@@ -108,16 +104,22 @@ namespace Adam
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var HST = (from prs in Process.GetProcessesByName("VB9BReaderForm").OfType<Process>().ToList()
-                       where prs.MainWindowTitle.Equals("Wafer Reader Version 4.3.1.0")
-                       select prs);
-            if (HST.Count() == 0)
-            {
-                MessageBox.Show("請先開啟HST OCR程式!");
-                this.Close();
-                return;
-            }
 
+            var hstOcr = from node in NodeManagement.GetList()
+                      where node.Type.ToUpper().Equals("OCR") && node.Brand.ToUpper().Equals("HST")
+                      select node;
+            if (hstOcr.Count() != 0)
+            {
+                var HST = (from prs in Process.GetProcessesByName("VB9BReaderForm").OfType<Process>().ToList()
+                           where prs.MainWindowTitle.Contains("Wafer Reader Version")
+                           select prs);
+                if (HST.Count() == 0)
+                {
+                    MessageBox.Show("請先開啟HST OCR程式!");
+                    this.Close();
+                    return;
+                }
+            }
             Int32 oldWidth = this.Width;
             Int32 oldHeight = this.Height;
 
@@ -165,7 +167,7 @@ namespace Adam
                 BarcodeForm.Hide();
 
                 CurrentRecipe_lb.Text = SystemConfig.Get().CurrentRecipe;
-                
+
             }
             catch (Exception ex)
             {
@@ -362,8 +364,7 @@ namespace Adam
 
         private void terminalToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            FormTerminal formTerminal = new FormTerminal();
-            formTerminal.ShowDialog();
+            
         }
 
         private void btnTeach_Click(object sender, EventArgs e)
@@ -401,7 +402,7 @@ namespace Adam
 
 
 
-        public void On_Command_Excuted(Node Node, Transaction Txn, ReturnMessage Msg)
+        public void On_Command_Excuted(Node Node, Transaction Txn, CommandReturnMessage Msg)
         {
             logger.Debug("On_Command_Excuted");
             //string Message = "";
@@ -491,7 +492,7 @@ namespace Adam
                                     break;
                             }
                             break;
-                            
+
                             //case Transaction.Command.AlignerType.GetError:
 
                             //    break;
@@ -620,7 +621,7 @@ namespace Adam
             }
         }
 
-        public void On_Command_Error(Node Node, Transaction Txn, ReturnMessage Msg)
+        public void On_Command_Error(Node Node, Transaction Txn, CommandReturnMessage Msg)
         {
 
             logger.Debug("On_Command_Error");
@@ -662,7 +663,7 @@ namespace Adam
             //RunMode = "";
         }
 
-        public void On_Command_Finished(Node Node, Transaction Txn, ReturnMessage Msg)
+        public void On_Command_Finished(Node Node, Transaction Txn, CommandReturnMessage Msg)
         {
             logger.Debug("On_Command_Finished");
             //Transaction txn = new Transaction();
@@ -789,7 +790,7 @@ namespace Adam
             AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
         }
 
-        public void On_Event_Trigger(Node Node, ReturnMessage Msg)
+        public void On_Event_Trigger(Node Node, CommandReturnMessage Msg)
         {
             logger.Debug("On_Event_Trigger");
             string TaskName = "";
@@ -1027,22 +1028,24 @@ namespace Adam
                             //RouteControl.Instance.TaskJob.ForceFinishTask(TaskName);
 
                             Node ffu = NodeManagement.Get("FFU01");
-
-                            string Message = "";
-                            Dictionary<string, string> param1 = new Dictionary<string, string>();
-                            param1.Add("@Target", ffu.Name);
-                            if (Value.ToUpper().Equals("TRUE"))
+                            if (ffu != null)
                             {
-                                param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
-                                DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
+                                string Message = "";
+                                Dictionary<string, string> param1 = new Dictionary<string, string>();
+                                param1.Add("@Target", ffu.Name);
+                                if (Value.ToUpper().Equals("TRUE"))
+                                {
+                                    param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
+                                    DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
+                                }
+                                else
+                                {
+                                    param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
+                                    DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
+                                }
+                                TaskJobManagment.CurrentProceedTask tmpTask;
+                                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
                             }
-                            else
-                            {
-                                param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
-                                DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
-                            }
-                            TaskJobManagment.CurrentProceedTask tmpTask;
-                            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
                             break;
                     }
                     break;
@@ -1398,7 +1401,7 @@ namespace Adam
             {
 
 
-                if (Start )
+                if (Start)
                 {
                     tbcMain.SelectTab("tabMonitor");
                     MessageBox.Show("Please switch to STOP");
@@ -1410,7 +1413,7 @@ namespace Adam
                 }
                 else
                 {
-                    foreach(Job j in JobManagement.GetJobList())
+                    foreach (Job j in JobManagement.GetJobList())
                     {
                         j.IsAssigned = false;
                         j.UnAssignPort();
@@ -1717,7 +1720,7 @@ namespace Adam
                     foreach (Job eachJob in JobManagement.GetJobList())
                     {
                         eachJob.InProcess = false;
-                        if(eachJob.Position.ToUpper().Equals("ROBOT01")|| eachJob.Position.ToUpper().Equals("ALIGNER01"))
+                        if (eachJob.Position.ToUpper().Equals("ROBOT01") || eachJob.Position.ToUpper().Equals("ALIGNER01"))
                         {
                             JobManagement.Remove(eachJob.Job_Id);
                             Node pos = NodeManagement.Get(eachJob.Position);
@@ -1730,7 +1733,7 @@ namespace Adam
                         }
                     }
 
-                    
+
                     Initial = true;
                     Initializing = false;
                     break;
@@ -1778,18 +1781,19 @@ namespace Adam
             Node result = null;
             if (RunMode.Equals("FULLAUTO"))
             {
-                var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
-                                     where OPEN.Mode.Equals("LD") && OPEN.IsMapping
-                                     orderby OPEN.LoadTime
-                                     from wafer in OPEN.JobList.Values
-                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
-                                     select OPEN;
-                if (AvailableOPENs.Count() != 0)
-                {
-                    //List<Node> OPENS = AvailableOPENs.ToList();
-                    //OPENS.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
-                    result = AvailableOPENs.First();
-                }
+                    var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
+                                         where OPEN.Mode.Equals("LD") && OPEN.IsMapping
+                                         orderby OPEN.LoadTime
+                                         from wafer in OPEN.JobList.Values
+                                         where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
+                                         select OPEN;
+                    if (AvailableOPENs.Count() != 0)
+                    {
+                        //List<Node> OPENS = AvailableOPENs.ToList();
+                        //OPENS.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
+                        result = AvailableOPENs.First();
+                    }
+                
             }
             else if (RunMode.Equals("SEMIAUTO"))
             {
@@ -1814,7 +1818,7 @@ namespace Adam
                 DIOUpdate.UpdateControlButton("Stop_btn", false);
                 DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                 DIOUpdate.UpdateControlButton("Mode_btn", true);
-               // MessageBox.Show("Transfer finished");
+                // MessageBox.Show("Transfer finished");
                 Start = false;
             }
             return result;
@@ -1899,7 +1903,8 @@ namespace Adam
                               orderby Convert.ToInt16(wafer.Slot)
                               select wafer;
                     Node Rbt = NodeManagement.Get("ROBOT01");
-                    if (Rbt.RArmActive && Rbt.LArmActive && Rbt.DoubleArmActive) {
+                    if (Rbt.RArmActive && Rbt.LArmActive && Rbt.DoubleArmActive)
+                    {
                         for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
                         {//重新排序目的地for雙Arm
                             Job upper = LD_Jobs.ToList()[i];
@@ -1915,7 +1920,7 @@ namespace Adam
                                 logger.Debug("Reverse booktest ---------- ");
                             }
                         }
-                        
+
                     }
                     var NeedProcessSlot = from wafer in LD_Jobs
                                           where wafer.NeedProcess
@@ -1980,7 +1985,7 @@ namespace Adam
         public static bool cycleRun = false;
         public void On_Transfer_Complete(XfeCrossZone xfe)
         {
-            
+
 
             MonitoringUpdate.UpdateWPH((xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
 
@@ -2464,12 +2469,38 @@ namespace Adam
             else
             {
                 RunMode = "SEMIAUTO";
-                
+
             }
             foreach (Job j in JobManagement.GetJobList())
             {
                 j.AbortProcess = false;
 
+            }
+            if (DemoMode)
+            {
+                var AvailableFoups = from Foup in NodeManagement.GetLoadPortList()
+                                     orderby Foup.Name
+                                     from wafer in Foup.JobList.Values
+                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
+                                     select Foup;
+                if (AvailableFoups.Count() != 0)
+                {
+                    foreach(Node port in NodeManagement.GetLoadPortList())
+                    {
+                        if (port.Enable)
+                        {
+                            if (port.Name.ToUpper().Equals(AvailableFoups.First().Name.ToUpper()))
+                            {
+                                port.Mode = "LD";
+                                DemoLD = port.Name;
+                            }
+                            else
+                            {
+                                port.Mode = "ULD";
+                            }
+                        }
+                    }
+                }
             }
             Node ld = SearchLoadport();
             if (ld != null)
@@ -2481,8 +2512,8 @@ namespace Adam
         private void Stop_btn_Click(object sender, EventArgs e)
         {
             Start = false;
-            
-            
+
+
 
             foreach (Job j in JobManagement.GetJobList())
             {
@@ -2542,6 +2573,9 @@ namespace Adam
             }
         }
 
-     
+        private void Demo_mode_ck_CheckedChanged(object sender, EventArgs e)
+        {
+            DemoMode = Demo_mode_ck.Checked;
+        }
     }
 }

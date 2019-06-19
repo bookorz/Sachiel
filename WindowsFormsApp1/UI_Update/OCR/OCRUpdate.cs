@@ -1,6 +1,4 @@
 ﻿using log4net;
-using SANWA.Utility;
-using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +10,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TransferControl.Comm;
+using TransferControl.Config;
 using TransferControl.Engine;
 using TransferControl.Management;
 
@@ -115,7 +115,7 @@ namespace Adam.UI_Update.OCR
                                         info += " Score:0";
                                     }
                                     Tb_OCRRead.Text = info;
-                                    FTP ftp = new FTP(OCR.GetController().GetConfig().IPAdress, "21","","admin","");
+                                    FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21","","admin","");
                                     string imgPath = ftp.Get("image.jpg", FileName, save);
                                     PictureBox Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
                                     if (Pic_OCR == null)
@@ -252,7 +252,7 @@ namespace Adam.UI_Update.OCR
                                         info += " Score:0";
                                     }
                                     Tb_OCRRead.Text = info;
-                                    FTP ftp = new FTP(OCR.GetController().GetConfig().IPAdress, "21", "", "admin", "");
+                                    FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21", "", "admin", "");
                                     string imgPath = ftp.Get("image.jpg", FileName, save);
                                     PictureBox Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
                                     if (Pic_OCR == null)
@@ -389,7 +389,7 @@ namespace Adam.UI_Update.OCR
                                         info += " Score:0";
                                     }
                                     Tb_OCRRead.Text = info;
-                                    FTP ftp = new FTP(OCR.GetController().GetConfig().IPAdress, "21", "", "admin", "");
+                                    FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21", "", "admin", "");
                                     string imgPath = ftp.Get("image.jpg", FileName, save);
                                     PictureBox Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
                                     if (Pic_OCR == null)

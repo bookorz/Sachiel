@@ -1,13 +1,12 @@
 ﻿using log4net;
-using SANWA;
-using SANWA.Utility;
-using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TransferControl.Comm;
+using TransferControl.Config;
 using TransferControl.Management;
 
 namespace Adam.UI_Update.Layout

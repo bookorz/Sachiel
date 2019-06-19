@@ -1,6 +1,4 @@
 ﻿using log4net;
-using SANWA.Utility;
-using SANWA.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,6 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TransferControl.Comm;
+using TransferControl.Config;
 using TransferControl.Management;
 
 namespace Adam.UI_Update.Manual
@@ -135,7 +135,7 @@ namespace Adam.UI_Update.Manual
                                     info += " Score:0";
                                 }
                                 tb.Text = info;
-                                FTP ftp = new FTP(OCR.GetController().GetConfig().IPAdress, "21", "", "admin", "");
+                                FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21", "", "admin", "");
                                
                                 PictureBox Pic_OCR = manual.Controls.Find("OCR_Pic", true).FirstOrDefault() as PictureBox;
                                 if (Pic_OCR == null)
@@ -232,7 +232,7 @@ namespace Adam.UI_Update.Manual
                                 info += " Score:0";
                             }
                             tb.Text = info;
-                            FTP ftp = new FTP(OCR.GetController().GetConfig().IPAdress, "21", "", "admin", "");
+                            FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21", "", "admin", "");
 
                             PictureBox Pic_OCR = manual.Controls.Find("OCR_Pic", true).FirstOrDefault() as PictureBox;
                             if (Pic_OCR == null)
@@ -329,7 +329,7 @@ namespace Adam.UI_Update.Manual
                                 info += " Score:0";
                             }
                             tb.Text = info;
-                            FTP ftp = new FTP(OCR.GetController().GetConfig().IPAdress, "21", "", "admin", "");
+                            FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21", "", "admin", "");
 
                             PictureBox Pic_OCR = manual.Controls.Find("OCR_Pic", true).FirstOrDefault() as PictureBox;
                             if (Pic_OCR == null)
