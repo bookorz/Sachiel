@@ -73,7 +73,7 @@ namespace Adam
             //RouteCtrl = new RouteControl(this, HostControl);
 
 
-            RouteCtrl = new RouteControl(this, null);
+            RouteCtrl = new RouteControl(this);
             AlmMapping = new AlarmMapping();
 
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -2151,16 +2151,17 @@ namespace Adam
                                 break;
                         }
 
-                        string TaskName = "LOADPORT_CLOSE_NOMAP";
-                        string Message = "";
-                        Dictionary<string, string> param1 = new Dictionary<string, string>();
-                        param1.Add("@Target", Port.Name);
-                        TaskJobManagment.CurrentProceedTask tmpTask;
-                        RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                        
 
 
                     }
                 }
+                string TaskName = "LOADPORT_CLOSE_NOMAP";
+                string Message = "";
+                Dictionary<string, string> param1 = new Dictionary<string, string>();
+                param1.Add("@Target", Port.Name);
+                TaskJobManagment.CurrentProceedTask tmpTask;
+                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
             }
             catch (Exception e)
             {
@@ -2303,17 +2304,17 @@ namespace Adam
                                     // }).Start();
                                     break;
                             }
-                            string TaskName = "LOADPORT_CLOSE_NOMAP";
-                            string Message = "";
-                            Dictionary<string, string> param1 = new Dictionary<string, string>();
-                            param1.Add("@Target", Port.Name);
-                            TaskJobManagment.CurrentProceedTask tmpTask;
-                            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                            
 
 
                         }
                     }
-
+                    string TaskName = "LOADPORT_CLOSE_NOMAP";
+                    string Message = "";
+                    Dictionary<string, string> param1 = new Dictionary<string, string>();
+                    param1.Add("@Target", Port.Name);
+                    TaskJobManagment.CurrentProceedTask tmpTask;
+                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
                 }
                 else
                 {
@@ -2433,6 +2434,7 @@ namespace Adam
 
         private void ALL_INIT_btn_Click(object sender, EventArgs e)
         {
+            DIOUpdate.UpdateControlButton("Start_btn", false);
             Recipe recipe = Recipe.Get(SystemConfig.Get().CurrentRecipe);
             string TaskName = "SORTER_INIT";
             string Message = "";
@@ -2576,6 +2578,21 @@ namespace Adam
         private void Demo_mode_ck_CheckedChanged(object sender, EventArgs e)
         {
             DemoMode = Demo_mode_ck.Checked;
+        }
+
+        public void On_TaskJob_Ack(TaskJobManagment.CurrentProceedTask Task)
+        {
+            
+        }
+
+        public void On_Message_Log(string Type, string Message)
+        {
+           
+        }
+
+        public void On_Status_Changed(string Type, string Message)
+        {
+            
         }
     }
 }

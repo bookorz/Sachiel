@@ -61,7 +61,7 @@ namespace Adam
                     string[] column = record[i].getData();
                     for (int j = 0; j < column.Length; j++)
                     {
-                        string str = column[j].ToString();
+                        string str = column[j] == null ? "" : column[j].ToString();
                         str = string.Format("\"{0}\"", str).Replace("\r", "\\r").Replace("\n", "\\n");
                         data += str;
                         data += ",";

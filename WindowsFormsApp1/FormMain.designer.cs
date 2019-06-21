@@ -42,6 +42,7 @@ namespace Adam
             this.Connection_btn = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Demo_mode_ck = new System.Windows.Forms.CheckBox();
             this.CDAAlarm_Signal = new System.Windows.Forms.Button();
             this.EQP_State = new System.Windows.Forms.Button();
             this.Stop_btn = new System.Windows.Forms.Button();
@@ -119,7 +120,6 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.Demo_mode_ck = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -236,6 +236,13 @@ namespace Adam
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
+            // 
+            // Demo_mode_ck
+            // 
+            resources.ApplyResources(this.Demo_mode_ck, "Demo_mode_ck");
+            this.Demo_mode_ck.Name = "Demo_mode_ck";
+            this.Demo_mode_ck.UseVisualStyleBackColor = true;
+            this.Demo_mode_ck.CheckedChanged += new System.EventHandler(this.Demo_mode_ck_CheckedChanged);
             // 
             // CDAAlarm_Signal
             // 
@@ -872,13 +879,6 @@ namespace Adam
             this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            // 
-            // Demo_mode_ck
-            // 
-            resources.ApplyResources(this.Demo_mode_ck, "Demo_mode_ck");
-            this.Demo_mode_ck.Name = "Demo_mode_ck";
-            this.Demo_mode_ck.UseVisualStyleBackColor = true;
-            this.Demo_mode_ck.CheckedChanged += new System.EventHandler(this.Demo_mode_ck_CheckedChanged);
             // 
             // FormMain
             // 
