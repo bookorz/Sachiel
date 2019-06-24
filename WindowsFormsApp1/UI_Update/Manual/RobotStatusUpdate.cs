@@ -18,6 +18,7 @@ namespace Adam.UI_Update.Manual
         delegate void UpdateGUI_D(Transaction txn, string name, string msg);
         delegate void UpdateStatus_D(string device);
         delegate void UpdateRobotStatus_D(string name, string status);
+        //static AlarmMapping AlmMappin = new AlarmMapping();
 
         public static void UpdateGUI(Transaction txn, string name, string msg)
         {
@@ -206,6 +207,12 @@ namespace Adam.UI_Update.Manual
                 if (tbRError != null)
                 {
                     tbRError.Text = robot.Error;
+                }
+                Control tbRErrorMsg = manual.Controls.Find("tbRErrorMsg", true).FirstOrDefault() as Control;
+                if (tbRErrorMsg != null)
+                {
+                    //AlarmMessage Detail = AlmMappin.Get("ROBOT01", robot.Error);
+                    //tbRErrorMsg.Text = Detail.Code_Cause_English;
                 }
                 ComboBox cbRMode = manual.Controls.Find("cbRMode", true).FirstOrDefault() as ComboBox;
                 if (cbRMode != null)

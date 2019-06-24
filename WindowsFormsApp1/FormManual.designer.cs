@@ -72,6 +72,7 @@
             this.groupBox21 = new System.Windows.Forms.GroupBox();
             this.panel13 = new System.Windows.Forms.Panel();
             this.pnlRobotStatus = new System.Windows.Forms.Panel();
+            this.label20 = new System.Windows.Forms.Label();
             this.btnRLVacuOff = new System.Windows.Forms.Button();
             this.RobotConnect_btn = new System.Windows.Forms.Button();
             this.btnRLVacuOn = new System.Windows.Forms.Button();
@@ -84,6 +85,7 @@
             this.btnRRVacuOff = new System.Windows.Forms.Button();
             this.btnRRetract = new System.Windows.Forms.Button();
             this.btnRRVacuOn = new System.Windows.Forms.Button();
+            this.tbRErrorMsg = new System.Windows.Forms.TextBox();
             this.tbRError = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -1004,6 +1006,7 @@
             // pnlRobotStatus
             // 
             this.pnlRobotStatus.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlRobotStatus.Controls.Add(this.label20);
             this.pnlRobotStatus.Controls.Add(this.btnRLVacuOff);
             this.pnlRobotStatus.Controls.Add(this.RobotConnect_btn);
             this.pnlRobotStatus.Controls.Add(this.btnRLVacuOn);
@@ -1016,6 +1019,7 @@
             this.pnlRobotStatus.Controls.Add(this.btnRRVacuOff);
             this.pnlRobotStatus.Controls.Add(this.btnRRetract);
             this.pnlRobotStatus.Controls.Add(this.btnRRVacuOn);
+            this.pnlRobotStatus.Controls.Add(this.tbRErrorMsg);
             this.pnlRobotStatus.Controls.Add(this.tbRError);
             this.pnlRobotStatus.Controls.Add(this.label25);
             this.pnlRobotStatus.Controls.Add(this.label26);
@@ -1043,6 +1047,15 @@
             this.pnlRobotStatus.Name = "pnlRobotStatus";
             this.pnlRobotStatus.Size = new System.Drawing.Size(629, 715);
             this.pnlRobotStatus.TabIndex = 18;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(36, 658);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(175, 30);
+            this.label20.TabIndex = 120;
+            this.label20.Text = "Error Message";
             // 
             // btnRLVacuOff
             // 
@@ -1206,13 +1219,22 @@
             this.btnRRVacuOn.UseVisualStyleBackColor = false;
             this.btnRRVacuOn.Click += new System.EventHandler(this.RobotFunction_Click);
             // 
+            // tbRErrorMsg
+            // 
+            this.tbRErrorMsg.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbRErrorMsg.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbRErrorMsg.Location = new System.Drawing.Point(224, 658);
+            this.tbRErrorMsg.Name = "tbRErrorMsg";
+            this.tbRErrorMsg.Size = new System.Drawing.Size(390, 32);
+            this.tbRErrorMsg.TabIndex = 114;
+            this.tbRErrorMsg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // tbRError
             // 
             this.tbRError.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tbRError.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbRError.Location = new System.Drawing.Point(224, 667);
+            this.tbRError.Location = new System.Drawing.Point(224, 612);
             this.tbRError.Name = "tbRError";
-            this.tbRError.ReadOnly = true;
             this.tbRError.Size = new System.Drawing.Size(243, 32);
             this.tbRError.TabIndex = 114;
             this.tbRError.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1222,7 +1244,7 @@
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("微軟正黑體", 18F);
             this.label25.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label25.Location = new System.Drawing.Point(92, 667);
+            this.label25.Location = new System.Drawing.Point(92, 612);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(119, 30);
             this.label25.TabIndex = 113;
@@ -1274,7 +1296,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label24.Location = new System.Drawing.Point(38, 606);
+            this.label24.Location = new System.Drawing.Point(38, 551);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(173, 30);
             this.label24.TabIndex = 102;
@@ -1305,7 +1327,7 @@
             this.btnRReset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRReset.Font = new System.Drawing.Font("微軟正黑體", 14.25F);
             this.btnRReset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnRReset.Location = new System.Drawing.Point(488, 656);
+            this.btnRReset.Location = new System.Drawing.Point(488, 601);
             this.btnRReset.Name = "btnRReset";
             this.btnRReset.Size = new System.Drawing.Size(126, 46);
             this.btnRReset.TabIndex = 108;
@@ -1344,7 +1366,7 @@
             this.btnRChgMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRChgMode.Font = new System.Drawing.Font("微軟正黑體", 14.25F);
             this.btnRChgMode.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnRChgMode.Location = new System.Drawing.Point(488, 603);
+            this.btnRChgMode.Location = new System.Drawing.Point(488, 548);
             this.btnRChgMode.Name = "btnRChgMode";
             this.btnRChgMode.Size = new System.Drawing.Size(126, 46);
             this.btnRChgMode.TabIndex = 104;
@@ -1359,7 +1381,7 @@
             this.cbRMode.Items.AddRange(new object[] {
             "Normal",
             "Dry Mode"});
-            this.cbRMode.Location = new System.Drawing.Point(224, 603);
+            this.cbRMode.Location = new System.Drawing.Point(224, 548);
             this.cbRMode.Name = "cbRMode";
             this.cbRMode.Size = new System.Drawing.Size(248, 38);
             this.cbRMode.TabIndex = 103;
@@ -4858,5 +4880,7 @@
         private System.Windows.Forms.TextBox Aligner01Connection_tb;
         private System.Windows.Forms.Label label6;
         internal System.Windows.Forms.Button Btn_LOrg;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox tbRErrorMsg;
     }
 }
