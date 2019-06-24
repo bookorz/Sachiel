@@ -48,7 +48,7 @@ namespace Adam
                 StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8);
                 string data = "";
                 //寫出列名稱
-                data = "from_port,from_id,from_slot,to_port_id,to_id,to_slot,t7,m12,start_datedime,end_datetime,load_datetime,unload_datetime,recipe_file,login_user";
+                data = "from_port,from_id,from_slot,to_port_id,to_id,to_slot,t7,t7_score,m12,m12_score,start_datedime,end_datetime,load_datetime,unload_datetime,recipe_file,login_user";
                 sw.WriteLine(data);
                 //寫出各行數據
                 for (int i = 0; i < record.Length; i++)
@@ -89,7 +89,9 @@ namespace Adam
         string to_id;
         string to_slot;
         string t7;
+        string t7_score;
         string m12;
+        string m12_score;
         string start_datetime;
         string end_datetime;
         string load_datetime;
@@ -97,7 +99,7 @@ namespace Adam
 
         public string[] getData()
         {
-            return new string[] { from_port, from_id, from_slot, to_port_id, to_id, to_slot, t7, m12, start_datetime, end_datetime, load_datetime, unload_datetime };
+            return new string[] { from_port, from_id, from_slot, to_port_id, to_id, to_slot, t7, t7_score, m12, m12_score, start_datetime, end_datetime, load_datetime, unload_datetime };
         }
         public waferInfo(string from_port, string from_id, string from_slot, string to_port_id, string to_id, string to_slot)
         {
@@ -121,9 +123,17 @@ namespace Adam
         {
             this.m12 = m12;
         }
+        public void setM12Score(string m12_score)
+        {
+            this.m12_score = m12_score;
+        }
         public void setT7(string t7)
         {
             this.t7 = t7;
+        }
+        public void setT7Score(string t7_score)
+        {
+            this.t7_score = t7_score;
         }
         public void SetLoadTime(DateTime timeStamp)
         {

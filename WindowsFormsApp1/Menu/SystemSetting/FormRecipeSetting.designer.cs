@@ -117,10 +117,11 @@
             this.cbUseOcrTTL = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.tbR2Speed = new System.Windows.Forms.TextBox();
             this.tbR1Speed = new System.Windows.Forms.TextBox();
+            this.cbUserBothArm = new System.Windows.Forms.CheckBox();
+            this.cbUseLArm = new System.Windows.Forms.CheckBox();
+            this.cbUseRArm = new System.Windows.Forms.CheckBox();
             this.cbActive = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -139,9 +140,12 @@
             this.btnDeleteRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
-            this.cbUseRArm = new System.Windows.Forms.CheckBox();
-            this.cbUseLArm = new System.Windows.Forms.CheckBox();
-            this.cbUserBothArm = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.cbGetSlotOrder = new System.Windows.Forms.ComboBox();
+            this.cbPutSlotOrder = new System.Windows.Forms.ComboBox();
+            this.cbOcrCheckRule = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -219,9 +223,11 @@
             this.gbRecipeHeader.Controls.Add(this.label1);
             this.gbRecipeHeader.Controls.Add(this.label2);
             this.gbRecipeHeader.Controls.Add(this.tbRecipeName);
-            this.gbRecipeHeader.Location = new System.Drawing.Point(6, 34);
+            this.gbRecipeHeader.Location = new System.Drawing.Point(6, 26);
+            this.gbRecipeHeader.Margin = new System.Windows.Forms.Padding(1);
             this.gbRecipeHeader.Name = "gbRecipeHeader";
-            this.gbRecipeHeader.Size = new System.Drawing.Size(761, 70);
+            this.gbRecipeHeader.Padding = new System.Windows.Forms.Padding(1);
+            this.gbRecipeHeader.Size = new System.Drawing.Size(761, 68);
             this.gbRecipeHeader.TabIndex = 10;
             this.gbRecipeHeader.TabStop = false;
             // 
@@ -236,7 +242,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(363, 29);
+            this.label1.Location = new System.Drawing.Point(361, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(103, 24);
             this.label1.TabIndex = 0;
@@ -247,7 +253,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label2.Location = new System.Drawing.Point(9, 32);
+            this.label2.Location = new System.Drawing.Point(7, 30);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(138, 24);
             this.label2.TabIndex = 0;
@@ -298,16 +304,16 @@
             this.gbRecipeBody.Controls.Add(this.groupBox3);
             this.gbRecipeBody.Controls.Add(this.cbActive);
             this.gbRecipeBody.Controls.Add(this.groupBox4);
-            this.gbRecipeBody.Location = new System.Drawing.Point(6, 98);
+            this.gbRecipeBody.Location = new System.Drawing.Point(6, 81);
             this.gbRecipeBody.Name = "gbRecipeBody";
-            this.gbRecipeBody.Size = new System.Drawing.Size(1247, 531);
+            this.gbRecipeBody.Size = new System.Drawing.Size(1247, 551);
             this.gbRecipeBody.TabIndex = 8;
             this.gbRecipeBody.TabStop = false;
             // 
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(9, 461);
+            this.label37.Location = new System.Drawing.Point(11, 519);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(128, 24);
             this.label37.TabIndex = 9;
@@ -387,7 +393,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label6.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label6.Location = new System.Drawing.Point(7, 491);
+            this.label6.Location = new System.Drawing.Point(558, 496);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(116, 31);
             this.label6.TabIndex = 0;
@@ -1204,7 +1210,7 @@
             // 
             // tbMotionTimeout
             // 
-            this.tbMotionTimeout.Location = new System.Drawing.Point(143, 454);
+            this.tbMotionTimeout.Location = new System.Drawing.Point(145, 512);
             this.tbMotionTimeout.Name = "tbMotionTimeout";
             this.tbMotionTimeout.Size = new System.Drawing.Size(109, 33);
             this.tbMotionTimeout.TabIndex = 1;
@@ -1219,7 +1225,7 @@
             this.lblMode.BackColor = System.Drawing.Color.Yellow;
             this.lblMode.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblMode.ForeColor = System.Drawing.Color.Red;
-            this.lblMode.Location = new System.Drawing.Point(128, 491);
+            this.lblMode.Location = new System.Drawing.Point(679, 496);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(110, 31);
             this.lblMode.TabIndex = 0;
@@ -1229,15 +1235,17 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tbOcrT7);
+            this.groupBox1.Controls.Add(this.label39);
             this.groupBox1.Controls.Add(this.cbUseOcrT7);
             this.groupBox1.Controls.Add(this.tbOcrM12);
             this.groupBox1.Controls.Add(this.cbUseOcrM12);
             this.groupBox1.Controls.Add(this.tbOcrTTL);
+            this.groupBox1.Controls.Add(this.cbOcrCheckRule);
             this.groupBox1.Controls.Add(this.cbUseOcrTTL);
             this.groupBox1.Controls.Add(this.label36);
             this.groupBox1.Location = new System.Drawing.Point(300, 237);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(251, 275);
+            this.groupBox1.Size = new System.Drawing.Size(251, 263);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OCR Config";
@@ -1245,7 +1253,7 @@
             // tbOcrT7
             // 
             this.tbOcrT7.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tbOcrT7.Location = new System.Drawing.Point(6, 198);
+            this.tbOcrT7.Location = new System.Drawing.Point(5, 139);
             this.tbOcrT7.Name = "tbOcrT7";
             this.tbOcrT7.Size = new System.Drawing.Size(239, 25);
             this.tbOcrT7.TabIndex = 1;
@@ -1257,7 +1265,7 @@
             this.cbUseOcrT7.AutoSize = true;
             this.cbUseOcrT7.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbUseOcrT7.ForeColor = System.Drawing.Color.Black;
-            this.cbUseOcrT7.Location = new System.Drawing.Point(6, 168);
+            this.cbUseOcrT7.Location = new System.Drawing.Point(5, 118);
             this.cbUseOcrT7.Name = "cbUseOcrT7";
             this.cbUseOcrT7.Size = new System.Drawing.Size(94, 24);
             this.cbUseOcrT7.TabIndex = 4;
@@ -1268,7 +1276,7 @@
             // tbOcrM12
             // 
             this.tbOcrM12.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tbOcrM12.Location = new System.Drawing.Point(6, 132);
+            this.tbOcrM12.Location = new System.Drawing.Point(5, 93);
             this.tbOcrM12.Name = "tbOcrM12";
             this.tbOcrM12.Size = new System.Drawing.Size(239, 25);
             this.tbOcrM12.TabIndex = 1;
@@ -1280,7 +1288,7 @@
             this.cbUseOcrM12.AutoSize = true;
             this.cbUseOcrM12.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbUseOcrM12.ForeColor = System.Drawing.Color.Black;
-            this.cbUseOcrM12.Location = new System.Drawing.Point(6, 102);
+            this.cbUseOcrM12.Location = new System.Drawing.Point(5, 72);
             this.cbUseOcrM12.Name = "cbUseOcrM12";
             this.cbUseOcrM12.Size = new System.Drawing.Size(109, 24);
             this.cbUseOcrM12.TabIndex = 4;
@@ -1291,7 +1299,7 @@
             // tbOcrTTL
             // 
             this.tbOcrTTL.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tbOcrTTL.Location = new System.Drawing.Point(6, 62);
+            this.tbOcrTTL.Location = new System.Drawing.Point(5, 47);
             this.tbOcrTTL.Name = "tbOcrTTL";
             this.tbOcrTTL.Size = new System.Drawing.Size(239, 25);
             this.tbOcrTTL.TabIndex = 1;
@@ -1303,7 +1311,7 @@
             this.cbUseOcrTTL.AutoSize = true;
             this.cbUseOcrTTL.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbUseOcrTTL.ForeColor = System.Drawing.Color.Black;
-            this.cbUseOcrTTL.Location = new System.Drawing.Point(6, 32);
+            this.cbUseOcrTTL.Location = new System.Drawing.Point(5, 27);
             this.cbUseOcrTTL.Name = "cbUseOcrTTL";
             this.cbUseOcrTTL.Size = new System.Drawing.Size(108, 24);
             this.cbUseOcrTTL.TabIndex = 4;
@@ -1316,7 +1324,7 @@
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label36.ForeColor = System.Drawing.Color.Brown;
-            this.label36.Location = new System.Drawing.Point(6, 229);
+            this.label36.Location = new System.Drawing.Point(4, 167);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(241, 40);
             this.label36.TabIndex = 0;
@@ -1325,63 +1333,84 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label38);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label30);
-            this.groupBox3.Controls.Add(this.tbR2Speed);
             this.groupBox3.Controls.Add(this.tbR1Speed);
+            this.groupBox3.Controls.Add(this.cbPutSlotOrder);
+            this.groupBox3.Controls.Add(this.cbGetSlotOrder);
             this.groupBox3.Controls.Add(this.cbUserBothArm);
             this.groupBox3.Controls.Add(this.cbUseLArm);
             this.groupBox3.Controls.Add(this.cbUseRArm);
             this.groupBox3.Location = new System.Drawing.Point(6, 237);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(288, 105);
+            this.groupBox3.Size = new System.Drawing.Size(288, 172);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Robot Speed Setting";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label5.Location = new System.Drawing.Point(190, 39);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 24);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Robot 2";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label5.Visible = false;
+            this.groupBox3.Text = "Robot  Setting";
             // 
             // label30
             // 
             this.label30.AutoSize = true;
             this.label30.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label30.Location = new System.Drawing.Point(16, 32);
+            this.label30.Location = new System.Drawing.Point(5, 32);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(81, 24);
+            this.label30.Size = new System.Drawing.Size(143, 24);
             this.label30.TabIndex = 0;
-            this.label30.Text = "Robot 1";
+            this.label30.Text = "Robot 1 Speed";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tbR2Speed
-            // 
-            this.tbR2Speed.Location = new System.Drawing.Point(227, 12);
-            this.tbR2Speed.Name = "tbR2Speed";
-            this.tbR2Speed.Size = new System.Drawing.Size(61, 33);
-            this.tbR2Speed.TabIndex = 1;
-            this.tbR2Speed.Text = "100";
-            this.tbR2Speed.Visible = false;
-            this.tbR2Speed.Click += new System.EventHandler(this.modeCheck);
-            this.tbR2Speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // tbR1Speed
             // 
-            this.tbR1Speed.Location = new System.Drawing.Point(103, 29);
+            this.tbR1Speed.Location = new System.Drawing.Point(154, 27);
             this.tbR1Speed.Name = "tbR1Speed";
             this.tbR1Speed.Size = new System.Drawing.Size(61, 33);
             this.tbR1Speed.TabIndex = 1;
             this.tbR1Speed.Text = "100";
             this.tbR1Speed.Click += new System.EventHandler(this.modeCheck);
             this.tbR1Speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            // 
+            // cbUserBothArm
+            // 
+            this.cbUserBothArm.AutoSize = true;
+            this.cbUserBothArm.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUserBothArm.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUserBothArm.Location = new System.Drawing.Point(193, 66);
+            this.cbUserBothArm.Name = "cbUserBothArm";
+            this.cbUserBothArm.Size = new System.Drawing.Size(81, 28);
+            this.cbUserBothArm.TabIndex = 4;
+            this.cbUserBothArm.Text = "上+下";
+            this.cbUserBothArm.UseVisualStyleBackColor = true;
+            this.cbUserBothArm.CheckedChanged += new System.EventHandler(this.cbUserBothArm_CheckedChanged);
+            this.cbUserBothArm.Click += new System.EventHandler(this.modeCheck);
+            // 
+            // cbUseLArm
+            // 
+            this.cbUseLArm.AutoSize = true;
+            this.cbUseLArm.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUseLArm.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUseLArm.Location = new System.Drawing.Point(102, 66);
+            this.cbUseLArm.Name = "cbUseLArm";
+            this.cbUseLArm.Size = new System.Drawing.Size(89, 28);
+            this.cbUseLArm.TabIndex = 4;
+            this.cbUseLArm.Text = "下臂(L)";
+            this.cbUseLArm.UseVisualStyleBackColor = true;
+            this.cbUseLArm.CheckedChanged += new System.EventHandler(this.cbUseLArm_CheckedChanged);
+            this.cbUseLArm.Click += new System.EventHandler(this.modeCheck);
+            // 
+            // cbUseRArm
+            // 
+            this.cbUseRArm.AutoSize = true;
+            this.cbUseRArm.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUseRArm.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUseRArm.Location = new System.Drawing.Point(5, 66);
+            this.cbUseRArm.Name = "cbUseRArm";
+            this.cbUseRArm.Size = new System.Drawing.Size(91, 28);
+            this.cbUseRArm.TabIndex = 4;
+            this.cbUseRArm.Text = "上臂(R)";
+            this.cbUseRArm.UseVisualStyleBackColor = true;
+            this.cbUseRArm.CheckedChanged += new System.EventHandler(this.cbUseRArm_CheckedChanged);
+            this.cbUseRArm.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbActive
             // 
@@ -1406,7 +1435,7 @@
             this.groupBox4.Controls.Add(this.cbUseA2);
             this.groupBox4.Controls.Add(this.cbUseA1);
             this.groupBox4.Controls.Add(this.tbA1_angle);
-            this.groupBox4.Location = new System.Drawing.Point(6, 348);
+            this.groupBox4.Location = new System.Drawing.Point(6, 413);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(288, 96);
             this.groupBox4.TabIndex = 3;
@@ -1448,7 +1477,7 @@
             // 
             // tbA1_speed
             // 
-            this.tbA1_speed.Location = new System.Drawing.Point(111, 56);
+            this.tbA1_speed.Location = new System.Drawing.Point(111, 54);
             this.tbA1_speed.Name = "tbA1_speed";
             this.tbA1_speed.Size = new System.Drawing.Size(46, 33);
             this.tbA1_speed.TabIndex = 1;
@@ -1621,47 +1650,80 @@
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
             // 
-            // cbUseRArm
+            // label5
             // 
-            this.cbUseRArm.AutoSize = true;
-            this.cbUseRArm.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cbUseRArm.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.cbUseRArm.Location = new System.Drawing.Point(5, 66);
-            this.cbUseRArm.Name = "cbUseRArm";
-            this.cbUseRArm.Size = new System.Drawing.Size(91, 28);
-            this.cbUseRArm.TabIndex = 4;
-            this.cbUseRArm.Text = "上臂(R)";
-            this.cbUseRArm.UseVisualStyleBackColor = true;
-            this.cbUseRArm.CheckedChanged += new System.EventHandler(this.cbUseRArm_CheckedChanged);
-            this.cbUseRArm.Click += new System.EventHandler(this.modeCheck);
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label5.Location = new System.Drawing.Point(6, 100);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(86, 24);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "取片順序";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // cbUseLArm
+            // label38
             // 
-            this.cbUseLArm.AutoSize = true;
-            this.cbUseLArm.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cbUseLArm.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.cbUseLArm.Location = new System.Drawing.Point(102, 66);
-            this.cbUseLArm.Name = "cbUseLArm";
-            this.cbUseLArm.Size = new System.Drawing.Size(89, 28);
-            this.cbUseLArm.TabIndex = 4;
-            this.cbUseLArm.Text = "下臂(L)";
-            this.cbUseLArm.UseVisualStyleBackColor = true;
-            this.cbUseLArm.CheckedChanged += new System.EventHandler(this.cbUseLArm_CheckedChanged);
-            this.cbUseLArm.Click += new System.EventHandler(this.modeCheck);
+            this.label38.AutoSize = true;
+            this.label38.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label38.Location = new System.Drawing.Point(6, 137);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(86, 24);
+            this.label38.TabIndex = 0;
+            this.label38.Text = "放片順序";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // cbUserBothArm
+            // cbGetSlotOrder
             // 
-            this.cbUserBothArm.AutoSize = true;
-            this.cbUserBothArm.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cbUserBothArm.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.cbUserBothArm.Location = new System.Drawing.Point(193, 66);
-            this.cbUserBothArm.Name = "cbUserBothArm";
-            this.cbUserBothArm.Size = new System.Drawing.Size(81, 28);
-            this.cbUserBothArm.TabIndex = 4;
-            this.cbUserBothArm.Text = "上+下";
-            this.cbUserBothArm.UseVisualStyleBackColor = true;
-            this.cbUserBothArm.CheckedChanged += new System.EventHandler(this.cbUserBothArm_CheckedChanged);
-            this.cbUserBothArm.Click += new System.EventHandler(this.modeCheck);
+            this.cbGetSlotOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGetSlotOrder.FormattingEnabled = true;
+            this.cbGetSlotOrder.Items.AddRange(new object[] {
+            "BOTTOM_UP",
+            "TOP_DOWN"});
+            this.cbGetSlotOrder.Location = new System.Drawing.Point(102, 97);
+            this.cbGetSlotOrder.Name = "cbGetSlotOrder";
+            this.cbGetSlotOrder.Size = new System.Drawing.Size(160, 32);
+            this.cbGetSlotOrder.TabIndex = 2;
+            this.cbGetSlotOrder.Click += new System.EventHandler(this.modeCheck);
+            // 
+            // cbPutSlotOrder
+            // 
+            this.cbPutSlotOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPutSlotOrder.FormattingEnabled = true;
+            this.cbPutSlotOrder.Items.AddRange(new object[] {
+            "BOTTOM_UP",
+            "TOP_DOWN"});
+            this.cbPutSlotOrder.Location = new System.Drawing.Point(102, 134);
+            this.cbPutSlotOrder.Name = "cbPutSlotOrder";
+            this.cbPutSlotOrder.Size = new System.Drawing.Size(160, 32);
+            this.cbPutSlotOrder.TabIndex = 2;
+            this.cbPutSlotOrder.Click += new System.EventHandler(this.modeCheck);
+            // 
+            // cbCheckRule
+            // 
+            this.cbOcrCheckRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOcrCheckRule.FormattingEnabled = true;
+            this.cbOcrCheckRule.Items.AddRange(new object[] {
+            "BOTH",
+            "ANY",
+            "T7",
+            "M12",
+            "NA"});
+            this.cbOcrCheckRule.Location = new System.Drawing.Point(142, 216);
+            this.cbOcrCheckRule.Name = "cbCheckRule";
+            this.cbOcrCheckRule.Size = new System.Drawing.Size(102, 32);
+            this.cbOcrCheckRule.TabIndex = 2;
+            this.cbOcrCheckRule.Click += new System.EventHandler(this.modeCheck);
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label39.Location = new System.Drawing.Point(12, 219);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(124, 24);
+            this.label39.TabIndex = 0;
+            this.label39.Text = "辨識結果檢查";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FormRecipeSetting
             // 
@@ -1739,7 +1801,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label9;
@@ -1759,7 +1820,6 @@
         private System.Windows.Forms.ComboBox cbP2CstType;
         private System.Windows.Forms.TextBox tbA2_angle;
         private System.Windows.Forms.TextBox tbA2_speed;
-        private System.Windows.Forms.TextBox tbR2Speed;
         private System.Windows.Forms.TextBox tbR1Speed;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label16;
@@ -1826,5 +1886,11 @@
         private System.Windows.Forms.CheckBox cbUserBothArm;
         private System.Windows.Forms.CheckBox cbUseLArm;
         private System.Windows.Forms.CheckBox cbUseRArm;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cbPutSlotOrder;
+        private System.Windows.Forms.ComboBox cbGetSlotOrder;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.ComboBox cbOcrCheckRule;
     }
 }

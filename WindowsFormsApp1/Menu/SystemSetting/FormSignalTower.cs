@@ -28,72 +28,7 @@ namespace Adam.Menu.SystemSetting
             try
             {
                 UpdateList();
-
-                strSql = "SELECT * " +
-                    "FROM config_list_item " +
-                    "WHERE list_type = 'SIGNAL_LIGHT_TYPE' " +
-                    "ORDER BY sort_sequence ASC; ";
-
-                dtTemp = dBUtil.GetDataTable(strSql, null);
-
-                if (dtSignalTower.Rows.Count > 0)
-                {
-                    cmbBlue.DataSource = dtTemp.Copy();
-                    cmbBlue.ValueMember = "list_value";
-                    cmbBlue.DisplayMember = "list_value";
-                    cmbBlue.SelectedIndex = -1;
-
-                    cmbGreen.DataSource = dtTemp.Copy();
-                    cmbGreen.ValueMember = "list_value";
-                    cmbGreen.DisplayMember = "list_value";
-                    cmbGreen.SelectedIndex = -1;
-
-                    cmbRad.DataSource = dtTemp.Copy();
-                    cmbRad.ValueMember = "list_value";
-                    cmbRad.DisplayMember = "list_value";
-                    cmbRad.SelectedIndex = -1;
-
-                    cmbYellow.DataSource = dtTemp.Copy();
-                    cmbYellow.ValueMember = "list_value";
-                    cmbYellow.DisplayMember = "list_value";
-                    cmbYellow.SelectedIndex = -1;
-
-                }
-                else
-                {
-                    cmbBlue.DataSource = null;
-                    cmbGreen.DataSource = null;
-                    cmbRad.DataSource = null;
-                    cmbYellow.DataSource = null;
-                }
-
-                strSql = "SELECT * " +
-                        "FROM config_list_item " +
-                        "WHERE list_type = 'SIGNAL_BUZZER_TYPE' " +
-                        "ORDER BY sort_sequence ASC; ";
-
-                dtTemp = dBUtil.GetDataTable(strSql, null);
-
-                if (dtSignalTower.Rows.Count > 0)
-                {
-                    cmbBuzzer1.DataSource = dtTemp.Copy();
-                    cmbBuzzer1.ValueMember = "list_value";
-                    cmbBuzzer1.DisplayMember = "list_value";
-                    cmbBuzzer1.SelectedIndex = -1;
-
-                    cmbBuzzer2.DataSource = dtTemp.Copy();
-                    cmbBuzzer2.ValueMember = "list_value";
-                    cmbBuzzer2.DisplayMember = "list_value";
-                    cmbBuzzer2.SelectedIndex = -1;
-                }
-                else
-                {
-                    cmbBlue.DataSource = null;
-                    cmbGreen.DataSource = null;
-                    cmbRad.DataSource = null;
-                    cmbYellow.DataSource = null;
-                }
-
+                
                 lsbCondition.SelectedIndex = -1;
 
             }
@@ -125,12 +60,12 @@ namespace Adam.Menu.SystemSetting
                 {
                     txbEqpStatus.Text = query[0]["eqp_status"].ToString();
                     txbIsAlarm.Text = query[0]["is_alarm"].ToString();
-                    cmbBlue.SelectedValue = query[0]["blue"].ToString();
-                    cmbGreen.SelectedValue = query[0]["green"].ToString();
-                    cmbRad.SelectedValue = query[0]["red"].ToString();
-                    cmbYellow.SelectedValue = query[0]["orange"].ToString();
-                    cmbBuzzer1.SelectedValue = query[0]["buzzer1"].ToString();
-                    cmbBuzzer2.SelectedValue = query[0]["buzzer2"].ToString();
+                    cmbBlue.SelectedItem = query[0]["blue"].ToString();
+                    cmbGreen.SelectedItem = query[0]["green"].ToString();
+                    cmbRad.SelectedItem = query[0]["red"].ToString();
+                    cmbYellow.SelectedItem = query[0]["orange"].ToString();
+                    cmbBuzzer1.SelectedItem = query[0]["buzzer1"].ToString();
+                    cmbBuzzer2.SelectedItem = query[0]["buzzer2"].ToString();
                 }
             }
             catch (Exception ex)

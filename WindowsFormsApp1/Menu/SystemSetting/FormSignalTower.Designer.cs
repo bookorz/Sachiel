@@ -265,6 +265,10 @@
             this.cmbYellow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmbYellow.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmbYellow.FormattingEnabled = true;
+            this.cmbYellow.Items.AddRange(new object[] {
+            "TRUE",
+            "FALSE",
+            "BLINK"});
             this.cmbYellow.Location = new System.Drawing.Point(281, 123);
             this.cmbYellow.Name = "cmbYellow";
             this.cmbYellow.Size = new System.Drawing.Size(350, 28);
@@ -277,6 +281,10 @@
             this.cmbRad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmbRad.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmbRad.FormattingEnabled = true;
+            this.cmbRad.Items.AddRange(new object[] {
+            "TRUE",
+            "FALSE",
+            "BLINK"});
             this.cmbRad.Location = new System.Drawing.Point(281, 83);
             this.cmbRad.Name = "cmbRad";
             this.cmbRad.Size = new System.Drawing.Size(350, 28);
@@ -289,6 +297,10 @@
             this.cmbGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmbGreen.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmbGreen.FormattingEnabled = true;
+            this.cmbGreen.Items.AddRange(new object[] {
+            "TRUE",
+            "FALSE",
+            "BLINK"});
             this.cmbGreen.Location = new System.Drawing.Point(281, 163);
             this.cmbGreen.Name = "cmbGreen";
             this.cmbGreen.Size = new System.Drawing.Size(350, 28);
@@ -301,6 +313,10 @@
             this.cmbBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmbBlue.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmbBlue.FormattingEnabled = true;
+            this.cmbBlue.Items.AddRange(new object[] {
+            "TRUE",
+            "FALSE",
+            "BLINK"});
             this.cmbBlue.Location = new System.Drawing.Point(281, 203);
             this.cmbBlue.Name = "cmbBlue";
             this.cmbBlue.Size = new System.Drawing.Size(350, 28);
@@ -313,6 +329,9 @@
             this.cmbBuzzer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmbBuzzer1.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmbBuzzer1.FormattingEnabled = true;
+            this.cmbBuzzer1.Items.AddRange(new object[] {
+            "TRUE",
+            "FALSE"});
             this.cmbBuzzer1.Location = new System.Drawing.Point(281, 243);
             this.cmbBuzzer1.Name = "cmbBuzzer1";
             this.cmbBuzzer1.Size = new System.Drawing.Size(350, 28);
@@ -325,6 +344,9 @@
             this.cmbBuzzer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmbBuzzer2.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmbBuzzer2.FormattingEnabled = true;
+            this.cmbBuzzer2.Items.AddRange(new object[] {
+            "TRUE",
+            "FALSE"});
             this.cmbBuzzer2.Location = new System.Drawing.Point(281, 283);
             this.cmbBuzzer2.Name = "cmbBuzzer2";
             this.cmbBuzzer2.Size = new System.Drawing.Size(350, 28);

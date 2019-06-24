@@ -166,7 +166,7 @@ namespace Adam.Menu.SystemSetting
             recipe.recipe_id = tbRecipeID.Text.Trim();
             recipe.recipe_name = tbRecipeName.Text;
             recipe.robot1_speed = tbR1Speed.Text.Equals("") ? "20" : Int32.Parse(tbR1Speed.Text).ToString();
-            recipe.robot2_speed = tbR2Speed.Text.Equals("") ? "20" : Int32.Parse(tbR2Speed.Text).ToString();
+            recipe.robot2_speed = "20";//default tbR2Speed.Text.Equals("") ? "20" : Int32.Parse(tbR2Speed.Text).ToString();
 
             recipe.notch_angle = tbNotch_angle.Text.Equals("") ? "0" : Int32.Parse(tbNotch_angle.Text).ToString();
             recipe.motion_timeout = tbMotionTimeout.Text;
@@ -174,6 +174,9 @@ namespace Adam.Menu.SystemSetting
             recipe.is_use_l_arm = cbUseLArm.Checked;
             recipe.is_use_r_arm = cbUseRArm.Checked;
             recipe.is_use_double_arm = cbUserBothArm.Checked;
+            recipe.ocr_check_Rule = cbOcrCheckRule.Text;
+            recipe.get_slot_order = cbGetSlotOrder.Text;
+            recipe.put_slot_order = cbPutSlotOrder.Text;
 
             Recipe.Set(recipe.recipe_id, recipe);
 
@@ -363,10 +366,14 @@ namespace Adam.Menu.SystemSetting
                 cbP4Seq.SelectedItem = recipe.port4_priority.ToString();
                 cbP4LoadType.SelectedItem = recipe.port4_type;
 
+                cbOcrCheckRule.SelectedItem = recipe.ocr_check_Rule;
+                cbGetSlotOrder.SelectedItem = recipe.get_slot_order;
+                cbPutSlotOrder.SelectedItem = recipe.put_slot_order;
+
                 tbRecipeID.Text = recipe.recipe_id;
                 tbRecipeName.Text = recipe.recipe_name;
                 tbR1Speed.Text = recipe.robot1_speed;
-                tbR2Speed.Text = recipe.robot2_speed;
+                //tbR2Speed.Text = recipe.robot2_speed;
 
                 tbNotch_angle.Text = recipe.notch_angle;
 
