@@ -110,15 +110,21 @@
             this.lblMode = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbOcrT7 = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
             this.cbUseOcrT7 = new System.Windows.Forms.CheckBox();
             this.tbOcrM12 = new System.Windows.Forms.TextBox();
             this.cbUseOcrM12 = new System.Windows.Forms.CheckBox();
             this.tbOcrTTL = new System.Windows.Forms.TextBox();
+            this.cbOcrCheckRule = new System.Windows.Forms.ComboBox();
             this.cbUseOcrTTL = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.tbR1Speed = new System.Windows.Forms.TextBox();
+            this.cbPutSlotOrder = new System.Windows.Forms.ComboBox();
+            this.cbGetSlotOrder = new System.Windows.Forms.ComboBox();
             this.cbUserBothArm = new System.Windows.Forms.CheckBox();
             this.cbUseLArm = new System.Windows.Forms.CheckBox();
             this.cbUseRArm = new System.Windows.Forms.CheckBox();
@@ -140,12 +146,6 @@
             this.btnDeleteRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.cbGetSlotOrder = new System.Windows.Forms.ComboBox();
-            this.cbPutSlotOrder = new System.Windows.Forms.ComboBox();
-            this.cbOcrCheckRule = new System.Windows.Forms.ComboBox();
-            this.label39 = new System.Windows.Forms.Label();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -1260,6 +1260,17 @@
             this.tbOcrT7.Click += new System.EventHandler(this.modeCheck);
             this.tbOcrT7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label39.Location = new System.Drawing.Point(12, 219);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(124, 24);
+            this.label39.TabIndex = 0;
+            this.label39.Text = "辨識結果檢查";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // cbUseOcrT7
             // 
             this.cbUseOcrT7.AutoSize = true;
@@ -1306,6 +1317,22 @@
             this.tbOcrTTL.Click += new System.EventHandler(this.modeCheck);
             this.tbOcrTTL.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
+            // cbOcrCheckRule
+            // 
+            this.cbOcrCheckRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOcrCheckRule.FormattingEnabled = true;
+            this.cbOcrCheckRule.Items.AddRange(new object[] {
+            "BOTH",
+            "EITHER",
+            "T7",
+            "M12",
+            "NA"});
+            this.cbOcrCheckRule.Location = new System.Drawing.Point(142, 216);
+            this.cbOcrCheckRule.Name = "cbOcrCheckRule";
+            this.cbOcrCheckRule.Size = new System.Drawing.Size(102, 32);
+            this.cbOcrCheckRule.TabIndex = 2;
+            this.cbOcrCheckRule.Click += new System.EventHandler(this.modeCheck);
+            // 
             // cbUseOcrTTL
             // 
             this.cbUseOcrTTL.AutoSize = true;
@@ -1349,6 +1376,28 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Robot  Setting";
             // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label38.Location = new System.Drawing.Point(6, 137);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(86, 24);
+            this.label38.TabIndex = 0;
+            this.label38.Text = "放片順序";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label5.Location = new System.Drawing.Point(6, 100);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(86, 24);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "取片順序";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label30
             // 
             this.label30.AutoSize = true;
@@ -1369,6 +1418,32 @@
             this.tbR1Speed.Text = "100";
             this.tbR1Speed.Click += new System.EventHandler(this.modeCheck);
             this.tbR1Speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            // 
+            // cbPutSlotOrder
+            // 
+            this.cbPutSlotOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPutSlotOrder.FormattingEnabled = true;
+            this.cbPutSlotOrder.Items.AddRange(new object[] {
+            "BOTTOM_UP",
+            "TOP_DOWN"});
+            this.cbPutSlotOrder.Location = new System.Drawing.Point(102, 134);
+            this.cbPutSlotOrder.Name = "cbPutSlotOrder";
+            this.cbPutSlotOrder.Size = new System.Drawing.Size(160, 32);
+            this.cbPutSlotOrder.TabIndex = 2;
+            this.cbPutSlotOrder.Click += new System.EventHandler(this.modeCheck);
+            // 
+            // cbGetSlotOrder
+            // 
+            this.cbGetSlotOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGetSlotOrder.FormattingEnabled = true;
+            this.cbGetSlotOrder.Items.AddRange(new object[] {
+            "BOTTOM_UP",
+            "TOP_DOWN"});
+            this.cbGetSlotOrder.Location = new System.Drawing.Point(102, 97);
+            this.cbGetSlotOrder.Name = "cbGetSlotOrder";
+            this.cbGetSlotOrder.Size = new System.Drawing.Size(160, 32);
+            this.cbGetSlotOrder.TabIndex = 2;
+            this.cbGetSlotOrder.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbUserBothArm
             // 
@@ -1649,81 +1724,6 @@
             this.tlpAccount.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.20801F));
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label5.Location = new System.Drawing.Point(6, 100);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 24);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "取片順序";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label38.Location = new System.Drawing.Point(6, 137);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(86, 24);
-            this.label38.TabIndex = 0;
-            this.label38.Text = "放片順序";
-            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cbGetSlotOrder
-            // 
-            this.cbGetSlotOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbGetSlotOrder.FormattingEnabled = true;
-            this.cbGetSlotOrder.Items.AddRange(new object[] {
-            "BOTTOM_UP",
-            "TOP_DOWN"});
-            this.cbGetSlotOrder.Location = new System.Drawing.Point(102, 97);
-            this.cbGetSlotOrder.Name = "cbGetSlotOrder";
-            this.cbGetSlotOrder.Size = new System.Drawing.Size(160, 32);
-            this.cbGetSlotOrder.TabIndex = 2;
-            this.cbGetSlotOrder.Click += new System.EventHandler(this.modeCheck);
-            // 
-            // cbPutSlotOrder
-            // 
-            this.cbPutSlotOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbPutSlotOrder.FormattingEnabled = true;
-            this.cbPutSlotOrder.Items.AddRange(new object[] {
-            "BOTTOM_UP",
-            "TOP_DOWN"});
-            this.cbPutSlotOrder.Location = new System.Drawing.Point(102, 134);
-            this.cbPutSlotOrder.Name = "cbPutSlotOrder";
-            this.cbPutSlotOrder.Size = new System.Drawing.Size(160, 32);
-            this.cbPutSlotOrder.TabIndex = 2;
-            this.cbPutSlotOrder.Click += new System.EventHandler(this.modeCheck);
-            // 
-            // cbCheckRule
-            // 
-            this.cbOcrCheckRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbOcrCheckRule.FormattingEnabled = true;
-            this.cbOcrCheckRule.Items.AddRange(new object[] {
-            "BOTH",
-            "ANY",
-            "T7",
-            "M12",
-            "NA"});
-            this.cbOcrCheckRule.Location = new System.Drawing.Point(142, 216);
-            this.cbOcrCheckRule.Name = "cbCheckRule";
-            this.cbOcrCheckRule.Size = new System.Drawing.Size(102, 32);
-            this.cbOcrCheckRule.TabIndex = 2;
-            this.cbOcrCheckRule.Click += new System.EventHandler(this.modeCheck);
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label39.Location = new System.Drawing.Point(12, 219);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(124, 24);
-            this.label39.TabIndex = 0;
-            this.label39.Text = "辨識結果檢查";
-            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FormRecipeSetting
             // 

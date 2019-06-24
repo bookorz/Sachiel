@@ -106,8 +106,8 @@ namespace Adam
         {
 
             var hstOcr = from node in NodeManagement.GetList()
-                      where node.Type.ToUpper().Equals("OCR") && node.Brand.ToUpper().Equals("HST")
-                      select node;
+                         where node.Type.ToUpper().Equals("OCR") && node.Brand.ToUpper().Equals("HST")
+                         select node;
             if (hstOcr.Count() != 0)
             {
                 var HST = (from prs in Process.GetProcessesByName("VB9BReaderForm").OfType<Process>().ToList()
@@ -364,7 +364,7 @@ namespace Adam
 
         private void terminalToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnTeach_Click(object sender, EventArgs e)
@@ -713,14 +713,25 @@ namespace Adam
                 default:
                     switch (Node.Type)
                     {
-                        case "ROBOT":
-                        //switch (Txn.Method)
-                        //{
-                        //    case Transaction.Command.RobotType.Mapping: //when 200mm port mapped by robot's fork, then port's busy switch to false.
-                        //        NodeManagement.Get(Txn.Position).Busy = false;
-                        //        break;
-                        //}
-                        //break;
+                        case "ALIGNER":
+                            switch (Txn.Method)
+                            {
+                                case Transaction.Command.AlignerType.AlignOffset:
+                                    Job wafer = Node.JobList["1"];
+                                    if ((!wafer.OCR_M12_Pass && !wafer.OCR_T7_Pass) && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("EITHER")))
+                                    {
+                                        using (var form = new FormOCRKeyIn("EITHER", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
+                                        {
+                                            var result = form.ShowDialog();
+                                            if (result == DialogResult.OK)
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                    break;
+                            }
+                            break;
                         case "LOADPORT":
                             switch (Txn.Method)
                             {
@@ -738,16 +749,36 @@ namespace Adam
                             switch (Txn.Method)
                             {
                                 case Transaction.Command.OCRType.Read:
-                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "ALL");
                                     //OCRStatusUpdate.UpdateOCRRead(Node.Name, Msg.Value);
                                     break;
                                 case Transaction.Command.OCRType.ReadM12:
-                                    OCRUpdate.UpdateOCRM12Read(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
-                                    //OCRStatusUpdate.UpdateOCRM12Read(Node.Name, Msg.Value);
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "M12");
+                                    if (!NodeManagement.Get(Node.Associated_Node).JobList["1"].OCR_M12_Pass && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("BOTH") || Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("M12")))
+                                    {
+                                        using (var form = new FormOCRKeyIn("M12", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
+                                        {
+                                            var result = form.ShowDialog();
+                                            if (result == DialogResult.OK)
+                                            {
+
+                                            }
+                                        }
+                                    }
                                     break;
                                 case Transaction.Command.OCRType.ReadT7:
-                                    OCRUpdate.UpdateOCRT7Read(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"]);
-                                    //OCRStatusUpdate.UpdateOCRT7Read(Node.Name, Msg.Value);
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "T7");
+                                    if (!NodeManagement.Get(Node.Associated_Node).JobList["1"].OCR_M12_Pass && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("BOTH") || Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("T7")))
+                                    {
+                                        using (var form = new FormOCRKeyIn("T7", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
+                                        {
+                                            var result = form.ShowDialog();
+                                            if (result == DialogResult.OK)
+                                            {
+
+                                            }
+                                        }
+                                    }
                                     break;
                             }
                             break;
@@ -1693,6 +1724,9 @@ namespace Adam
             switch (Task.ProceedTask.TaskName)
             {
                 case "SORTER_INIT":
+                    RouteControl.Instance.DIO.SetIO("BUZZER1", "True");
+                    MessageBox.Show("Initial finished!");
+                    RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
                     if (CurrentMode.Equals("AUTO"))
                     {
                         //啟用Start按鈕
@@ -1781,19 +1815,19 @@ namespace Adam
             Node result = null;
             if (RunMode.Equals("FULLAUTO"))
             {
-                    var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
-                                         where OPEN.Mode.Equals("LD") && OPEN.IsMapping
-                                         orderby OPEN.LoadTime
-                                         from wafer in OPEN.JobList.Values
-                                         where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
-                                         select OPEN;
-                    if (AvailableOPENs.Count() != 0)
-                    {
-                        //List<Node> OPENS = AvailableOPENs.ToList();
-                        //OPENS.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
-                        result = AvailableOPENs.First();
-                    }
-                
+                var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
+                                     where OPEN.Mode.Equals("LD") && OPEN.IsMapping
+                                     orderby OPEN.LoadTime
+                                     from wafer in OPEN.JobList.Values
+                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
+                                     select OPEN;
+                if (AvailableOPENs.Count() != 0)
+                {
+                    //List<Node> OPENS = AvailableOPENs.ToList();
+                    //OPENS.Sort((x, y) => { return x.LoadTime.CompareTo(y.LoadTime); });
+                    result = AvailableOPENs.First();
+                }
+
             }
             else if (RunMode.Equals("SEMIAUTO"))
             {
@@ -1860,7 +1894,12 @@ namespace Adam
                         var ULD_Jobs = (from Slot in fosb.JobList.Values
                                         where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
                                         select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
-
+                        if (Recipe.Get(SystemConfig.Get().CurrentRecipe).auto_put_constrict.Equals("BOTTOM_UP"))
+                        {
+                            ULD_Jobs = (from Slot in fosb.JobList.Values
+                                        where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
+                                        select Slot).OrderBy(x => Convert.ToInt16(x.Slot));
+                        }
                         foreach (Job wafer in LD_Jobs)
                         {//檢查LD的所有WAFER
 
@@ -2151,7 +2190,7 @@ namespace Adam
                                 break;
                         }
 
-                        
+
 
 
                     }
@@ -2190,6 +2229,8 @@ namespace Adam
                         foup.record[slot - 1].SetEndTime(j.EndTime);
                         foup.record[slot - 1].SetLoadTime(Port.LoadTime);
                         foup.record[slot - 1].SetUnloadTime(DateTime.Now);
+                        foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
+                        foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
                     }
                     foup.Save();
                     string constrict = Recipe.Get(SystemConfig.Get().CurrentRecipe).output_proc_fin;
@@ -2304,7 +2345,7 @@ namespace Adam
                                     // }).Start();
                                     break;
                             }
-                            
+
 
 
                         }
@@ -2487,7 +2528,7 @@ namespace Adam
                                      select Foup;
                 if (AvailableFoups.Count() != 0)
                 {
-                    foreach(Node port in NodeManagement.GetLoadPortList())
+                    foreach (Node port in NodeManagement.GetLoadPortList())
                     {
                         if (port.Enable)
                         {
@@ -2582,17 +2623,17 @@ namespace Adam
 
         public void On_TaskJob_Ack(TaskJobManagment.CurrentProceedTask Task)
         {
-            
+
         }
 
         public void On_Message_Log(string Type, string Message)
         {
-           
+
         }
 
         public void On_Status_Changed(string Type, string Message)
         {
-            
+
         }
     }
 }

@@ -283,6 +283,8 @@ namespace Adam.Menu.Monitoring
                         foup.record[slot - 1].SetEndTime(j.EndTime);
                         foup.record[slot - 1].SetLoadTime(port.LoadTime);
                         foup.record[slot - 1].SetUnloadTime(DateTime.Now);
+                        foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
+                        foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
                     }
                 }
                 foup.Save();
