@@ -101,8 +101,9 @@ namespace Adam.UI_Update.Layout
                                 "                                                    WHEN 'LOADPORT02' THEN @enable2 " +
                                 "                                                    WHEN 'LOADPORT03' THEN @enable3 " +
                                 "                                                    WHEN 'LOADPORT04' THEN @enable4 " +
-                                "                                                    WHEN 'ALIGNER01' THEN @enableA1 " +
                                 "                                                    ELSE enable_flg END," +
+                                "                          bypass = CASE node_id     WHEN 'ALIGNER01' THEN @bypassA1 " +
+                                "                                                    ELSE bypass END," +
                                 "                          double_arm = CASE node_id WHEN 'ROBOT01' THEN @double_arm_r1 " +
                                 "                                                    ELSE double_arm END, " +
                                 "                          r_arm = CASE node_id WHEN 'ROBOT01' THEN @r_arm_r1 " +
@@ -127,7 +128,7 @@ namespace Adam.UI_Update.Layout
                 keyValues.Add("@enable2", getEnable(recipe.port2_type));
                 keyValues.Add("@enable3", getEnable(recipe.port3_type));
                 keyValues.Add("@enable4", getEnable(recipe.port4_type));
-                keyValues.Add("@enableA1", recipe.is_use_aligner1 ? 1 : 0);
+                keyValues.Add("@bypassA1", recipe.is_use_aligner1 ? 0 : 1);//要用ALIGNER 時 bypass = 0, ELSE bypass = 1
                 keyValues.Add("@double_arm_r1", recipe.is_use_double_arm ? 1 : 0);
                 keyValues.Add("@r_arm_r1", recipe.is_use_r_arm ? 1 : 0);
                 keyValues.Add("@l_arm_r1", recipe.is_use_l_arm ? 1 : 0);
