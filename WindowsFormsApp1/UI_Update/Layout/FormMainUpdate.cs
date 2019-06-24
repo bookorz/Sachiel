@@ -101,6 +101,7 @@ namespace Adam.UI_Update.Layout
                                 "                                                    WHEN 'LOADPORT02' THEN @enable2 " +
                                 "                                                    WHEN 'LOADPORT03' THEN @enable3 " +
                                 "                                                    WHEN 'LOADPORT04' THEN @enable4 " +
+                                "                                                    WHEN 'ALIGNER01' THEN @enableA1 " +
                                 "                                                    ELSE enable_flg END," +
                                 "                          double_arm = CASE node_id WHEN 'ROBOT01' THEN @double_arm_r1 " +
                                 "                                                    ELSE double_arm END, " +
@@ -110,7 +111,7 @@ namespace Adam.UI_Update.Layout
                                 "                                                    ELSE l_arm END, " +
                                 "                          modify_user = @modify_user, modify_timestamp = NOW() " +
                                 " WHERE equipment_model_id = @equipment_model_id " +
-                                "   AND node_type IN ('LOADPORT','ROBOT') ;";
+                                "   AND node_type IN ('LOADPORT','ROBOT','Aligner') ;";
 
                 keyValues.Add("@equipment_model_id", SystemConfig.Get().SystemMode);
                 keyValues.Add("@modify_user", Global.currentUser);
@@ -126,6 +127,7 @@ namespace Adam.UI_Update.Layout
                 keyValues.Add("@enable2", getEnable(recipe.port2_type));
                 keyValues.Add("@enable3", getEnable(recipe.port3_type));
                 keyValues.Add("@enable4", getEnable(recipe.port4_type));
+                keyValues.Add("@enableA1", recipe.is_use_aligner1 ? 1 : 0);
                 keyValues.Add("@double_arm_r1", recipe.is_use_double_arm ? 1 : 0);
                 keyValues.Add("@r_arm_r1", recipe.is_use_r_arm ? 1 : 0);
                 keyValues.Add("@l_arm_r1", recipe.is_use_l_arm ? 1 : 0);
