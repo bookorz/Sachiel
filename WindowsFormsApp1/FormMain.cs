@@ -713,14 +713,25 @@ namespace Adam
                 default:
                     switch (Node.Type)
                     {
-                        case "ROBOT":
-                        //switch (Txn.Method)
-                        //{
-                        //    case Transaction.Command.RobotType.Mapping: //when 200mm port mapped by robot's fork, then port's busy switch to false.
-                        //        NodeManagement.Get(Txn.Position).Busy = false;
-                        //        break;
-                        //}
-                        //break;
+                        case "ALIGNER":
+                            switch (Txn.Method)
+                            {
+                                case Transaction.Command.AlignerType.AlignOffset:
+                                    Job wafer = Node.JobList["1"];
+                                    if ((!wafer.OCR_M12_Pass && !wafer.OCR_T7_Pass) && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("EITHER")))
+                                    {
+                                        using (var form = new FormOCRKeyIn("EITHER", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
+                                        {
+                                            var result = form.ShowDialog();
+                                            if (result == DialogResult.OK)
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                    break;
+                            }
+                            break;
                         case "LOADPORT":
                             switch (Txn.Method)
                             {
@@ -743,19 +754,31 @@ namespace Adam
                                     break;
                                 case Transaction.Command.OCRType.ReadM12:
                                     OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "M12");
-
-                                    using (var form = new FormOCRKeyIn("M12", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
+                                    if (!NodeManagement.Get(Node.Associated_Node).JobList["1"].OCR_M12_Pass && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("BOTH") || Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("M12")))
                                     {
-                                        var result = form.ShowDialog();
-                                        if (result == DialogResult.OK)
+                                        using (var form = new FormOCRKeyIn("M12", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
                                         {
+                                            var result = form.ShowDialog();
+                                            if (result == DialogResult.OK)
+                                            {
 
+                                            }
                                         }
                                     }
                                     break;
                                 case Transaction.Command.OCRType.ReadT7:
                                     OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "T7");
-                                    //OCRStatusUpdate.UpdateOCRT7Read(Node.Name, Msg.Value);
+                                    if (!NodeManagement.Get(Node.Associated_Node).JobList["1"].OCR_M12_Pass && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("BOTH") || Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("T7")))
+                                    {
+                                        using (var form = new FormOCRKeyIn("T7", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
+                                        {
+                                            var result = form.ShowDialog();
+                                            if (result == DialogResult.OK)
+                                            {
+
+                                            }
+                                        }
+                                    }
                                     break;
                             }
                             break;
@@ -1701,6 +1724,9 @@ namespace Adam
             switch (Task.ProceedTask.TaskName)
             {
                 case "SORTER_INIT":
+                    RouteControl.Instance.DIO.SetIO("BUZZER1", "True");
+                    MessageBox.Show("Initial finished!");
+                    RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
                     if (CurrentMode.Equals("AUTO"))
                     {
                         //啟用Start按鈕
@@ -1868,7 +1894,12 @@ namespace Adam
                         var ULD_Jobs = (from Slot in fosb.JobList.Values
                                         where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
                                         select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
-
+                        if (Recipe.Get(SystemConfig.Get().CurrentRecipe).auto_put_constrict.Equals("BOTTOM_UP"))
+                        {
+                            ULD_Jobs = (from Slot in fosb.JobList.Values
+                                        where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
+                                        select Slot).OrderBy(x => Convert.ToInt16(x.Slot));
+                        }
                         foreach (Job wafer in LD_Jobs)
                         {//檢查LD的所有WAFER
 
@@ -2198,6 +2229,8 @@ namespace Adam
                         foup.record[slot - 1].SetEndTime(j.EndTime);
                         foup.record[slot - 1].SetLoadTime(Port.LoadTime);
                         foup.record[slot - 1].SetUnloadTime(DateTime.Now);
+                        foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
+                        foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
                     }
                     foup.Save();
                     string constrict = Recipe.Get(SystemConfig.Get().CurrentRecipe).output_proc_fin;

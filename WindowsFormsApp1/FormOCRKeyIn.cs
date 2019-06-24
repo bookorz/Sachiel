@@ -34,6 +34,10 @@ namespace Adam
                     case "T7":
                         wafer.OCR_T7_Result = WaferID_tb.Text;
                         break;
+                    case "EITHER":
+                        wafer.OCR_M12_Result = WaferID_tb.Text;
+                        wafer.OCR_T7_Result = WaferID_tb.Text;
+                        break;
                 }
                 this.DialogResult = DialogResult.OK;
                 this.Close();
@@ -46,7 +50,7 @@ namespace Adam
 
         private void FormOCRKeyIn_Load(object sender, EventArgs e)
         {
-            Info_lb.Text = Type+ " OCR Fail";
+            Info_lb.Text = Type + " OCR Fail";
         }
     }
 }
