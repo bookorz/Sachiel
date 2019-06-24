@@ -117,6 +117,12 @@
     <Compile Include="FormConfirm.designer.cs">
       <DependentUpon>FormConfirm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormOCRKeyIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOCRKeyIn.Designer.cs">
+      <DependentUpon>FormOCRKeyIn.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReconnect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -425,6 +431,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormConfirm.resx">
       <DependentUpon>FormConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOCRKeyIn.resx">
+      <DependentUpon>FormOCRKeyIn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormReconnect.resx">
       <DependentUpon>FormReconnect.cs</DependentUpon>
