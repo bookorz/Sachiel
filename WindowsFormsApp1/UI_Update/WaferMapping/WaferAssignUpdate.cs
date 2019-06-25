@@ -21,7 +21,35 @@ namespace Adam.UI_Update.WaferMapping
         delegate void UpdatePortUsed(string PortName, bool Used);
         delegate void UpdateAssign(string PortName, string Mapping, bool Enable);
         delegate void UpdateForSlot(Node Port, string Slot);
+        public static void ButtonEnabled(string Name, bool Enabled)
+        {
+            try
+            {
+                Form form = Application.OpenForms["FormWaferMapping"];
+                Button W;
+                if (form == null)
+                    return;
 
+                W = form.Controls.Find(Name, true).FirstOrDefault() as Button;
+                if (W == null)
+                    return;
+
+                if (W.InvokeRequired)
+                {
+                    UpdatePortUsed ph = new UpdatePortUsed(ButtonEnabled);
+                    W.BeginInvoke(ph, Name, Enabled);
+                }
+                else
+                {
+                    W.Enabled = Enabled;
+
+                }
+            }
+            catch
+            {
+
+            }
+        }
         public static void UpdateFoupID(string PortName, string FoupID)
         {
             try

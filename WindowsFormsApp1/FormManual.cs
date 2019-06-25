@@ -703,7 +703,7 @@ namespace GUI
                     param.Add("@Target", nodeName);
                     param.Add("@Position", cbRA1Point.Text);
                     param.Add("@Slot", cbRA1Slot.Text.PadLeft(2, '0'));
-                    param.Add("@Slot2", (Convert.ToInt32(cbRA1Slot.Text) - 1).ToString().PadLeft(2, '0'));
+                    param.Add("@S2", (Convert.ToInt32(cbRA1Slot.Text) - 1).ToString().PadLeft(2, '0'));
                     param.Add("@Arm", SanwaUtil.GetArmID(cbRA1Arm.Text));
                     break;
                 case "btnRPut":
@@ -721,7 +721,7 @@ namespace GUI
                     param.Add("@Target", nodeName);
                     param.Add("@Position", cbRA2Point.Text);
                     param.Add("@Slot", cbRA2Slot.Text.PadLeft(2, '0'));
-                    param.Add("@Slot2", (Convert.ToInt32(cbRA2Slot.Text) - 1).ToString().PadLeft(2, '0'));
+                    param.Add("@S2", (Convert.ToInt32(cbRA2Slot.Text) - 1).ToString().PadLeft(2, '0'));
                     param.Add("@Arm", SanwaUtil.GetArmID(cbRA2Arm.Text));
                     break;
                 case "btnRGetWait":
@@ -1085,7 +1085,7 @@ namespace GUI
             string TaskName = "ROBOT_Init";
             param.Add("@Target", nodeName);
             TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
+            RouteControl.Instance.TaskJob.Excute("FormManual-1", out Message, out Task, TaskName, param);
         }
 
         private void setLoadportStatus()

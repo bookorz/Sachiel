@@ -27,6 +27,7 @@ using System.Diagnostics;
 using TransferControl.CommandConvert;
 using TransferControl.Comm;
 using TransferControl.Config;
+using System.IO;
 
 namespace Adam
 {
@@ -749,11 +750,15 @@ namespace Adam
                             switch (Txn.Method)
                             {
                                 case Transaction.Command.OCRType.Read:
-                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "ALL");
+                                    OCR_ImageHandle(Node, NodeManagement.Get(Node.Associated_Node).JobList["1"], "ALL",Msg.Value);
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "ALL", "FormMonitoring");
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "ALL", "FormWaferMapping");
                                     //OCRStatusUpdate.UpdateOCRRead(Node.Name, Msg.Value);
                                     break;
                                 case Transaction.Command.OCRType.ReadM12:
-                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "M12");
+                                    OCR_ImageHandle(Node, NodeManagement.Get(Node.Associated_Node).JobList["1"], "M12", Msg.Value);
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "M12", "FormMonitoring");
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "M12", "FormWaferMapping");
                                     if (!NodeManagement.Get(Node.Associated_Node).JobList["1"].OCR_M12_Pass && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("BOTH") || Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("M12")))
                                     {
                                         using (var form = new FormOCRKeyIn("M12", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
@@ -767,8 +772,10 @@ namespace Adam
                                     }
                                     break;
                                 case Transaction.Command.OCRType.ReadT7:
-                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "T7");
-                                    if (!NodeManagement.Get(Node.Associated_Node).JobList["1"].OCR_M12_Pass && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("BOTH") || Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("T7")))
+                                    OCR_ImageHandle(Node, NodeManagement.Get(Node.Associated_Node).JobList["1"], "T7", Msg.Value);
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "T7", "FormMonitoring");
+                                    OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "T7", "FormWaferMapping");
+                                    if (!NodeManagement.Get(Node.Associated_Node).JobList["1"].OCR_T7_Pass && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("BOTH") || Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("T7")))
                                     {
                                         using (var form = new FormOCRKeyIn("T7", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
                                         {
@@ -787,7 +794,131 @@ namespace Adam
             }
 
         }
+        private void OCR_ImageHandle(Node OCR,Job Job, string OCRType, string WaferID)
+        {
+            string save = "";
+            string src = "";
 
+
+            switch (OCR.Name)
+            {
+                case "OCR01":
+                    save = SystemConfig.Get().OCR1ImgToJpgPath;
+                    src = SystemConfig.Get().OCR1ImgSourcePath;
+                    break;
+                case "OCR02":
+                    save = SystemConfig.Get().OCR2ImgToJpgPath;
+                    src = SystemConfig.Get().OCR2ImgSourcePath;
+                    break;
+            }
+            save += "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + Job.FromFoupID;
+            Thread.Sleep(500);
+            
+            if (OCR != null)
+            {
+
+                if (!Directory.Exists(save))
+                {
+                    Directory.CreateDirectory(save);
+                }
+
+
+                string FileName = "";
+                switch (OCRType)
+                {
+                    case "M12":
+                        FileName += "_M12.jpg";
+                        if (!Job.OCR_M12_Pass)
+                        {
+                            WaferID = "Failed";
+                        }
+                        break;
+                    case "T7":
+                        FileName += "_T7.jpg";
+                        if (!Job.OCR_T7_Pass)
+                        {
+                            WaferID = "Failed";
+                        }
+                        break;
+                    default:
+                        FileName += ".jpg";
+                        if (!Job.OCRPass)
+                        {
+                            WaferID = "Failed";
+                        }
+                        break;
+                }
+                FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
+                string savePath = save + "/" + FileName;
+                string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bmp";
+                if (savePath != "")
+                {
+                    
+                    switch (OCR.Brand)
+                    {
+                        case "COGNEX":
+
+                            FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21", "", "admin", "");
+                            string imgPath = ftp.Get("image.jpg", FileName, save);
+                            
+                            switch (OCRType)
+                            {
+                                case "M12":
+                                    Job.OCR_M12_ImgPath = savePath;
+                                    break;
+                                case "T7":
+                                    Job.OCR_T7_ImgPath = savePath;
+                                    break;
+                                default:
+                                    Job.OCRImgPath = savePath;
+                                    break;
+                            }
+                            //Job.OCRScore = ocrResult[1];
+                            //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                            break;
+                        case "HST":
+
+
+                            string[] files = Directory.GetFiles(src);
+                            List<string> fileList = files.ToList();
+                            if (fileList.Count != 0)
+                            {
+                                fileList.Sort((x, y) => { return -File.GetLastWriteTime(x).CompareTo(File.GetLastWriteTime(y)); });
+                                try
+                                {
+                                    File.Copy(fileList[0], saveTmpPath);
+                                }
+                                catch (Exception ee)
+                                {
+
+                                }
+                                Image bmp = Image.FromFile(saveTmpPath);
+
+                                bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                bmp.Dispose();
+                                File.Delete(saveTmpPath);
+                                
+                                switch (OCRType)
+                                {
+                                    case "M12":
+                                        Job.OCR_M12_ImgPath = savePath;
+                                        break;
+                                    case "T7":
+                                        Job.OCR_T7_ImgPath = savePath;
+                                        break;
+                                    default:
+                                        Job.OCRImgPath = savePath;
+                                        break;
+                                }
+
+                                //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                            }
+                            break;
+                    }
+
+                }
+            }
+        }
         public void On_Command_TimeOut(Node Node, Transaction Txn)
         {
             logger.Debug("On_Command_TimeOut");
@@ -1793,6 +1924,7 @@ namespace Adam
                     //if (Task.Id.Contains("Unload_btn"))
                     //{
                     MonitoringUpdate.ButtonEnabled(Task.Params["@Target"].ToUpper() + "_Unload_btn", true);
+                    WaferAssignUpdate.ButtonEnabled(Task.Params["@Target"].ToUpper() + "_Unload_btn", true);
                     //}
                     break;
                 case "LOADPORT_CLOSE_NOMAP":
@@ -1983,6 +2115,24 @@ namespace Adam
 
                     if (!XfeCrossZone.Running && NeedProcessSlot.Count() != 0)
                     {
+                        //in port log
+                        FoupInfo foup = new FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Loadport.FoupID);
+                        foreach (Job j in Loadport.JobList.Values)
+                        {
+                            int slot = Convert.ToInt16(j.Slot);
+                            foup.record[slot - 1] = new Adam.waferInfo(j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position, Loadport.FoupID, j.Slot);
+                            foup.record[slot - 1].SetStartTime(j.StartTime);
+                            foup.record[slot - 1].setM12(j.OCR_M12_Result);
+                            foup.record[slot - 1].setT7(j.OCR_T7_Result);
+                            foup.record[slot - 1].SetEndTime(j.EndTime);
+                            foup.record[slot - 1].SetLoadTime(Loadport.LoadTime);
+                            foup.record[slot - 1].SetUnloadTime(DateTime.Now);
+                            foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
+                            foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
+                        }
+                        foup.Save();
+
+
                         if (!xfe.Start(Loadport.Name))
                         {
                             MessageBox.Show("xfe.Start fail!");
@@ -2046,11 +2196,13 @@ namespace Adam
         {
             NodeStatusUpdate.UpdateCurrentState("RUN");
             MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
+            WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
         }
 
         public void On_UnLoadPort_Selected(Node Port)
         {
             MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
+            WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
         }
 
         public void On_LoadPort_Complete(Node Port)
@@ -2218,7 +2370,7 @@ namespace Adam
                                 select each;
                 if (Available.Count() == 0)
                 {//Unloadport 滿了 自動退
-                    Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
+                    FoupInfo foup = new FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
                     foreach (Job j in Port.JobList.Values)
                     {
                         int slot = Convert.ToInt16(j.Slot);
@@ -2360,6 +2512,7 @@ namespace Adam
                 else
                 {
                     MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+                    WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
                 }
             }
             catch (Exception e)

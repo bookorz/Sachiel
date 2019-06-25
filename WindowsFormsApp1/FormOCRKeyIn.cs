@@ -51,6 +51,28 @@ namespace Adam
         private void FormOCRKeyIn_Load(object sender, EventArgs e)
         {
             Info_lb.Text = Type + " OCR Fail";
+            string savePath = "";
+                switch (Type)
+            {
+                case "M12":
+                    savePath = wafer.OCR_M12_ImgPath;
+                    break;
+                case "T7":
+                    savePath = wafer.OCR_T7_ImgPath;
+                    break;
+                case "EITHER":
+                    savePath = wafer.OCR_M12_ImgPath;
+                    break;
+            }
+            try
+            {
+                Bitmap t = new Bitmap(Image.FromFile(savePath), new Size(1280, 720));
+                OCR_Img.Image = t;
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.StackTrace);
+            }
+            WaferID_tb.ImeMode = ImeMode.Off;
         }
     }
 }

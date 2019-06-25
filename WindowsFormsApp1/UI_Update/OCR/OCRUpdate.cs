@@ -20,7 +20,7 @@ namespace Adam.UI_Update.OCR
     class OCRUpdate
     {
         static ILog logger = LogManager.GetLogger(typeof(OCRUpdate));
-        delegate void UpdateOCR(string OCRName, string In, Job Job, string OCRType);
+        delegate void UpdateOCR(string OCRName, string In, Job Job, string OCRType, string FormName);
         delegate void UpdateOCRInfo(string OCRName, OCRInfo Result, Job Job);
         [DllImport("user32.dll", SetLastError = true)]
         private static extern long SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
@@ -47,166 +47,121 @@ namespace Adam.UI_Update.OCR
 
 
 
-        public static void UpdateOCRRead(string OCRName, string WaferID, Job Job,string OCRType)
+        public static void UpdateOCRRead(string OCRName, string WaferID, Job Job, string OCRType,string FormName)
         {
             try
             {
-                Form form = Application.OpenForms["FormMonitoring"];
+                Form form = Application.OpenForms[FormName];
                 TextBox Tb_OCRRead;
+                string tbName = "";
                 if (form == null)
                     return;
-
-                Tb_OCRRead = form.Controls.Find(OCRName + "Read_Tb", true).FirstOrDefault() as TextBox;
+                switch (OCRType)
+                {
+                    case "M12":
+                        tbName = "Read_Tb";
+                        break;
+                    case "T7":
+                        tbName = "ReadT7_Tb";
+                        break;
+                    default:
+                        tbName = "Read_Tb";
+                        break;
+                }
+                Tb_OCRRead = form.Controls.Find(OCRName + tbName, true).FirstOrDefault() as TextBox;
                 if (Tb_OCRRead == null)
                     return;
 
                 if (Tb_OCRRead.InvokeRequired)
                 {
                     UpdateOCR ph = new UpdateOCR(UpdateOCRRead);
-                    Tb_OCRRead.BeginInvoke(ph, OCRName, WaferID, Job, OCRType);
+                    Tb_OCRRead.BeginInvoke(ph, OCRName, WaferID, Job, OCRType, FormName);
                 }
                 else
                 {
-                    string save = "";
-                    string src = "";
-                    
-                  
-                    switch (OCRName)
-                    {
-                        case "OCR01":
-                            save = SystemConfig.Get().OCR1ImgToJpgPath;
-                            src = SystemConfig.Get().OCR1ImgSourcePath;
-                            break;
-                        case "OCR02":
-                            save = SystemConfig.Get().OCR2ImgToJpgPath;
-                            src = SystemConfig.Get().OCR2ImgSourcePath;
-                            break;
-                    }
-                    save += "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + Job.FromFoupID;
-                    Thread.Sleep(500);
+
+
                     Node OCR = NodeManagement.Get(OCRName);
                     if (OCR != null)
                     {
 
-                        if (!Directory.Exists(save))
-                        {
-                            Directory.CreateDirectory(save);
-                        }
-                        string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bmp";
-                        string FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
+
+
+
+
+                        string info = "";
                         switch (OCRType)
                         {
                             case "M12":
-                                FileName += "_M12.jpg";
+                                info =  "Score:" + Job.OCR_M12_Score + " Pass:" + Job.OCR_M12_Pass.ToString();
                                 break;
                             case "T7":
-                                FileName += "_T7.jpg";
+                                info = "Score:" + Job.OCR_T7_Score + " Pass:" + Job.OCR_T7_Pass.ToString();
                                 break;
                             default:
-                                FileName += ".jpg";
+                                info = "Score:" + Job.OCRScore + " Pass:" + Job.OCRPass.ToString();
                                 break;
                         }
-                        string savePath = save +"/"+ FileName;
-
-                        if (savePath != "")
+                        string savePath = "";
+                        switch (OCRType)
                         {
-                            string info = "";
-                            switch (OCRType)
-                            {
-                                case "M12":
-                                    info = Job.OCRResult + " Score:" + Job.OCR_M12_Score + " Pass:" + Job.OCR_M12_Pass.ToString();
-                                    break;
-                                case "T7":
-                                    info = Job.OCR_T7_Result + " Score:" + Job.OCR_T7_Score + " Pass:" + Job.OCR_T7_Pass.ToString();
-                                    break;
-                                default:
-                                    info = Job.OCR_M12_Result + " Score:" + Job.OCRScore + " Pass:" + Job.OCRPass.ToString();
-                                    break;
-                            }
-
-
-                            Tb_OCRRead.Text = info;
-                            switch (OCR.Brand)
-                            {
-                                case "COGNEX":
-                                    
-                                    FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21","","admin","");
-                                    string imgPath = ftp.Get("image.jpg", FileName, save);
-                                    PictureBox Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
-                                    if (Pic_OCR == null)
-                                        return;
-                                    Bitmap t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
-                                    Pic_OCR.Image = t;
-                                    Pic_OCR.Tag = Job;
-                                    switch (OCRType)
-                                    {
-                                        case "M12":
-                                            Job.OCR_M12_ImgPath = savePath;
-                                            break;
-                                        case "T7":
-                                            Job.OCR_T7_ImgPath = savePath;
-                                            break;
-                                        default:
-                                            Job.OCRImgPath = savePath;
-                                            break;
-                                    }
-                                    //Job.OCRScore = ocrResult[1];
-                                    //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
-                                    break;
-                                case "HST":
-                                   
-
-                                    string[] files = Directory.GetFiles(src);
-                                    List<string> fileList = files.ToList();
-                                    if (fileList.Count != 0)
-                                    {
-                                        fileList.Sort((x, y) => { return -File.GetLastWriteTime(x).CompareTo(File.GetLastWriteTime(y)); });
-
-                                        File.Copy(fileList[0], saveTmpPath);
-                                        Image bmp = Image.FromFile(saveTmpPath);
-
-                                        bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                        bmp.Dispose();
-                                        Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
-                                        File.Delete(saveTmpPath);
-                                        if (Pic_OCR == null)
-                                            return;
-                                        t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
-                                        Pic_OCR.Image = t;
-                                        if (Pic_OCR.Tag != null)
-                                        { 
-                                            if (!Pic_OCR.Tag.Equals(Job))
-                                            {//不同片
-                                                TextBox tb = form.Controls.Find(OCRName + "ReadT7_Tb", true).FirstOrDefault() as TextBox;
-                                                tb.Text = "";
-                                            }
-                                        }
-                                        Pic_OCR.Tag = Job;
-                                        switch (OCRType)
-                                        {
-                                            case "M12":
-                                                Job.OCR_M12_ImgPath = savePath;  
-                                                break;
-                                            case "T7":
-                                                Job.OCR_T7_ImgPath = savePath;                                               
-                                                break;
-                                            default:
-                                                Job.OCRImgPath = savePath;                                             
-                                                break;
-                                        }
-                                        
-                                        //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
-                                    }
-                                    break;
-                            }
-
+                            case "M12":
+                                savePath = Job.OCR_M12_ImgPath;
+                                break;
+                            case "T7":
+                                savePath = Job.OCR_T7_ImgPath;
+                                break;
+                            default:
+                                savePath = Job.OCRImgPath;
+                                break;
                         }
+
+                        Tb_OCRRead.Text = info;
+                        switch (OCR.Brand)
+                        {
+                            case "COGNEX":
+
+
+                                PictureBox Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
+                                if (Pic_OCR == null)
+                                    return;
+
+                                Bitmap t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
+                                Pic_OCR.Image = t;
+                                Pic_OCR.Tag = Job;
+
+                                //Job.OCRScore = ocrResult[1];
+                                //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                                break;
+                            case "HST":
+
+
+                                Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
+
+                                if (Pic_OCR == null)
+                                    return;
+                                t = new Bitmap(Image.FromFile(savePath), new Size(320, 240));
+                                Pic_OCR.Image = t;
+                                if (Pic_OCR.Tag != null)
+                                {
+                                    if (!Pic_OCR.Tag.Equals(Job))
+                                    {//不同片
+                                        TextBox tb = form.Controls.Find(OCRName + "ReadT7_Tb", true).FirstOrDefault() as TextBox;
+                                        tb.Text = "";
+                                    }
+                                }
+                                Pic_OCR.Tag = Job;
+
+                                break;
+                        }
+
                     }
+
                 }
 
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Error("UpdateOCRRead: Update fail.");
             }
@@ -485,7 +440,7 @@ namespace Adam.UI_Update.OCR
         //        logger.Error("UpdateOCRT7Read: Update fail.");
         //    }
         //}
-        public static void UpdateOCRReadXML(string OCRName,OCRInfo OcrResult, Job Job)
+        public static void UpdateOCRReadXML(string OCRName, OCRInfo OcrResult, Job Job)
         {
             try
             {
@@ -493,7 +448,7 @@ namespace Adam.UI_Update.OCR
                 TextBox Tb_OCRRead;
                 if (form == null)
                     return;
-                
+
 
                 string TbName = OCRName;
                 switch (OcrResult.ResultID)
@@ -505,7 +460,7 @@ namespace Adam.UI_Update.OCR
                         TbName += "ReadT7_Tb";
                         break;
                 }
-                
+
                 Tb_OCRRead = form.Controls.Find(TbName, true).FirstOrDefault() as TextBox;
                 if (Tb_OCRRead == null)
                     return;
@@ -527,7 +482,7 @@ namespace Adam.UI_Update.OCR
                     }
                     else
                     {
-                        Result = OcrResult.Result+"_"+ OcrResult.Score;
+                        Result = OcrResult.Result + "_" + OcrResult.Score;
                     }
                     switch (OCRName)
                     {
@@ -558,10 +513,10 @@ namespace Adam.UI_Update.OCR
                         {
                             switch (OCR.Brand)
                             {
-                                
+
                                 case "HST":
-                                    
-                                    Tb_OCRRead.Text = OcrResult.Result+" Score:"+ OcrResult.Score;
+
+                                    Tb_OCRRead.Text = OcrResult.Result + " Score:" + OcrResult.Score;
 
                                     string[] files = Directory.GetFiles(src);
                                     List<string> fileList = files.ToList();
@@ -573,7 +528,7 @@ namespace Adam.UI_Update.OCR
 
                                         bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
                                         bmp.Dispose();
-                                        PictureBox  Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
+                                        PictureBox Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
                                         File.Delete(saveTmpPath);
                                         if (Pic_OCR == null)
                                             return;
@@ -597,7 +552,7 @@ namespace Adam.UI_Update.OCR
             }
             catch (Exception e)
             {
-                logger.Error("UpdateOCRRead: Update fail."+e.StackTrace);
+                logger.Error("UpdateOCRRead: Update fail." + e.StackTrace);
             }
         }
 
@@ -669,7 +624,7 @@ namespace Adam.UI_Update.OCR
 
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Error(e.StackTrace);
             }

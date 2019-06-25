@@ -1,11 +1,13 @@
 using Adam.UI_Update.Barcode;
 using log4net;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TransferControl.Config;
+using TransferControl.Engine;
 using TransferControl.Management;
 using TransferControl.Operation;
 
@@ -108,13 +110,13 @@ namespace Adam.Menu.WaferMapping
             }
         }
 
-      
+
         private Node SearchLoadport()
         {
             Node result = null;
             var AvailableWafers = from job in JobManagement.GetJobList()
-                                 where job.NeedProcess
-                                 orderby job.AssignTime
+                                  where job.NeedProcess
+                                  orderby job.AssignTime
                                   select job;
             if (AvailableWafers.Count() != 0)
             {
@@ -134,11 +136,11 @@ namespace Adam.Menu.WaferMapping
                 Node Loadport = SearchLoadport();
                 if (Loadport == null)
                 {
-                    MessageBox.Show("找不到"+Loadport.Name);
+                    MessageBox.Show("找不到" + Loadport.Name);
                 }
                 else
                 {
-                    
+
                     if (!FormMain.xfe.Start(Loadport.Name))
                     {
                         MessageBox.Show("xfe.Start fail!");
@@ -249,7 +251,7 @@ namespace Adam.Menu.WaferMapping
                                                 }
                                             }
                                         }
-                                        
+
                                     }
                                 }
                             }
@@ -367,7 +369,7 @@ namespace Adam.Menu.WaferMapping
                             if (fPort.JobList.TryGetValue(fromSlot, out fSlot))
                             {
                                 fSlot.UnAssignPort();//取消綁定
-                                
+
                             }
                         }
                         if (!bypass)
@@ -432,7 +434,7 @@ namespace Adam.Menu.WaferMapping
                     {// not select
                         Slot_Label.BackColor = Color.Yellow;
                         Slot_Label.ForeColor = Color.Black;
-                      
+
                         toPort = PortName;
                         toSlot = SlotNo;
                         Node fPort = NodeManagement.Get(fromPort);
@@ -456,7 +458,7 @@ namespace Adam.Menu.WaferMapping
                                 {
                                     Label present = form.Controls.Find(toPort + "_Slot_" + (Convert.ToInt16(toSlot) + 1).ToString(), true).FirstOrDefault() as Label;
                                     if (!tSlot.MapFlag && !tSlot.ErrPosition && tSlot.ReservePort.Equals(""))
-                                    {                                   
+                                    {
                                         present.BackColor = Color.DimGray;
                                         present.ForeColor = Color.White;
 
@@ -475,7 +477,7 @@ namespace Adam.Menu.WaferMapping
                                 {
                                     foreach (Job eachSlot in p.JobList.Values)
                                     {
-                                        if(p.Name.ToUpper().Equals(fromPort.ToUpper())&& eachSlot.Slot.Equals(fromSlot))
+                                        if (p.Name.ToUpper().Equals(fromPort.ToUpper()) && eachSlot.Slot.Equals(fromSlot))
                                         {
                                             continue;
                                         }
@@ -680,10 +682,10 @@ namespace Adam.Menu.WaferMapping
                                             Form tform = Application.OpenForms["FormWaferMapping"];
                                             Label tpresent = form.Controls.Find(p.Name + "_Slot_" + (Convert.ToInt16(eachSlot.Slot) + 1).ToString(), true).FirstOrDefault() as Label;
                                             Job tSlot;
-                                            if (p.JobList.TryGetValue(toSlot, out tSlot)&& !bypass)
+                                            if (p.JobList.TryGetValue(toSlot, out tSlot) && !bypass)
                                             {
 
-                                                if (tSlot.ReservePort.Equals("") )//檢查下層slot是否已被綁定，改變目前slot限制狀態
+                                                if (tSlot.ReservePort.Equals(""))//檢查下層slot是否已被綁定，改變目前slot限制狀態
                                                 {
                                                     //未被綁定
                                                     tpresent.BackColor = Color.White;
@@ -697,7 +699,7 @@ namespace Adam.Menu.WaferMapping
                                                     tpresent.ForeColor = Color.White;
                                                 }
                                             }
-                                            
+
                                         }
                                         else
                                         {
@@ -721,7 +723,7 @@ namespace Adam.Menu.WaferMapping
                 MessageBox.Show("Not support assign to the same loadport");
                 return;
             }
-            
+
             Node Loadport = NodeManagement.Get(Source_cb.Text);
             Node UnLoadport = NodeManagement.Get(To_cb.Text);
             if (Loadport == null)
@@ -739,22 +741,26 @@ namespace Adam.Menu.WaferMapping
                           orderby Convert.ToInt16(wafer.Slot)
                           select wafer;
             int assignCnt = LD_Jobs.Count();
-           
+
 
             bool isAssign = false;
-           
-          
 
-                var ULD_Jobs = (from Slot in UnLoadport.JobList.Values
-                                where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
-                                select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
+            var ULD_Jobs = (from Slot in UnLoadport.JobList.Values
+                            where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
+                            select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
+            if (Recipe.Get(SystemConfig.Get().CurrentRecipe).auto_put_constrict.Equals("BOTTOM_UP"))
+            {
+                ULD_Jobs = (from Slot in UnLoadport.JobList.Values
+                            where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
+                            select Slot).OrderBy(x => Convert.ToInt16(x.Slot));
+            }
 
-                foreach (Job wafer in LD_Jobs)
-                {//檢查LD的所有WAFER
+            foreach (Job wafer in LD_Jobs)
+            {//檢查LD的所有WAFER
 
-                    isAssign = false;
-                    foreach (Job Slot in ULD_Jobs)
-                    {//搜尋所有FOSB Slot 找到能放的     
+                isAssign = false;
+                foreach (Job Slot in ULD_Jobs)
+                {//搜尋所有FOSB Slot 找到能放的     
                     if (Recipe.Get(SystemConfig.Get().CurrentRecipe).manual_put_constrict.Equals("1") && UnLoadport.CheckPreviousPresence(Slot.Slot))
                     {//下一層有片所以不能放
                         Slot.Locked = true;
@@ -764,23 +770,23 @@ namespace Adam.Menu.WaferMapping
                         Slot.Locked = true;
                     }
                     else
-                        {
-                            wafer.NeedProcess = true;
-                            wafer.ProcessFlag = false;
-                            wafer.AssignPort(UnLoadport.Name, Slot.Slot);
-                            isAssign = true;
-                          
-                            Slot.IsAssigned = true;
-                            logger.Debug("Assign booktest2 from " + Loadport.Name + " slot:" + wafer.Slot + " to " + UnLoadport.Name + " slot:" + Slot.Slot);
-
-                            break;
-                        }
-                    }
-                    if (!isAssign)
                     {
+                        wafer.NeedProcess = true;
+                        wafer.ProcessFlag = false;
+                        wafer.AssignPort(UnLoadport.Name, Slot.Slot);
+                        isAssign = true;
+
+                        Slot.IsAssigned = true;
+                        logger.Debug("Assign booktest2 from " + Loadport.Name + " slot:" + wafer.Slot + " to " + UnLoadport.Name + " slot:" + Slot.Slot);
+
                         break;
                     }
                 }
+                if (!isAssign)
+                {
+                    break;
+                }
+            }
             if (assignCnt != 0)
             {
                 LD_Jobs = from wafer in Loadport.JobList.Values
@@ -808,7 +814,7 @@ namespace Adam.Menu.WaferMapping
                 }
             }
             RefreshMap();
-            
+
         }
 
         private void LOADPORT_FID_Click(object sender, EventArgs e)
@@ -830,6 +836,48 @@ namespace Adam.Menu.WaferMapping
                     MessageBox.Show("No Foup exist");
                 }
 
+            }
+        }
+
+        private void Unload_btn(object sender, EventArgs e)
+        {
+            string PortName = ((Button)sender).Name.Substring(0, ((Button)sender).Name.IndexOf("_"));
+            Node port = NodeManagement.Get(PortName);
+            if (port == null)
+            {
+                MessageBox.Show(PortName + " not found");
+            }
+            if (port.Enable)
+            {
+                Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, port.FoupID);
+                foreach (Job j in port.JobList.Values)
+                {
+                    if (j.MapFlag && !j.ErrPosition)
+                    {
+                        int slot = Convert.ToInt16(j.Slot);
+                        foup.record[slot - 1] = new Adam.waferInfo(j.FromPort, j.FromFoupID, j.FromPortSlot, j.ToPort, j.ToFoupID, j.ToPortSlot);
+                        foup.record[slot - 1].SetStartTime(j.StartTime);
+                        foup.record[slot - 1].setM12(j.OCR_M12_Result);
+                        foup.record[slot - 1].setT7(j.OCR_T7_Result);
+                        foup.record[slot - 1].SetEndTime(j.EndTime);
+                        foup.record[slot - 1].SetLoadTime(port.LoadTime);
+                        foup.record[slot - 1].SetUnloadTime(DateTime.Now);
+                        foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
+                        foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
+                    }
+                }
+                foup.Save();
+                ((Button)sender).Enabled = false;
+                string TaskName = "LOADPORT_CLOSE_NOMAP";
+                string Message = "";
+                Dictionary<string, string> param1 = new Dictionary<string, string>();
+                param1.Add("@Target", port.Name);
+                TaskJobManagment.CurrentProceedTask tmpTask;
+                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString() + "Unload_btn", out Message, out tmpTask, TaskName, param1);
+            }
+            else
+            {
+                MessageBox.Show(PortName + " is disabled");
             }
         }
     }

@@ -166,6 +166,12 @@ namespace Adam.UI_Update.Layout
                             node.LArmActive = recipe.is_use_l_arm;
                             node.DoubleArmActive = recipe.is_use_double_arm;
                             break;
+                        case "ALIGNER01":
+                            node.ByPass = !recipe.is_use_aligner1;
+                            break;
+                        case "ALIGNER02":
+                            node.ByPass = !recipe.is_use_aligner2;
+                            break;
                     }
                 }
             }
