@@ -120,6 +120,7 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
+            this.SystemLog_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -628,6 +629,7 @@ namespace Adam
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.SystemLog_btn, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnManual, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnAlarm, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnVersion, 2, 0);
@@ -880,6 +882,17 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
+            // SystemLog_btn
+            // 
+            resources.ApplyResources(this.SystemLog_btn, "SystemLog_btn");
+            this.SystemLog_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.SystemLog_btn.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.SystemLog_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.SystemLog_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.SystemLog_btn.Name = "SystemLog_btn";
+            this.SystemLog_btn.UseVisualStyleBackColor = true;
+            this.SystemLog_btn.Click += new System.EventHandler(this.SystemLog_btn_Click);
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1011,6 +1024,7 @@ namespace Adam
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnChangeRecipe;
         private System.Windows.Forms.CheckBox Demo_mode_ck;
+        private System.Windows.Forms.Button SystemLog_btn;
     }
 }
 

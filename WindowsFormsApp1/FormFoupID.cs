@@ -37,7 +37,10 @@ namespace Adam
             DialogResult result = MessageBox.Show("Abort load procedure?", "Warning", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                //Unclamp foup     
+                //Unclamp foup 
+                endCode = "";
+                FoupID_Read_tb.Text = "";
+                startCode = "";
                 this.Hide();
             }
             else

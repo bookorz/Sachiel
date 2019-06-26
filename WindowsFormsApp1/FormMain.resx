@@ -1987,6 +1987,42 @@
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
+  <data name="SystemLog_btn.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="SystemLog_btn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="SystemLog_btn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 15.75pt</value>
+  </data>
+  <data name="SystemLog_btn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SystemLog_btn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>272, 3</value>
+  </data>
+  <data name="SystemLog_btn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 45</value>
+  </data>
+  <data name="SystemLog_btn.TabIndex" type="System.Int32, mscorlib">
+    <value>105</value>
+  </data>
+  <data name="SystemLog_btn.Text" xml:space="preserve">
+    <value>System Log</value>
+  </data>
+  <data name="&gt;&gt;SystemLog_btn.Name" xml:space="preserve">
+    <value>SystemLog_btn</value>
+  </data>
+  <data name="&gt;&gt;SystemLog_btn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SystemLog_btn.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;SystemLog_btn.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="btnManual.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -2024,7 +2060,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;btnManual.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="btnAlarm.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2069,7 +2105,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnAlarm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 3</value>
+    <value>541, 3</value>
   </data>
   <data name="btnAlarm.Size" type="System.Drawing.Size, System.Drawing">
     <value>263, 45</value>
@@ -2090,7 +2126,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;btnAlarm.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="btnVersion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2105,7 +2141,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>541, 3</value>
+    <value>810, 3</value>
   </data>
   <data name="btnVersion.Size" type="System.Drawing.Size, System.Drawing">
     <value>263, 45</value>
@@ -2126,7 +2162,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;btnVersion.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="btnHelp.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2141,7 +2177,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>810, 3</value>
+    <value>1079, 3</value>
   </data>
   <data name="btnHelp.Size" type="System.Drawing.Size, System.Drawing">
     <value>263, 45</value>
@@ -2162,7 +2198,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;btnHelp.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2192,7 +2228,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="btnManual" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnAlarm" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnVersion" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnHelp" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,14.28653,Percent,14.28653,Percent,14.28653,Percent,14.28653,Percent,14.28653,Percent,14.28653,Percent,14.28082" /&gt;&lt;Rows Styles="Percent,100,Absolute,51" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="SystemLog_btn" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnManual" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnAlarm" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnVersion" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnHelp" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,14.28653,Percent,14.28653,Percent,14.28653,Percent,14.28653,Percent,14.28653,Percent,14.28653,Percent,14.28082" /&gt;&lt;Rows Styles="Percent,100,Absolute,51" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="panel4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>

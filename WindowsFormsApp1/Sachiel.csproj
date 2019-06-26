@@ -171,7 +171,14 @@
     <Compile Include="FormQuery.designer.cs">
       <DependentUpon>FormQuery.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormSystemLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSystemLog.Designer.cs">
+      <DependentUpon>FormSystemLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FoupInfo.cs" />
+    <Compile Include="Log4NetAppender\TextBoxAppender.cs" />
     <Compile Include="Menu\DifferentialMonitor\FormDifferentialMonitor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -468,6 +475,9 @@
     <EmbeddedResource Include="FormQuery.resx">
       <DependentUpon>FormQuery.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormSystemLog.resx">
+      <DependentUpon>FormSystemLog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormUnitCtrlData.resx">
       <DependentUpon>FormUnitCtrlData.cs</DependentUpon>
     </EmbeddedResource>
@@ -632,6 +642,8 @@
     <None Include="Resources\sanwa_robot_status.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\21736064411375_205.jpg" />
+    <None Include="Resources\21736064411375_2051.jpg" />
     <Content Include="sql\Alarm Log.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

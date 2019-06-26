@@ -63,6 +63,16 @@ namespace Adam.Properties {
         /// <summary>
         ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
         /// </summary>
+        internal static System.Drawing.Bitmap _21736064411375_205 {
+            get {
+                object obj = ResourceManager.GetObject("21736064411375_205", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
         internal static System.Drawing.Bitmap arrowleft {
             get {
                 object obj = ResourceManager.GetObject("arrowleft", resourceCulture);

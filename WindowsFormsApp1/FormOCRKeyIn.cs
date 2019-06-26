@@ -39,6 +39,7 @@ namespace Adam
                         wafer.OCR_T7_Result = WaferID_tb.Text;
                         break;
                 }
+                wafer.Host_Job_Id = WaferID_tb.Text;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

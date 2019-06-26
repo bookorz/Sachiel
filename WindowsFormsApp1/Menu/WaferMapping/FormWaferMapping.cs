@@ -736,10 +736,16 @@ namespace Adam.Menu.WaferMapping
                 MessageBox.Show("To loadport not found!");
                 return;
             }
-            var LD_Jobs = from wafer in Loadport.JobList.Values
-                          where wafer.MapFlag && !wafer.ErrPosition && wafer.Destination.Equals("")
-                          orderby Convert.ToInt16(wafer.Slot)
-                          select wafer;
+            var LD_Jobs = (from wafer in Loadport.JobList.Values
+                          where wafer.MapFlag && !wafer.ErrPosition && wafer.Destination.Equals("")                         
+                          select wafer).OrderByDescending(x => Convert.ToInt16(x.Slot));
+            if (Recipe.Get(SystemConfig.Get().CurrentRecipe).get_slot_order.Equals("BOTTOM_UP"))
+            {
+                LD_Jobs = (from wafer in Loadport.JobList.Values
+                           where wafer.MapFlag && !wafer.ErrPosition && wafer.Destination.Equals("")
+                           select wafer).OrderBy(x => Convert.ToInt16(x.Slot));
+            }
+
             int assignCnt = LD_Jobs.Count();
 
 
@@ -748,7 +754,7 @@ namespace Adam.Menu.WaferMapping
             var ULD_Jobs = (from Slot in UnLoadport.JobList.Values
                             where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
                             select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
-            if (Recipe.Get(SystemConfig.Get().CurrentRecipe).auto_put_constrict.Equals("BOTTOM_UP"))
+            if (Recipe.Get(SystemConfig.Get().CurrentRecipe).put_slot_order.Equals("BOTTOM_UP"))
             {
                 ULD_Jobs = (from Slot in UnLoadport.JobList.Values
                             where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
@@ -761,11 +767,11 @@ namespace Adam.Menu.WaferMapping
                 isAssign = false;
                 foreach (Job Slot in ULD_Jobs)
                 {//搜尋所有FOSB Slot 找到能放的     
-                    if (Recipe.Get(SystemConfig.Get().CurrentRecipe).manual_put_constrict.Equals("1") && UnLoadport.CheckPreviousPresence(Slot.Slot))
+                    if (Recipe.Get(SystemConfig.Get().CurrentRecipe).manual_put_constrict.Equals("1") && UnLoadport.CheckPreviousPresence(Slot.Slot) && Recipe.Get(SystemConfig.Get().CurrentRecipe).put_slot_order.Equals("TOP_DOWN"))
                     {//下一層有片所以不能放
                         Slot.Locked = true;
                     }
-                    else if (Recipe.Get(SystemConfig.Get().CurrentRecipe).manual_put_constrict.Equals("2") && UnLoadport.CheckForwardPresence(Slot.Slot))
+                    else if (Recipe.Get(SystemConfig.Get().CurrentRecipe).manual_put_constrict.Equals("2") && UnLoadport.CheckForwardPresence(Slot.Slot) && Recipe.Get(SystemConfig.Get().CurrentRecipe).put_slot_order.Equals("TOP_DOWN"))
                     {//下方所有都不能有片
                         Slot.Locked = true;
                     }
@@ -789,26 +795,36 @@ namespace Adam.Menu.WaferMapping
             }
             if (assignCnt != 0)
             {
-                LD_Jobs = from wafer in Loadport.JobList.Values
-                          where wafer.NeedProcess
-                          orderby Convert.ToInt16(wafer.Slot)
-                          select wafer;
-                Node Rbt = NodeManagement.Get("ROBOT01");
-                if (Rbt.RArmActive && Rbt.LArmActive && Rbt.DoubleArmActive)
+
+                LD_Jobs = (from wafer in Loadport.JobList.Values
+                               where wafer.NeedProcess
+                               select wafer).OrderByDescending(x => Convert.ToInt16(x.Slot));
+                if (Recipe.Get(SystemConfig.Get().CurrentRecipe).get_slot_order.Equals("BOTTOM_UP"))
                 {
-                    for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
-                    {//重新排序目的地for雙Arm
-                        Job upper = LD_Jobs.ToList()[i];
-                        Job lower = LD_Jobs.ToList()[i - 1];
-                        if (upper.Destination.Equals(lower.Destination) && upper.NeedProcess && lower.NeedProcess && Math.Abs(Convert.ToInt16(upper.DestinationSlot) - Convert.ToInt16(lower.DestinationSlot)) == 1)
-                        {//目的地Slot相鄰 才進來
-                            string swapDes = upper.Destination;
-                            string swapSlot = upper.DestinationSlot;
-                            upper.AssignPort(lower.Destination, lower.DestinationSlot);
-                            lower.AssignPort(swapDes, swapSlot);
-                            logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
-                            logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
-                            logger.Debug("Reverse booktest2 ---------- ");
+                    LD_Jobs = (from wafer in Loadport.JobList.Values
+                               where wafer.NeedProcess
+                               select wafer).OrderBy(x => Convert.ToInt16(x.Slot));
+                }
+                
+                Node Rbt = NodeManagement.Get("ROBOT01");
+                if (!Recipe.Get(SystemConfig.Get().CurrentRecipe).put_slot_order.Equals(Recipe.Get(SystemConfig.Get().CurrentRecipe).get_slot_order))
+                {
+                    if (Rbt.RArmActive && Rbt.LArmActive && Rbt.DoubleArmActive)
+                    {
+                        for (int i = 1; i < LD_Jobs.Count(); i = i + 2)
+                        {//重新排序目的地for雙Arm
+                            Job upper = LD_Jobs.ToList()[i];
+                            Job lower = LD_Jobs.ToList()[i - 1];
+                            if (upper.Destination.Equals(lower.Destination) && upper.NeedProcess && lower.NeedProcess && Math.Abs(Convert.ToInt16(upper.DestinationSlot) - Convert.ToInt16(lower.DestinationSlot)) == 1)
+                            {//目的地Slot相鄰 才進來
+                                string swapDes = upper.Destination;
+                                string swapSlot = upper.DestinationSlot;
+                                upper.AssignPort(lower.Destination, lower.DestinationSlot);
+                                lower.AssignPort(swapDes, swapSlot);
+                                logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
+                                logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
+                                logger.Debug("Reverse booktest2 ---------- ");
+                            }
                         }
                     }
                 }
