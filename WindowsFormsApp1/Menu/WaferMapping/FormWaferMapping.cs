@@ -797,12 +797,12 @@ namespace Adam.Menu.WaferMapping
             {
 
                 LD_Jobs = (from wafer in Loadport.JobList.Values
-                               where wafer.NeedProcess
+                               where wafer.NeedProcess && !wafer.IsReversed
                                select wafer).OrderByDescending(x => Convert.ToInt16(x.Slot));
                 if (Recipe.Get(SystemConfig.Get().CurrentRecipe).get_slot_order.Equals("BOTTOM_UP"))
                 {
                     LD_Jobs = (from wafer in Loadport.JobList.Values
-                               where wafer.NeedProcess
+                               where wafer.NeedProcess && !wafer.IsReversed
                                select wafer).OrderBy(x => Convert.ToInt16(x.Slot));
                 }
                 
@@ -824,6 +824,8 @@ namespace Adam.Menu.WaferMapping
                                 logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
                                 logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
                                 logger.Debug("Reverse booktest2 ---------- ");
+                                upper.IsReversed = true;
+                                lower.IsReversed = true;
                             }
                         }
                     }

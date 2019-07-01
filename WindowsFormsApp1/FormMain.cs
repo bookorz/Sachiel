@@ -723,7 +723,7 @@ namespace Adam
                                     Job wafer = Node.JobList["1"];
                                     if ((!wafer.OCR_M12_Pass && !wafer.OCR_T7_Pass) && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("EITHER")))
                                     {
-                                        using (var form = new FormOCRKeyIn("EITHER", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
+                                        using (var form = new FormOCRKeyIn("ALL", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
                                         {
                                             var result = form.ShowDialog();
                                             if (result == DialogResult.OK)
@@ -2080,12 +2080,12 @@ namespace Adam
                         }
                     }
                     LD_Jobs = (from wafer in Loadport.JobList.Values
-                               where wafer.NeedProcess
+                               where wafer.NeedProcess && !wafer.IsReversed
                                select wafer).OrderByDescending(x => Convert.ToInt16(x.Slot));
                     if (Recipe.Get(SystemConfig.Get().CurrentRecipe).get_slot_order.Equals("BOTTOM_UP"))
                     {
                         LD_Jobs = (from wafer in Loadport.JobList.Values
-                                   where wafer.NeedProcess
+                                   where wafer.NeedProcess && !wafer.IsReversed
                                    select wafer).OrderBy(x => Convert.ToInt16(x.Slot));
                     }
                     Node Rbt = NodeManagement.Get("ROBOT01");
@@ -2106,6 +2106,8 @@ namespace Adam
                                     logger.Debug("Reverse booktest from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
                                     logger.Debug("Reverse booktest from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
                                     logger.Debug("Reverse booktest ---------- ");
+                                    upper.IsReversed = true;
+                                    lower.IsReversed = true;
                                 }
                             }
 
