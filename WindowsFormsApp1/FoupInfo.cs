@@ -81,7 +81,9 @@ namespace Adam
         }
     }
     public class waferInfo{
-
+        string port;
+        string foup_id;
+        string slot;
         string from_port;
         string from_id;
         string from_slot;
@@ -101,7 +103,7 @@ namespace Adam
         {
             return new string[] { from_port, from_id, from_slot, to_port_id, to_id, to_slot, t7, t7_score, m12, m12_score, start_datetime, end_datetime, load_datetime, unload_datetime };
         }
-        public waferInfo(string from_port, string from_id, string from_slot, string to_port_id, string to_id, string to_slot)
+        public waferInfo(string port, string id, string slot, string from_port, string from_id, string from_slot, string to_port_id, string to_id, string to_slot)
         {
             this.from_port = from_port;
             this.from_id = from_id;
@@ -113,11 +115,11 @@ namespace Adam
 
         public void SetStartTime(DateTime timeStamp)
         {
-            this.start_datetime = timeStamp.ToString("dd-MM-yyyy HH:mm:ss.fff");
+            this.start_datetime = timeStamp.ToString("yyyy-MM-dd HH:mm:ss.fff");
         }
         public void SetEndTime(DateTime timeStamp)
         {
-            this.end_datetime = timeStamp.ToString("dd-MM-yyyy HH:mm:ss.fff");
+            this.end_datetime = timeStamp.ToString("yyyy-MM-dd HH:mm:ss.fff");
         }
         public void setM12(string m12)
         {
@@ -137,11 +139,11 @@ namespace Adam
         }
         public void SetLoadTime(DateTime timeStamp)
         {
-            this.load_datetime = timeStamp.ToString("dd-MM-yyyy HH:mm:ss.fff");
+            this.load_datetime = timeStamp.ToString("yyyy-MM-dd HH:mm:ss.fff");
         }
         public void SetUnloadTime(DateTime timeStamp)
         {
-            this.unload_datetime = timeStamp.ToString("dd-MM-yyyy HH:mm:ss.fff");
+            this.unload_datetime = timeStamp.ToString("yyyy-MM-dd HH:mm:ss.fff");
         }
     }
 }
