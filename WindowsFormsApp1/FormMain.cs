@@ -2142,7 +2142,7 @@ namespace Adam
                             if (j.MapFlag && !j.ErrPosition)
                             {
                                 int slot = Convert.ToInt16(j.Slot);
-                                foup.record[slot - 1] = new Adam.waferInfo(j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position, Loadport.FoupID, j.Slot);
+                                foup.record[slot - 1] = new Adam.waferInfo(Loadport.Name, Loadport.FoupID, j.FromPortSlot, j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position, Loadport.FoupID, j.Slot);
                                 foup.record[slot - 1].SetStartTime(j.StartTime);
                                 foup.record[slot - 1].setM12(j.OCR_M12_Result);
                                 foup.record[slot - 1].setT7(j.OCR_T7_Result);
@@ -2232,150 +2232,161 @@ namespace Adam
         {
             try
             {
-                string constrict = Recipe.Get(SystemConfig.Get().CurrentRecipe).input_proc_fin;
-                string Light = "";
-                string Buzzer = "";
-                switch (constrict[1])
+                var AvailableSlots = from eachSlot in Port.JobList.Values.ToList()
+                                     where eachSlot.MapFlag && !eachSlot.ErrPosition && !eachSlot.Locked
+                                     select eachSlot;
+                if (AvailableSlots.Count() != 0)
                 {
-                    case '0':
-                        Light = "RED";
-                        break;
-                    case '1':
-                        Light = "ORANGE";
-                        break;
-                    case '2':
-                        Light = "GREEN";
-                        break;
-                    case '3':
-                        Light = "BLUE";
-                        break;
+                    MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+                    WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
                 }
-                switch (constrict[2])
-                {
-                    case '4':
-                        Buzzer = "BUZZER1";
-                        break;
-                    case '5':
-                        Buzzer = "BUZZER2";
-                        break;
-
-                }
-                if (!constrict[0].Equals('N'))
-                {//N:無動作
-                    if (!Light.Equals(""))
+                else
+                {//滿了才退
+                    string constrict = Recipe.Get(SystemConfig.Get().CurrentRecipe).input_proc_fin;
+                    string Light = "";
+                    string Buzzer = "";
+                    switch (constrict[1])
                     {
-                        RouteControl.Instance.DIO.SetBlink(Light, "True");
+                        case '0':
+                            Light = "RED";
+                            break;
+                        case '1':
+                            Light = "ORANGE";
+                            break;
+                        case '2':
+                            Light = "GREEN";
+                            break;
+                        case '3':
+                            Light = "BLUE";
+                            break;
                     }
-                    if (!Buzzer.Equals(""))
+                    switch (constrict[2])
                     {
-                        RouteControl.Instance.DIO.SetIO(Buzzer, "True");
+                        case '4':
+                            Buzzer = "BUZZER1";
+                            break;
+                        case '5':
+                            Buzzer = "BUZZER2";
+                            break;
+
                     }
-
-
-                    using (var form = new FormNotify("Loadport Finished", Port.Name, Port.FoupID))
-                    {
-
-                        switch (constrict.Substring(0, 1))
+                    if (!constrict[0].Equals('N'))
+                    {//N:無動作
+                        if (!Light.Equals(""))
                         {
-                            case "M"://跳出不暫停
-                                     // new Thread(() =>
-                                     // {
+                            RouteControl.Instance.DIO.SetBlink(Light, "True");
+                        }
+                        if (!Buzzer.Equals(""))
+                        {
+                            RouteControl.Instance.DIO.SetIO(Buzzer, "True");
+                        }
 
-                                try
-                                {
 
-                                    //Thread.CurrentThread.IsBackground = true;
+                        using (var form = new FormNotify("Loadport Finished", Port.Name, Port.FoupID))
+                        {
 
-                                    var result = form.ShowDialog();
+                            switch (constrict.Substring(0, 1))
+                            {
+                                case "M"://跳出不暫停
+                                         // new Thread(() =>
+                                         // {
 
-                                    if (result == DialogResult.OK)
+                                    try
                                     {
 
-                                        if (!Light.Equals(""))
+                                        //Thread.CurrentThread.IsBackground = true;
+
+                                        var result = form.ShowDialog();
+
+                                        if (result == DialogResult.OK)
                                         {
 
+                                            if (!Light.Equals(""))
+                                            {
+
+                                                RouteControl.Instance.DIO.SetIO(Light, "False");
+                                            }
+                                            if (!Buzzer.Equals(""))
+                                            {
+
+                                                RouteControl.Instance.DIO.SetIO(Buzzer, "False");
+                                            }
+                                        }
+                                    }
+                                    catch (Exception e)
+                                    {
+
+                                        logger.Error(e.Message + "\n" + e.StackTrace);
+                                    }
+                                    // }).Start();
+
+
+                                    break;
+                                case "P"://跳出暫停
+
+                                    // new Thread(() =>
+                                    //{
+                                    //Thread.CurrentThread.IsBackground = true;
+                                    foreach (Job j in JobManagement.GetJobList())
+                                    {
+                                        j.AbortProcess = true;
+
+                                    }
+                                    foreach (Node port in NodeManagement.GetLoadPortList())
+                                    {
+                                        if (port.IsMapping)
+                                        {
+                                            foreach (Job j in port.JobList.Values)
+                                            {
+                                                if (!j.MapFlag && !j.ErrPosition)
+                                                {
+                                                    j.IsAssigned = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    var result2 = form.ShowDialog();
+                                    if (result2 == DialogResult.OK)
+                                    {
+                                        if (!Light.Equals(""))
+                                        {
                                             RouteControl.Instance.DIO.SetIO(Light, "False");
                                         }
                                         if (!Buzzer.Equals(""))
                                         {
-
                                             RouteControl.Instance.DIO.SetIO(Buzzer, "False");
                                         }
-                                    }
-                                }
-                                catch (Exception e)
-                                {
-
-                                    logger.Error(e.Message + "\n" + e.StackTrace);
-                                }
-                                // }).Start();
-
-
-                                break;
-                            case "P"://跳出暫停
-
-                                // new Thread(() =>
-                                //{
-                                //Thread.CurrentThread.IsBackground = true;
-                                foreach (Job j in JobManagement.GetJobList())
-                                {
-                                    j.AbortProcess = true;
-
-                                }
-                                foreach (Node port in NodeManagement.GetLoadPortList())
-                                {
-                                    if (port.IsMapping)
-                                    {
-                                        foreach (Job j in port.JobList.Values)
+                                        foreach (Job j in JobManagement.GetJobList())
                                         {
-                                            if (!j.MapFlag && !j.ErrPosition)
-                                            {
-                                                j.IsAssigned = false;
-                                            }
+                                            j.AbortProcess = false;
+
+                                        }
+                                        Node ld = SearchLoadport();
+                                        if (ld != null)
+                                        {
+                                            AssignWafer(ld);
+                                        }
+                                        else
+                                        {
+                                            NodeStatusUpdate.UpdateCurrentState("IDLE");
                                         }
                                     }
-                                }
-                                var result2 = form.ShowDialog();
-                                if (result2 == DialogResult.OK)
-                                {
-                                    if (!Light.Equals(""))
-                                    {
-                                        RouteControl.Instance.DIO.SetIO(Light, "False");
-                                    }
-                                    if (!Buzzer.Equals(""))
-                                    {
-                                        RouteControl.Instance.DIO.SetIO(Buzzer, "False");
-                                    }
-                                    foreach (Job j in JobManagement.GetJobList())
-                                    {
-                                        j.AbortProcess = false;
+                                    //}).Start();
+                                    break;
+                            }
 
-                                    }
-                                    Node ld = SearchLoadport();
-                                    if (ld != null)
-                                    {
-                                        AssignWafer(ld);
-                                    }
-                                    else
-                                    {
-                                        NodeStatusUpdate.UpdateCurrentState("IDLE");
-                                    }
-                                }
-                                //}).Start();
-                                break;
+
+
+
                         }
-
-
-
-
                     }
+                    string TaskName = "LOADPORT_CLOSE_NOMAP";
+                    string Message = "";
+                    Dictionary<string, string> param1 = new Dictionary<string, string>();
+                    param1.Add("@Target", Port.Name);
+                    TaskJobManagment.CurrentProceedTask tmpTask;
+                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
                 }
-                string TaskName = "LOADPORT_CLOSE_NOMAP";
-                string Message = "";
-                Dictionary<string, string> param1 = new Dictionary<string, string>();
-                param1.Add("@Target", Port.Name);
-                TaskJobManagment.CurrentProceedTask tmpTask;
-                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
             }
             catch (Exception e)
             {
@@ -2399,7 +2410,7 @@ namespace Adam
                         if (j.MapFlag && !j.ErrPosition)
                         {
                             int slot = Convert.ToInt16(j.Slot);
-                            foup.record[slot - 1] = new Adam.waferInfo(j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position, Port.FoupID, j.Slot);
+                            foup.record[slot - 1] = new Adam.waferInfo(Port.Name, Port.FoupID, j.FromPortSlot, j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position, Port.FoupID, j.Slot);
                             foup.record[slot - 1].SetStartTime(j.StartTime);
                             foup.record[slot - 1].setM12(j.OCR_M12_Result);
                             foup.record[slot - 1].setT7(j.OCR_T7_Result);
