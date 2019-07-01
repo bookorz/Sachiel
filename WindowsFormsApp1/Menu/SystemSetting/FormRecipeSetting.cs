@@ -108,6 +108,7 @@ namespace Adam.Menu.SystemSetting
             //gbRecipe.Enabled = false;
             btnCreateRecipe.Enabled = true;
             btnModifyRecipe.Enabled = true;
+            btnDeleteRecipe.Enabled = true;
             btnCancel.Enabled = false;
             btnSave.Enabled = false;
             tbRecipeName.ReadOnly = true;
@@ -254,6 +255,7 @@ namespace Adam.Menu.SystemSetting
             //gbRecipeHeader.Enabled = false;
             btnCreateRecipe.Enabled = false;
             btnModifyRecipe.Enabled = false;
+            btnDeleteRecipe.Enabled = false;
             btnCancel.Enabled = true;
             btnSave.Enabled = true;
             tbRecipeName.ReadOnly = true;
@@ -268,6 +270,7 @@ namespace Adam.Menu.SystemSetting
             //gbRecipe.Enabled = false;
             btnCreateRecipe.Enabled = true;
             btnModifyRecipe.Enabled = true;
+            btnDeleteRecipe.Enabled = true;
             btnCancel.Enabled = false;
             btnSave.Enabled = false;
             tbRecipeName.ReadOnly = true;
@@ -426,7 +429,17 @@ namespace Adam.Menu.SystemSetting
             //if (!btnSave.Enabled)
             if (lblMode.Text.Equals("瀏覽模式"))
             {
-                MessageBox.Show("請先選擇新增或修改功能，再做調整!!","Notice");
+                //DialogResult myResult = MessageBox.Show
+                //("目前為瀏覽模式，是否要編輯?", "Change Mode?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //if (myResult == DialogResult.Yes)
+                //{
+                //    btnModifyRecipe_Click(null, null);
+                //}
+                btnModifyRecipe_Click(null, null);
+            }
+            else
+            {
+                return;
             }
 
         }

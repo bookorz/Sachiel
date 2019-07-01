@@ -405,12 +405,12 @@
             this.groupBox10.Controls.Add(this.label7);
             this.groupBox10.Controls.Add(this.label25);
             this.groupBox10.Controls.Add(this.cbManualPutRule);
-            this.groupBox10.Controls.Add(this.cbManualGetRule);
             this.groupBox10.Controls.Add(this.cbAutoPutRule);
             this.groupBox10.Controls.Add(this.cbAutoGetRule);
+            this.groupBox10.Controls.Add(this.cbManualGetRule);
             this.groupBox10.Controls.Add(this.label32);
-            this.groupBox10.Controls.Add(this.label31);
             this.groupBox10.Controls.Add(this.label27);
+            this.groupBox10.Controls.Add(this.label31);
             this.groupBox10.Location = new System.Drawing.Point(557, 21);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(389, 215);
@@ -451,10 +451,11 @@
             "0",
             "1",
             "2"});
-            this.cbManualPutRule.Location = new System.Drawing.Point(201, 100);
+            this.cbManualPutRule.Location = new System.Drawing.Point(201, 151);
             this.cbManualPutRule.Name = "cbManualPutRule";
             this.cbManualPutRule.Size = new System.Drawing.Size(70, 32);
             this.cbManualPutRule.TabIndex = 2;
+            this.cbManualPutRule.Visible = false;
             this.cbManualPutRule.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbManualGetRule
@@ -465,7 +466,7 @@
             "0",
             "1",
             "2"});
-            this.cbManualGetRule.Location = new System.Drawing.Point(292, 100);
+            this.cbManualGetRule.Location = new System.Drawing.Point(292, 151);
             this.cbManualGetRule.Name = "cbManualGetRule";
             this.cbManualGetRule.Size = new System.Drawing.Size(70, 32);
             this.cbManualGetRule.TabIndex = 2;
@@ -506,7 +507,7 @@
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label32.ForeColor = System.Drawing.Color.Brown;
-            this.label32.Location = new System.Drawing.Point(42, 141);
+            this.label32.Location = new System.Drawing.Point(42, 92);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(155, 60);
             this.label32.TabIndex = 0;
@@ -517,12 +518,13 @@
             // 
             this.label31.AutoSize = true;
             this.label31.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label31.Location = new System.Drawing.Point(40, 102);
+            this.label31.Location = new System.Drawing.Point(40, 153);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(140, 24);
             this.label31.TabIndex = 0;
             this.label31.Text = "Manual Mode ";
             this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label31.Visible = false;
             // 
             // label27
             // 
