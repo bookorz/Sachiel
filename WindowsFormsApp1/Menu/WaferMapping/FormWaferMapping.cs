@@ -824,8 +824,14 @@ namespace Adam.Menu.WaferMapping
                                 logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
                                 logger.Debug("Reverse booktest2 from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
                                 logger.Debug("Reverse booktest2 ---------- ");
-                                upper.IsReversed = true;
-                                lower.IsReversed = true;
+                                
+                            }
+                        }
+                        foreach(Job each in Loadport.JobList.Values)
+                        {
+                            if (!each.Destination.Equals(""))
+                            {
+                                each.IsReversed = true;
                             }
                         }
                     }
@@ -867,21 +873,29 @@ namespace Adam.Menu.WaferMapping
             }
             if (port.Enable)
             {
-                Adam.FoupInfo foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, port.FoupID);
-                foreach (Job j in port.JobList.Values)
+                FoupInfo foup = FoupInfo.Get(port.Name);
+                if (foup != null)
                 {
-                    if (j.MapFlag && !j.ErrPosition)
+                    foup.SetAllUnloadTime(DateTime.Now);
+                }
+                else
+                {
+                    foup = new Adam.FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, port.FoupID);
+                    foreach (Job j in port.JobList.Values)
                     {
-                        int slot = Convert.ToInt16(j.Slot);
-                        foup.record[slot - 1] = new Adam.waferInfo(port.Name, port.FoupID, j.FromPortSlot, j.FromPort, j.FromFoupID, j.FromPortSlot, j.ToPort, j.ToFoupID, j.ToPortSlot);
-                        foup.record[slot - 1].SetStartTime(j.StartTime);
-                        foup.record[slot - 1].setM12(j.OCR_M12_Result);
-                        foup.record[slot - 1].setT7(j.OCR_T7_Result);
-                        foup.record[slot - 1].SetEndTime(j.EndTime);
-                        foup.record[slot - 1].SetLoadTime(port.LoadTime);
-                        foup.record[slot - 1].SetUnloadTime(DateTime.Now);
-                        foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
-                        foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
+                        if (j.MapFlag && !j.ErrPosition)
+                        {
+                            int slot = Convert.ToInt16(j.Slot);
+                            foup.record[slot - 1] = new Adam.waferInfo(port.Name, port.FoupID, j.Slot, j.FromPort, j.FromFoupID, j.FromPortSlot, j.ToPort, j.ToFoupID, j.ToPortSlot);
+                            foup.record[slot - 1].SetStartTime(j.StartTime);
+                            foup.record[slot - 1].setM12(j.OCR_M12_Result);
+                            foup.record[slot - 1].setT7(j.OCR_T7_Result);
+                            foup.record[slot - 1].SetEndTime(j.EndTime);
+                            foup.record[slot - 1].SetLoadTime(port.LoadTime);
+                            foup.record[slot - 1].SetUnloadTime(DateTime.Now);
+                            foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
+                            foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
+                        }
                     }
                 }
                 foup.Save();

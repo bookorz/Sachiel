@@ -62,6 +62,7 @@ namespace Adam
         bool DemoMode = false;
         string DemoLD = "";
 
+
         public FormMain()
         {
 
@@ -723,6 +724,7 @@ namespace Adam
                                     Job wafer = Node.JobList["1"];
                                     if ((!wafer.OCR_M12_Pass && !wafer.OCR_T7_Pass) && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("EITHER")))
                                     {
+                                        RouteControl.Instance.DIO.SetIO("BUZZER1", "True");
                                         using (var form = new FormOCRKeyIn("ALL", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
                                         {
                                             var result = form.ShowDialog();
@@ -731,6 +733,7 @@ namespace Adam
 
                                             }
                                         }
+                                        RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
                                     }
                                     break;
                             }
@@ -763,6 +766,7 @@ namespace Adam
                                     OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "M12", "FormWaferMapping");
                                     if (!NodeManagement.Get(Node.Associated_Node).JobList["1"].OCR_M12_Pass && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("BOTH") || Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("M12")))
                                     {
+                                        RouteControl.Instance.DIO.SetIO("BUZZER1", "True");
                                         using (var form = new FormOCRKeyIn("M12", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
                                         {
                                             var result = form.ShowDialog();
@@ -771,6 +775,7 @@ namespace Adam
 
                                             }
                                         }
+                                        RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
                                     }
                                     break;
                                 case Transaction.Command.OCRType.ReadT7:
@@ -779,6 +784,7 @@ namespace Adam
                                     OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "T7", "FormWaferMapping");
                                     if (!NodeManagement.Get(Node.Associated_Node).JobList["1"].OCR_T7_Pass && (Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("BOTH") || Recipe.Get(SystemConfig.Get().CurrentRecipe).ocr_check_Rule.Equals("T7")))
                                     {
+                                        RouteControl.Instance.DIO.SetIO("BUZZER1", "True");
                                         using (var form = new FormOCRKeyIn("T7", NodeManagement.Get(Node.Associated_Node).JobList["1"]))
                                         {
                                             var result = form.ShowDialog();
@@ -787,6 +793,7 @@ namespace Adam
 
                                             }
                                         }
+                                        RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
                                     }
                                     break;
                             }
@@ -1904,7 +1911,7 @@ namespace Adam
                     Initial = true;
                     Initializing = false;
                     RouteControl.Instance.DIO.SetIO("BUZZER1", "True");
-                    MessageBox.Show("Initial finished!");
+                    MessageBox.Show("Initial finished!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
                     break;
                 case "LOADPORT_OPEN":
@@ -2106,19 +2113,50 @@ namespace Adam
                                     logger.Debug("Reverse booktest from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
                                     logger.Debug("Reverse booktest from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
                                     logger.Debug("Reverse booktest ---------- ");
-                                    upper.IsReversed = true;
-                                    lower.IsReversed = true;
+                                    
                                 }
                             }
-
+                           
+                            foreach (Job each in Loadport.JobList.Values)
+                            {
+                                if (!each.Destination.Equals(""))
+                                {
+                                    each.IsReversed = true;
+                                }
+                            }
                         }
                     }
-                    var NeedProcessSlot = from wafer in LD_Jobs
+                    var NeedProcessSlot = from wafer in Loadport.JobList.Values
                                           where wafer.NeedProcess
                                           select wafer;
 
                     if (!XfeCrossZone.Running && NeedProcessSlot.Count() != 0)
                     {
+                        //in port log
+                        FoupInfo foup = new FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Loadport.FoupID);
+                        foreach (Job j in Loadport.JobList.Values)
+                        {
+                            if (j.MapFlag && !j.ErrPosition)
+                            {
+                                int slot = Convert.ToInt16(j.Slot);
+                                Node ULD = NodeManagement.Get(j.Destination);
+                                string ULD_Foup = "";
+                                if (ULD != null)
+                                {
+                                    ULD_Foup = ULD.FoupID;
+                                }
+                                foup.record[slot - 1] = new Adam.waferInfo(Loadport.Name, Loadport.FoupID, j.Slot, j.FromPort, Loadport.FoupID, j.FromPortSlot, j.Destination, ULD_Foup, j.DestinationSlot);
+                                //foup.record[slot - 1].SetStartTime(j.StartTime);
+                                //foup.record[slot - 1].setM12(j.OCR_M12_Result);
+                                //foup.record[slot - 1].setT7(j.OCR_T7_Result);
+                                //foup.record[slot - 1].SetEndTime(j.EndTime);
+                                foup.record[slot - 1].SetLoadTime(Loadport.LoadTime);
+                                //foup.record[slot - 1].SetUnloadTime(DateTime.Now);
+                                //foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
+                                //foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
+                            }
+                        }
+                        foup.SaveTmp(Loadport.Name);
                         if (!xfe.Start(Loadport.Name))
                         {
                             MessageBox.Show("xfe.Start fail!");
@@ -2142,18 +2180,25 @@ namespace Adam
                             if (j.MapFlag && !j.ErrPosition)
                             {
                                 int slot = Convert.ToInt16(j.Slot);
-                                foup.record[slot - 1] = new Adam.waferInfo(Loadport.Name, Loadport.FoupID, j.FromPortSlot, j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position, Loadport.FoupID, j.Slot);
-                                foup.record[slot - 1].SetStartTime(j.StartTime);
-                                foup.record[slot - 1].setM12(j.OCR_M12_Result);
-                                foup.record[slot - 1].setT7(j.OCR_T7_Result);
-                                foup.record[slot - 1].SetEndTime(j.EndTime);
+                                Node ULD = NodeManagement.Get(j.Destination);
+                                string ULD_Foup = "";
+                                if (ULD != null)
+                                {
+                                    ULD_Foup = ULD.FoupID;
+                                }
+                               
+                                foup.record[slot - 1] = new Adam.waferInfo(Loadport.Name, Loadport.FoupID, j.Slot, j.FromPort, Loadport.FoupID, j.FromPortSlot, j.Destination, ULD_Foup, j.DestinationSlot);
+                                //foup.record[slot - 1].SetStartTime(j.StartTime);
+                                //foup.record[slot - 1].setM12(j.OCR_M12_Result);
+                                //foup.record[slot - 1].setT7(j.OCR_T7_Result);
+                                //foup.record[slot - 1].SetEndTime(j.EndTime);
                                 foup.record[slot - 1].SetLoadTime(Loadport.LoadTime);
-                                foup.record[slot - 1].SetUnloadTime(DateTime.Now);
-                                foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
-                                foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
+                                //foup.record[slot - 1].SetUnloadTime(DateTime.Now);
+                                //foup.record[slot - 1].setM12Score(j.OCR_M12_Score);
+                                //foup.record[slot - 1].setT7Score(j.OCR_T7_Score);
                             }
                         }
-                        foup.Save();
+                        foup.SaveTmp(Loadport.Name);
 
 
                         if (!xfe.Start(Loadport.Name))
@@ -2200,7 +2245,7 @@ namespace Adam
             
 
             MonitoringUpdate.UpdateWPH((xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
-
+            logger.Debug("ProcessCount:" + xfe.ProcessCount.ToString() + " ProcessTime:" + xfe.ProcessTime.ToString() + " WPH:" + (xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
 
             Node ld = SearchLoadport();
             if (ld != null)
@@ -2242,6 +2287,9 @@ namespace Adam
                 }
                 else
                 {//滿了才退
+                    FoupInfo tmp = FoupInfo.Get(Port.Name);
+                    tmp.SetAllUnloadTime(DateTime.Now);
+                    tmp.Save();
                     string constrict = Recipe.Get(SystemConfig.Get().CurrentRecipe).input_proc_fin;
                     string Light = "";
                     string Buzzer = "";
@@ -2380,6 +2428,8 @@ namespace Adam
 
                         }
                     }
+                    MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
+                    WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
                     string TaskName = "LOADPORT_CLOSE_NOMAP";
                     string Message = "";
                     Dictionary<string, string> param1 = new Dictionary<string, string>();
@@ -2410,7 +2460,7 @@ namespace Adam
                         if (j.MapFlag && !j.ErrPosition)
                         {
                             int slot = Convert.ToInt16(j.Slot);
-                            foup.record[slot - 1] = new Adam.waferInfo(Port.Name, Port.FoupID, j.FromPortSlot, j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position, Port.FoupID, j.Slot);
+                            foup.record[slot - 1] = new Adam.waferInfo(Port.Name, Port.FoupID, j.Slot, j.FromPort, j.FromFoupID, j.FromPortSlot, j.Position, Port.FoupID, j.Slot);
                             foup.record[slot - 1].SetStartTime(j.StartTime);
                             foup.record[slot - 1].setM12(j.OCR_M12_Result);
                             foup.record[slot - 1].setT7(j.OCR_T7_Result);

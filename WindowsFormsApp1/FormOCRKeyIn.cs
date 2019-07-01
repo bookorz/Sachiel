@@ -81,7 +81,7 @@ namespace Adam
             if (!T7WaferID_tb.Text.Equals(""))
             {
 
-                wafer.OCR_M12_Result = T7WaferID_tb.Text;
+                wafer.OCR_T7_Result = T7WaferID_tb.Text;
 
                 wafer.Host_Job_Id = T7WaferID_tb.Text;
                 this.DialogResult = DialogResult.OK;
