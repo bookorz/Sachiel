@@ -127,6 +127,8 @@ namespace Adam.Menu.SystemSetting
             recipe.is_use_ocr_t7 = cbUseOcrT7.Checked;
             recipe.is_use_ocr_m12 = cbUseOcrM12.Checked;
             recipe.is_use_exchange = cbUseExchange.Checked;
+            recipe.is_use_burnin = cbUseBurnIn.Checked;
+            
 
             recipe.ocr_ttl_config = tbOcrTTL.Text;
             recipe.ocr_t7_config = tbOcrT7.Text;
@@ -395,6 +397,7 @@ namespace Adam.Menu.SystemSetting
                 tbOcrT7.Text = recipe.ocr_t7_config;
                 tbOcrM12.Text = recipe.ocr_m12_config;
                 cbUseExchange.Checked = recipe.is_use_exchange;
+                cbUseBurnIn.Checked = recipe.is_use_burnin;
 
                 //gbRecipe.Enabled = false;
                 string CurrentRecipe = SystemConfig.Get().CurrentRecipe;
