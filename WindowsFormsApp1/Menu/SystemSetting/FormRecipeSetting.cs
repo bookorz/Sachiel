@@ -126,6 +126,7 @@ namespace Adam.Menu.SystemSetting
             recipe.is_use_ocr_ttl = cbUseOcrTTL.Checked;
             recipe.is_use_ocr_t7 = cbUseOcrT7.Checked;
             recipe.is_use_ocr_m12 = cbUseOcrM12.Checked;
+            recipe.is_use_exchange = cbUseExchange.Checked;
 
             recipe.ocr_ttl_config = tbOcrTTL.Text;
             recipe.ocr_t7_config = tbOcrT7.Text;
@@ -393,6 +394,7 @@ namespace Adam.Menu.SystemSetting
                 tbOcrTTL.Text = recipe.ocr_ttl_config;
                 tbOcrT7.Text = recipe.ocr_t7_config;
                 tbOcrM12.Text = recipe.ocr_m12_config;
+                cbUseExchange.Checked = recipe.is_use_exchange;
 
                 //gbRecipe.Enabled = false;
                 string CurrentRecipe = SystemConfig.Get().CurrentRecipe;
@@ -524,6 +526,25 @@ namespace Adam.Menu.SystemSetting
                     cbUseLArm.Checked = true;
                     cbUserBothArm.Checked = true;
                 }
+            }
+        }
+
+        private void cbUseExchange_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbUseExchange.Checked)
+            {
+                cbUseRArm.Checked = true;
+                cbUseLArm.Checked = true;
+                cbUserBothArm.Checked = false;
+                cbUseRArm.Enabled = false;
+                cbUseLArm.Enabled = false;
+                cbUserBothArm.Enabled = false;
+            }
+            else
+            {
+                cbUseRArm.Enabled = true;
+                cbUseLArm.Enabled = true;
+                cbUserBothArm.Enabled = true;
             }
         }
     }

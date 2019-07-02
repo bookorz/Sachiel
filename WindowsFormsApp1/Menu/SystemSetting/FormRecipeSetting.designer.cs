@@ -52,12 +52,12 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.cbManualPutRule = new System.Windows.Forms.ComboBox();
-            this.cbManualGetRule = new System.Windows.Forms.ComboBox();
             this.cbAutoPutRule = new System.Windows.Forms.ComboBox();
             this.cbAutoGetRule = new System.Windows.Forms.ComboBox();
+            this.cbManualGetRule = new System.Windows.Forms.ComboBox();
             this.label32 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -146,6 +146,7 @@
             this.btnDeleteRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
+            this.cbUseExchange = new System.Windows.Forms.CheckBox();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -313,7 +314,7 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(11, 519);
+            this.label37.Location = new System.Drawing.Point(309, 515);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(128, 24);
             this.label37.TabIndex = 9;
@@ -458,21 +459,6 @@
             this.cbManualPutRule.Visible = false;
             this.cbManualPutRule.Click += new System.EventHandler(this.modeCheck);
             // 
-            // cbManualGetRule
-            // 
-            this.cbManualGetRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbManualGetRule.FormattingEnabled = true;
-            this.cbManualGetRule.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2"});
-            this.cbManualGetRule.Location = new System.Drawing.Point(292, 151);
-            this.cbManualGetRule.Name = "cbManualGetRule";
-            this.cbManualGetRule.Size = new System.Drawing.Size(70, 32);
-            this.cbManualGetRule.TabIndex = 2;
-            this.cbManualGetRule.Visible = false;
-            this.cbManualGetRule.Click += new System.EventHandler(this.modeCheck);
-            // 
             // cbAutoPutRule
             // 
             this.cbAutoPutRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -502,6 +488,21 @@
             this.cbAutoGetRule.Visible = false;
             this.cbAutoGetRule.Click += new System.EventHandler(this.modeCheck);
             // 
+            // cbManualGetRule
+            // 
+            this.cbManualGetRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbManualGetRule.FormattingEnabled = true;
+            this.cbManualGetRule.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2"});
+            this.cbManualGetRule.Location = new System.Drawing.Point(292, 151);
+            this.cbManualGetRule.Name = "cbManualGetRule";
+            this.cbManualGetRule.Size = new System.Drawing.Size(70, 32);
+            this.cbManualGetRule.TabIndex = 2;
+            this.cbManualGetRule.Visible = false;
+            this.cbManualGetRule.Click += new System.EventHandler(this.modeCheck);
+            // 
             // label32
             // 
             this.label32.AutoSize = true;
@@ -514,6 +515,17 @@
             this.label32.Text = "0: 不限制\r\n1: 下方相鄰Slot 為空\r\n2: 下方所有Slot 為空";
             this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label27.Location = new System.Drawing.Point(40, 60);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(117, 24);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "Auto Mode ";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label31
             // 
             this.label31.AutoSize = true;
@@ -525,17 +537,6 @@
             this.label31.Text = "Manual Mode ";
             this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label31.Visible = false;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label27.Location = new System.Drawing.Point(40, 60);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(117, 24);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "Auto Mode ";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox9
             // 
@@ -1212,7 +1213,7 @@
             // 
             // tbMotionTimeout
             // 
-            this.tbMotionTimeout.Location = new System.Drawing.Point(145, 512);
+            this.tbMotionTimeout.Location = new System.Drawing.Point(443, 508);
             this.tbMotionTimeout.Name = "tbMotionTimeout";
             this.tbMotionTimeout.Size = new System.Drawing.Size(109, 33);
             this.tbMotionTimeout.TabIndex = 1;
@@ -1368,12 +1369,13 @@
             this.groupBox3.Controls.Add(this.tbR1Speed);
             this.groupBox3.Controls.Add(this.cbPutSlotOrder);
             this.groupBox3.Controls.Add(this.cbGetSlotOrder);
+            this.groupBox3.Controls.Add(this.cbUseExchange);
             this.groupBox3.Controls.Add(this.cbUserBothArm);
             this.groupBox3.Controls.Add(this.cbUseLArm);
             this.groupBox3.Controls.Add(this.cbUseRArm);
             this.groupBox3.Location = new System.Drawing.Point(6, 237);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(288, 172);
+            this.groupBox3.Size = new System.Drawing.Size(288, 207);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Robot  Setting";
@@ -1512,7 +1514,7 @@
             this.groupBox4.Controls.Add(this.cbUseA2);
             this.groupBox4.Controls.Add(this.cbUseA1);
             this.groupBox4.Controls.Add(this.tbA1_angle);
-            this.groupBox4.Location = new System.Drawing.Point(6, 413);
+            this.groupBox4.Location = new System.Drawing.Point(6, 442);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(288, 96);
             this.groupBox4.TabIndex = 3;
@@ -1727,6 +1729,20 @@
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
             // 
+            // cbUseExchange
+            // 
+            this.cbUseExchange.AutoSize = true;
+            this.cbUseExchange.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUseExchange.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUseExchange.Location = new System.Drawing.Point(6, 173);
+            this.cbUseExchange.Name = "cbUseExchange";
+            this.cbUseExchange.Size = new System.Drawing.Size(162, 28);
+            this.cbUseExchange.TabIndex = 4;
+            this.cbUseExchange.Text = "使用交換片模式";
+            this.cbUseExchange.UseVisualStyleBackColor = true;
+            this.cbUseExchange.CheckedChanged += new System.EventHandler(this.cbUseExchange_CheckedChanged);
+            this.cbUseExchange.Click += new System.EventHandler(this.modeCheck);
+            // 
             // FormRecipeSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -1894,5 +1910,6 @@
         private System.Windows.Forms.ComboBox cbGetSlotOrder;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.ComboBox cbOcrCheckRule;
+        private System.Windows.Forms.CheckBox cbUseExchange;
     }
 }
