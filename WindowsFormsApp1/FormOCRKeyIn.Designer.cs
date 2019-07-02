@@ -52,6 +52,7 @@
             // 
             // M12WaferID_tb
             // 
+            this.M12WaferID_tb.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.M12WaferID_tb.Font = new System.Drawing.Font("新細明體", 28F);
             this.M12WaferID_tb.Location = new System.Drawing.Point(282, 5);
             this.M12WaferID_tb.Name = "M12WaferID_tb";
@@ -102,6 +103,7 @@
             // 
             // T7WaferID_tb
             // 
+            this.T7WaferID_tb.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.T7WaferID_tb.Font = new System.Drawing.Font("新細明體", 28F);
             this.T7WaferID_tb.Location = new System.Drawing.Point(282, 6);
             this.T7WaferID_tb.Name = "T7WaferID_tb";

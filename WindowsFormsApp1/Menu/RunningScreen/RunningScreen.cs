@@ -88,7 +88,7 @@ namespace Adam.Menu.RunningScreen
                 }
                 TransCount = Convert.ToInt32(TransCount_tb.Text);
                 SpeedSet = RunningSpeed_cb.Text.Replace("%","");
-                SpeedSet = SpeedSet.Equals("100") ? "0" : SpeedSet;
+                //SpeedSet = SpeedSet.Equals("100") ? "0" : SpeedSet;
 
                 Form form = Application.OpenForms["FormMain"];
                 

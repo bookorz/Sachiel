@@ -10,7 +10,7 @@ using TransferControl.Config;
 
 namespace Adam
 {
-    class FoupInfo
+    public class FoupInfo
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(FoupInfo));
         private string recipe_file;
@@ -18,6 +18,7 @@ namespace Adam
         private string foup_id;
         private string file_name;
         public waferInfo[] record;
+        static Dictionary<string, FoupInfo> TmpCol = new Dictionary<string, FoupInfo>(); 
 
         public FoupInfo(string recipe_file, string login_user, string foup_id)
         {
@@ -29,10 +30,29 @@ namespace Adam
             this.file_name = SystemConfig.Get().EquipmentID + "_" + foup_id + "_" + date + "_" + time + ".csv";
             record = new waferInfo[25];
         }
+        public static FoupInfo Get(string portName)
+        {
+            FoupInfo result = null;
+            TmpCol.TryGetValue(portName, out result);
+            if (TmpCol.ContainsKey(portName))
+            {
+                TmpCol.Remove(portName);
+            }
+            return result;
+        }
+        public void SaveTmp(string portName)
+        {
+            if (TmpCol.ContainsKey(portName))
+            {
+                TmpCol.Remove(portName);
+            }
+            TmpCol.Add(portName, this);
+        }
         public void Save()
         {
             try
             {
+                
                 //string fullPath = @"d:\log\foup\" + file_name;
                 string path = SystemConfig.Get().FoupTxfLogPath.Replace("\\","/");
                 path = path.EndsWith("/") ? path : path + "/" ;
@@ -48,7 +68,7 @@ namespace Adam
                 StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8);
                 string data = "";
                 //寫出列名稱
-                data = "from_port,from_id,from_slot,to_port_id,to_id,to_slot,t7,t7_score,m12,m12_score,start_datedime,end_datetime,load_datetime,unload_datetime,recipe_file,login_user";
+                data = "port,foup_id,slot,from_port,from_id,from_slot,to_port_id,to_id,to_slot,t7,t7_score,m12,m12_score,start_datedime,end_datetime,load_datetime,unload_datetime,recipe_file,login_user";
                 sw.WriteLine(data);
                 //寫出各行數據
                 for (int i = 0; i < record.Length; i++)
@@ -79,32 +99,45 @@ namespace Adam
                 logger.Error(ex.StackTrace);
             }
         }
+        public void SetAllUnloadTime(DateTime timeStamp)
+        {
+            foreach(waferInfo foo in record)
+            {
+                if (foo != null)
+                {
+                    foo.SetUnloadTime(timeStamp);
+                }
+            }
+        }
     }
     public class waferInfo{
-        string port;
-        string foup_id;
-        string slot;
-        string from_port;
-        string from_id;
-        string from_slot;
-        string to_port_id;
-        string to_id;
-        string to_slot;
-        string t7;
-        string t7_score;
-        string m12;
-        string m12_score;
-        string start_datetime;
-        string end_datetime;
-        string load_datetime;
-        string unload_datetime;
+        string port = "";
+        string foup_id = "";
+        string slot = "";
+        string from_port = "";
+        string from_id = "";
+        string from_slot = "";
+        string to_port_id = "";
+        string to_id = "";
+        string to_slot = "";
+        string t7 = "";
+        string t7_score = "";
+        string m12 = "";
+        string m12_score = "";
+        string start_datetime = "";
+        string end_datetime = "";
+        string load_datetime = "";
+        string unload_datetime = "";
 
         public string[] getData()
         {
-            return new string[] { from_port, from_id, from_slot, to_port_id, to_id, to_slot, t7, t7_score, m12, m12_score, start_datetime, end_datetime, load_datetime, unload_datetime };
+            return new string[] { port, foup_id, slot, from_port, from_id, from_slot, to_port_id, to_id, to_slot, t7, t7_score, m12, m12_score, start_datetime, end_datetime, load_datetime, unload_datetime };
         }
         public waferInfo(string port, string id, string slot, string from_port, string from_id, string from_slot, string to_port_id, string to_id, string to_slot)
         {
+            this.port = port;
+            this.foup_id = id;
+            this.slot = slot;
             this.from_port = from_port;
             this.from_id = from_id;
             this.from_slot = from_slot;
