@@ -1709,7 +1709,7 @@ namespace Adam
                                 Label present = form.Controls.Find(p.Name + "_Slot_" + eachSlot.Slot, true).FirstOrDefault() as Label;
                                 if (present != null)
                                 {
-                                    if (!eachSlot.Destination.Equals("") && !eachSlot.DestinationSlot.Equals("") && (!eachSlot.Destination.Equals(eachSlot.Position) && !eachSlot.DestinationSlot.Equals(eachSlot.Slot)))
+                                    if (!eachSlot.Destination.Equals("") && !eachSlot.DestinationSlot.Equals("") /*&& (!eachSlot.Destination.Equals(eachSlot.Position) && !eachSlot.DestinationSlot.Equals(eachSlot.Slot))*/)
                                     {//已被選
                                         present.BackColor = Color.Brown;
                                         present.ForeColor = Color.White;
@@ -2255,6 +2255,9 @@ namespace Adam
             else
             {
                 NodeStatusUpdate.UpdateCurrentState("IDLE");
+                RouteControl.Instance.DIO.SetIO("BUZZER2", "True");
+                MessageBox.Show("All job finished!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                RouteControl.Instance.DIO.SetIO("BUZZER2", "False");
             }
 
             WaferAssignUpdate.UpdateEnabled("FORM", true);
@@ -2610,20 +2613,20 @@ namespace Adam
 
         private void button1_Click(object sender, EventArgs e)
         {
-            fakeData("LOADPORT01");
-            fakeData("LOADPORT02");
-            fakeData("LOADPORT03");
-            fakeData("LOADPORT04");
+            fakeData("LOADPORT01", "1111111111111000000000000");
+            //fakeData("LOADPORT02");
+            //fakeData("LOADPORT03");
+            fakeData("LOADPORT04", "0000000000000000000000000");
             WaferAssignUpdate.UpdateNodesJob("LOADPORT01");
             WaferAssignUpdate.UpdateNodesJob("LOADPORT02");
             WaferAssignUpdate.UpdateNodesJob("LOADPORT03");
             WaferAssignUpdate.UpdateNodesJob("LOADPORT04");
         }
 
-        private void fakeData(string name)
+        private void fakeData(string name,string Mapping)
         {
             //string Mapping = Msg.Value;
-            string Mapping = "1111100111011000000000000";
+           
             //if (!Mapping.Equals("0000000000000000000000000"))
             //{
             //    Mapping = "0000000110000000000000000";
@@ -2861,10 +2864,7 @@ namespace Adam
             }
         }
 
-        private void Demo_mode_ck_CheckedChanged(object sender, EventArgs e)
-        {
-            DemoMode = Demo_mode_ck.Checked;
-        }
+     
 
         public void On_TaskJob_Ack(TaskJobManagment.CurrentProceedTask Task)
         {

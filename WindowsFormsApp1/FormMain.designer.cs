@@ -42,7 +42,6 @@ namespace Adam
             this.Connection_btn = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.Demo_mode_ck = new System.Windows.Forms.CheckBox();
             this.CDAAlarm_Signal = new System.Windows.Forms.Button();
             this.EQP_State = new System.Windows.Forms.Button();
             this.Stop_btn = new System.Windows.Forms.Button();
@@ -92,6 +91,7 @@ namespace Adam
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.SystemLog_btn = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.btnAlarm = new System.Controls.SplitButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -120,7 +120,6 @@ namespace Adam
             this.transTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.SystemLog_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
@@ -221,7 +220,6 @@ namespace Adam
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.Demo_mode_ck);
             this.groupBox5.Controls.Add(this.CDAAlarm_Signal);
             this.groupBox5.Controls.Add(this.EQP_State);
             this.groupBox5.Controls.Add(this.Stop_btn);
@@ -237,13 +235,6 @@ namespace Adam
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
-            // 
-            // Demo_mode_ck
-            // 
-            resources.ApplyResources(this.Demo_mode_ck, "Demo_mode_ck");
-            this.Demo_mode_ck.Name = "Demo_mode_ck";
-            this.Demo_mode_ck.UseVisualStyleBackColor = true;
-            this.Demo_mode_ck.CheckedChanged += new System.EventHandler(this.Demo_mode_ck_CheckedChanged);
             // 
             // CDAAlarm_Signal
             // 
@@ -636,6 +627,17 @@ namespace Adam
             this.tableLayoutPanel1.Controls.Add(this.btnHelp, 3, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
+            // SystemLog_btn
+            // 
+            resources.ApplyResources(this.SystemLog_btn, "SystemLog_btn");
+            this.SystemLog_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.SystemLog_btn.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.SystemLog_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.SystemLog_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.SystemLog_btn.Name = "SystemLog_btn";
+            this.SystemLog_btn.UseVisualStyleBackColor = true;
+            this.SystemLog_btn.Click += new System.EventHandler(this.SystemLog_btn_Click);
+            // 
             // btnManual
             // 
             this.btnManual.BackColor = System.Drawing.SystemColors.Control;
@@ -882,17 +884,6 @@ namespace Adam
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
-            // SystemLog_btn
-            // 
-            resources.ApplyResources(this.SystemLog_btn, "SystemLog_btn");
-            this.SystemLog_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.SystemLog_btn.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.SystemLog_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.SystemLog_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.SystemLog_btn.Name = "SystemLog_btn";
-            this.SystemLog_btn.UseVisualStyleBackColor = true;
-            this.SystemLog_btn.Click += new System.EventHandler(this.SystemLog_btn_Click);
-            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -910,7 +901,6 @@ namespace Adam
             this.groupBox54.PerformLayout();
             this.groupBox19.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1023,7 +1013,6 @@ namespace Adam
         private System.Windows.Forms.Label CurrentRecipe_lb;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnChangeRecipe;
-        private System.Windows.Forms.CheckBox Demo_mode_ck;
         private System.Windows.Forms.Button SystemLog_btn;
     }
 }

@@ -92,7 +92,7 @@ namespace Adam.Menu.WaferMapping
                             Label present = form.Controls.Find(p.Name + "_Slot_" + eachSlot.Slot, true).FirstOrDefault() as Label;
                             if (present != null)
                             {
-                                if (!eachSlot.Destination.Equals("") && !eachSlot.DestinationSlot.Equals("") && (!eachSlot.Destination.Equals(eachSlot.Position) && !eachSlot.DestinationSlot.Equals(eachSlot.Slot)))
+                                if (!eachSlot.Destination.Equals("") && !eachSlot.DestinationSlot.Equals("") /*&& (!eachSlot.Destination.Equals(eachSlot.Position) && !eachSlot.DestinationSlot.Equals(eachSlot.Slot))*/)
                                 {//¤w³Q¿ï
                                     present.BackColor = Color.Brown;
                                     present.ForeColor = Color.White;
