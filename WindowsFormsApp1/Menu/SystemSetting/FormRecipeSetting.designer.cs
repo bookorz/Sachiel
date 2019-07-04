@@ -125,6 +125,7 @@
             this.tbR1Speed = new System.Windows.Forms.TextBox();
             this.cbPutSlotOrder = new System.Windows.Forms.ComboBox();
             this.cbGetSlotOrder = new System.Windows.Forms.ComboBox();
+            this.cbUseBurnIn = new System.Windows.Forms.CheckBox();
             this.cbUseExchange = new System.Windows.Forms.CheckBox();
             this.cbUserBothArm = new System.Windows.Forms.CheckBox();
             this.cbUseLArm = new System.Windows.Forms.CheckBox();
@@ -147,7 +148,6 @@
             this.btnDeleteRecipe = new System.Windows.Forms.Button();
             this.palContainer = new System.Windows.Forms.Panel();
             this.tlpAccount = new System.Windows.Forms.TableLayoutPanel();
-            this.cbUseBurnIn = new System.Windows.Forms.CheckBox();
             this.gbAccountCondition.SuspendLayout();
             this.tlpAccountCreate.SuspendLayout();
             this.gbRecipe.SuspendLayout();
@@ -320,6 +320,7 @@
             this.label37.Size = new System.Drawing.Size(128, 24);
             this.label37.TabIndex = 9;
             this.label37.Text = "動作逾時秒數:";
+            this.label37.Visible = false;
             // 
             // groupBox5
             // 
@@ -1220,6 +1221,7 @@
             this.tbMotionTimeout.TabIndex = 1;
             this.tbMotionTimeout.Text = "10";
             this.tbMotionTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbMotionTimeout.Visible = false;
             this.tbMotionTimeout.Click += new System.EventHandler(this.modeCheck);
             this.tbMotionTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
@@ -1450,6 +1452,19 @@
             this.cbGetSlotOrder.Size = new System.Drawing.Size(160, 32);
             this.cbGetSlotOrder.TabIndex = 2;
             this.cbGetSlotOrder.Click += new System.EventHandler(this.modeCheck);
+            // 
+            // cbUseBurnIn
+            // 
+            this.cbUseBurnIn.AutoSize = true;
+            this.cbUseBurnIn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUseBurnIn.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUseBurnIn.Location = new System.Drawing.Point(174, 172);
+            this.cbUseBurnIn.Name = "cbUseBurnIn";
+            this.cbUseBurnIn.Size = new System.Drawing.Size(97, 28);
+            this.cbUseBurnIn.TabIndex = 4;
+            this.cbUseBurnIn.Text = "Burn-In";
+            this.cbUseBurnIn.UseVisualStyleBackColor = true;
+            this.cbUseBurnIn.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbUseExchange
             // 
@@ -1744,19 +1759,6 @@
             this.tlpAccount.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.20801F));
             this.tlpAccount.Size = new System.Drawing.Size(1432, 752);
             this.tlpAccount.TabIndex = 23;
-            // 
-            // cbUseBurnIn
-            // 
-            this.cbUseBurnIn.AutoSize = true;
-            this.cbUseBurnIn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cbUseBurnIn.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.cbUseBurnIn.Location = new System.Drawing.Point(174, 172);
-            this.cbUseBurnIn.Name = "cbUseBurnIn";
-            this.cbUseBurnIn.Size = new System.Drawing.Size(97, 28);
-            this.cbUseBurnIn.TabIndex = 4;
-            this.cbUseBurnIn.Text = "Burn-In";
-            this.cbUseBurnIn.UseVisualStyleBackColor = true;
-            this.cbUseBurnIn.Click += new System.EventHandler(this.modeCheck);
             // 
             // FormRecipeSetting
             // 

@@ -426,7 +426,6 @@ namespace Adam
                     switch (Txn.Method)
                     {
                         case Transaction.Command.LoadPortType.GetMapping:
-
                         case Transaction.Command.LoadPortType.Unload:
                         case Transaction.Command.LoadPortType.MappingUnload:
                         case Transaction.Command.LoadPortType.DoorUp:
@@ -629,42 +628,7 @@ namespace Adam
         {
 
             logger.Debug("On_Command_Error");
-            AlarmInfo CurrentAlarm = new AlarmInfo();
-            CurrentAlarm.NodeName = Node.Name;
-            CurrentAlarm.AlarmCode = Msg.Value;
-            CurrentAlarm.NeedReset = true;
-            try
-            {
-
-                AlarmMessage Detail = AlmMapping.Get(Node.Name, CurrentAlarm.AlarmCode);
-
-                CurrentAlarm.SystemAlarmCode = Detail.CodeID;
-                CurrentAlarm.Desc = Detail.Code_Cause;
-                CurrentAlarm.EngDesc = Detail.Code_Cause_English;
-                CurrentAlarm.Type = Detail.Code_Type;
-                CurrentAlarm.IsStop = Detail.IsStop;
-                if (CurrentAlarm.IsStop)
-                {
-                    Start = false;
-                    Initial = false;
-                    XfeCrossZone.Stop();
-                }
-            }
-            catch (Exception e)
-            {
-                CurrentAlarm.Desc = "未定義";
-                logger.Error(Node.Controller + "-" + Node.AdrNo + "(GetAlarmMessage)" + e.Message + "\n" + e.StackTrace);
-            }
-            CurrentAlarm.TimeStamp = DateTime.Now;
-
-            AlarmManagement.Add(CurrentAlarm);
-
-            AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
-            AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
-            //DIOUpdate.UpdateControlButton("Start_btn", false);
-            //DIOUpdate.UpdateControlButton("Stop_btn", false);
-            //DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
-            //RunMode = "";
+            ShowAlarm(Node.Name, Msg.Value);
         }
 
         public void On_Command_Finished(Node Node, Transaction Txn, CommandReturnMessage Msg)
@@ -755,7 +719,7 @@ namespace Adam
                             switch (Txn.Method)
                             {
                                 case Transaction.Command.OCRType.Read:
-                                    OCR_ImageHandle(Node, NodeManagement.Get(Node.Associated_Node).JobList["1"], "ALL",Msg.Value);
+                                    OCR_ImageHandle(Node, NodeManagement.Get(Node.Associated_Node).JobList["1"], "ALL", Msg.Value);
                                     OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "ALL", "FormMonitoring");
                                     OCRUpdate.UpdateOCRRead(Node.Name, Msg.Value, NodeManagement.Get(Node.Associated_Node).JobList["1"], "ALL", "FormWaferMapping");
                                     //OCRStatusUpdate.UpdateOCRRead(Node.Name, Msg.Value);
@@ -803,7 +767,7 @@ namespace Adam
             }
 
         }
-        private void OCR_ImageHandle(Node OCR,Job Job, string OCRType, string WaferID)
+        private void OCR_ImageHandle(Node OCR, Job Job, string OCRType, string WaferID)
         {
             string save = "";
             string src = "";
@@ -821,8 +785,8 @@ namespace Adam
                     break;
             }
             save += "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + Job.FromFoupID;
-            Thread.Sleep(500);
-            
+
+
             if (OCR != null)
             {
 
@@ -833,43 +797,50 @@ namespace Adam
 
 
                 string FileName = "";
+
                 switch (OCRType)
                 {
                     case "M12":
-                        FileName += "_M12.jpg";
+
                         if (!Job.OCR_M12_Pass)
                         {
                             WaferID = "Failed";
                         }
+                        FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
+                        FileName += "_M12.jpg";
                         break;
                     case "T7":
-                        FileName += "_T7.jpg";
+
                         if (!Job.OCR_T7_Pass)
                         {
                             WaferID = "Failed";
                         }
+                        FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
+                        FileName += "_T7.jpg";
                         break;
                     default:
-                        FileName += ".jpg";
+
                         if (!Job.OCRPass)
                         {
                             WaferID = "Failed";
                         }
+                        FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
+                        FileName += ".jpg";
                         break;
                 }
-                FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
+
                 string savePath = save + "/" + FileName;
                 string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bmp";
                 if (savePath != "")
                 {
-                    
+
                     switch (OCR.Brand)
                     {
                         case "COGNEX":
 
                             FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21", "", "admin", "");
                             string imgPath = ftp.Get("image.jpg", FileName, save);
-                            
+
                             switch (OCRType)
                             {
                                 case "M12":
@@ -887,40 +858,64 @@ namespace Adam
                             break;
                         case "HST":
 
-
-                            string[] files = Directory.GetFiles(src);
-                            List<string> fileList = files.ToList();
-                            if (fileList.Count != 0)
+                            int retryCnt = 20;
+                            while (retryCnt > 0)
                             {
-                                fileList.Sort((x, y) => { return -File.GetLastWriteTime(x).CompareTo(File.GetLastWriteTime(y)); });
-                                try
+                                string[] files = Directory.GetFiles(src);
+                                List<string> fileList = files.ToList();
+                                if (fileList.Count != 0)
                                 {
-                                    File.Copy(fileList[0], saveTmpPath);
+                                    fileList.Sort((x, y) => { return -File.GetLastWriteTime(x).CompareTo(File.GetLastWriteTime(y)); });
+
+                                    try
+                                    {
+                                        File.Copy(fileList[0], saveTmpPath);
+
+                                    }
+                                    catch (Exception ee)
+                                    {
+
+                                        retryCnt--;
+                                        if (retryCnt == 0)
+                                        {
+                                            logger.Error("OCR Image copy fail!");
+                                            ShowAlarm("SYSTEM", "S0300181");
+                                            return;
+                                        }
+                                        logger.Error("OCR Image copy retry " + retryCnt.ToString());
+                                        logger.Error(ee.Message);
+                                        Thread.Sleep(100);
+                                        continue;
+                                    }
+
+
+                                    Image bmp = Image.FromFile(saveTmpPath);
+
+                                    bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    bmp.Dispose();
+                                    File.Delete(saveTmpPath);
+
+                                    switch (OCRType)
+                                    {
+                                        case "M12":
+                                            Job.OCR_M12_ImgPath = savePath;
+                                            break;
+                                        case "T7":
+                                            Job.OCR_T7_ImgPath = savePath;
+                                            break;
+                                        default:
+                                            Job.OCRImgPath = savePath;
+                                            break;
+                                    }
+
+                                    //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                                    break;
                                 }
-                                catch (Exception ee)
+                                else
                                 {
-
+                                    retryCnt--;
+                                    Thread.Sleep(100);
                                 }
-                                Image bmp = Image.FromFile(saveTmpPath);
-
-                                bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                bmp.Dispose();
-                                File.Delete(saveTmpPath);
-                                
-                                switch (OCRType)
-                                {
-                                    case "M12":
-                                        Job.OCR_M12_ImgPath = savePath;
-                                        break;
-                                    case "T7":
-                                        Job.OCR_T7_ImgPath = savePath;
-                                        break;
-                                    default:
-                                        Job.OCRImgPath = savePath;
-                                        break;
-                                }
-
-                                //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
                             }
                             break;
                     }
@@ -931,34 +926,8 @@ namespace Adam
         public void On_Command_TimeOut(Node Node, Transaction Txn)
         {
             logger.Debug("On_Command_TimeOut");
-            AlarmInfo CurrentAlarm = new AlarmInfo();
-            CurrentAlarm.NodeName = Node.Name;
-            CurrentAlarm.AlarmCode = "00200002";
-            CurrentAlarm.NeedReset = false;
-            try
-            {
+            ShowAlarm(Node.Name, "00200002");
 
-                AlarmMessage Detail = AlmMapping.Get(Node.Name, CurrentAlarm.AlarmCode);
-
-                CurrentAlarm.SystemAlarmCode = Detail.CodeID;
-                CurrentAlarm.Desc = Detail.Code_Cause;
-                CurrentAlarm.EngDesc = Detail.Code_Cause_English;
-                CurrentAlarm.Type = Detail.Code_Type;
-                CurrentAlarm.IsStop = Detail.IsStop;
-                if (CurrentAlarm.IsStop)
-                {
-                    XfeCrossZone.Stop();
-                }
-            }
-            catch (Exception e)
-            {
-                CurrentAlarm.Desc = "未定義";
-                logger.Error(Node.Controller + "-" + Node.AdrNo + "(GetAlarmMessage)" + e.Message + "\n" + e.StackTrace);
-            }
-            CurrentAlarm.TimeStamp = DateTime.Now;
-            AlarmManagement.Add(CurrentAlarm);
-            AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
-            AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
         }
 
         public void On_Event_Trigger(Node Node, CommandReturnMessage Msg)
@@ -1227,79 +1196,16 @@ namespace Adam
 
         public void On_Alarm_Happen(string DIOName, string ErrorCode)
         {
+            ShowAlarm(DIOName, ErrorCode);
 
-            AlarmInfo CurrentAlarm = new AlarmInfo();
-            CurrentAlarm.NodeName = DIOName;
-            CurrentAlarm.AlarmCode = ErrorCode;
-            CurrentAlarm.NeedReset = false;
-            try
-            {
-
-                AlarmMessage Detail;
-                if (DIOName.Equals("DIO"))
-                {
-                    Detail = AlmMapping.Get("SYSTEM", CurrentAlarm.AlarmCode);
-                }
-                else
-                {
-                    Detail = AlmMapping.Get("DIO", CurrentAlarm.AlarmCode);
-                }
-
-                CurrentAlarm.SystemAlarmCode = Detail.CodeID;
-                CurrentAlarm.Desc = Detail.Code_Cause;
-                CurrentAlarm.EngDesc = Detail.Code_Cause_English;
-                CurrentAlarm.Type = Detail.Code_Type;
-                CurrentAlarm.IsStop = Detail.IsStop;
-
-
-                if (CurrentAlarm.IsStop)
-                {
-                    //XfeCrossZone.Stop();
-                }
-            }
-            catch (Exception e)
-            {
-                CurrentAlarm.Desc = "未定義";
-                logger.Error(DIOName + "(GetAlarmMessage)" + e.Message + "\n" + e.StackTrace);
-            }
-            CurrentAlarm.TimeStamp = DateTime.Now;
-            AlarmManagement.Add(CurrentAlarm);
-            AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
-            AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
         }
 
         public void On_Connection_Error(string DIOName, string ErrorMsg)
         {
             //斷線 發ALARM
             logger.Debug("On_Error_Occurred");
-            AlarmInfo CurrentAlarm = new AlarmInfo();
-            CurrentAlarm.NodeName = DIOName;
-            CurrentAlarm.AlarmCode = "00200001";
-            CurrentAlarm.NeedReset = false;
-            try
-            {
+            ShowAlarm(DIOName, "00200001");
 
-                AlarmMessage Detail = AlmMapping.Get("DIO", CurrentAlarm.AlarmCode);
-
-                CurrentAlarm.SystemAlarmCode = Detail.CodeID;
-                CurrentAlarm.Desc = Detail.Code_Cause;
-                CurrentAlarm.EngDesc = Detail.Code_Cause_English;
-                CurrentAlarm.Type = Detail.Code_Type;
-                CurrentAlarm.IsStop = Detail.IsStop;
-                if (CurrentAlarm.IsStop)
-                {
-                    // RouteCtrl.Stop();
-                }
-            }
-            catch (Exception e)
-            {
-                CurrentAlarm.Desc = "未定義";
-                logger.Error(DIOName + "(GetAlarmMessage)" + e.Message + "\n" + e.StackTrace);
-            }
-            CurrentAlarm.TimeStamp = DateTime.Now;
-            AlarmManagement.Add(CurrentAlarm);
-            AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
-            AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
         }
 
 
@@ -1783,7 +1689,43 @@ namespace Adam
 
         }
 
+        private void ShowAlarm(string NodeName, string AlarmCode)
+        {
+            AlarmInfo CurrentAlarm = new AlarmInfo();
+            CurrentAlarm.NodeName = NodeName;
+            CurrentAlarm.AlarmCode = AlarmCode;
+            CurrentAlarm.NeedReset = false;
+            try
+            {
 
+                AlarmMessage Detail = AlmMapping.Get(NodeName, CurrentAlarm.AlarmCode);
+                //if (!Detail.Code_Group.Equals("UNDEFINITION"))
+                //{
+                CurrentAlarm.SystemAlarmCode = Detail.CodeID;
+                CurrentAlarm.Desc = Detail.Code_Cause;
+                CurrentAlarm.EngDesc = Detail.Code_Cause_English;
+                CurrentAlarm.Type = Detail.Code_Type;
+                CurrentAlarm.IsStop = Detail.IsStop;
+                if (CurrentAlarm.IsStop)
+                {
+                    Start = false;
+                    Initial = false;
+                    XfeCrossZone.Stop();
+                }
+                CurrentAlarm.TimeStamp = DateTime.Now;
+
+                AlarmManagement.Add(CurrentAlarm);
+
+                AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
+                AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
+                // }
+            }
+            catch (Exception e)
+            {
+                CurrentAlarm.Desc = "未定義";
+                logger.Error("(GetAlarmMessage)" + e.Message + "\n" + e.StackTrace);
+            }
+        }
 
         public void On_TaskJob_Aborted(TaskJobManagment.CurrentProceedTask Task, string NodeName, string ReportType, string Message)
         {
@@ -1813,41 +1755,8 @@ namespace Adam
             {
                 ManualPortStatusUpdate.LockUI(false);
             }
-            AlarmInfo CurrentAlarm = new AlarmInfo();
-            CurrentAlarm.NodeName = "SYSTEM";
-            CurrentAlarm.AlarmCode = Message;
-            CurrentAlarm.NeedReset = false;
-            try
-            {
 
-                AlarmMessage Detail = AlmMapping.Get("SYSTEM", CurrentAlarm.AlarmCode);
-                //if (!Detail.Code_Group.Equals("UNDEFINITION"))
-                //{
-                CurrentAlarm.SystemAlarmCode = Detail.CodeID;
-                CurrentAlarm.Desc = Detail.Code_Cause;
-                CurrentAlarm.EngDesc = Detail.Code_Cause_English;
-                CurrentAlarm.Type = Detail.Code_Type;
-                CurrentAlarm.IsStop = Detail.IsStop;
-                if (CurrentAlarm.IsStop)
-                {
-                    Start = false;
-                    Initial = false;
-                    XfeCrossZone.Stop();
-                }
-                CurrentAlarm.TimeStamp = DateTime.Now;
-
-                AlarmManagement.Add(CurrentAlarm);
-
-                AlarmUpdate.UpdateAlarmList(AlarmManagement.GetAll());
-                AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory());
-                // }
-            }
-            catch (Exception e)
-            {
-                CurrentAlarm.Desc = "未定義";
-                logger.Error("(GetAlarmMessage)" + e.Message + "\n" + e.StackTrace);
-            }
-
+            ShowAlarm("SYSTEM", Message);
 
         }
 
@@ -1864,8 +1773,8 @@ namespace Adam
             switch (Task.ProceedTask.TaskName)
             {
                 case "SORTER_INIT":
-                    
-                    
+
+
                     if (CurrentMode.Equals("AUTO"))
                     {
                         //啟用Start按鈕
@@ -1915,6 +1824,7 @@ namespace Adam
                     RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
                     break;
                 case "LOADPORT_OPEN":
+                case "LOADPORT_REOPEN":
                     Node currentPort = NodeManagement.Get(Task.Params["@Target"]);
                     if (Start)
                     {
@@ -1960,11 +1870,20 @@ namespace Adam
             if (RunMode.Equals("FULLAUTO"))
             {
                 var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
-                                     where OPEN.Mode.Equals("LD") && OPEN.IsMapping
-                                     orderby OPEN.LoadTime
+                                     where OPEN.Mode.Equals("LD") && OPEN.IsMapping                                    
                                      from wafer in OPEN.JobList.Values
                                      where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
+                                     orderby OPEN.LoadTime
                                      select OPEN;
+                if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
+                {
+                    AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
+                                     where OPEN.IsMapping
+                                     from wafer in OPEN.JobList.Values
+                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
+                                     orderby OPEN.LoadTime
+                                     select OPEN;
+                }
                 if (AvailableOPENs.Count() != 0)
                 {
                     //List<Node> OPENS = AvailableOPENs.ToList();
@@ -2034,12 +1953,27 @@ namespace Adam
                                          where FOSB.Mode.Equals("ULD") && FOSB.IsMapping
                                          orderby FOSB.LoadTime
                                          select FOSB;
-
+                    if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
+                    {
+                        AvailableFOSBs = from FOSB in NodeManagement.GetLoadPortList()
+                                         where FOSB.IsMapping
+                                         orderby FOSB.LoadTime
+                                         select FOSB;
+                    }
                     bool isAssign = false;
                     bool isAssign2 = false;
                     foreach (Node fosb in AvailableFOSBs)
                     {//找到能放的FOSB
-
+                        if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
+                        {
+                            var Jobs = from Slot in fosb.JobList.Values
+                                       where Slot.MapFlag && !Slot.ErrPosition
+                                       select Slot;
+                            if (Jobs.Count() != 0)
+                            {//有片就不選他當作uld
+                                continue;
+                            }
+                        }
                         var ULD_Jobs = (from Slot in fosb.JobList.Values
                                         where !Slot.MapFlag && !Slot.ErrPosition && !Slot.IsAssigned
                                         select Slot).OrderByDescending(x => Convert.ToInt16(x.Slot));
@@ -2067,6 +2001,7 @@ namespace Adam
                                 {
                                     wafer.NeedProcess = true;
                                     wafer.ProcessFlag = false;
+                                    wafer.AlignerFlag = false;
                                     wafer.AssignPort(fosb.Name, Slot.Slot);
                                     isAssign = true;
                                     isAssign2 = true;
@@ -2113,10 +2048,10 @@ namespace Adam
                                     logger.Debug("Reverse booktest from " + Loadport.Name + " slot:" + upper.Slot + " to " + upper.Destination + " slot:" + upper.DestinationSlot);
                                     logger.Debug("Reverse booktest from " + Loadport.Name + " slot:" + lower.Slot + " to " + upper.Destination + " slot:" + lower.DestinationSlot);
                                     logger.Debug("Reverse booktest ---------- ");
-                                    
+
                                 }
                             }
-                           
+
                             foreach (Job each in Loadport.JobList.Values)
                             {
                                 if (!each.Destination.Equals(""))
@@ -2186,7 +2121,7 @@ namespace Adam
                                 {
                                     ULD_Foup = ULD.FoupID;
                                 }
-                               
+
                                 foup.record[slot - 1] = new Adam.waferInfo(Loadport.Name, Loadport.FoupID, j.Slot, j.FromPort, Loadport.FoupID, j.FromPortSlot, j.Destination, ULD_Foup, j.DestinationSlot);
                                 //foup.record[slot - 1].SetStartTime(j.StartTime);
                                 //foup.record[slot - 1].setM12(j.OCR_M12_Result);
@@ -2242,11 +2177,14 @@ namespace Adam
         public static bool cycleRun = false;
         public void On_Transfer_Complete(XfeCrossZone xfe)
         {
-            
+
 
             MonitoringUpdate.UpdateWPH((xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
             logger.Debug("ProcessCount:" + xfe.ProcessCount.ToString() + " ProcessTime:" + xfe.ProcessTime.ToString() + " WPH:" + (xfe.ProcessCount / (xfe.ProcessTime / 1000.0 / 60.0 / 60.0)).ToString("f1"));
-
+            if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
+            {
+                return;
+            }
             Node ld = SearchLoadport();
             if (ld != null)
             {
@@ -2280,16 +2218,27 @@ namespace Adam
         {
             try
             {
+                if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
+                {
+                    string TaskName = "LOADPORT_REOPEN";
+                    string Message = "";
+                    Dictionary<string, string> param1 = new Dictionary<string, string>();
+                    param1.Add("@Target", Port.Name);
+                    TaskJobManagment.CurrentProceedTask tmpTask;
+                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                    return;
+                }
                 var AvailableSlots = from eachSlot in Port.JobList.Values.ToList()
                                      where eachSlot.MapFlag && !eachSlot.ErrPosition && !eachSlot.Locked
                                      select eachSlot;
                 if (AvailableSlots.Count() != 0)
                 {
                     MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
-                    WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+                    WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);                   
                 }
                 else
                 {//滿了才退
+                    
                     FoupInfo tmp = FoupInfo.Get(Port.Name);
                     tmp.SetAllUnloadTime(DateTime.Now);
                     tmp.Save();
@@ -2452,11 +2401,22 @@ namespace Adam
         {
             try
             {
+                if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
+                {
+                    string TaskName = "LOADPORT_REOPEN";
+                    string Message = "";
+                    Dictionary<string, string> param1 = new Dictionary<string, string>();
+                    param1.Add("@Target", Port.Name);
+                    TaskJobManagment.CurrentProceedTask tmpTask;
+                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                    return;
+                }
                 var Available = from each in Port.JobList.Values
                                 where !each.MapFlag && !each.ErrPosition && !each.Locked
                                 select each;
                 if (Available.Count() == 0)
                 {//Unloadport 滿了 自動退
+                    
                     FoupInfo foup = new FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
                     foreach (Job j in Port.JobList.Values)
                     {
@@ -2603,6 +2563,7 @@ namespace Adam
                 {
                     MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
                     WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+                    
                 }
             }
             catch (Exception e)
@@ -2623,10 +2584,10 @@ namespace Adam
             WaferAssignUpdate.UpdateNodesJob("LOADPORT04");
         }
 
-        private void fakeData(string name,string Mapping)
+        private void fakeData(string name, string Mapping)
         {
             //string Mapping = Msg.Value;
-           
+
             //if (!Mapping.Equals("0000000000000000000000000"))
             //{
             //    Mapping = "0000000110000000000000000";
@@ -2864,7 +2825,7 @@ namespace Adam
             }
         }
 
-     
+
 
         public void On_TaskJob_Ack(TaskJobManagment.CurrentProceedTask Task)
         {

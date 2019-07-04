@@ -11,8 +11,8 @@
   "OCR1ExePath": "C:/Program Files (x86)/Cognex/In-Sight/In-Sight Explorer Wafer 4.5.0/WaferID.exe",
   "MappingData": "111111111111111111111111",
   "AdminPassword": "0192023A7BBD73250516F069DF18B500",
-  "SaftyCheckByPass": true,
-  "FakeData":true,
+  "SaftyCheckByPass": false,
+  "FakeData":false,
   "CurrentRecipe":"default",
   "EquipmentID":"SORT",
   "FoupTxfLogPath":"D:/log/foup"
