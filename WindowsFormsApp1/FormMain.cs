@@ -926,8 +926,8 @@ namespace Adam
         public void On_Command_TimeOut(Node Node, Transaction Txn)
         {
             logger.Debug("On_Command_TimeOut");
-            ShowAlarm(Node.Name, "00200002");
-
+            ShowAlarm("SYSTEM", "00200002", Node.Name);
+           
         }
 
         public void On_Event_Trigger(Node Node, CommandReturnMessage Msg)
@@ -965,7 +965,7 @@ namespace Adam
 
                                 break;
                             case "PODOF":
-                                if (Node.OrgSearchComplete && Node.ManaulControl && !Node.CurrentStatus.Equals("UnloadComplete"))
+                                if (Node.OrgSearchComplete && Node.ManaulControl && !Node.CurrentStatus.Equals("UnloadComplete") && !Node.IsLoad)
                                 {
                                     Node.CurrentStatus = "UnloadComplete";
                                     TaskName = "LOADPORT_UNLOADCOMPLETE";
@@ -975,10 +975,14 @@ namespace Adam
 
                                     RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param1);
                                 }
+                                if (Node.IsLoad)
+                                {
+                                    ShowAlarm("SYSTEM", "S0300182", Node.Name);
+                                }
                                 break;
                             case "PODON":
                                 //Foup Arrived
-                                if (Node.OrgSearchComplete && Node.ManaulControl && !Node.CurrentStatus.Equals("ReadyToLoad"))
+                                if (Node.OrgSearchComplete && Node.ManaulControl && !Node.CurrentStatus.Equals("ReadyToLoad") && !Node.IsLoad)
                                 {
                                     Node.CurrentStatus = "ReadyToLoad";
                                     TaskName = "LOADPORT_READYTOLOAD";
@@ -1689,10 +1693,10 @@ namespace Adam
 
         }
 
-        private void ShowAlarm(string NodeName, string AlarmCode)
+        private void ShowAlarm(string NodeName, string AlarmCode,string DisplayName="")
         {
             AlarmInfo CurrentAlarm = new AlarmInfo();
-            CurrentAlarm.NodeName = NodeName;
+            CurrentAlarm.NodeName = DisplayName.Equals("")? NodeName: DisplayName;
             CurrentAlarm.AlarmCode = AlarmCode;
             CurrentAlarm.NeedReset = false;
             try
@@ -1756,7 +1760,7 @@ namespace Adam
                 ManualPortStatusUpdate.LockUI(false);
             }
 
-            ShowAlarm("SYSTEM", Message);
+            ShowAlarm("SYSTEM", Message, NodeName);
 
         }
 
@@ -1785,21 +1789,21 @@ namespace Adam
                     DIOUpdate.UpdateControlButton("Mode_btn", true);
                     xfe.Initial();
 
-                    foreach (Node port in NodeManagement.GetLoadPortList())
-                    {
-                        if (port.Enable && port.Foup_Placement)
-                        {
-                            MonitoringUpdate.UpdateFoupID(port.Name, "");
-                            WaferAssignUpdate.UpdateFoupID(port.Name, "");
-                            TaskName = "LOADPORT_READYTOLOAD";
-                            Message = "";
-                            Dictionary<string, string> param = new Dictionary<string, string>();
-                            param.Add("@Target", port.Name);
+                    //foreach (Node port in NodeManagement.GetLoadPortList())
+                    //{
+                    //    if (port.Enable && port.Foup_Placement)
+                    //    {
+                    //        MonitoringUpdate.UpdateFoupID(port.Name, "");
+                    //        WaferAssignUpdate.UpdateFoupID(port.Name, "");
+                    //        TaskName = "LOADPORT_READYTOLOAD";
+                    //        Message = "";
+                    //        Dictionary<string, string> param = new Dictionary<string, string>();
+                    //        param.Add("@Target", port.Name);
 
-                            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param);
-                            CarrierManagement.Add().SetLocation(port.Name);
-                        }
-                    }
+                    //        RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param);
+                    //        CarrierManagement.Add().SetLocation(port.Name);
+                    //    }
+                    //}
                     foreach (Job eachJob in JobManagement.GetJobList())
                     {
                         eachJob.InProcess = false;
@@ -1828,18 +1832,29 @@ namespace Adam
                     Node currentPort = NodeManagement.Get(Task.Params["@Target"]);
                     if (Start)
                     {
-                        if (currentPort.Mode.Equals("LD"))
+                        if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
                         {
-                            AssignWafer(currentPort);
-
-                        }
-                        else if (currentPort.Mode.Equals("ULD"))
-                        {
-
                             Node ld = SearchLoadport();
                             if (ld != null)
                             {
                                 AssignWafer(ld);
+                            }
+                        }
+                        else
+                        {
+                            if (currentPort.Mode.Equals("LD"))
+                            {
+                                AssignWafer(currentPort);
+
+                            }
+                            else if (currentPort.Mode.Equals("ULD"))
+                            {
+
+                                Node ld = SearchLoadport();
+                                if (ld != null)
+                                {
+                                    AssignWafer(ld);
+                                }
                             }
                         }
                     }
@@ -1869,20 +1884,18 @@ namespace Adam
             Node result = null;
             if (RunMode.Equals("FULLAUTO"))
             {
-                var AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
-                                     where OPEN.Mode.Equals("LD") && OPEN.IsMapping                                    
-                                     from wafer in OPEN.JobList.Values
-                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
-                                     orderby OPEN.LoadTime
-                                     select OPEN;
+                var AvailableOPENs = (from OPEN in NodeManagement.GetLoadPortList()
+                                     where OPEN.Mode.Equals("LD") && OPEN.IsMapping &&                                   
+                                     (from wafer in OPEN.JobList.Values
+                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess select wafer).Count()!=0
+                                     select OPEN).OrderBy(x => x.LoadTime);
                 if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
                 {
-                    AvailableOPENs = from OPEN in NodeManagement.GetLoadPortList()
-                                     where OPEN.IsMapping
-                                     from wafer in OPEN.JobList.Values
-                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
-                                     orderby OPEN.LoadTime
-                                     select OPEN;
+                    AvailableOPENs = (from OPEN in NodeManagement.GetLoadPortList()
+                                     where OPEN.IsMapping &&
+                                     (from wafer in OPEN.JobList.Values
+                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess select wafer).Count()!=0
+                                     select OPEN).OrderBy(x => x.LoadTime);
                 }
                 if (AvailableOPENs.Count() != 0)
                 {
