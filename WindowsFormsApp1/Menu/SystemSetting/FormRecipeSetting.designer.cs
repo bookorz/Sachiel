@@ -1354,6 +1354,7 @@
             // 
             // tbOcrTTL
             // 
+            this.tbOcrTTL.Enabled = false;
             this.tbOcrTTL.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tbOcrTTL.Location = new System.Drawing.Point(5, 47);
             this.tbOcrTTL.Name = "tbOcrTTL";
@@ -1383,6 +1384,7 @@
             // cbUseOcrTTL
             // 
             this.cbUseOcrTTL.AutoSize = true;
+            this.cbUseOcrTTL.Enabled = false;
             this.cbUseOcrTTL.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbUseOcrTTL.ForeColor = System.Drawing.Color.Black;
             this.cbUseOcrTTL.Location = new System.Drawing.Point(5, 27);
@@ -1515,7 +1517,6 @@
             // cbUseExchange
             // 
             this.cbUseExchange.AutoSize = true;
-            this.cbUseExchange.Enabled = false;
             this.cbUseExchange.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbUseExchange.ForeColor = System.Drawing.Color.DodgerBlue;
             this.cbUseExchange.Location = new System.Drawing.Point(6, 173);
