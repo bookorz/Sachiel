@@ -357,6 +357,7 @@
             this.tbFFUCloseRpm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbFFUCloseRpm.Click += new System.EventHandler(this.modeCheck);
             this.tbFFUCloseRpm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbFFUCloseRpm.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // tbFFUOpenRpm
             // 
@@ -368,6 +369,7 @@
             this.tbFFUOpenRpm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbFFUOpenRpm.Click += new System.EventHandler(this.modeCheck);
             this.tbFFUOpenRpm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbFFUOpenRpm.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // label33
             // 
@@ -459,6 +461,7 @@
             this.cbManualPutRule.Size = new System.Drawing.Size(70, 32);
             this.cbManualPutRule.TabIndex = 2;
             this.cbManualPutRule.Visible = false;
+            this.cbManualPutRule.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbManualPutRule.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbAutoPutRule
@@ -473,6 +476,7 @@
             this.cbAutoPutRule.Name = "cbAutoPutRule";
             this.cbAutoPutRule.Size = new System.Drawing.Size(70, 32);
             this.cbAutoPutRule.TabIndex = 2;
+            this.cbAutoPutRule.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbAutoPutRule.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbAutoGetRule
@@ -488,6 +492,7 @@
             this.cbAutoGetRule.Size = new System.Drawing.Size(70, 32);
             this.cbAutoGetRule.TabIndex = 2;
             this.cbAutoGetRule.Visible = false;
+            this.cbAutoGetRule.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbAutoGetRule.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbManualGetRule
@@ -503,6 +508,7 @@
             this.cbManualGetRule.Size = new System.Drawing.Size(70, 32);
             this.cbManualGetRule.TabIndex = 2;
             this.cbManualGetRule.Visible = false;
+            this.cbManualGetRule.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbManualGetRule.Click += new System.EventHandler(this.modeCheck);
             // 
             // label32
@@ -616,6 +622,7 @@
             this.cbOutputFin1.Name = "cbOutputFin1";
             this.cbOutputFin1.Size = new System.Drawing.Size(42, 32);
             this.cbOutputFin1.TabIndex = 2;
+            this.cbOutputFin1.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbOutputFin1.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbOutputFin2
@@ -632,6 +639,7 @@
             this.cbOutputFin2.Name = "cbOutputFin2";
             this.cbOutputFin2.Size = new System.Drawing.Size(43, 32);
             this.cbOutputFin2.TabIndex = 2;
+            this.cbOutputFin2.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbOutputFin2.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbOutputFin3
@@ -646,6 +654,7 @@
             this.cbOutputFin3.Name = "cbOutputFin3";
             this.cbOutputFin3.Size = new System.Drawing.Size(43, 32);
             this.cbOutputFin3.TabIndex = 2;
+            this.cbOutputFin3.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbOutputFin3.Click += new System.EventHandler(this.modeCheck);
             // 
             // label11
@@ -724,6 +733,7 @@
             this.cbInputFin1.Name = "cbInputFin1";
             this.cbInputFin1.Size = new System.Drawing.Size(42, 32);
             this.cbInputFin1.TabIndex = 2;
+            this.cbInputFin1.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbInputFin1.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbInputFin2
@@ -740,6 +750,7 @@
             this.cbInputFin2.Name = "cbInputFin2";
             this.cbInputFin2.Size = new System.Drawing.Size(43, 32);
             this.cbInputFin2.TabIndex = 2;
+            this.cbInputFin2.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbInputFin2.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbInputFin3
@@ -754,6 +765,7 @@
             this.cbInputFin3.Name = "cbInputFin3";
             this.cbInputFin3.Size = new System.Drawing.Size(43, 32);
             this.cbInputFin3.TabIndex = 2;
+            this.cbInputFin3.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbInputFin3.Click += new System.EventHandler(this.modeCheck);
             // 
             // groupBox8
@@ -834,6 +846,7 @@
             this.cbManualFin1.Name = "cbManualFin1";
             this.cbManualFin1.Size = new System.Drawing.Size(43, 32);
             this.cbManualFin1.TabIndex = 2;
+            this.cbManualFin1.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbManualFin1.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbAutoFin1
@@ -850,6 +863,7 @@
             this.cbAutoFin1.Name = "cbAutoFin1";
             this.cbAutoFin1.Size = new System.Drawing.Size(43, 32);
             this.cbAutoFin1.TabIndex = 2;
+            this.cbAutoFin1.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbAutoFin1.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbManualFin2
@@ -864,6 +878,7 @@
             this.cbManualFin2.Name = "cbManualFin2";
             this.cbManualFin2.Size = new System.Drawing.Size(43, 32);
             this.cbManualFin2.TabIndex = 2;
+            this.cbManualFin2.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbManualFin2.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbAutoFin2
@@ -878,6 +893,7 @@
             this.cbAutoFin2.Name = "cbAutoFin2";
             this.cbAutoFin2.Size = new System.Drawing.Size(43, 32);
             this.cbAutoFin2.TabIndex = 2;
+            this.cbAutoFin2.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbAutoFin2.Click += new System.EventHandler(this.modeCheck);
             // 
             // groupBox2
@@ -927,7 +943,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label29.Location = new System.Drawing.Point(380, 29);
+            this.label29.Location = new System.Drawing.Point(303, 29);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(123, 24);
             this.label29.TabIndex = 0;
@@ -939,19 +955,20 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label4.ForeColor = System.Drawing.Color.Chocolate;
-            this.label4.Location = new System.Drawing.Point(135, 29);
+            this.label4.Location = new System.Drawing.Point(453, 29);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 24);
             this.label4.TabIndex = 0;
             this.label4.Text = "Priority";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label4.Visible = false;
             // 
             // label26
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label26.ForeColor = System.Drawing.Color.Chocolate;
-            this.label26.Location = new System.Drawing.Point(215, 29);
+            this.label26.Location = new System.Drawing.Point(138, 29);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(119, 24);
             this.label26.TabIndex = 0;
@@ -970,6 +987,7 @@
             this.cbP4LoadType.Name = "cbP4LoadType";
             this.cbP4LoadType.Size = new System.Drawing.Size(52, 32);
             this.cbP4LoadType.TabIndex = 2;
+            this.cbP4LoadType.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP4LoadType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP3LoadType
@@ -984,11 +1002,12 @@
             this.cbP3LoadType.Name = "cbP3LoadType";
             this.cbP3LoadType.Size = new System.Drawing.Size(52, 32);
             this.cbP3LoadType.TabIndex = 2;
+            this.cbP3LoadType.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP3LoadType.Click += new System.EventHandler(this.modeCheck);
             // 
             // tbNotch_angle
             // 
-            this.tbNotch_angle.Location = new System.Drawing.Point(384, 59);
+            this.tbNotch_angle.Location = new System.Drawing.Point(307, 59);
             this.tbNotch_angle.Name = "tbNotch_angle";
             this.tbNotch_angle.Size = new System.Drawing.Size(109, 33);
             this.tbNotch_angle.TabIndex = 1;
@@ -996,6 +1015,7 @@
             this.tbNotch_angle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbNotch_angle.Click += new System.EventHandler(this.modeCheck);
             this.tbNotch_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbNotch_angle.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // cbP2LoadType
             // 
@@ -1009,6 +1029,7 @@
             this.cbP2LoadType.Name = "cbP2LoadType";
             this.cbP2LoadType.Size = new System.Drawing.Size(52, 32);
             this.cbP2LoadType.TabIndex = 2;
+            this.cbP2LoadType.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP2LoadType.Click += new System.EventHandler(this.modeCheck);
             // 
             // label35
@@ -1016,7 +1037,7 @@
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label35.ForeColor = System.Drawing.Color.Brown;
-            this.label35.Location = new System.Drawing.Point(322, 124);
+            this.label35.Location = new System.Drawing.Point(245, 124);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(172, 80);
             this.label35.TabIndex = 0;
@@ -1035,6 +1056,7 @@
             this.cbP1LoadType.Name = "cbP1LoadType";
             this.cbP1LoadType.Size = new System.Drawing.Size(52, 32);
             this.cbP1LoadType.TabIndex = 2;
+            this.cbP1LoadType.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP1LoadType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP4Seq
@@ -1050,10 +1072,12 @@
             "6",
             "7",
             "8"});
-            this.cbP4Seq.Location = new System.Drawing.Point(146, 177);
+            this.cbP4Seq.Location = new System.Drawing.Point(464, 177);
             this.cbP4Seq.Name = "cbP4Seq";
             this.cbP4Seq.Size = new System.Drawing.Size(49, 32);
             this.cbP4Seq.TabIndex = 2;
+            this.cbP4Seq.Visible = false;
+            this.cbP4Seq.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP4Seq.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP3Seq
@@ -1069,10 +1093,12 @@
             "6",
             "7",
             "8"});
-            this.cbP3Seq.Location = new System.Drawing.Point(146, 137);
+            this.cbP3Seq.Location = new System.Drawing.Point(464, 137);
             this.cbP3Seq.Name = "cbP3Seq";
             this.cbP3Seq.Size = new System.Drawing.Size(49, 32);
             this.cbP3Seq.TabIndex = 2;
+            this.cbP3Seq.Visible = false;
+            this.cbP3Seq.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP3Seq.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP2Seq
@@ -1088,10 +1114,12 @@
             "6",
             "7",
             "8"});
-            this.cbP2Seq.Location = new System.Drawing.Point(146, 97);
+            this.cbP2Seq.Location = new System.Drawing.Point(464, 97);
             this.cbP2Seq.Name = "cbP2Seq";
             this.cbP2Seq.Size = new System.Drawing.Size(49, 32);
             this.cbP2Seq.TabIndex = 2;
+            this.cbP2Seq.Visible = false;
+            this.cbP2Seq.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP2Seq.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP1Seq
@@ -1107,10 +1135,12 @@
             "6",
             "7",
             "8"});
-            this.cbP1Seq.Location = new System.Drawing.Point(146, 57);
+            this.cbP1Seq.Location = new System.Drawing.Point(464, 57);
             this.cbP1Seq.Name = "cbP1Seq";
             this.cbP1Seq.Size = new System.Drawing.Size(49, 32);
             this.cbP1Seq.TabIndex = 2;
+            this.cbP1Seq.Visible = false;
+            this.cbP1Seq.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP1Seq.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP4CstType
@@ -1121,10 +1151,11 @@
             "FOSB",
             "FOUP",
             "OPEN"});
-            this.cbP4CstType.Location = new System.Drawing.Point(219, 177);
+            this.cbP4CstType.Location = new System.Drawing.Point(142, 177);
             this.cbP4CstType.Name = "cbP4CstType";
             this.cbP4CstType.Size = new System.Drawing.Size(86, 32);
             this.cbP4CstType.TabIndex = 2;
+            this.cbP4CstType.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP4CstType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP3CstType
@@ -1135,10 +1166,11 @@
             "FOSB",
             "FOUP",
             "OPEN"});
-            this.cbP3CstType.Location = new System.Drawing.Point(219, 137);
+            this.cbP3CstType.Location = new System.Drawing.Point(142, 137);
             this.cbP3CstType.Name = "cbP3CstType";
             this.cbP3CstType.Size = new System.Drawing.Size(86, 32);
             this.cbP3CstType.TabIndex = 2;
+            this.cbP3CstType.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP3CstType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP2CstType
@@ -1149,10 +1181,11 @@
             "FOSB",
             "FOUP",
             "OPEN"});
-            this.cbP2CstType.Location = new System.Drawing.Point(219, 97);
+            this.cbP2CstType.Location = new System.Drawing.Point(142, 97);
             this.cbP2CstType.Name = "cbP2CstType";
             this.cbP2CstType.Size = new System.Drawing.Size(86, 32);
             this.cbP2CstType.TabIndex = 2;
+            this.cbP2CstType.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP2CstType.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbP1CstType
@@ -1163,10 +1196,11 @@
             "FOSB",
             "FOUP",
             "OPEN"});
-            this.cbP1CstType.Location = new System.Drawing.Point(219, 57);
+            this.cbP1CstType.Location = new System.Drawing.Point(142, 57);
             this.cbP1CstType.Name = "cbP1CstType";
             this.cbP1CstType.Size = new System.Drawing.Size(86, 32);
             this.cbP1CstType.TabIndex = 2;
+            this.cbP1CstType.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbP1CstType.Click += new System.EventHandler(this.modeCheck);
             // 
             // label15
@@ -1224,6 +1258,7 @@
             this.tbMotionTimeout.Visible = false;
             this.tbMotionTimeout.Click += new System.EventHandler(this.modeCheck);
             this.tbMotionTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbMotionTimeout.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // lblMode
             // 
@@ -1265,6 +1300,7 @@
             this.tbOcrT7.TabIndex = 1;
             this.tbOcrT7.Click += new System.EventHandler(this.modeCheck);
             this.tbOcrT7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbOcrT7.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // label39
             // 
@@ -1288,6 +1324,7 @@
             this.cbUseOcrT7.TabIndex = 4;
             this.cbUseOcrT7.Text = "T7設定檔";
             this.cbUseOcrT7.UseVisualStyleBackColor = true;
+            this.cbUseOcrT7.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbUseOcrT7.Click += new System.EventHandler(this.modeCheck);
             // 
             // tbOcrM12
@@ -1299,6 +1336,7 @@
             this.tbOcrM12.TabIndex = 1;
             this.tbOcrM12.Click += new System.EventHandler(this.modeCheck);
             this.tbOcrM12.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbOcrM12.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // cbUseOcrM12
             // 
@@ -1311,6 +1349,7 @@
             this.cbUseOcrM12.TabIndex = 4;
             this.cbUseOcrM12.Text = "M12設定檔";
             this.cbUseOcrM12.UseVisualStyleBackColor = true;
+            this.cbUseOcrM12.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbUseOcrM12.Click += new System.EventHandler(this.modeCheck);
             // 
             // tbOcrTTL
@@ -1322,6 +1361,7 @@
             this.tbOcrTTL.TabIndex = 1;
             this.tbOcrTTL.Click += new System.EventHandler(this.modeCheck);
             this.tbOcrTTL.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbOcrTTL.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // cbOcrCheckRule
             // 
@@ -1337,6 +1377,7 @@
             this.cbOcrCheckRule.Name = "cbOcrCheckRule";
             this.cbOcrCheckRule.Size = new System.Drawing.Size(102, 32);
             this.cbOcrCheckRule.TabIndex = 2;
+            this.cbOcrCheckRule.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbOcrCheckRule.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbUseOcrTTL
@@ -1350,6 +1391,7 @@
             this.cbUseOcrTTL.TabIndex = 4;
             this.cbUseOcrTTL.Text = "所有設定檔";
             this.cbUseOcrTTL.UseVisualStyleBackColor = true;
+            this.cbUseOcrTTL.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbUseOcrTTL.Click += new System.EventHandler(this.modeCheck);
             // 
             // label36
@@ -1425,7 +1467,9 @@
             this.tbR1Speed.TabIndex = 1;
             this.tbR1Speed.Text = "100";
             this.tbR1Speed.Click += new System.EventHandler(this.modeCheck);
+            this.tbR1Speed.TextChanged += new System.EventHandler(this.modeCheck);
             this.tbR1Speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbR1Speed.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // cbPutSlotOrder
             // 
@@ -1438,6 +1482,7 @@
             this.cbPutSlotOrder.Name = "cbPutSlotOrder";
             this.cbPutSlotOrder.Size = new System.Drawing.Size(160, 32);
             this.cbPutSlotOrder.TabIndex = 2;
+            this.cbPutSlotOrder.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbPutSlotOrder.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbGetSlotOrder
@@ -1451,6 +1496,7 @@
             this.cbGetSlotOrder.Name = "cbGetSlotOrder";
             this.cbGetSlotOrder.Size = new System.Drawing.Size(160, 32);
             this.cbGetSlotOrder.TabIndex = 2;
+            this.cbGetSlotOrder.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbGetSlotOrder.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbUseBurnIn
@@ -1469,6 +1515,7 @@
             // cbUseExchange
             // 
             this.cbUseExchange.AutoSize = true;
+            this.cbUseExchange.Enabled = false;
             this.cbUseExchange.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbUseExchange.ForeColor = System.Drawing.Color.DodgerBlue;
             this.cbUseExchange.Location = new System.Drawing.Point(6, 173);
@@ -1478,6 +1525,7 @@
             this.cbUseExchange.Text = "使用交換片模式";
             this.cbUseExchange.UseVisualStyleBackColor = true;
             this.cbUseExchange.CheckedChanged += new System.EventHandler(this.cbUseExchange_CheckedChanged);
+            this.cbUseExchange.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbUseExchange.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbUserBothArm
@@ -1492,6 +1540,7 @@
             this.cbUserBothArm.Text = "上+下";
             this.cbUserBothArm.UseVisualStyleBackColor = true;
             this.cbUserBothArm.CheckedChanged += new System.EventHandler(this.cbUserBothArm_CheckedChanged);
+            this.cbUserBothArm.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbUserBothArm.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbUseLArm
@@ -1506,6 +1555,7 @@
             this.cbUseLArm.Text = "下臂(L)";
             this.cbUseLArm.UseVisualStyleBackColor = true;
             this.cbUseLArm.CheckedChanged += new System.EventHandler(this.cbUseLArm_CheckedChanged);
+            this.cbUseLArm.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbUseLArm.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbUseRArm
@@ -1520,6 +1570,7 @@
             this.cbUseRArm.Text = "上臂(R)";
             this.cbUseRArm.UseVisualStyleBackColor = true;
             this.cbUseRArm.CheckedChanged += new System.EventHandler(this.cbUseRArm_CheckedChanged);
+            this.cbUseRArm.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbUseRArm.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbActive
@@ -1533,6 +1584,7 @@
             this.cbActive.TabIndex = 4;
             this.cbActive.Text = "生產參數生效";
             this.cbActive.UseVisualStyleBackColor = true;
+            this.cbActive.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbActive.Click += new System.EventHandler(this.modeCheck);
             // 
             // groupBox4
@@ -1594,6 +1646,7 @@
             this.tbA1_speed.Text = "100";
             this.tbA1_speed.Click += new System.EventHandler(this.modeCheck);
             this.tbA1_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbA1_speed.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // tbA2_speed
             // 
@@ -1632,6 +1685,7 @@
             this.cbUseA1.TabIndex = 4;
             this.cbUseA1.Text = "Aligner1";
             this.cbUseA1.UseVisualStyleBackColor = true;
+            this.cbUseA1.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbUseA1.Click += new System.EventHandler(this.modeCheck);
             // 
             // tbA1_angle
@@ -1644,6 +1698,7 @@
             this.tbA1_angle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbA1_angle.Click += new System.EventHandler(this.modeCheck);
             this.tbA1_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbA1_angle.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
             // gbAccount
             // 

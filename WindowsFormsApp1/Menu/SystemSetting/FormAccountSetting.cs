@@ -228,7 +228,8 @@ namespace Adam.Menu.SystemSetting
 
             try
             {
-                strSqlAccount = "select * from account where active = 'Y'";
+                //strSqlAccount = "select * from account where active = 'Y'";
+                strSqlAccount = "SELECT * FROM account WHERE active = 'Y' AND user_id <> 'SANWA'";// 不允許 SANWA 這個帳號被修改
                 dtAccountUser = dBUtil.GetDataTable(strSqlAccount, null);
             }
             catch (Exception ex)

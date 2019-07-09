@@ -263,7 +263,7 @@ namespace Adam.Menu.SystemSetting
             btnSave.Enabled = true;
             tbRecipeName.ReadOnly = true;
             tbRecipeID.ReadOnly = true;
-            trvRecipe.Enabled = false;
+            //trvRecipe.Enabled = false;20190708 取消
 
             lblMode.Text = "編輯模式";
         }
@@ -286,6 +286,11 @@ namespace Adam.Menu.SystemSetting
         {
             refreshList();
             lblMode.Text = "瀏覽模式";
+            if (Global.currentUser.Equals("SANWA"))
+                cbUseBurnIn.Visible = true;
+            else
+                cbUseBurnIn.Visible = false;
+
         }
 
         private void refreshList()
@@ -549,6 +554,11 @@ namespace Adam.Menu.SystemSetting
                 cbUseLArm.Enabled = true;
                 cbUserBothArm.Enabled = true;
             }
+        }
+
+        private void modeCheck(object sender, PreviewKeyDownEventArgs e)
+        {
+            modeCheck(sender, new EventArgs());
         }
     }
 }
