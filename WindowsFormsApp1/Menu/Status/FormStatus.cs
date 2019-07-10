@@ -268,7 +268,7 @@ namespace Adam.Menu.Status
                                 txn.Method = Transaction.Command.LoadPortType.ReadStatus;
                                 break;
                         }
-                        txn.FormName = "FormStatus";
+                        txn.TaskId = "FormStatus";
                         txn.AdrNo = each.AdrNo;
                         txn.Seq = seq;
                         if (!txn.Method.Equals(""))

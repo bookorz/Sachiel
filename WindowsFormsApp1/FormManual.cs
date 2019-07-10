@@ -30,12 +30,21 @@ namespace GUI
 
         private void FormManual_Load(object sender, EventArgs e)
         {
-            RouteControl.Instance.TaskJob.Remove("FormManual");
-            RouteControl.Instance.TaskJob.Remove("FormManual-1");
+            RouteControl.Instance.TaskJob.Clear();
+
             Initialize();
             Update_Manual_Status();
             //20181030 隱藏EFEM 用不到的頁面
             //this.tabSmif.Parent = null;
+            Node al = NodeManagement.Get("ALIGNER02");
+            if (al != null)
+            {
+                if (al.Enable)
+                {
+                    groupBox23.Visible = true;
+                }
+            }
+
         }
 
         public void Initialize()
@@ -54,7 +63,7 @@ namespace GUI
                                     Cb_LoadPortSelect.Text = node.Name;
                                 }
                                 Cb_LoadPortSelect.Items.Add(node.Name);
-                                Cb_LoadPortSelect.SelectedIndex=0;
+                                Cb_LoadPortSelect.SelectedIndex = 0;
                             }
                             break;
 
@@ -218,7 +227,7 @@ namespace GUI
                 ManualPortStatusUpdate.LockUI(true);
                 //port.SendCommand(txn, out Message);
                 TaskJobManagment.CurrentProceedTask Task;
-                RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
+                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
             }
             else
             {
@@ -257,11 +266,11 @@ namespace GUI
 
         private void AlignerFunction_Click(object sender, EventArgs e)
         {
-            
+
             string Message = "";
             Button btn = (Button)sender;
             string runMode = "";
-            if(btn.Name.IndexOf("A1") > 0)
+            if (btn.Name.IndexOf("A1") > 0)
             {
                 runMode = cbA1Mode.SelectedItem != null ? cbA1Mode.SelectedItem.ToString() : "";
             }
@@ -306,7 +315,7 @@ namespace GUI
             Node aligner = NodeManagement.Get(nodeName);
             Transaction[] txns = new Transaction[1];
             txns[0] = new Transaction();
-            txns[0].FormName = "FormManual";
+            txns[0].TaskId = "FormManual";
             if (aligner == null)
             {
                 MessageBox.Show(nodeName + " can't found!");
@@ -425,7 +434,7 @@ namespace GUI
 
             ManualPortStatusUpdate.LockUI(true);
             TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
+            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
             // setAlignerStatus();
         }
 
@@ -476,7 +485,7 @@ namespace GUI
                     break;
             }
             TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual-1", out Message, out Task, TaskName, param);
+            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
             ManualPortStatusUpdate.LockUI(false);
             //SetFormEnable(true);
             //Node node = NodeManagement.Get(nodeName);
@@ -819,7 +828,7 @@ namespace GUI
             }
             ManualPortStatusUpdate.LockUI(true);
             TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
+            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
 
             //switch (btn.Name)
             //{
@@ -1085,7 +1094,7 @@ namespace GUI
             string TaskName = "ROBOT_Init";
             param.Add("@Target", nodeName);
             TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual-1", out Message, out Task, TaskName, param);
+            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
         }
 
         private void setLoadportStatus()
@@ -1098,7 +1107,7 @@ namespace GUI
             string TaskName = "LOADPORT_INIT";
             param.Add("@Target", nodeName);
             TaskJobManagment.CurrentProceedTask Task;
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
+            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
         }
         private void setAlignerStatus()
         {
@@ -1133,13 +1142,13 @@ namespace GUI
             TaskJobManagment.CurrentProceedTask Task;
             if (aligner1 != null)
             {
-                RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
+                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
             }
             param = new Dictionary<string, string>();
             param.Add("@Target", "ALIGNER02");
             if (aligner2 != null)
             {
-                RouteControl.Instance.TaskJob.Excute("FormManual-1", out Message, out Task, TaskName, param);
+                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
             }
         }
 
@@ -1329,7 +1338,7 @@ namespace GUI
             {
                 case "ALIGNER":
                     cbRA1Slot.Items.Clear();
-                    cbRA1Slot.Items.Add("1");       
+                    cbRA1Slot.Items.Add("1");
                     break;
                 case "LOADPORT":
                     cbRA1Slot.Items.Clear();

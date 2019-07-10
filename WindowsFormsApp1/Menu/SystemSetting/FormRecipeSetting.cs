@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TransferControl.Config;
+using TransferControl.Management;
 
 namespace Adam.Menu.SystemSetting
 {
@@ -118,8 +119,8 @@ namespace Adam.Menu.SystemSetting
             Recipe recipe = new Recipe();
             recipe.aligner1_angle = tbA1_angle.Text.Equals("") ? "0" : Int32.Parse(tbA1_angle.Text).ToString();
             recipe.aligner1_speed = tbA1_speed.Text.Equals("") ? "20" : Int32.Parse(tbA1_speed.Text).ToString();
-            recipe.aligner2_angle = tbA2_angle.Text.Equals("") ? "0" : Int32.Parse(tbA2_angle.Text).ToString();
-            recipe.aligner2_speed = tbA2_speed.Text.Equals("") ? "20" : Int32.Parse(tbA2_speed.Text).ToString();
+            recipe.aligner2_angle = tbA2_speed.Text.Equals("") ? "0" : Int32.Parse(tbA2_speed.Text).ToString();
+            recipe.aligner2_speed = tbA2_angle.Text.Equals("") ? "20" : Int32.Parse(tbA2_angle.Text).ToString();
 
             recipe.is_use_aligner1 = cbUseA1.Checked;
             recipe.is_use_aligner2 = cbUseA2.Checked;
@@ -173,7 +174,7 @@ namespace Adam.Menu.SystemSetting
             recipe.robot2_speed = "20";//default tbR2Speed.Text.Equals("") ? "20" : Int32.Parse(tbR2Speed.Text).ToString();
 
             recipe.notch_angle = tbNotch_angle.Text.Equals("") ? "0" : Int32.Parse(tbNotch_angle.Text).ToString();
-            recipe.motion_timeout = tbMotionTimeout.Text;
+            
 
             recipe.is_use_l_arm = cbUseLArm.Checked;
             recipe.is_use_r_arm = cbUseRArm.Checked;
@@ -284,6 +285,13 @@ namespace Adam.Menu.SystemSetting
 
         private void FormRecipeSetting_Load(object sender, EventArgs e)
         {
+            Node al = NodeManagement.Get("ALIGNER02");
+            if (al != null)
+            {
+                cbUseA2.Visible = true;
+                tbA2_speed.Visible = true;
+                tbA2_angle.Visible = true;
+            }
             refreshList();
             lblMode.Text = "瀏覽模式";
             if (Global.currentUser.Equals("SANWA"))
@@ -332,8 +340,8 @@ namespace Adam.Menu.SystemSetting
                 Recipe recipe = Recipe.Get(recipeID);
                 tbA1_angle.Text = recipe.aligner1_angle;
                 tbA1_speed.Text = recipe.aligner1_speed;
-                tbA2_angle.Text = recipe.aligner2_angle;
-                tbA2_speed.Text = recipe.aligner2_speed;
+                tbA2_speed.Text = recipe.aligner2_angle;
+                tbA2_angle.Text = recipe.aligner2_speed;
 
                 //recipe.auto_fin_unclamp = "Y";//固定Y 無UI
 
@@ -343,7 +351,7 @@ namespace Adam.Menu.SystemSetting
                 cbAutoPutRule.SelectedItem = recipe.auto_put_constrict;
                 //tbEqpID.Text = recipe.equip_id;
 
-                tbMotionTimeout.Text = recipe.motion_timeout;
+               
                 tbFFUCloseRpm.Text = recipe.ffu_rpm_close;
                 tbFFUOpenRpm.Text = recipe.ffu_rpm_open;
                 cbInputFin1.SelectedItem = recipe.input_proc_fin.Substring(0, 1);

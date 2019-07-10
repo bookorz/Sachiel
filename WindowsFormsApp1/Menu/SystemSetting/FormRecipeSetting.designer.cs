@@ -40,7 +40,6 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.gbRecipeBody = new System.Windows.Forms.GroupBox();
-            this.label37 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
             this.tbFFUCloseRpm = new System.Windows.Forms.TextBox();
@@ -106,7 +105,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.tbMotionTimeout = new System.Windows.Forms.TextBox();
             this.lblMode = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbOcrT7 = new System.Windows.Forms.TextBox();
@@ -134,9 +132,9 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.tbA2_angle = new System.Windows.Forms.TextBox();
-            this.tbA1_speed = new System.Windows.Forms.TextBox();
             this.tbA2_speed = new System.Windows.Forms.TextBox();
+            this.tbA1_speed = new System.Windows.Forms.TextBox();
+            this.tbA2_angle = new System.Windows.Forms.TextBox();
             this.cbUseA2 = new System.Windows.Forms.CheckBox();
             this.cbUseA1 = new System.Windows.Forms.CheckBox();
             this.tbA1_angle = new System.Windows.Forms.TextBox();
@@ -225,7 +223,7 @@
             this.gbRecipeHeader.Controls.Add(this.label1);
             this.gbRecipeHeader.Controls.Add(this.label2);
             this.gbRecipeHeader.Controls.Add(this.tbRecipeName);
-            this.gbRecipeHeader.Location = new System.Drawing.Point(6, 26);
+            this.gbRecipeHeader.Location = new System.Drawing.Point(6, 24);
             this.gbRecipeHeader.Margin = new System.Windows.Forms.Padding(1);
             this.gbRecipeHeader.Name = "gbRecipeHeader";
             this.gbRecipeHeader.Padding = new System.Windows.Forms.Padding(1);
@@ -294,16 +292,16 @@
             // 
             // gbRecipeBody
             // 
-            this.gbRecipeBody.Controls.Add(this.label37);
             this.gbRecipeBody.Controls.Add(this.groupBox5);
             this.gbRecipeBody.Controls.Add(this.label6);
             this.gbRecipeBody.Controls.Add(this.groupBox10);
             this.gbRecipeBody.Controls.Add(this.groupBox9);
             this.gbRecipeBody.Controls.Add(this.groupBox2);
-            this.gbRecipeBody.Controls.Add(this.tbMotionTimeout);
             this.gbRecipeBody.Controls.Add(this.lblMode);
+            this.gbRecipeBody.Controls.Add(this.cbUseBurnIn);
             this.gbRecipeBody.Controls.Add(this.groupBox1);
             this.gbRecipeBody.Controls.Add(this.groupBox3);
+            this.gbRecipeBody.Controls.Add(this.cbUseExchange);
             this.gbRecipeBody.Controls.Add(this.cbActive);
             this.gbRecipeBody.Controls.Add(this.groupBox4);
             this.gbRecipeBody.Location = new System.Drawing.Point(6, 81);
@@ -311,16 +309,6 @@
             this.gbRecipeBody.Size = new System.Drawing.Size(1247, 551);
             this.gbRecipeBody.TabIndex = 8;
             this.gbRecipeBody.TabStop = false;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(309, 515);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(128, 24);
-            this.label37.TabIndex = 9;
-            this.label37.Text = "動作逾時秒數:";
-            this.label37.Visible = false;
             // 
             // groupBox5
             // 
@@ -1247,19 +1235,6 @@
             this.label12.Text = "Port1";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // tbMotionTimeout
-            // 
-            this.tbMotionTimeout.Location = new System.Drawing.Point(443, 508);
-            this.tbMotionTimeout.Name = "tbMotionTimeout";
-            this.tbMotionTimeout.Size = new System.Drawing.Size(109, 33);
-            this.tbMotionTimeout.TabIndex = 1;
-            this.tbMotionTimeout.Text = "10";
-            this.tbMotionTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbMotionTimeout.Visible = false;
-            this.tbMotionTimeout.Click += new System.EventHandler(this.modeCheck);
-            this.tbMotionTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
-            this.tbMotionTimeout.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
-            // 
             // lblMode
             // 
             this.lblMode.AutoSize = true;
@@ -1416,14 +1391,12 @@
             this.groupBox3.Controls.Add(this.tbR1Speed);
             this.groupBox3.Controls.Add(this.cbPutSlotOrder);
             this.groupBox3.Controls.Add(this.cbGetSlotOrder);
-            this.groupBox3.Controls.Add(this.cbUseBurnIn);
-            this.groupBox3.Controls.Add(this.cbUseExchange);
             this.groupBox3.Controls.Add(this.cbUserBothArm);
             this.groupBox3.Controls.Add(this.cbUseLArm);
             this.groupBox3.Controls.Add(this.cbUseRArm);
             this.groupBox3.Location = new System.Drawing.Point(6, 237);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(288, 207);
+            this.groupBox3.Size = new System.Drawing.Size(288, 180);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Robot  Setting";
@@ -1506,7 +1479,7 @@
             this.cbUseBurnIn.AutoSize = true;
             this.cbUseBurnIn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbUseBurnIn.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.cbUseBurnIn.Location = new System.Drawing.Point(174, 172);
+            this.cbUseBurnIn.Location = new System.Drawing.Point(1065, 526);
             this.cbUseBurnIn.Name = "cbUseBurnIn";
             this.cbUseBurnIn.Size = new System.Drawing.Size(97, 28);
             this.cbUseBurnIn.TabIndex = 4;
@@ -1519,7 +1492,7 @@
             this.cbUseExchange.AutoSize = true;
             this.cbUseExchange.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbUseExchange.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.cbUseExchange.Location = new System.Drawing.Point(6, 173);
+            this.cbUseExchange.Location = new System.Drawing.Point(1065, 500);
             this.cbUseExchange.Name = "cbUseExchange";
             this.cbUseExchange.Size = new System.Drawing.Size(162, 28);
             this.cbUseExchange.TabIndex = 4;
@@ -1592,15 +1565,15 @@
             // 
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.tbA2_angle);
-            this.groupBox4.Controls.Add(this.tbA1_speed);
             this.groupBox4.Controls.Add(this.tbA2_speed);
+            this.groupBox4.Controls.Add(this.tbA1_speed);
+            this.groupBox4.Controls.Add(this.tbA2_angle);
             this.groupBox4.Controls.Add(this.cbUseA2);
             this.groupBox4.Controls.Add(this.cbUseA1);
             this.groupBox4.Controls.Add(this.tbA1_angle);
-            this.groupBox4.Location = new System.Drawing.Point(6, 442);
+            this.groupBox4.Location = new System.Drawing.Point(6, 423);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(288, 96);
+            this.groupBox4.Size = new System.Drawing.Size(288, 131);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Aligner Setting";
@@ -1627,16 +1600,16 @@
             this.label8.Text = " OCR Angle";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // tbA2_angle
+            // tbA2_speed
             // 
-            this.tbA2_angle.Location = new System.Drawing.Point(111, 95);
-            this.tbA2_angle.Name = "tbA2_angle";
-            this.tbA2_angle.Size = new System.Drawing.Size(46, 33);
-            this.tbA2_angle.TabIndex = 1;
-            this.tbA2_angle.Text = "100";
-            this.tbA2_angle.Visible = false;
-            this.tbA2_angle.Click += new System.EventHandler(this.modeCheck);
-            this.tbA2_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbA2_speed.Location = new System.Drawing.Point(111, 95);
+            this.tbA2_speed.Name = "tbA2_speed";
+            this.tbA2_speed.Size = new System.Drawing.Size(46, 33);
+            this.tbA2_speed.TabIndex = 1;
+            this.tbA2_speed.Text = "100";
+            this.tbA2_speed.Visible = false;
+            this.tbA2_speed.Click += new System.EventHandler(this.modeCheck);
+            this.tbA2_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // tbA1_speed
             // 
@@ -1649,17 +1622,17 @@
             this.tbA1_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             this.tbA1_speed.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.modeCheck);
             // 
-            // tbA2_speed
+            // tbA2_angle
             // 
-            this.tbA2_speed.Location = new System.Drawing.Point(176, 95);
-            this.tbA2_speed.Name = "tbA2_speed";
-            this.tbA2_speed.Size = new System.Drawing.Size(95, 33);
-            this.tbA2_speed.TabIndex = 1;
-            this.tbA2_speed.Text = "0";
-            this.tbA2_speed.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbA2_speed.Visible = false;
-            this.tbA2_speed.Click += new System.EventHandler(this.modeCheck);
-            this.tbA2_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.tbA2_angle.Location = new System.Drawing.Point(176, 95);
+            this.tbA2_angle.Name = "tbA2_angle";
+            this.tbA2_angle.Size = new System.Drawing.Size(95, 33);
+            this.tbA2_angle.TabIndex = 1;
+            this.tbA2_angle.Text = "0";
+            this.tbA2_angle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbA2_angle.Visible = false;
+            this.tbA2_angle.Click += new System.EventHandler(this.modeCheck);
+            this.tbA2_angle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
             // 
             // cbUseA2
             // 
@@ -1909,8 +1882,8 @@
         private System.Windows.Forms.ComboBox cbP4CstType;
         private System.Windows.Forms.ComboBox cbP3CstType;
         private System.Windows.Forms.ComboBox cbP2CstType;
-        private System.Windows.Forms.TextBox tbA2_angle;
         private System.Windows.Forms.TextBox tbA2_speed;
+        private System.Windows.Forms.TextBox tbA2_angle;
         private System.Windows.Forms.TextBox tbR1Speed;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label16;
@@ -1972,8 +1945,6 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.TextBox tbFFUCloseRpm;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.TextBox tbMotionTimeout;
         private System.Windows.Forms.CheckBox cbUserBothArm;
         private System.Windows.Forms.CheckBox cbUseLArm;
         private System.Windows.Forms.CheckBox cbUseRArm;

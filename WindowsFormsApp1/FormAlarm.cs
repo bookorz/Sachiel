@@ -46,7 +46,7 @@ namespace Adam
                 string Message = "";
                 Txn = new Transaction();
                 Txn.Method = Transaction.Command.RobotType.Reset;
-                Txn.FormName = "";
+                Txn.TaskId = "";
                 //NodeManagement.Get(group.First().NodeName).State = "Alarm";
                 NodeManagement.Get(group.First().NodeName).SendCommand(Txn, out Message);
                 AlarmManagement.Remove(group.First().NodeName);

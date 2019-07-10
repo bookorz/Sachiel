@@ -457,7 +457,7 @@ namespace Adam
                     break;
             }
 
-            switch (Txn.FormName)
+            switch (Txn.TaskId)
             {
                 case "GetStatsBeforeInit":
                     switch (Txn.Method)
@@ -513,8 +513,7 @@ namespace Adam
                 case "PauseProcedure":
 
                     break;
-                case "FormManual":
-                case "FormManual-1":
+                default:
                     switch (Node.Type)
                     {
                         case "SMARTTAG":
@@ -618,9 +617,7 @@ namespace Adam
                     }
                     break;
 
-                default:
-
-                    break;
+               
             }
         }
 
@@ -635,7 +632,7 @@ namespace Adam
         {
             logger.Debug("On_Command_Finished");
             //Transaction txn = new Transaction();
-            switch (Txn.FormName)
+            switch (Txn.TaskId)
             {
                 case "ChangeAlignWaferSize":
                     switch (Node.Type)
@@ -650,8 +647,7 @@ namespace Adam
                             break;
                     }
                     break;
-                case "FormManual":
-                case "FormManual-1":
+                default:
                     switch (Node.Type)
                     {
                         case "SMARTTAG":
@@ -677,8 +673,8 @@ namespace Adam
                             ManualAlignerStatusUpdate.UpdateGUI(Txn, Node.Name, Msg.Value);//update 手動功能畫面
                             break;
                     }
-                    break;
-                default:
+         
+               
                     switch (Node.Type)
                     {
                         case "ALIGNER":
@@ -1669,6 +1665,7 @@ namespace Adam
             }
             else
             {
+                
                 DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
                 DIOUpdate.UpdateControlButton("Start_btn", false);
             }
@@ -1696,6 +1693,10 @@ namespace Adam
         private void ShowAlarm(string NodeName, string AlarmCode,string DisplayName="")
         {
             AlarmInfo CurrentAlarm = new AlarmInfo();
+            if (DisplayName == null)
+            {
+                DisplayName = "";
+            }
             CurrentAlarm.NodeName = DisplayName.Equals("")? NodeName: DisplayName;
             CurrentAlarm.AlarmCode = AlarmCode;
             CurrentAlarm.NeedReset = false;
@@ -1755,13 +1756,14 @@ namespace Adam
             RunMode = "";
             WaferAssignUpdate.UpdateEnabled("FORM", true);
             //XfeCrossZone.Stop();
-            if (Task.Id.IndexOf("FormManual") != -1)
-            {
+            //if (Task.Id.IndexOf("FormManual") != -1)
+            //{
                 ManualPortStatusUpdate.LockUI(false);
+            //}
+            if (!ReportType.Equals("On_Command_Error"))
+            {
+                ShowAlarm("SYSTEM", Message, NodeName);
             }
-
-            ShowAlarm("SYSTEM", Message, NodeName);
-
         }
 
         public void On_TaskJob_Finished(TaskJobManagment.CurrentProceedTask Task)
@@ -1770,10 +1772,10 @@ namespace Adam
             string Message = "";
 
             TaskJobManagment.CurrentProceedTask tmpTask;
-            if (Task.Id.IndexOf("FormManual") != -1)
-            {
+            //if (Task.Id.IndexOf("FormManual") != -1)
+            //{
                 ManualPortStatusUpdate.LockUI(false);
-            }
+            //}
             switch (Task.ProceedTask.TaskName)
             {
                 case "SORTER_INIT":
@@ -1834,10 +1836,16 @@ namespace Adam
                     {
                         if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
                         {
-                            Node ld = SearchLoadport();
-                            if (ld != null)
+                            var Slots = from slot in currentPort.JobList.Values
+                                                 where slot.MapFlag && !slot.ErrPosition
+                                                 select slot;
+                            if (Slots.Count() != 0)
                             {
-                                AssignWafer(ld);
+                                Node ld = SearchLoadport();
+                                if (ld != null)
+                                {
+                                    AssignWafer(ld);
+                                }
                             }
                         }
                         else
@@ -2206,9 +2214,9 @@ namespace Adam
             else
             {
                 NodeStatusUpdate.UpdateCurrentState("IDLE");
-                RouteControl.Instance.DIO.SetIO("BUZZER2", "True");
+                RouteControl.Instance.DIO.SetIO("BUZZER1", "True");
                 MessageBox.Show("All job finished!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                RouteControl.Instance.DIO.SetIO("BUZZER2", "False");
+                RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
             }
 
             WaferAssignUpdate.UpdateEnabled("FORM", true);
@@ -2705,7 +2713,7 @@ namespace Adam
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("@AlingerSpeed", recipe.aligner1_speed);
             param.Add("@RobotSpeed", recipe.robot1_speed);
-            RouteControl.Instance.TaskJob.Excute("FormManual", out Message, out Task, TaskName, param);
+            RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
             if (Task == null)
             {
                 MessageBox.Show("上一個動作執行中!");
@@ -2835,6 +2843,26 @@ namespace Adam
             {
                 MessageBox.Show("Please wait for initialize.");
                 e.Cancel = true;
+            }
+            if (!tbcMain.SelectedTab.Text.Equals("Wafer Assign") && !tbcMain.SelectedTab.Text.Equals("Monitoring"))
+            {
+                bool isFound = false;
+                foreach(Node port in NodeManagement.GetLoadPortList())
+                {
+                    if(port.IsMapping && port.Enable)
+                    {
+                        MonitoringUpdate.ButtonEnabled(port.Name.ToUpper() + "_Unload_btn", true);
+                        WaferAssignUpdate.ButtonEnabled(port.Name.ToUpper() + "_Unload_btn", true);
+                        
+                        isFound = true;
+                        
+                    }
+                }
+                if (isFound)
+                {
+                    MessageBox.Show("Please unload all loadports!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Cancel = true;
+                }
             }
         }
 

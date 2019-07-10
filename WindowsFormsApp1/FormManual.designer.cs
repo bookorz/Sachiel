@@ -1603,6 +1603,7 @@
             this.groupBox23.TabIndex = 2;
             this.groupBox23.TabStop = false;
             this.groupBox23.Text = "Aligner2";
+            this.groupBox23.Visible = false;
             // 
             // panel17
             // 
