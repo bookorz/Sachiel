@@ -106,6 +106,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.lblMode = new System.Windows.Forms.Label();
+            this.cbUseBurnIn = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbOcrT7 = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
@@ -123,11 +124,10 @@
             this.tbR1Speed = new System.Windows.Forms.TextBox();
             this.cbPutSlotOrder = new System.Windows.Forms.ComboBox();
             this.cbGetSlotOrder = new System.Windows.Forms.ComboBox();
-            this.cbUseBurnIn = new System.Windows.Forms.CheckBox();
-            this.cbUseExchange = new System.Windows.Forms.CheckBox();
             this.cbUserBothArm = new System.Windows.Forms.CheckBox();
             this.cbUseLArm = new System.Windows.Forms.CheckBox();
             this.cbUseRArm = new System.Windows.Forms.CheckBox();
+            this.cbUseExchange = new System.Windows.Forms.CheckBox();
             this.cbActive = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -1248,6 +1248,19 @@
             this.lblMode.Text = "瀏覽模式";
             this.lblMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // cbUseBurnIn
+            // 
+            this.cbUseBurnIn.AutoSize = true;
+            this.cbUseBurnIn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUseBurnIn.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUseBurnIn.Location = new System.Drawing.Point(1065, 526);
+            this.cbUseBurnIn.Name = "cbUseBurnIn";
+            this.cbUseBurnIn.Size = new System.Drawing.Size(97, 28);
+            this.cbUseBurnIn.TabIndex = 4;
+            this.cbUseBurnIn.Text = "Burn-In";
+            this.cbUseBurnIn.UseVisualStyleBackColor = true;
+            this.cbUseBurnIn.Click += new System.EventHandler(this.modeCheck);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tbOcrT7);
@@ -1457,6 +1470,7 @@
             this.cbPutSlotOrder.Name = "cbPutSlotOrder";
             this.cbPutSlotOrder.Size = new System.Drawing.Size(160, 32);
             this.cbPutSlotOrder.TabIndex = 2;
+            this.cbPutSlotOrder.SelectedIndexChanged += new System.EventHandler(this.cbPutSlotOrder_SelectedIndexChanged);
             this.cbPutSlotOrder.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbPutSlotOrder.Click += new System.EventHandler(this.modeCheck);
             // 
@@ -1473,34 +1487,6 @@
             this.cbGetSlotOrder.TabIndex = 2;
             this.cbGetSlotOrder.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbGetSlotOrder.Click += new System.EventHandler(this.modeCheck);
-            // 
-            // cbUseBurnIn
-            // 
-            this.cbUseBurnIn.AutoSize = true;
-            this.cbUseBurnIn.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cbUseBurnIn.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.cbUseBurnIn.Location = new System.Drawing.Point(1065, 526);
-            this.cbUseBurnIn.Name = "cbUseBurnIn";
-            this.cbUseBurnIn.Size = new System.Drawing.Size(97, 28);
-            this.cbUseBurnIn.TabIndex = 4;
-            this.cbUseBurnIn.Text = "Burn-In";
-            this.cbUseBurnIn.UseVisualStyleBackColor = true;
-            this.cbUseBurnIn.Click += new System.EventHandler(this.modeCheck);
-            // 
-            // cbUseExchange
-            // 
-            this.cbUseExchange.AutoSize = true;
-            this.cbUseExchange.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cbUseExchange.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.cbUseExchange.Location = new System.Drawing.Point(1065, 500);
-            this.cbUseExchange.Name = "cbUseExchange";
-            this.cbUseExchange.Size = new System.Drawing.Size(162, 28);
-            this.cbUseExchange.TabIndex = 4;
-            this.cbUseExchange.Text = "使用交換片模式";
-            this.cbUseExchange.UseVisualStyleBackColor = true;
-            this.cbUseExchange.CheckedChanged += new System.EventHandler(this.cbUseExchange_CheckedChanged);
-            this.cbUseExchange.TextChanged += new System.EventHandler(this.modeCheck);
-            this.cbUseExchange.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbUserBothArm
             // 
@@ -1546,6 +1532,21 @@
             this.cbUseRArm.CheckedChanged += new System.EventHandler(this.cbUseRArm_CheckedChanged);
             this.cbUseRArm.TextChanged += new System.EventHandler(this.modeCheck);
             this.cbUseRArm.Click += new System.EventHandler(this.modeCheck);
+            // 
+            // cbUseExchange
+            // 
+            this.cbUseExchange.AutoSize = true;
+            this.cbUseExchange.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbUseExchange.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.cbUseExchange.Location = new System.Drawing.Point(1065, 500);
+            this.cbUseExchange.Name = "cbUseExchange";
+            this.cbUseExchange.Size = new System.Drawing.Size(162, 28);
+            this.cbUseExchange.TabIndex = 4;
+            this.cbUseExchange.Text = "使用交換片模式";
+            this.cbUseExchange.UseVisualStyleBackColor = true;
+            this.cbUseExchange.CheckedChanged += new System.EventHandler(this.cbUseExchange_CheckedChanged);
+            this.cbUseExchange.TextChanged += new System.EventHandler(this.modeCheck);
+            this.cbUseExchange.Click += new System.EventHandler(this.modeCheck);
             // 
             // cbActive
             // 

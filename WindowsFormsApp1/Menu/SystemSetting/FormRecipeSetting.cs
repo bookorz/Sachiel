@@ -443,7 +443,7 @@ namespace Adam.Menu.SystemSetting
 
         private void modeCheck(object sender, EventArgs e)
         {
-
+            
             //if (!btnSave.Enabled)
             if (lblMode.Text.Equals("瀏覽模式"))
             {
@@ -567,6 +567,19 @@ namespace Adam.Menu.SystemSetting
         private void modeCheck(object sender, PreviewKeyDownEventArgs e)
         {
             modeCheck(sender, new EventArgs());
+        }
+
+        private void cbPutSlotOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (((ComboBox)sender).Text.Equals("BOTTOM_UP"))
+            {
+                cbAutoPutRule.Text = "0";
+                cbAutoPutRule.Enabled = false;
+            }
+            else
+            {
+                cbAutoPutRule.Enabled = true;
+            }
         }
     }
 }
