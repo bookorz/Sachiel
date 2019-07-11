@@ -119,8 +119,8 @@ namespace Adam.Menu.SystemSetting
             Recipe recipe = new Recipe();
             recipe.aligner1_angle = tbA1_angle.Text.Equals("") ? "0" : Int32.Parse(tbA1_angle.Text).ToString();
             recipe.aligner1_speed = tbA1_speed.Text.Equals("") ? "20" : Int32.Parse(tbA1_speed.Text).ToString();
-            recipe.aligner2_angle = tbA2_speed.Text.Equals("") ? "0" : Int32.Parse(tbA2_speed.Text).ToString();
-            recipe.aligner2_speed = tbA2_angle.Text.Equals("") ? "20" : Int32.Parse(tbA2_angle.Text).ToString();
+            recipe.aligner2_angle = tbA2_speed.Text.Equals("") ? "0" : Int32.Parse(tbA2_angle.Text).ToString();
+            recipe.aligner2_speed = tbA2_angle.Text.Equals("") ? "20" : Int32.Parse(tbA2_speed.Text).ToString();
 
             recipe.is_use_aligner1 = cbUseA1.Checked;
             recipe.is_use_aligner2 = cbUseA2.Checked;
@@ -340,8 +340,8 @@ namespace Adam.Menu.SystemSetting
                 Recipe recipe = Recipe.Get(recipeID);
                 tbA1_angle.Text = recipe.aligner1_angle;
                 tbA1_speed.Text = recipe.aligner1_speed;
-                tbA2_speed.Text = recipe.aligner2_angle;
-                tbA2_angle.Text = recipe.aligner2_speed;
+                tbA2_speed.Text = recipe.aligner2_speed;
+                tbA2_angle.Text = recipe.aligner2_angle;
 
                 //recipe.auto_fin_unclamp = "Y";//固定Y 無UI
 

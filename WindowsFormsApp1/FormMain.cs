@@ -668,6 +668,7 @@ namespace Adam
 
                         case "ROBOT":
                             ManualRobotStatusUpdate.UpdateGUI(Txn, Node.Name, Msg.Value);//update 手動功能畫面
+
                             break;
                         case "ALIGNER":
                             ManualAlignerStatusUpdate.UpdateGUI(Txn, Node.Name, Msg.Value);//update 手動功能畫面
@@ -695,6 +696,12 @@ namespace Adam
                                         }
                                         RouteControl.Instance.DIO.SetIO("BUZZER1", "False");
                                     }
+                                    break;
+                                case Transaction.Command.AlignerType.WaferHold:
+                                    OCRUpdate.ClearOCRInfo(Node.Associated_Node,"M12", "FormMonitoring");
+                                    OCRUpdate.ClearOCRInfo(Node.Associated_Node, "T7", "FormMonitoring");
+                                    OCRUpdate.ClearOCRInfo(Node.Associated_Node, "M12", "FormWaferMapping");
+                                    OCRUpdate.ClearOCRInfo(Node.Associated_Node, "T7", "FormWaferMapping");
                                     break;
                             }
                             break;
@@ -2844,7 +2851,7 @@ namespace Adam
                 MessageBox.Show("Please wait for initialize.");
                 e.Cancel = true;
             }
-            if (!tbcMain.SelectedTab.Text.Equals("Wafer Assign") && !tbcMain.SelectedTab.Text.Equals("Monitoring"))
+            if (!tbcMain.SelectedTab.Text.Equals("Wafer Assign") && !tbcMain.SelectedTab.Text.Equals("Monitoring") && !tbcMain.SelectedTab.Text.Equals("Differential Monitor"))
             {
                 bool isFound = false;
                 foreach(Node port in NodeManagement.GetLoadPortList())

@@ -256,6 +256,13 @@ namespace Adam.Menu.Monitoring
 
 
             }
+            Node al2 = NodeManagement.Get("ALIGNER02");
+            if (al2 != null)
+            {
+                OCR02_pl.Visible = true;
+                OCR02_lb.Visible = true;
+                Aligner02_pl.Visible = true;
+            }
 
             
         }

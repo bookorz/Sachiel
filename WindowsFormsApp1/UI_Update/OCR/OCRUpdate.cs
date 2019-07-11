@@ -21,6 +21,7 @@ namespace Adam.UI_Update.OCR
     {
         static ILog logger = LogManager.GetLogger(typeof(OCRUpdate));
         delegate void UpdateOCR(string OCRName, string In, Job Job, string OCRType, string FormName);
+        delegate void ClearOCR(string OCRName, string OCRType, string FormName);
         delegate void UpdateOCRInfo(string OCRName, OCRInfo Result, Job Job);
         [DllImport("user32.dll", SetLastError = true)]
         private static extern long SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
@@ -46,8 +47,44 @@ namespace Adam.UI_Update.OCR
         static int pCnt = 0;
 
 
+        public static void ClearOCRInfo(string OCRName, string OCRType, string FormName )
+        {
+            Form form = Application.OpenForms[FormName];
+            TextBox Tb_OCRRead;
+            string tbName = "";
+            switch (OCRType)
+            {
+                case "M12":
+                    tbName = "Read_Tb";
+                    break;
+                case "T7":
+                    tbName = "ReadT7_Tb";
+                    break;
+                default:
+                    tbName = "Read_Tb";
+                    break;
+            }
+            if (form == null)
+                return;
+            Tb_OCRRead = form.Controls.Find(OCRName + tbName, true).FirstOrDefault() as TextBox;
+            if (Tb_OCRRead == null)
+                return;
 
-        public static void UpdateOCRRead(string OCRName, string WaferID, Job Job, string OCRType,string FormName)
+            if (Tb_OCRRead.InvokeRequired)
+            {
+                ClearOCR ph = new ClearOCR(ClearOCRInfo);
+                Tb_OCRRead.BeginInvoke(ph, OCRName, OCRType, FormName);
+            }
+            else
+            {
+                PictureBox Pic_OCR = form.Controls.Find(OCRName + "_Pic", true).FirstOrDefault() as PictureBox;
+                if (Pic_OCR == null)
+                    return;
+                Pic_OCR.Image = null;
+                Tb_OCRRead.Text = "";
+            }
+        }
+        public static void UpdateOCRRead(string OCRName, string WaferID, Job Job, string OCRType, string FormName)
         {
             try
             {
@@ -93,7 +130,7 @@ namespace Adam.UI_Update.OCR
                         switch (OCRType)
                         {
                             case "M12":
-                                info =  "Score:" + Job.OCR_M12_Score + " Pass:" + Job.OCR_M12_Pass.ToString();
+                                info = "Score:" + Job.OCR_M12_Score + " Pass:" + Job.OCR_M12_Pass.ToString();
                                 break;
                             case "T7":
                                 info = "Score:" + Job.OCR_T7_Score + " Pass:" + Job.OCR_T7_Pass.ToString();

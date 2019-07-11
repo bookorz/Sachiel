@@ -54,6 +54,12 @@ namespace Adam.Menu.WaferMapping
                 }
 
             }
+            Node al2 = NodeManagement.Get("ALIGNER02");
+            if (al2 != null)
+            {
+                OCR02_pl.Visible = true;
+                Aligner02_pl.Visible = true;
+            }
 
         }
         private void RefreshMap()

@@ -1,5 +1,5 @@
 {
-  "SystemMode": "SACHIEL_4F_DEMO",
+  "SystemMode": "SACHIEL",
   "DBConnectionString": "server=127.0.0.1;port=3307;user id=sanwa;password=sanwa_adam;database=adam",
   "OCR2ImgSourcePath1111": "C:/ProgramData/e-Reader0/e-Reader/AllImage",
   "OCR2ImgSourcePath": "C:/ProgramData/e-Reader/AllImage",
@@ -11,8 +11,8 @@
   "OCR1ExePath": "C:/Program Files (x86)/Cognex/In-Sight/In-Sight Explorer Wafer 4.5.0/WaferID.exe",
   "MappingData": "111111111111111111111111",
   "AdminPassword": "0192023A7BBD73250516F069DF18B500",
-  "SaftyCheckByPass": true,
-  "FakeData": true,
+  "SaftyCheckByPass": false,
+  "FakeData": false,
   "CurrentRecipe": "default",
   "EquipmentID": "SORT",
   "FoupTxfLogPath": "D:/log/foup"
