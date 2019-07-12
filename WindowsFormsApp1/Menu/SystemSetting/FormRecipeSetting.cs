@@ -27,8 +27,8 @@ namespace Adam.Menu.SystemSetting
         private void btnCreateRecipe_Click(object sender, EventArgs e)
         {
             //gbRecipe.Enabled = true;
-            btnCreateRecipe.Enabled = false;
-            btnModifyRecipe.Enabled = false;
+            //btnCreateRecipe.Enabled = false;
+            //btnModifyRecipe.Enabled = false;
             btnCancel.Enabled = true;
             btnSave.Enabled = true;
             tbRecipeName.Text = "";
@@ -257,9 +257,9 @@ namespace Adam.Menu.SystemSetting
             //gbRecipe.Enabled = true;
             //gbRecipeBody.Enabled = true;
             //gbRecipeHeader.Enabled = false;
-            btnCreateRecipe.Enabled = false;
-            btnModifyRecipe.Enabled = false;
-            btnDeleteRecipe.Enabled = false;
+            //btnCreateRecipe.Enabled = true;
+            //btnModifyRecipe.Enabled = true;
+            //btnDeleteRecipe.Enabled = true;
             btnCancel.Enabled = true;
             btnSave.Enabled = true;
             tbRecipeName.ReadOnly = true;
@@ -272,9 +272,9 @@ namespace Adam.Menu.SystemSetting
         private void btnCancel_Click(object sender, EventArgs e)
         {
             //gbRecipe.Enabled = false;
-            btnCreateRecipe.Enabled = true;
-            btnModifyRecipe.Enabled = true;
-            btnDeleteRecipe.Enabled = true;
+            //btnCreateRecipe.Enabled = true;
+            //btnModifyRecipe.Enabled = true;
+            //btnDeleteRecipe.Enabled = true;
             btnCancel.Enabled = false;
             btnSave.Enabled = false;
             tbRecipeName.ReadOnly = true;
