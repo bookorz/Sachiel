@@ -224,6 +224,7 @@ namespace Adam.Menu.Monitoring
 
         private void FormMonitoring_Load(object sender, EventArgs e)
         {
+            
             Form form = this;
             foreach (Node port in NodeManagement.GetLoadPortList())
             {

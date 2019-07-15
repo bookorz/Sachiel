@@ -97,7 +97,7 @@
             this.LOADPORT03_Unload_btn = new System.Windows.Forms.Button();
             this.LOADPORT04_Unload_btn = new System.Windows.Forms.Button();
             this.LOADPORT01_Unload_btn = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.WPH_pl = new System.Windows.Forms.Panel();
             this.WPH = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.LoadPort04_Mode = new System.Windows.Forms.Label();
@@ -290,7 +290,7 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.OCR02_pl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OCR02_Pic)).BeginInit();
-            this.panel5.SuspendLayout();
+            this.WPH_pl.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OCR01_Pic)).BeginInit();
             this.panel6.SuspendLayout();
@@ -311,7 +311,7 @@
             this.Aligner01_tb.Controls.Add(this.LOADPORT03_Unload_btn);
             this.Aligner01_tb.Controls.Add(this.LOADPORT04_Unload_btn);
             this.Aligner01_tb.Controls.Add(this.LOADPORT01_Unload_btn);
-            this.Aligner01_tb.Controls.Add(this.panel5);
+            this.Aligner01_tb.Controls.Add(this.WPH_pl);
             this.Aligner01_tb.Controls.Add(this.LoadPort04_Mode);
             this.Aligner01_tb.Controls.Add(this.LoadPort03_Mode);
             this.Aligner01_tb.Controls.Add(this.LoadPort02_Mode);
@@ -1483,15 +1483,15 @@
             this.LOADPORT01_Unload_btn.UseVisualStyleBackColor = true;
             this.LOADPORT01_Unload_btn.Click += new System.EventHandler(this.Unload_btn);
             // 
-            // panel5
+            // WPH_pl
             // 
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.WPH);
-            this.panel5.Controls.Add(this.label32);
-            this.panel5.Location = new System.Drawing.Point(1412, 709);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(177, 40);
-            this.panel5.TabIndex = 170;
+            this.WPH_pl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WPH_pl.Controls.Add(this.WPH);
+            this.WPH_pl.Controls.Add(this.label32);
+            this.WPH_pl.Location = new System.Drawing.Point(1412, 709);
+            this.WPH_pl.Name = "WPH_pl";
+            this.WPH_pl.Size = new System.Drawing.Size(177, 40);
+            this.WPH_pl.TabIndex = 170;
             // 
             // WPH
             // 
@@ -4775,7 +4775,7 @@
             this.OCR02_pl.ResumeLayout(false);
             this.OCR02_pl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OCR02_Pic)).EndInit();
-            this.panel5.ResumeLayout(false);
+            this.WPH_pl.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OCR01_Pic)).EndInit();
@@ -4970,7 +4970,7 @@
         internal System.Windows.Forms.Label LoadPort03_Mode;
         internal System.Windows.Forms.Label LoadPort02_Mode;
         internal System.Windows.Forms.Label LoadPort01_Mode;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel WPH_pl;
         internal System.Windows.Forms.Label WPH;
         internal System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox OCR01ReadT7_Tb;

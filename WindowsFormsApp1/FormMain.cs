@@ -289,29 +289,7 @@ namespace Adam
             }
         }
 
-        private void ProceedInitial()
-        {
-
-            foreach (Node each in NodeManagement.GetList())
-            {
-                each.InitialComplete = false;
-                each.CheckStatus = false;
-                //string Message = "";
-                switch (each.Type.ToUpper())
-                {
-                    case "ROBOT":
-                        //each.ExcuteScript("RobotInit", "Initialize", out Message);
-                        break;
-                        //先做ROBOT
-                        //case "ALIGNER":
-                        //    each.ExcuteScript("AlignerInit", "Initialize");
-                        //    break;
-                        //case "LOADPORT":
-                        //    each.ExcuteScript("LoadPortInit", "Initialize");
-                        //    break;
-                }
-            }
-        }
+       
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             string strMsg = "Move to Home position. OK?";

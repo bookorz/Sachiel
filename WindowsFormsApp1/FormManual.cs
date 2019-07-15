@@ -42,6 +42,9 @@ namespace GUI
                 if (al.Enable)
                 {
                     groupBox23.Visible = true;
+
+                    cbRA1Point.Items.Add("ALIGNER02");
+                    cbRA2Point.Items.Add("ALIGNER02");
                 }
             }
 
