@@ -2690,6 +2690,12 @@ namespace Adam
                 MessageBox.Show("請先停止搬運");
                 return;
             }
+
+                ALL_INIT_btn.BackColor = Color.Yellow;
+                ALL_INIT_btn.Enabled = false;
+                Mode_btn.Enabled = false;
+                Initializing = true;
+            
             DIOUpdate.UpdateControlButton("Start_btn", false);
             Recipe recipe = Recipe.Get(SystemConfig.Get().CurrentRecipe);
             string TaskName = "SORTER_INIT";
@@ -2702,13 +2708,10 @@ namespace Adam
             if (Task == null)
             {
                 MessageBox.Show("上一個動作執行中!");
-            }
-            else
-            {
-                DIOUpdate.UpdateControlButton("ALL_INIT_btn", false);
-                DIOUpdate.UpdateControlButton("Mode_btn", false);
-                ALL_INIT_btn.BackColor = Color.Yellow;
-                Initializing = true;
+                ALL_INIT_btn.BackColor = Color.YellowGreen;
+                ALL_INIT_btn.Enabled = true;
+                Mode_btn.Enabled = true;
+                Initializing = false;
             }
         }
 
