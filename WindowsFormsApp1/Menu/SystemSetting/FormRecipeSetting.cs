@@ -253,6 +253,7 @@ namespace Adam.Menu.SystemSetting
                 MessageBox.Show("Please select a recipe first.", "Notice");
                 return;
             }
+            lblMode.Text = "編輯模式";//避免 stack overflow
             updateInfo(trvRecipe.SelectedNode.Text);
             //gbRecipe.Enabled = true;
             //gbRecipeBody.Enabled = true;
@@ -266,7 +267,6 @@ namespace Adam.Menu.SystemSetting
             tbRecipeID.ReadOnly = true;
             //trvRecipe.Enabled = false;20190708 取消
 
-            lblMode.Text = "編輯模式";
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
