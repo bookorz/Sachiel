@@ -1696,7 +1696,7 @@ namespace Adam
         private void ShowAlarm(string NodeName, string AlarmCode,string DisplayName="")
         {
             AlarmInfo CurrentAlarm = new AlarmInfo();
-            CurrentAlarm.NodeName = DisplayName.Equals("")? NodeName: DisplayName;
+            CurrentAlarm.NodeName = DisplayName==null?"":DisplayName.Equals("")? NodeName: DisplayName;
             CurrentAlarm.AlarmCode = AlarmCode;
             CurrentAlarm.NeedReset = false;
             try

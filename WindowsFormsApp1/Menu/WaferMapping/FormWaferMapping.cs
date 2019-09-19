@@ -900,12 +900,32 @@ namespace Adam.Menu.WaferMapping
                 }
                 foup.Save();
                 ((Button)sender).Enabled = false;
+
+                foreach(Job each in port.JobList.Values)
+                {
+                    if (!each.Destination.Equals(""))
+                    {
+                        each.UnAssignPort();
+                    }
+                }
+                foreach(Node p in NodeManagement.GetLoadPortList())
+                {
+                    foreach(Job each in p.JobList.Values)
+                    {
+                        if (each.Destination.Equals(PortName))
+                        {
+                            each.UnAssignPort();
+                        }
+                    }
+                }
+                RefreshMap();
                 string TaskName = "LOADPORT_CLOSE_NOMAP";
                 string Message = "";
                 Dictionary<string, string> param1 = new Dictionary<string, string>();
                 param1.Add("@Target", port.Name);
                 TaskJobManagment.CurrentProceedTask tmpTask;
                 RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString() + "Unload_btn", out Message, out tmpTask, TaskName, param1);
+
             }
             else
             {

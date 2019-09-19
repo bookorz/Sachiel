@@ -22,7 +22,7 @@ namespace GUI
             try
             {
                 //Ver_lb.Text = "Version " + System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() + " (2018)";
-                Ver_lb.Text = "Version 3.0.0.1 (2019)";
+                Ver_lb.Text = "Version 3.0.0.2 (2019)";
             }
             catch
             {
