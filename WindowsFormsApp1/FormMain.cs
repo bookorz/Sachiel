@@ -108,7 +108,7 @@ namespace Adam
         {
 
             var hstOcr = from node in NodeManagement.GetList()
-                         where node.Type.ToUpper().Equals("OCR") && node.Brand.ToUpper().Equals("HST")
+                         where node.Type.ToUpper().Equals("OCR") && node.Brand.ToUpper().Equals("HST") && node.Enable
                          select node;
             if (hstOcr.Count() != 0)
             {
@@ -2699,6 +2699,26 @@ namespace Adam
             }
             DIOUpdate.UpdateControlButton("Start_btn", false);
             Recipe recipe = Recipe.Get(SystemConfig.Get().CurrentRecipe);
+            foreach (Node Node in NodeManagement.GetLoadPortList())
+            {
+                if (Node.Enable)
+                {
+                    Node.IsMapping = false;
+                    //刪除所有帳
+                    foreach (Job eachJob in Node.JobList.Values)
+                    {
+                        JobManagement.Remove(eachJob.Job_Id);
+                    }
+                    Node.JobList.Clear();
+                    Node.ReserveList.Clear();
+                    JobManagement.ClearAssignJobByPort(Node.Name);
+                    Node.FoupID = "";
+                    MonitoringUpdate.UpdateNodesJob(Node.Name);
+                    WaferAssignUpdate.UpdateNodesJob(Node.Name);
+                    RunningUpdate.UpdateNodesJob(Node.Name);
+                }
+            }
+
             string TaskName = "SORTER_INIT";
             string Message = "";
             TaskJobManagment.CurrentProceedTask Task;
@@ -2716,6 +2736,7 @@ namespace Adam
                 DIOUpdate.UpdateControlButton("Mode_btn", false);
                 ALL_INIT_btn.BackColor = Color.Yellow;
                 Initializing = true;
+                
             }
         }
 
