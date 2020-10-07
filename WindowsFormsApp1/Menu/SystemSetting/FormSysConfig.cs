@@ -27,7 +27,7 @@ namespace Adam.Menu.SystemSetting
             }
             //set gui data
             SystemConfig config = SystemConfig.Get();
-            tbConnString.Text = config.DBConnectionString;
+            //tbConnString.Text = config.DBConnectionString;
             tbEqpId.Text = config.EquipmentID;
             tbOcr1Exe.Text = config.OCR1ExePath;
             tbOcr1ImgBak.Text = config.OCR1ImgToJpgPath;

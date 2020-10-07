@@ -1,11 +1,12 @@
 ﻿using Adam.Util;
+using LiteDB;
 using log4net;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using TransferControl.Comm;
+using TransferControl.Config;
 
 namespace Adam.UI_Update.Authority
 {
@@ -101,7 +102,7 @@ namespace Adam.UI_Update.Authority
                     string msg = "{\"user_id\": " + user_id + ", \"name\": \"" + user_name + "\", \"action\": \"Logout\"}";
                     log.Info(msg);
                     //SanwaUtil.addActionLog("Authority", "Logout", user_id);// add record to log_system_action
-                    SanwaUtil.addActionLog("Authority", "Logout", user_id, "使用者登出");// add record to log_system_action
+                    //SanwaUtil.addActionLog("Authority", "Logout", user_id, "使用者登出");// add record to log_system_action
                 }
             }
             catch
@@ -169,25 +170,59 @@ namespace Adam.UI_Update.Authority
                 }
             }
         }
+        public class user_group_function
+        {
+            public string user_group_id { get; set; }
+            public string fun_id { get; set; }
+            public string active { get; set; }
+            public string fun_form { get; set; }
+            public string fun_ref { get; set; }
+        }
+        public class function
+        {
+            public string fun_id { get; set; }
+            public string fun_name { get; set; }
+            public string fun_form { get; set; }
+            public string fun_ref { get; set; }
+            public string active { get; set; }
 
+        }
         private static void setDtAuthority()
         {
             //set SQL
-            StringBuilder sql = new StringBuilder();
-            sql.Append("\n SELECT ugf.user_group_id, ugf.fun_id, ugf.active, f.fun_form, f.fun_ref");
-            sql.Append("\n   FROM user_group_function ugf");
-            sql.Append("\n   INNER JOIN function f");
-            sql.Append("\n     ON ugf.fun_id = f.fun_id");
-            sql.Append("\n    AND f.active = 'Y'");
-            //sql.Append("\n  WHERE user_group_id = @user_group_id ");
+            //StringBuilder sql = new StringBuilder();
+            //sql.Append("\n SELECT ugf.user_group_id, ugf.fun_id, ugf.active, f.fun_form, f.fun_ref");
+            //sql.Append("\n   FROM user_group_function ugf");
+            //sql.Append("\n   INNER JOIN function f");
+            //sql.Append("\n     ON ugf.fun_id = f.fun_id");
+            //sql.Append("\n    AND f.active = 'Y'");
+            ////sql.Append("\n  WHERE user_group_id = @user_group_id ");
 
-            //set parameter
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            //param.Add("@user_group_id", Group);
+            ////set parameter
+            //Dictionary<string, object> param = new Dictionary<string, object>();
+            ////param.Add("@user_group_id", Group);
 
-            //Query
-            DBUtil dBUtil = new DBUtil();
-            dtAuthority = dBUtil.GetDataTable(sql.ToString(), param);
+            ////Query
+            //DBUtil dBUtil = new DBUtil();
+            //dtAuthority = dBUtil.GetDataTable(sql.ToString(), param);
+            using (var db = new LiteDatabase(@"Filename=config\MyData.db;Connection=shared;"))
+            {
+                // Get customer collection
+                var col = db.GetCollection<user_group_function>("user_group_function");
+                var rs = col.Query();
+                List<user_group_function> tmp = rs.ToList();
+                foreach (user_group_function each in tmp)
+                {
+                    var col2 = db.GetCollection<function>("function");
+                    var rs2 = col2.Query().Where(x=>x.fun_id.Equals(each.fun_id));
+                    
+                        each.fun_form = rs2.First().fun_form;
+                        each.fun_ref = rs2.First().fun_ref;
+                        
+                    
+                }
+                dtAuthority = tmp.ToDataTable();
+            }
         }
 
         public static void UpdateFuncAssign(string Form, string Control, string active)

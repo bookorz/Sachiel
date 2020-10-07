@@ -1,4 +1,5 @@
 ﻿using Adam.Util;
+using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +12,16 @@ namespace GUI
 {
     public partial class FormChgPwd : Form
     {
+        public class account
+        {
+            public string user_id { get; set; }
+            public string user_name { get; set; }
+            public string password { get; set; }
+            public string user_group_id { get; set; }
+            public string active { get; set; }
+            public string create_user { get; set; }
+
+        }
         public FormChgPwd()
         {
             InitializeComponent();
@@ -35,19 +46,28 @@ namespace GUI
             }
             else
             {
-                DBUtil dBUtil = new DBUtil();
-                Dictionary<string, object> keyValues = new Dictionary<string, object>();
-                string strSql = "UPDATE account SET PASSWORD = MD5(@password), " +
-                                                "modify_user = @modify_user, " +
-                                                "modify_timestamp = NOW() " +
-                                                "WHERE user_id = @user_id ";
+                //DBUtil dBUtil = new DBUtil();
+                //Dictionary<string, object> keyValues = new Dictionary<string, object>();
+                //string strSql = "UPDATE account SET PASSWORD = MD5(@password), " +
+                //                                "modify_user = @modify_user, " +
+                //                                "modify_timestamp = NOW() " +
+                //                                "WHERE user_id = @user_id ";
 
-                keyValues.Add("@user_id", tbUserID.Text.Trim());
-                keyValues.Add("@password", tbNewPwd.Text.Trim());
-                keyValues.Add("@modify_user", Global.currentUser);
-                dBUtil.ExecuteNonQuery(strSql, keyValues);
-                SanwaUtil.addActionLog("GUI.FormChgPwd", "Change password", Global.currentUser, "變更本人密碼");
-                MessageBox.Show("變更密碼成功!!", "Success");
+                //keyValues.Add("@user_id", tbUserID.Text.Trim());
+                //keyValues.Add("@password", tbNewPwd.Text.Trim());
+                //keyValues.Add("@modify_user", Global.currentUser);
+                //dBUtil.ExecuteNonQuery(strSql, keyValues);
+                //SanwaUtil.addActionLog("GUI.FormChgPwd", "Change password", Global.currentUser, "變更本人密碼");
+                using (var db = new LiteDatabase(@"Filename=config\MyData.db;Connection=shared;"))
+                {
+                    // Get customer collection
+                    var col = db.GetCollection<account>("account");
+                    var rs = col.Query().Where(x => x.user_id.Equals(tbUserID.Text));
+                    account target = rs.First();
+                    target.password = tbNewPwd.Text.Trim().ToMD5();
+                    col.Update(target);
+                }
+                    MessageBox.Show("變更密碼成功!!", "Success");
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -58,25 +78,31 @@ namespace GUI
         {
             Boolean result = false;
             //set SQL
-            StringBuilder sql = new StringBuilder();
-            sql.Append("\n SELECT user_id, user_name, user_group_id");
-            sql.Append("\n   FROM account ");
-            sql.Append("\n  WHERE user_id = @user_id ");
-            sql.Append("\n    AND password = MD5(@password)");
-            //set parameter
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("@user_id", userid);
-            param.Add("@password", password);
-            //Query
-            DBUtil dBUtil = new DBUtil();
-            DataTableReader rs = dBUtil.GetDataReader(sql.ToString(), param);
-            if (rs != null)
+            //StringBuilder sql = new StringBuilder();
+            //sql.Append("\n SELECT user_id, user_name, user_group_id");
+            //sql.Append("\n   FROM account ");
+            //sql.Append("\n  WHERE user_id = @user_id ");
+            //sql.Append("\n    AND password = MD5(@password)");
+            ////set parameter
+            //Dictionary<string, object> param = new Dictionary<string, object>();
+            //param.Add("@user_id", userid);
+            //param.Add("@password", password);
+            ////Query
+            //DBUtil dBUtil = new DBUtil();
+            //DataTableReader rs = dBUtil.GetDataReader(sql.ToString(), param);
+            using (var db = new LiteDatabase(@"Filename=config\MyData.db;Connection=shared;"))
             {
-                while (rs.Read())
+                // Get customer collection
+                var col = db.GetCollection<account>("account");
+                var rs = col.Query().Where(x => x.user_id.Equals(tbUserID.Text) && x.password.Equals(password.ToMD5()));
+                if (rs.Count()!=0)
                 {
-                    result = true;
+                   
+                        result = true;
+                    
                 }
             }
+           
             return result;
         }
 

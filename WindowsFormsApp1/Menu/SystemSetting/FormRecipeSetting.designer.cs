@@ -335,6 +335,7 @@
             this.groupBox5.TabIndex = 8;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "FFU";
+            this.groupBox5.Visible = false;
             // 
             // label23
             // 

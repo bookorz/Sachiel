@@ -214,13 +214,13 @@ namespace Adam.Menu.Monitoring
             ocr1.SendCommand(t, out Message);
         }
 
-        private void Node_Disable_Click(object sender, EventArgs e)
-        {
-            string NodeName = (sender as CheckBox).Name.Replace("_disable_ck", "");
-            Node node = NodeManagement.Get(NodeName);
-            node.SetEnable(!((sender as CheckBox).Checked));
+        //private void Node_Disable_Click(object sender, EventArgs e)
+        //{
+        //    string NodeName = (sender as CheckBox).Name.Replace("_disable_ck", "");
+        //    Node node = NodeManagement.Get(NodeName);
+        //    node.SetEnable(!((sender as CheckBox).Checked));
 
-        }
+        //}
 
         private void FormMonitoring_Load(object sender, EventArgs e)
         {

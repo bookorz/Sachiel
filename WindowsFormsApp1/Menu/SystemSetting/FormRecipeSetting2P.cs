@@ -168,9 +168,9 @@ namespace Adam.Menu.SystemSetting
             }
             //紀錄修改Log
             if (tbRecipeID.Enabled)
-                Util.SanwaUtil.addActionLog("Recipe", "Create", Global.currentUser, "建立 Recipe:" + recipe.recipe_id);
+               // Util.SanwaUtil.addActionLog("Recipe", "Create", Global.currentUser, "建立 Recipe:" + recipe.recipe_id);
             if (tbRecipeID.Enabled)
-                Util.SanwaUtil.addActionLog("Recipe", "Modify", Global.currentUser, "修改 Recipe:" + recipe.recipe_id);
+               // Util.SanwaUtil.addActionLog("Recipe", "Modify", Global.currentUser, "修改 Recipe:" + recipe.recipe_id);
 
             refreshList();
             MessageBox.Show("Execute successfully.", "Success");
@@ -407,7 +407,7 @@ namespace Adam.Menu.SystemSetting
                     if (Recipe.Delete(recipe.recipe_id))
                     {
                         refreshList();
-                        Util.SanwaUtil.addActionLog("Recipe", "Delete", Global.currentUser, "刪除 Recipe:" + recipe.recipe_id);
+                        //Util.SanwaUtil.addActionLog("Recipe", "Delete", Global.currentUser, "刪除 Recipe:" + recipe.recipe_id);
                         MessageBox.Show("Delete completed.", "Success");
                     }
                     else

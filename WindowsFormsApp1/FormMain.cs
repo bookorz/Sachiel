@@ -49,10 +49,11 @@ namespace Adam
         //private Menu.OCR.FormOCR formOCR = new Menu.OCR.FormOCR();
         //private Menu.SystemSetting.FormSECSSet formSecs = new Menu.SystemSetting.FormSECSSet();
         //private Menu.SystemSetting.FormSystemSetting formSystem = new Menu.SystemSetting.FormSystemSetting();//舊設定方式 20190529 取消
-        private Menu.SystemSetting.FormSetting formSystemNew = new Menu.SystemSetting.FormSetting();//新設定方式
+        //private Menu.SystemSetting.FormSetting formSystemNew = new Menu.SystemSetting.FormSetting();//新設定方式
         private Menu.DifferentialMonitor.FormDifferentialMonitor formTestMode = new Menu.DifferentialMonitor.FormDifferentialMonitor();
         private Menu.RunningScreen.FormRunningScreen formRun = new Menu.RunningScreen.FormRunningScreen();
         private Menu.Wafer.FormWafer WaferForm = new Menu.Wafer.FormWafer();
+        private Menu.SystemSetting.FormRecipeSetting RecipeSetting = new Menu.SystemSetting.FormRecipeSetting();
         public static GUI.FormManual formManual = null;
         public static string CurrentMode = "AUTO";
         public static bool Start = false;
@@ -81,9 +82,9 @@ namespace Adam
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Location = new System.Drawing.Point(-200, 0);
 
-            SanwaUtil.addPartition();
-            SanwaUtil.dropPartition();
-            ThreadPool.QueueUserWorkItem(new WaitCallback(DBUtil.consumeSqlCmd));
+            //SanwaUtil.addPartition();
+            //SanwaUtil.dropPartition();
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(DBUtil.consumeSqlCmd));
 
             xfe = new XfeCrossZone(this);
         }
@@ -131,7 +132,7 @@ namespace Adam
 
             //Control[] ctrlForm = new Control[] { formMonitoring, formIO, formWafer, formStatus, formTestMode, WaferForm, formSystem, formSystemNew };
             //20190529 取消 formStatus, formStatus          Control[] ctrlForm = new Control[] { formMonitoring, formWaferAssign, formIO,  formSystemNew, formTestMode }; //WaferForm 和 壓差監控之後再開放  , formTestMode
-            Control[] ctrlForm = new Control[] { formMonitoring, formWaferAssign, formRun, formIO, formSystemNew, formTestMode }; //WaferForm 和 壓差監控之後再開放  , formTestMode
+            Control[] ctrlForm = new Control[] { formMonitoring, formWaferAssign, formRun, formIO, RecipeSetting, formTestMode }; //WaferForm 和 壓差監控之後再開放  , formTestMode
 
 
             try
@@ -888,26 +889,31 @@ namespace Adam
                                         continue;
                                     }
 
-
-                                    Image bmp = Image.FromFile(saveTmpPath);
-
-                                    bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                    bmp.Dispose();
-                                    File.Delete(saveTmpPath);
-
-                                    switch (OCRType)
+                                    try
                                     {
-                                        case "M12":
-                                            Job.OCR_M12_ImgPath = savePath;
-                                            break;
-                                        case "T7":
-                                            Job.OCR_T7_ImgPath = savePath;
-                                            break;
-                                        default:
-                                            Job.OCRImgPath = savePath;
-                                            break;
-                                    }
+                                        Image bmp = Image.FromFile(saveTmpPath);
 
+                                        bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        bmp.Dispose();
+                                        File.Delete(saveTmpPath);
+
+                                        switch (OCRType)
+                                        {
+                                            case "M12":
+                                                Job.OCR_M12_ImgPath = savePath;
+                                                break;
+                                            case "T7":
+                                                Job.OCR_T7_ImgPath = savePath;
+                                                break;
+                                            default:
+                                                Job.OCRImgPath = savePath;
+                                                break;
+                                        }
+                                    }
+                                    catch (Exception ee)
+                                    {
+                                        logger.Error(ee.Message);
+                                    }
                                     //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
                                     break;
                                 }
@@ -927,7 +933,7 @@ namespace Adam
         {
             logger.Debug("On_Command_TimeOut");
             ShowAlarm("SYSTEM", "00200002", Node.Name);
-           
+
         }
 
         public void On_Event_Trigger(Node Node, CommandReturnMessage Msg)
@@ -946,17 +952,16 @@ namespace Adam
                         switch (Msg.Command)
                         {
                             case "MANSW":
-                                if (Node.OPACCESS)
-                                {
-                                    Barcodeupdate.UpdateLoadport(Node.Name, false);
-                                    //Node.OPACCESS = false;
-                                    //TaskName = "LOADPORT_OPEN";
-                                    //Message = "";
-                                    //Dictionary<string, string> param = new Dictionary<string, string>();
-                                    //param.Add("@Target", Node.Name);
 
-                                    //RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
-                                }
+                                Barcodeupdate.UpdateLoadport(Node.Name, false);
+                                //Node.OPACCESS = false;
+                                //TaskName = "LOADPORT_OPEN";
+                                //Message = "";
+                                //Dictionary<string, string> param = new Dictionary<string, string>();
+                                //param.Add("@Target", Node.Name);
+
+                                //RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param);
+
                                 break;
                             case "MANOF":
 
@@ -968,12 +973,12 @@ namespace Adam
                                 if (Node.OrgSearchComplete && Node.ManaulControl && !Node.CurrentStatus.Equals("UnloadComplete") && !Node.IsLoad)
                                 {
                                     Node.CurrentStatus = "UnloadComplete";
-                                    TaskName = "LOADPORT_UNLOADCOMPLETE";
-                                    Message = "";
-                                    Dictionary<string, string> param1 = new Dictionary<string, string>();
-                                    param1.Add("@Target", Node.Name);
+                                    //TaskName = "LOADPORT_UNLOADCOMPLETE";
+                                    //Message = "";
+                                    //Dictionary<string, string> param1 = new Dictionary<string, string>();
+                                    //param1.Add("@Target", Node.Name);
 
-                                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param1);
+                                    //RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param1);
                                 }
                                 if (Node.IsLoad)
                                 {
@@ -985,12 +990,12 @@ namespace Adam
                                 if (Node.OrgSearchComplete && Node.ManaulControl && !Node.CurrentStatus.Equals("ReadyToLoad") && !Node.IsLoad)
                                 {
                                     Node.CurrentStatus = "ReadyToLoad";
-                                    TaskName = "LOADPORT_READYTOLOAD";
-                                    Message = "";
-                                    Dictionary<string, string> param2 = new Dictionary<string, string>();
-                                    param2.Add("@Target", Node.Name);
+                                    //TaskName = "LOADPORT_READYTOLOAD";
+                                    //Message = "";
+                                    //Dictionary<string, string> param2 = new Dictionary<string, string>();
+                                    //param2.Add("@Target", Node.Name);
 
-                                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param2);
+                                    //RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out Task, TaskName, param2);
                                 }
                                 break;
                             case "ABNST":
@@ -1168,28 +1173,28 @@ namespace Adam
                             }
                             break;
                         case "DOORSWITCH":
-                            string TaskName = "FFU_SET_SPEED";
-                            //RouteControl.Instance.TaskJob.ForceFinishTask(TaskName);
+                            //string TaskName = "FFU_SET_SPEED";
+                            ////RouteControl.Instance.TaskJob.ForceFinishTask(TaskName);
 
-                            Node ffu = NodeManagement.Get("FFU01");
-                            if (ffu != null)
-                            {
-                                string Message = "";
-                                Dictionary<string, string> param1 = new Dictionary<string, string>();
-                                param1.Add("@Target", ffu.Name);
-                                if (Value.ToUpper().Equals("TRUE"))
-                                {
-                                    param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
-                                    DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
-                                }
-                                else
-                                {
-                                    param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
-                                    DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
-                                }
-                                TaskJobManagment.CurrentProceedTask tmpTask;
-                                RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
-                            }
+                            //Node ffu = NodeManagement.Get("FFU01");
+                            //if (ffu != null)
+                            //{
+                            //    string Message = "";
+                            //    Dictionary<string, string> param1 = new Dictionary<string, string>();
+                            //    param1.Add("@Target", ffu.Name);
+                            //    if (Value.ToUpper().Equals("TRUE"))
+                            //    {
+                            //        param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
+                            //        DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_close);
+                            //    }
+                            //    else
+                            //    {
+                            //        param1.Add("@Value", Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
+                            //        DifferentialMonitorUpdate.UpdateFFU(Recipe.Get(SystemConfig.Get().CurrentRecipe).ffu_rpm_open);
+                            //    }
+                            //    TaskJobManagment.CurrentProceedTask tmpTask;
+                            //    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                            //}
                             break;
                     }
                     break;
@@ -1464,8 +1469,8 @@ namespace Adam
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            FormQuery form = new FormQuery();
-            form.Show();
+            //FormQuery form = new FormQuery();
+            //form.Show();
         }
 
 
@@ -1693,10 +1698,10 @@ namespace Adam
 
         }
 
-        private void ShowAlarm(string NodeName, string AlarmCode,string DisplayName="")
+        private void ShowAlarm(string NodeName, string AlarmCode, string DisplayName = "")
         {
             AlarmInfo CurrentAlarm = new AlarmInfo();
-            CurrentAlarm.NodeName = DisplayName==null?"":DisplayName.Equals("")? NodeName: DisplayName;
+            CurrentAlarm.NodeName = DisplayName == null ? "" : DisplayName.Equals("") ? NodeName : DisplayName;
             CurrentAlarm.AlarmCode = AlarmCode;
             CurrentAlarm.NeedReset = false;
             try
@@ -1885,17 +1890,19 @@ namespace Adam
             if (RunMode.Equals("FULLAUTO"))
             {
                 var AvailableOPENs = (from OPEN in NodeManagement.GetLoadPortList()
-                                     where OPEN.Mode.Equals("LD") && OPEN.IsMapping &&                                   
-                                     (from wafer in OPEN.JobList.Values
-                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess select wafer).Count()!=0
-                                     select OPEN).OrderBy(x => x.LoadTime);
+                                      where OPEN.Mode.Equals("LD") && OPEN.IsMapping &&
+                                      (from wafer in OPEN.JobList.Values
+                                       where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
+                                       select wafer).Count() != 0
+                                      select OPEN).OrderBy(x => x.LoadTime);
                 if (Recipe.Get(SystemConfig.Get().CurrentRecipe).is_use_burnin)
                 {
                     AvailableOPENs = (from OPEN in NodeManagement.GetLoadPortList()
-                                     where OPEN.IsMapping &&
-                                     (from wafer in OPEN.JobList.Values
-                                     where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess select wafer).Count()!=0
-                                     select OPEN).OrderBy(x => x.LoadTime);
+                                      where OPEN.IsMapping &&
+                                      (from wafer in OPEN.JobList.Values
+                                       where wafer.MapFlag && !wafer.ErrPosition && !wafer.AbortProcess
+                                       select wafer).Count() != 0
+                                      select OPEN).OrderBy(x => x.LoadTime);
                 }
                 if (AvailableOPENs.Count() != 0)
                 {
@@ -2206,6 +2213,7 @@ namespace Adam
             else
             {
                 NodeStatusUpdate.UpdateCurrentState("IDLE");
+                SpinWait.SpinUntil(() => false, 500);
                 RouteControl.Instance.DIO.SetIO("BUZZER2", "True");
                 MessageBox.Show("All job finished!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 RouteControl.Instance.DIO.SetIO("BUZZER2", "False");
@@ -2247,11 +2255,11 @@ namespace Adam
                 if (AvailableSlots.Count() != 0)
                 {
                     MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
-                    WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);                   
+                    WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
                 }
                 else
                 {//滿了才退
-                    
+
                     FoupInfo tmp = FoupInfo.Get(Port.Name);
                     tmp.SetAllUnloadTime(DateTime.Now);
                     tmp.Save();
@@ -2392,15 +2400,21 @@ namespace Adam
 
 
                         }
+                        MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
+                        WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
+                        string TaskName = "LOADPORT_CLOSE_NOMAP";
+                        string Message = "";
+                        Dictionary<string, string> param1 = new Dictionary<string, string>();
+                        param1.Add("@Target", Port.Name);
+                        TaskJobManagment.CurrentProceedTask tmpTask;
+                        RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
                     }
-                    MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
-                    WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", false);
-                    string TaskName = "LOADPORT_CLOSE_NOMAP";
-                    string Message = "";
-                    Dictionary<string, string> param1 = new Dictionary<string, string>();
-                    param1.Add("@Target", Port.Name);
-                    TaskJobManagment.CurrentProceedTask tmpTask;
-                    RouteControl.Instance.TaskJob.Excute(Guid.NewGuid().ToString(), out Message, out tmpTask, TaskName, param1);
+                    else
+                    {
+                        MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+                        WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
+                    }
+
                 }
             }
             catch (Exception e)
@@ -2429,7 +2443,7 @@ namespace Adam
                                 select each;
                 if (Available.Count() == 0)
                 {//Unloadport 滿了 自動退
-                    
+
                     FoupInfo foup = new FoupInfo(SystemConfig.Get().CurrentRecipe, Global.currentUser, Port.FoupID);
                     foreach (Job j in Port.JobList.Values)
                     {
@@ -2576,7 +2590,7 @@ namespace Adam
                 {
                     MonitoringUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
                     WaferAssignUpdate.ButtonEnabled(Port.Name.ToUpper() + "_Unload_btn", true);
-                    
+
                 }
             }
             catch (Exception e)
@@ -2736,7 +2750,7 @@ namespace Adam
                 DIOUpdate.UpdateControlButton("Mode_btn", false);
                 ALL_INIT_btn.BackColor = Color.Yellow;
                 Initializing = true;
-                
+
             }
         }
 

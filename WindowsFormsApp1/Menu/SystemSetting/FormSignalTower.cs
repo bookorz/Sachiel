@@ -5,7 +5,8 @@ using System.Windows.Forms;
 using System.Linq;
 using Adam.UI_Update.Monitoring;
 using GUI;
-using TransferControl.Comm;
+using TransferControl.Config;
+using LiteDB;
 
 namespace Adam.Menu.SystemSetting
 {
@@ -17,7 +18,7 @@ namespace Adam.Menu.SystemSetting
         }
 
         private DataTable dtSignalTower = new DataTable();
-        private DBUtil dBUtil = new DBUtil();
+  
 
         private void FormSignalTtower_Load(object sender, EventArgs e)
         {
@@ -104,36 +105,51 @@ namespace Adam.Menu.SystemSetting
 
             try
             {
-                strSql = "UPDATE config_signal_tower " +
-                    "SET red = @red, " +
-                    "orange = @orange, " +
-                    "green = @green, " +
-                    "blue = @blue, " +
-                    "buzzer1 = @buzzer1, " +
-                    "buzzer2 = @buzzer2, " +
-                    "update_user = @update_user, " +
-                    "update_time = NOW() " +
-                    "WHERE eqp_status  =  @eqp_status " +
-                    "AND is_alarm = @is_alarm ";
+                //strSql = "UPDATE config_signal_tower " +
+                //    "SET red = @red, " +
+                //    "orange = @orange, " +
+                //    "green = @green, " +
+                //    "blue = @blue, " +
+                //    "buzzer1 = @buzzer1, " +
+                //    "buzzer2 = @buzzer2, " +
+                //    "update_user = @update_user, " +
+                //    "update_time = NOW() " +
+                //    "WHERE eqp_status  =  @eqp_status " +
+                //    "AND is_alarm = @is_alarm ";
 
-                Form form = Application.OpenForms["FormMain"];
-                Label Signal = form.Controls.Find("lbl_login_id", true).FirstOrDefault() as Label;
+                //Form form = Application.OpenForms["FormMain"];
+                //Label Signal = form.Controls.Find("lbl_login_id", true).FirstOrDefault() as Label;
 
-                keyValues.Add("@red", cmbRad.Text.ToString());
-                keyValues.Add("@orange", cmbYellow.Text.ToString());
-                keyValues.Add("@green", cmbGreen.Text.ToString());
-                keyValues.Add("@blue", cmbBlue.Text.ToString());
-                keyValues.Add("@buzzer1", cmbBuzzer1.Text.ToString());
-                keyValues.Add("@buzzer2", cmbBuzzer2.Text.ToString());
-                keyValues.Add("@update_user", Signal.Text);
-                keyValues.Add("@eqp_status", lsbCondition.Text.Split('-')[0].ToString());
-                keyValues.Add("@is_alarm", Convert.ToUInt64(lsbCondition.SelectedValue.ToString()));
+                //keyValues.Add("@red", cmbRad.Text.ToString());
+                //keyValues.Add("@orange", cmbYellow.Text.ToString());
+                //keyValues.Add("@green", cmbGreen.Text.ToString());
+                //keyValues.Add("@blue", cmbBlue.Text.ToString());
+                //keyValues.Add("@buzzer1", cmbBuzzer1.Text.ToString());
+                //keyValues.Add("@buzzer2", cmbBuzzer2.Text.ToString());
+                //keyValues.Add("@update_user", Signal.Text);
+                //keyValues.Add("@eqp_status", lsbCondition.Text.Split('-')[0].ToString());
+                //keyValues.Add("@is_alarm", Convert.ToUInt64(lsbCondition.SelectedValue.ToString()));
 
-                dBUtil.ExecuteNonQuery(strSql, keyValues);
+                //dBUtil.ExecuteNonQuery(strSql, keyValues);
+                using (var db = new LiteDatabase(@"Filename=config\MyData.db;Connection=shared;"))
+                {
+                    // Get customer collection
+                    var col = db.GetCollection<config_signal_tower>("config_signal_tower");
+                    var result = col.Query().Where(x=>x.eqp_status.Equals(lsbCondition.Text.Split('-')[0].ToString()) && x.is_alarm== Convert.ToBoolean(lsbCondition.SelectedValue.ToString()));
+
+                    config_signal_tower target = result.First();
+                    target.red = cmbRad.Text.ToString();
+                    target.orange = cmbYellow.Text.ToString();
+                    target.green = cmbGreen.Text.ToString();
+                    target.blue = cmbBlue.Text.ToString();
+                    target.buzzer1 = cmbBuzzer1.Text.ToString();
+                    target.buzzer2 = cmbBuzzer2.Text.ToString();
+                    col.Update(target);
+                }
 
                 MessageBox.Show("Done it.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
 
-                Adam.Util.SanwaUtil.addActionLog("Adam.Menu.SystemSetting", "FormSignalTower", Signal.Text);
+                //Adam.Util.SanwaUtil.addActionLog("Adam.Menu.SystemSetting", "FormSignalTower", Signal.Text);
 
                 UpdateList();
 
@@ -155,28 +171,55 @@ namespace Adam.Menu.SystemSetting
                 throw new Exception(ex.ToString());
             }
         }
+        public class config_signal_tower
+        {
+            public string item { get; set; }
+            public string eqp_status { get; set; }
+            public bool is_alarm { get; set; }
+            public string red { get; set; }
+            public string orange { get; set; }
+            public string green { get; set; }
+            public string blue { get; set; }
+            public string buzzer1 { get; set; }
+            public string buzzer2 { get; set; }
 
+        }
         private void UpdateList()
         {
             string strSql = string.Empty;
 
             try
             {
-                strSql = "select concat(eqp_status, '-', (case when is_alarm = 0 then 'Normal' else 'Alarm' end)) item, " +
-                            "eqp_status, is_alarm, red, orange, green, blue, buzzer1, buzzer2 " +
-                            "from config_signal_tower order by is_alarm, eqp_status asc ";
+                //strSql = "select concat(eqp_status, '-', (case when is_alarm = 0 then 'Normal' else 'Alarm' end)) item, " +
+                //            "eqp_status, is_alarm, red, orange, green, blue, buzzer1, buzzer2 " +
+                //            "from config_signal_tower order by is_alarm, eqp_status asc ";
 
-                dtSignalTower = dBUtil.GetDataTable(strSql, null);
+                //dtSignalTower = dBUtil.GetDataTable(strSql, null);
 
-                if (dtSignalTower.Rows.Count > 0)
+                //if (dtSignalTower.Rows.Count > 0)
+                //{
+                //    lsbCondition.DataSource = dtSignalTower;
+                //    lsbCondition.DisplayMember = "item";
+                //    lsbCondition.ValueMember = "is_alarm";
+                //}
+                //else
+                //{
+                //    lsbCondition.DataSource = null;
+                //}
+                using (var db = new LiteDatabase(@"Filename=config\MyData.db;Connection=shared;"))
                 {
-                    lsbCondition.DataSource = dtSignalTower;
+                    // Get customer collection
+                    var col = db.GetCollection<config_signal_tower>("config_signal_tower");
+                    var result = col.Query().OrderBy(x=> new { x.eqp_status ,x.is_alarm});
+
+                    foreach (config_signal_tower each in result.ToList())
+                    {
+                        each.item = each.eqp_status + "-" + (each.is_alarm? "Alarm": "Normal");
+                    }
+                    lsbCondition.DataSource = result.ToList().ToDataTable();
                     lsbCondition.DisplayMember = "item";
                     lsbCondition.ValueMember = "is_alarm";
-                }
-                else
-                {
-                    lsbCondition.DataSource = null;
+
                 }
             }
             catch (Exception ex)

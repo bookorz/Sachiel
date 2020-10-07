@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using LiteDB;
+using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,26 +21,40 @@ namespace Adam.UI_Update.Monitoring
         static List<Setting> SignalSetting;
         class Setting
         {
+            [BsonField("eqp_status")]
             public string Eqp_Status { get; set; }
+            [BsonField("is_alarm")]
             public bool Is_Alarm { get; set; }
+            [BsonField("red")]
             public string Red { get; set; }
+            [BsonField("orange")]
             public string Orange { get; set; }
+            [BsonField("blue")]
             public string Blue { get; set; }
+            [BsonField("green")]
             public string Green { get; set; }
+            [BsonField("buzzer1")]
             public string Buzzer1 { get; set; }
+            [BsonField("buzzer2")]
             public string Buzzer2 { get; set; }
         }
-
+      
         public static void InitialSetting()
         {
-            DBUtil dBUtil = new DBUtil();
+            //DBUtil dBUtil = new DBUtil();
 
-            string Sql = @"select * from config_signal_tower";
-            DataTable dt = dBUtil.GetDataTable(Sql, null);
+            //string Sql = @"select * from config_signal_tower";
+            //DataTable dt = dBUtil.GetDataTable(Sql, null);
 
-            string str_json = JsonConvert.SerializeObject(dt, Formatting.Indented);
-            SignalSetting = JsonConvert.DeserializeObject<List<Setting>>(str_json);
-
+            //string str_json = JsonConvert.SerializeObject(dt, Formatting.Indented);
+            //SignalSetting = JsonConvert.DeserializeObject<List<Setting>>(str_json);
+            using (var db = new LiteDatabase(@"Filename=config\MyData.db;Connection=shared;"))
+            {
+                // Get customer collection
+                var col = db.GetCollection<Setting>("config_signal_tower");
+                var rs = col.Query();
+                SignalSetting = rs.ToList();
+            }
         }
 
         public static void UpdateNodeState(string Device_ID, string State)

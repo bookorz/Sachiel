@@ -23,9 +23,14 @@ namespace Adam
 
         private void FormAlarmHis_Load(object sender, EventArgs e)
         {
-            From.Value = DateTime.Now.AddDays(-1);
-            To.Value = DateTime.Now;
+            From.Value = DateTime.Today.AddDays(-1);
+            To.Value = DateTime.Today.AddDays(1);
             AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory(From.Value, To.Value));
+        }
+
+        private void Query_btn_Click(object sender, EventArgs e)
+        {
+            AlarmUpdate.UpdateAlarmHistory(AlarmManagement.GetHistory(From.Value, To.Value.AddDays(1)));
         }
     }
 }

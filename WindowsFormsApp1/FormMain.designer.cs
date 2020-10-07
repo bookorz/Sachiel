@@ -42,18 +42,18 @@ namespace Adam
             this.Connection_btn = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.CDAAlarm_Signal = new System.Windows.Forms.Button();
+            this.CDAALARM_Signal = new System.Windows.Forms.Button();
             this.EQP_State = new System.Windows.Forms.Button();
             this.Stop_btn = new System.Windows.Forms.Button();
             this.Start_btn = new System.Windows.Forms.Button();
             this.ALL_INIT_btn = new System.Windows.Forms.Button();
-            this.DifferentialPressureAlarm2_Signal = new System.Windows.Forms.Button();
-            this.DifferentialPressureAlarm1_Signal = new System.Windows.Forms.Button();
-            this.SafetyRelay_Signal = new System.Windows.Forms.Button();
-            this.IonizerAlarm_Signal = new System.Windows.Forms.Button();
-            this.FFUAlarm_Signal = new System.Windows.Forms.Button();
-            this.Vacuum_Signal = new System.Windows.Forms.Button();
-            this.DoorSwitch_Signal = new System.Windows.Forms.Button();
+            this.DIFFERENTIALPRESSUREALARM2_Signal = new System.Windows.Forms.Button();
+            this.DIFFERENTIALPRESSUREALARM1_Signal = new System.Windows.Forms.Button();
+            this.SAFETYRELAY_Signal = new System.Windows.Forms.Button();
+            this.IONIZERALARM_Signal = new System.Windows.Forms.Button();
+            this.FFUALARM_Signal = new System.Windows.Forms.Button();
+            this.VACUUM_Signal = new System.Windows.Forms.Button();
+            this.DOORSWITCH_Signal = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -220,28 +220,28 @@ namespace Adam
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.CDAAlarm_Signal);
+            this.groupBox5.Controls.Add(this.CDAALARM_Signal);
             this.groupBox5.Controls.Add(this.EQP_State);
             this.groupBox5.Controls.Add(this.Stop_btn);
             this.groupBox5.Controls.Add(this.Start_btn);
             this.groupBox5.Controls.Add(this.ALL_INIT_btn);
-            this.groupBox5.Controls.Add(this.DifferentialPressureAlarm2_Signal);
-            this.groupBox5.Controls.Add(this.DifferentialPressureAlarm1_Signal);
-            this.groupBox5.Controls.Add(this.SafetyRelay_Signal);
-            this.groupBox5.Controls.Add(this.IonizerAlarm_Signal);
-            this.groupBox5.Controls.Add(this.FFUAlarm_Signal);
-            this.groupBox5.Controls.Add(this.Vacuum_Signal);
-            this.groupBox5.Controls.Add(this.DoorSwitch_Signal);
+            this.groupBox5.Controls.Add(this.DIFFERENTIALPRESSUREALARM2_Signal);
+            this.groupBox5.Controls.Add(this.DIFFERENTIALPRESSUREALARM1_Signal);
+            this.groupBox5.Controls.Add(this.SAFETYRELAY_Signal);
+            this.groupBox5.Controls.Add(this.IONIZERALARM_Signal);
+            this.groupBox5.Controls.Add(this.FFUALARM_Signal);
+            this.groupBox5.Controls.Add(this.VACUUM_Signal);
+            this.groupBox5.Controls.Add(this.DOORSWITCH_Signal);
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
             // 
-            // CDAAlarm_Signal
+            // CDAALARM_Signal
             // 
-            resources.ApplyResources(this.CDAAlarm_Signal, "CDAAlarm_Signal");
-            this.CDAAlarm_Signal.BackColor = System.Drawing.Color.Gray;
-            this.CDAAlarm_Signal.Name = "CDAAlarm_Signal";
-            this.CDAAlarm_Signal.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.CDAALARM_Signal, "CDAALARM_Signal");
+            this.CDAALARM_Signal.BackColor = System.Drawing.Color.Gray;
+            this.CDAALARM_Signal.Name = "CDAALARM_Signal";
+            this.CDAALARM_Signal.UseVisualStyleBackColor = false;
             // 
             // EQP_State
             // 
@@ -274,54 +274,54 @@ namespace Adam
             this.ALL_INIT_btn.UseVisualStyleBackColor = false;
             this.ALL_INIT_btn.Click += new System.EventHandler(this.ALL_INIT_btn_Click);
             // 
-            // DifferentialPressureAlarm2_Signal
+            // DIFFERENTIALPRESSUREALARM2_Signal
             // 
-            resources.ApplyResources(this.DifferentialPressureAlarm2_Signal, "DifferentialPressureAlarm2_Signal");
-            this.DifferentialPressureAlarm2_Signal.BackColor = System.Drawing.Color.Gray;
-            this.DifferentialPressureAlarm2_Signal.Name = "DifferentialPressureAlarm2_Signal";
-            this.DifferentialPressureAlarm2_Signal.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.DIFFERENTIALPRESSUREALARM2_Signal, "DIFFERENTIALPRESSUREALARM2_Signal");
+            this.DIFFERENTIALPRESSUREALARM2_Signal.BackColor = System.Drawing.Color.Gray;
+            this.DIFFERENTIALPRESSUREALARM2_Signal.Name = "DIFFERENTIALPRESSUREALARM2_Signal";
+            this.DIFFERENTIALPRESSUREALARM2_Signal.UseVisualStyleBackColor = false;
             // 
-            // DifferentialPressureAlarm1_Signal
+            // DIFFERENTIALPRESSUREALARM1_Signal
             // 
-            resources.ApplyResources(this.DifferentialPressureAlarm1_Signal, "DifferentialPressureAlarm1_Signal");
-            this.DifferentialPressureAlarm1_Signal.BackColor = System.Drawing.Color.Gray;
-            this.DifferentialPressureAlarm1_Signal.Name = "DifferentialPressureAlarm1_Signal";
-            this.DifferentialPressureAlarm1_Signal.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.DIFFERENTIALPRESSUREALARM1_Signal, "DIFFERENTIALPRESSUREALARM1_Signal");
+            this.DIFFERENTIALPRESSUREALARM1_Signal.BackColor = System.Drawing.Color.Gray;
+            this.DIFFERENTIALPRESSUREALARM1_Signal.Name = "DIFFERENTIALPRESSUREALARM1_Signal";
+            this.DIFFERENTIALPRESSUREALARM1_Signal.UseVisualStyleBackColor = false;
             // 
-            // SafetyRelay_Signal
+            // SAFETYRELAY_Signal
             // 
-            resources.ApplyResources(this.SafetyRelay_Signal, "SafetyRelay_Signal");
-            this.SafetyRelay_Signal.BackColor = System.Drawing.Color.Gray;
-            this.SafetyRelay_Signal.Name = "SafetyRelay_Signal";
-            this.SafetyRelay_Signal.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.SAFETYRELAY_Signal, "SAFETYRELAY_Signal");
+            this.SAFETYRELAY_Signal.BackColor = System.Drawing.Color.Gray;
+            this.SAFETYRELAY_Signal.Name = "SAFETYRELAY_Signal";
+            this.SAFETYRELAY_Signal.UseVisualStyleBackColor = false;
             // 
-            // IonizerAlarm_Signal
+            // IONIZERALARM_Signal
             // 
-            resources.ApplyResources(this.IonizerAlarm_Signal, "IonizerAlarm_Signal");
-            this.IonizerAlarm_Signal.BackColor = System.Drawing.Color.Gray;
-            this.IonizerAlarm_Signal.Name = "IonizerAlarm_Signal";
-            this.IonizerAlarm_Signal.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.IONIZERALARM_Signal, "IONIZERALARM_Signal");
+            this.IONIZERALARM_Signal.BackColor = System.Drawing.Color.Gray;
+            this.IONIZERALARM_Signal.Name = "IONIZERALARM_Signal";
+            this.IONIZERALARM_Signal.UseVisualStyleBackColor = false;
             // 
-            // FFUAlarm_Signal
+            // FFUALARM_Signal
             // 
-            resources.ApplyResources(this.FFUAlarm_Signal, "FFUAlarm_Signal");
-            this.FFUAlarm_Signal.BackColor = System.Drawing.Color.Gray;
-            this.FFUAlarm_Signal.Name = "FFUAlarm_Signal";
-            this.FFUAlarm_Signal.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.FFUALARM_Signal, "FFUALARM_Signal");
+            this.FFUALARM_Signal.BackColor = System.Drawing.Color.Gray;
+            this.FFUALARM_Signal.Name = "FFUALARM_Signal";
+            this.FFUALARM_Signal.UseVisualStyleBackColor = false;
             // 
-            // Vacuum_Signal
+            // VACUUM_Signal
             // 
-            resources.ApplyResources(this.Vacuum_Signal, "Vacuum_Signal");
-            this.Vacuum_Signal.BackColor = System.Drawing.Color.Gray;
-            this.Vacuum_Signal.Name = "Vacuum_Signal";
-            this.Vacuum_Signal.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.VACUUM_Signal, "VACUUM_Signal");
+            this.VACUUM_Signal.BackColor = System.Drawing.Color.Gray;
+            this.VACUUM_Signal.Name = "VACUUM_Signal";
+            this.VACUUM_Signal.UseVisualStyleBackColor = false;
             // 
-            // DoorSwitch_Signal
+            // DOORSWITCH_Signal
             // 
-            resources.ApplyResources(this.DoorSwitch_Signal, "DoorSwitch_Signal");
-            this.DoorSwitch_Signal.BackColor = System.Drawing.Color.Gray;
-            this.DoorSwitch_Signal.Name = "DoorSwitch_Signal";
-            this.DoorSwitch_Signal.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.DOORSWITCH_Signal, "DOORSWITCH_Signal");
+            this.DOORSWITCH_Signal.BackColor = System.Drawing.Color.Gray;
+            this.DOORSWITCH_Signal.Name = "DOORSWITCH_Signal";
+            this.DOORSWITCH_Signal.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
@@ -946,12 +946,12 @@ namespace Adam
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Button IonizerAlarm_Signal;
-        private System.Windows.Forms.Button FFUAlarm_Signal;
-        private System.Windows.Forms.Button Vacuum_Signal;
-        private System.Windows.Forms.Button DoorSwitch_Signal;
-        private System.Windows.Forms.Button DifferentialPressureAlarm1_Signal;
-        private System.Windows.Forms.Button SafetyRelay_Signal;
+        private System.Windows.Forms.Button IONIZERALARM_Signal;
+        private System.Windows.Forms.Button FFUALARM_Signal;
+        private System.Windows.Forms.Button VACUUM_Signal;
+        private System.Windows.Forms.Button DOORSWITCH_Signal;
+        private System.Windows.Forms.Button DIFFERENTIALPRESSUREALARM1_Signal;
+        private System.Windows.Forms.Button SAFETYRELAY_Signal;
         private System.Windows.Forms.Button btnLogInOut;
         private System.Windows.Forms.SplitContainer splitContainer13;
         private System.Windows.Forms.GroupBox groupBox19;
@@ -986,7 +986,7 @@ namespace Adam
         private System.Windows.Forms.Label lbl_login_name;
         private System.Windows.Forms.Label lbl_login_id;
         private System.Windows.Forms.TabPage tabStatus;
-        private System.Windows.Forms.Button DifferentialPressureAlarm2_Signal;
+        private System.Windows.Forms.Button DIFFERENTIALPRESSUREALARM2_Signal;
         private System.Windows.Forms.Button BLUE_Signal;
         private System.Windows.Forms.Button GREEN_Signal;
         private System.Windows.Forms.Button ORANGE_Signal;
@@ -1008,7 +1008,7 @@ namespace Adam
         private System.Windows.Forms.Button EQP_State;
         private System.Windows.Forms.Button btnChgPWD;
         private System.Windows.Forms.TabPage tabNewSetting;
-        private System.Windows.Forms.Button CDAAlarm_Signal;
+        private System.Windows.Forms.Button CDAALARM_Signal;
         private System.Windows.Forms.TabPage tabRunning;
         private System.Windows.Forms.Label CurrentRecipe_lb;
         private System.Windows.Forms.Label label5;

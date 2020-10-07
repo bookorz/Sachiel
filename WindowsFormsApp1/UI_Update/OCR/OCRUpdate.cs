@@ -538,7 +538,7 @@ namespace Adam.UI_Update.OCR
                                         Job.OCRImgPath = savePath;
                                         if (Job.FromPort != null)
                                         {
-                                            ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                                            //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
                                         }
                                     }
                                     break;

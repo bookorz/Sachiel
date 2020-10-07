@@ -52,7 +52,7 @@ namespace GUI
                     config.CurrentRecipe = cbRecipe.SelectedItem.ToString();
                     config.Save();
                     FormMainUpdate.UpdateRecipe(config.CurrentRecipe);
-                    SanwaUtil.addActionLog("Recipe", "Change", Global.currentUser, "變更生產 Recipe:" + oldRecipeId + "=>" + newRecipeId);
+                    //SanwaUtil.addActionLog("Recipe", "Change", Global.currentUser, "變更生產 Recipe:" + oldRecipeId + "=>" + newRecipeId);
                     MessageBox.Show("Change recipe completed.", "Success");
                     this.DialogResult = DialogResult.OK;
                     this.Close();

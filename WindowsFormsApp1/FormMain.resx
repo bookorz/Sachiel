@@ -378,37 +378,37 @@
   <data name="&gt;&gt;splitContainer13.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="CDAAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="CDAALARM_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="CDAAlarm_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="CDAALARM_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="CDAAlarm_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="CDAALARM_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="CDAAlarm_Signal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="CDAALARM_Signal.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 306</value>
   </data>
-  <data name="CDAAlarm_Signal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CDAALARM_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
   </data>
-  <data name="CDAAlarm_Signal.TabIndex" type="System.Int32, mscorlib">
+  <data name="CDAALARM_Signal.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
-  <data name="CDAAlarm_Signal.Text" xml:space="preserve">
+  <data name="CDAALARM_Signal.Text" xml:space="preserve">
     <value>CDA</value>
   </data>
-  <data name="&gt;&gt;CDAAlarm_Signal.Name" xml:space="preserve">
-    <value>CDAAlarm_Signal</value>
+  <data name="&gt;&gt;CDAALARM_Signal.Name" xml:space="preserve">
+    <value>CDAALARM_Signal</value>
   </data>
-  <data name="&gt;&gt;CDAAlarm_Signal.Type" xml:space="preserve">
+  <data name="&gt;&gt;CDAALARM_Signal.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;CDAAlarm_Signal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;CDAALARM_Signal.Parent" xml:space="preserve">
     <value>groupBox5</value>
   </data>
-  <data name="&gt;&gt;CDAAlarm_Signal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CDAALARM_Signal.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="EQP_State.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -540,238 +540,238 @@
   <data name="&gt;&gt;ALL_INIT_btn.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="DifferentialPressureAlarm2_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="DIFFERENTIALPRESSUREALARM2_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="DifferentialPressureAlarm2_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="DIFFERENTIALPRESSUREALARM2_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="DifferentialPressureAlarm2_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="DIFFERENTIALPRESSUREALARM2_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="DifferentialPressureAlarm2_Signal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="DIFFERENTIALPRESSUREALARM2_Signal.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 551</value>
   </data>
-  <data name="DifferentialPressureAlarm2_Signal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DIFFERENTIALPRESSUREALARM2_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
   </data>
-  <data name="DifferentialPressureAlarm2_Signal.TabIndex" type="System.Int32, mscorlib">
+  <data name="DIFFERENTIALPRESSUREALARM2_Signal.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="DifferentialPressureAlarm2_Signal.Text" xml:space="preserve">
+  <data name="DIFFERENTIALPRESSUREALARM2_Signal.Text" xml:space="preserve">
     <value>Differential Manometer2</value>
   </data>
-  <data name="&gt;&gt;DifferentialPressureAlarm2_Signal.Name" xml:space="preserve">
-    <value>DifferentialPressureAlarm2_Signal</value>
+  <data name="&gt;&gt;DIFFERENTIALPRESSUREALARM2_Signal.Name" xml:space="preserve">
+    <value>DIFFERENTIALPRESSUREALARM2_Signal</value>
   </data>
-  <data name="&gt;&gt;DifferentialPressureAlarm2_Signal.Type" xml:space="preserve">
+  <data name="&gt;&gt;DIFFERENTIALPRESSUREALARM2_Signal.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DifferentialPressureAlarm2_Signal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;DIFFERENTIALPRESSUREALARM2_Signal.Parent" xml:space="preserve">
     <value>groupBox5</value>
   </data>
-  <data name="&gt;&gt;DifferentialPressureAlarm2_Signal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;DIFFERENTIALPRESSUREALARM2_Signal.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="DifferentialPressureAlarm1_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="DIFFERENTIALPRESSUREALARM1_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="DifferentialPressureAlarm1_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="DIFFERENTIALPRESSUREALARM1_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="DifferentialPressureAlarm1_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="DIFFERENTIALPRESSUREALARM1_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="DifferentialPressureAlarm1_Signal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="DIFFERENTIALPRESSUREALARM1_Signal.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 510</value>
   </data>
-  <data name="DifferentialPressureAlarm1_Signal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DIFFERENTIALPRESSUREALARM1_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
   </data>
-  <data name="DifferentialPressureAlarm1_Signal.TabIndex" type="System.Int32, mscorlib">
+  <data name="DIFFERENTIALPRESSUREALARM1_Signal.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
-  <data name="DifferentialPressureAlarm1_Signal.Text" xml:space="preserve">
+  <data name="DIFFERENTIALPRESSUREALARM1_Signal.Text" xml:space="preserve">
     <value>Differential Manometer1</value>
   </data>
-  <data name="&gt;&gt;DifferentialPressureAlarm1_Signal.Name" xml:space="preserve">
-    <value>DifferentialPressureAlarm1_Signal</value>
+  <data name="&gt;&gt;DIFFERENTIALPRESSUREALARM1_Signal.Name" xml:space="preserve">
+    <value>DIFFERENTIALPRESSUREALARM1_Signal</value>
   </data>
-  <data name="&gt;&gt;DifferentialPressureAlarm1_Signal.Type" xml:space="preserve">
+  <data name="&gt;&gt;DIFFERENTIALPRESSUREALARM1_Signal.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DifferentialPressureAlarm1_Signal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;DIFFERENTIALPRESSUREALARM1_Signal.Parent" xml:space="preserve">
     <value>groupBox5</value>
   </data>
-  <data name="&gt;&gt;DifferentialPressureAlarm1_Signal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;DIFFERENTIALPRESSUREALARM1_Signal.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="SafetyRelay_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="SAFETYRELAY_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="SafetyRelay_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="SAFETYRELAY_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="SafetyRelay_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="SAFETYRELAY_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="SafetyRelay_Signal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="SAFETYRELAY_Signal.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 469</value>
   </data>
-  <data name="SafetyRelay_Signal.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="SAFETYRELAY_Signal.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="SafetyRelay_Signal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SAFETYRELAY_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
   </data>
-  <data name="SafetyRelay_Signal.TabIndex" type="System.Int32, mscorlib">
+  <data name="SAFETYRELAY_Signal.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="SafetyRelay_Signal.Text" xml:space="preserve">
+  <data name="SAFETYRELAY_Signal.Text" xml:space="preserve">
     <value>Safety Relay</value>
   </data>
-  <data name="&gt;&gt;SafetyRelay_Signal.Name" xml:space="preserve">
-    <value>SafetyRelay_Signal</value>
+  <data name="&gt;&gt;SAFETYRELAY_Signal.Name" xml:space="preserve">
+    <value>SAFETYRELAY_Signal</value>
   </data>
-  <data name="&gt;&gt;SafetyRelay_Signal.Type" xml:space="preserve">
+  <data name="&gt;&gt;SAFETYRELAY_Signal.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SafetyRelay_Signal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;SAFETYRELAY_Signal.Parent" xml:space="preserve">
     <value>groupBox5</value>
   </data>
-  <data name="&gt;&gt;SafetyRelay_Signal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;SAFETYRELAY_Signal.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="IonizerAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="IONIZERALARM_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="IonizerAlarm_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="IONIZERALARM_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="IonizerAlarm_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="IONIZERALARM_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="IonizerAlarm_Signal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="IONIZERALARM_Signal.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 429</value>
   </data>
-  <data name="IonizerAlarm_Signal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="IONIZERALARM_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
   </data>
-  <data name="IonizerAlarm_Signal.TabIndex" type="System.Int32, mscorlib">
+  <data name="IONIZERALARM_Signal.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="IonizerAlarm_Signal.Text" xml:space="preserve">
+  <data name="IONIZERALARM_Signal.Text" xml:space="preserve">
     <value>Ionizer Alarm</value>
   </data>
-  <data name="&gt;&gt;IonizerAlarm_Signal.Name" xml:space="preserve">
-    <value>IonizerAlarm_Signal</value>
+  <data name="&gt;&gt;IONIZERALARM_Signal.Name" xml:space="preserve">
+    <value>IONIZERALARM_Signal</value>
   </data>
-  <data name="&gt;&gt;IonizerAlarm_Signal.Type" xml:space="preserve">
+  <data name="&gt;&gt;IONIZERALARM_Signal.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;IonizerAlarm_Signal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;IONIZERALARM_Signal.Parent" xml:space="preserve">
     <value>groupBox5</value>
   </data>
-  <data name="&gt;&gt;IonizerAlarm_Signal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;IONIZERALARM_Signal.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="FFUAlarm_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="FFUALARM_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="FFUAlarm_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="FFUALARM_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="FFUAlarm_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="FFUALARM_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="FFUAlarm_Signal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="FFUALARM_Signal.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 388</value>
   </data>
-  <data name="FFUAlarm_Signal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FFUALARM_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
   </data>
-  <data name="FFUAlarm_Signal.TabIndex" type="System.Int32, mscorlib">
+  <data name="FFUALARM_Signal.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="FFUAlarm_Signal.Text" xml:space="preserve">
+  <data name="FFUALARM_Signal.Text" xml:space="preserve">
     <value>FFU</value>
   </data>
-  <data name="&gt;&gt;FFUAlarm_Signal.Name" xml:space="preserve">
-    <value>FFUAlarm_Signal</value>
+  <data name="&gt;&gt;FFUALARM_Signal.Name" xml:space="preserve">
+    <value>FFUALARM_Signal</value>
   </data>
-  <data name="&gt;&gt;FFUAlarm_Signal.Type" xml:space="preserve">
+  <data name="&gt;&gt;FFUALARM_Signal.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;FFUAlarm_Signal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;FFUALARM_Signal.Parent" xml:space="preserve">
     <value>groupBox5</value>
   </data>
-  <data name="&gt;&gt;FFUAlarm_Signal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;FFUALARM_Signal.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="Vacuum_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="VACUUM_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="Vacuum_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="VACUUM_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="Vacuum_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="VACUUM_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="Vacuum_Signal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="VACUUM_Signal.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 347</value>
   </data>
-  <data name="Vacuum_Signal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="VACUUM_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
   </data>
-  <data name="Vacuum_Signal.TabIndex" type="System.Int32, mscorlib">
+  <data name="VACUUM_Signal.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="Vacuum_Signal.Text" xml:space="preserve">
+  <data name="VACUUM_Signal.Text" xml:space="preserve">
     <value>VACUUM</value>
   </data>
-  <data name="&gt;&gt;Vacuum_Signal.Name" xml:space="preserve">
-    <value>Vacuum_Signal</value>
+  <data name="&gt;&gt;VACUUM_Signal.Name" xml:space="preserve">
+    <value>VACUUM_Signal</value>
   </data>
-  <data name="&gt;&gt;Vacuum_Signal.Type" xml:space="preserve">
+  <data name="&gt;&gt;VACUUM_Signal.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Vacuum_Signal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;VACUUM_Signal.Parent" xml:space="preserve">
     <value>groupBox5</value>
   </data>
-  <data name="&gt;&gt;Vacuum_Signal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;VACUUM_Signal.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="DoorSwitch_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="DOORSWITCH_Signal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="DoorSwitch_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="DOORSWITCH_Signal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="DoorSwitch_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="DOORSWITCH_Signal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="DoorSwitch_Signal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="DOORSWITCH_Signal.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 265</value>
   </data>
-  <data name="DoorSwitch_Signal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DOORSWITCH_Signal.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 35</value>
   </data>
-  <data name="DoorSwitch_Signal.TabIndex" type="System.Int32, mscorlib">
+  <data name="DOORSWITCH_Signal.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="DoorSwitch_Signal.Text" xml:space="preserve">
+  <data name="DOORSWITCH_Signal.Text" xml:space="preserve">
     <value>Door Switch</value>
   </data>
-  <data name="&gt;&gt;DoorSwitch_Signal.Name" xml:space="preserve">
-    <value>DoorSwitch_Signal</value>
+  <data name="&gt;&gt;DOORSWITCH_Signal.Name" xml:space="preserve">
+    <value>DOORSWITCH_Signal</value>
   </data>
-  <data name="&gt;&gt;DoorSwitch_Signal.Type" xml:space="preserve">
+  <data name="&gt;&gt;DOORSWITCH_Signal.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DoorSwitch_Signal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;DOORSWITCH_Signal.Parent" xml:space="preserve">
     <value>groupBox5</value>
   </data>
-  <data name="&gt;&gt;DoorSwitch_Signal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;DOORSWITCH_Signal.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
   <data name="groupBox5.Location" type="System.Drawing.Point, System.Drawing">
@@ -2157,6 +2157,9 @@
   </data>
   <data name="btnHelp.Text" xml:space="preserve">
     <value>Query</value>
+  </data>
+  <data name="btnHelp.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;btnHelp.Name" xml:space="preserve">
     <value>btnHelp</value>
