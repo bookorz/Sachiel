@@ -768,11 +768,11 @@ namespace Adam
             }
 
         }
-        private void OCR_ImageHandle(Node OCR, Job Job, string OCRType, string WaferID)
+        private void OCR_ImageHandle(Node OCR, Job Job, string OCRType, string orgWaferID)
         {
             string save = "";
             string src = "";
-
+            string WaferID = orgWaferID.Replace("*", "X");
 
             switch (OCR.Name)
             {
@@ -798,7 +798,7 @@ namespace Adam
 
 
                 string FileName = "";
-
+                string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
                 switch (OCRType)
                 {
                     case "M12":
@@ -809,6 +809,7 @@ namespace Adam
                         }
                         FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
                         FileName += "_M12.jpg";
+                        saveTmpPath += "_M12.bmp";
                         break;
                     case "T7":
 
@@ -818,6 +819,7 @@ namespace Adam
                         }
                         FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
                         FileName += "_T7.jpg";
+                        saveTmpPath += "_T7.bmp";
                         break;
                     default:
 
@@ -826,12 +828,13 @@ namespace Adam
                             WaferID = "Failed";
                         }
                         FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
-                        FileName += ".jpg";
+                        FileName += OCRType+".jpg";
+                        saveTmpPath += OCRType+".bmp";
                         break;
                 }
 
                 string savePath = save + "/" + FileName;
-                string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bmp";
+
                 if (savePath != "")
                 {
 
@@ -870,6 +873,7 @@ namespace Adam
 
                                     try
                                     {
+
                                         File.Copy(fileList[0], saveTmpPath);
 
                                     }
@@ -883,9 +887,12 @@ namespace Adam
                                             ShowAlarm("SYSTEM", "S0300181");
                                             return;
                                         }
+
                                         logger.Error("OCR Image copy retry " + retryCnt.ToString());
                                         logger.Error(ee.Message);
-                                        Thread.Sleep(100);
+                                        
+                                        Thread.Sleep(200);
+                                        
                                         continue;
                                     }
 
