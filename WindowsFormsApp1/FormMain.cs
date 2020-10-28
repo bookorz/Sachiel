@@ -770,170 +770,178 @@ namespace Adam
         }
         private void OCR_ImageHandle(Node OCR, Job Job, string OCRType, string orgWaferID)
         {
-            string save = "";
-            string src = "";
-            string WaferID = orgWaferID.Replace("*", "X");
-
-            switch (OCR.Name)
+            try
             {
-                case "OCR01":
-                    save = SystemConfig.Get().OCR1ImgToJpgPath;
-                    src = SystemConfig.Get().OCR1ImgSourcePath;
-                    break;
-                case "OCR02":
-                    save = SystemConfig.Get().OCR2ImgToJpgPath;
-                    src = SystemConfig.Get().OCR2ImgSourcePath;
-                    break;
-            }
-            save += "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + Job.FromFoupID;
+                string save = "";
+                string src = "";
+                string WaferID = orgWaferID.Replace("*", "X").Replace("\"", "X").Replace("\\", "X").Replace("|", "X").Replace("/", "X").Replace("<", "X").Replace(">", "X").Replace("?", "X").Replace(":", "X");
 
-
-            if (OCR != null)
-            {
-
-                if (!Directory.Exists(save))
+                switch (OCR.Name)
                 {
-                    Directory.CreateDirectory(save);
-                }
-
-
-                string FileName = "";
-                string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
-                switch (OCRType)
-                {
-                    case "M12":
-
-                        if (!Job.OCR_M12_Pass)
-                        {
-                            WaferID = "Failed";
-                        }
-                        FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
-                        FileName += "_M12.jpg";
-                        saveTmpPath += "_M12.bmp";
+                    case "OCR01":
+                        save = SystemConfig.Get().OCR1ImgToJpgPath;
+                        src = SystemConfig.Get().OCR1ImgSourcePath;
                         break;
-                    case "T7":
-
-                        if (!Job.OCR_T7_Pass)
-                        {
-                            WaferID = "Failed";
-                        }
-                        FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
-                        FileName += "_T7.jpg";
-                        saveTmpPath += "_T7.bmp";
-                        break;
-                    default:
-
-                        if (!Job.OCRPass)
-                        {
-                            WaferID = "Failed";
-                        }
-                        FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
-                        FileName += OCRType+".jpg";
-                        saveTmpPath += OCRType+".bmp";
+                    case "OCR02":
+                        save = SystemConfig.Get().OCR2ImgToJpgPath;
+                        src = SystemConfig.Get().OCR2ImgSourcePath;
                         break;
                 }
+                save += "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + Job.FromFoupID.Replace("*", "X").Replace("\"", "X").Replace("\\", "X").Replace("|", "X").Replace("/", "X").Replace("<", "X").Replace(">", "X").Replace("?", "X").Replace(":", "X");
 
-                string savePath = save + "/" + FileName;
 
-                if (savePath != "")
+                if (OCR != null)
                 {
 
-                    switch (OCR.Brand)
+                    if (!Directory.Exists(save))
                     {
-                        case "COGNEX":
+                        Directory.CreateDirectory(save);
+                    }
 
-                            FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21", "", "admin", "");
-                            string imgPath = ftp.Get("image.jpg", FileName, save);
 
-                            switch (OCRType)
+                    string FileName = "";
+                    string saveTmpPath = save + "/" + WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                    switch (OCRType)
+                    {
+                        case "M12":
+
+                            if (!Job.OCR_M12_Pass)
                             {
-                                case "M12":
-                                    Job.OCR_M12_ImgPath = savePath;
-                                    break;
-                                case "T7":
-                                    Job.OCR_T7_ImgPath = savePath;
-                                    break;
-                                default:
-                                    Job.OCRImgPath = savePath;
-                                    break;
+                                WaferID = "Failed";
                             }
-                            //Job.OCRScore = ocrResult[1];
-                            //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                            FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
+                            FileName += "_M12.jpg";
+                            saveTmpPath += "_M12.bmp";
                             break;
-                        case "HST":
+                        case "T7":
 
-                            int retryCnt = 20;
-                            while (retryCnt > 0)
+                            if (!Job.OCR_T7_Pass)
                             {
-                                string[] files = Directory.GetFiles(src);
-                                List<string> fileList = files.ToList();
-                                if (fileList.Count != 0)
-                                {
-                                    fileList.Sort((x, y) => { return -File.GetLastWriteTime(x).CompareTo(File.GetLastWriteTime(y)); });
-
-                                    try
-                                    {
-
-                                        File.Copy(fileList[0], saveTmpPath);
-
-                                    }
-                                    catch (Exception ee)
-                                    {
-
-                                        retryCnt--;
-                                        if (retryCnt == 0)
-                                        {
-                                            logger.Error("OCR Image copy fail!");
-                                            ShowAlarm("SYSTEM", "S0300181");
-                                            return;
-                                        }
-
-                                        logger.Error("OCR Image copy retry " + retryCnt.ToString());
-                                        logger.Error(ee.Message);
-                                        
-                                        Thread.Sleep(200);
-                                        
-                                        continue;
-                                    }
-
-                                    try
-                                    {
-                                        Image bmp = Image.FromFile(saveTmpPath);
-
-                                        bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                        bmp.Dispose();
-                                        File.Delete(saveTmpPath);
-
-                                        switch (OCRType)
-                                        {
-                                            case "M12":
-                                                Job.OCR_M12_ImgPath = savePath;
-                                                break;
-                                            case "T7":
-                                                Job.OCR_T7_ImgPath = savePath;
-                                                break;
-                                            default:
-                                                Job.OCRImgPath = savePath;
-                                                break;
-                                        }
-                                    }
-                                    catch (Exception ee)
-                                    {
-                                        logger.Error(ee.Message);
-                                    }
-                                    //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
-                                    break;
-                                }
-                                else
-                                {
-                                    retryCnt--;
-                                    Thread.Sleep(100);
-                                }
+                                WaferID = "Failed";
                             }
+                            FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
+                            FileName += "_T7.jpg";
+                            saveTmpPath += "_T7.bmp";
+                            break;
+                        default:
+
+                            if (!Job.OCRPass)
+                            {
+                                WaferID = "Failed";
+                            }
+                            FileName = WaferID + "_" + DateTime.Now.ToString("yyyyMMdd_HHMMss");
+                            FileName += OCRType + ".jpg";
+                            saveTmpPath += OCRType + ".bmp";
                             break;
                     }
 
+                    string savePath = save + "/" + FileName;
+
+                    if (savePath != "")
+                    {
+
+                        switch (OCR.Brand)
+                        {
+                            case "COGNEX":
+
+                                FTP ftp = new FTP(OCR.GetController().GetIPAdress(), "21", "", "admin", "");
+                                string imgPath = ftp.Get("image.jpg", FileName, save);
+
+                                switch (OCRType)
+                                {
+                                    case "M12":
+                                        Job.OCR_M12_ImgPath = savePath;
+                                        break;
+                                    case "T7":
+                                        Job.OCR_T7_ImgPath = savePath;
+                                        break;
+                                    default:
+                                        Job.OCRImgPath = savePath;
+                                        break;
+                                }
+                                //Job.OCRScore = ocrResult[1];
+                                //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                                break;
+                            case "HST":
+
+                                int retryCnt = 20;
+                                while (retryCnt > 0)
+                                {
+                                    string[] files = Directory.GetFiles(src);
+                                    List<string> fileList = files.ToList();
+                                    if (fileList.Count != 0)
+                                    {
+                                        fileList.Sort((x, y) => { return -File.GetLastWriteTime(x).CompareTo(File.GetLastWriteTime(y)); });
+
+                                        try
+                                        {
+
+                                            File.Copy(fileList[0], saveTmpPath);
+
+                                        }
+                                        catch (Exception ee)
+                                        {
+
+                                            retryCnt--;
+                                            if (retryCnt == 0)
+                                            {
+                                                logger.Error("OCR Image copy fail!");
+                                                ShowAlarm("SYSTEM", "S0300181");
+                                                return;
+                                            }
+
+                                            logger.Error("OCR Image copy retry " + retryCnt.ToString());
+                                            logger.Error(ee.Message);
+
+                                            Thread.Sleep(200);
+
+                                            continue;
+                                        }
+
+                                        try
+                                        {
+                                            Image bmp = Image.FromFile(saveTmpPath);
+
+                                            bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                            bmp.Dispose();
+                                            File.Delete(saveTmpPath);
+
+                                            switch (OCRType)
+                                            {
+                                                case "M12":
+                                                    Job.OCR_M12_ImgPath = savePath;
+                                                    break;
+                                                case "T7":
+                                                    Job.OCR_T7_ImgPath = savePath;
+                                                    break;
+                                                default:
+                                                    Job.OCRImgPath = savePath;
+                                                    break;
+                                            }
+                                        }
+                                        catch (Exception ee)
+                                        {
+                                            logger.Error(ee.Message);
+                                        }
+                                        //ProcessRecord.updateSubstrateOCR(NodeManagement.Get(Job.FromPort).PrID, Job);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        retryCnt--;
+                                        Thread.Sleep(100);
+                                    }
+                                }
+                                break;
+                        }
+
+                    }
+
                 }
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.StackTrace);
             }
         }
         public void On_Command_TimeOut(Node Node, Transaction Txn)
@@ -1799,7 +1807,7 @@ namespace Adam
                     //讓INIT按鈕由黃變綠色
                     DIOUpdate.UpdateControlButton("ALL_INIT_btn", true);
                     DIOUpdate.UpdateControlButton("Mode_btn", true);
-                    xfe.Initial();
+                    
 
                     //foreach (Node port in NodeManagement.GetLoadPortList())
                     //{
@@ -2718,6 +2726,7 @@ namespace Adam
                 MessageBox.Show("請先停止搬運");
                 return;
             }
+            xfe.Initial();
             DIOUpdate.UpdateControlButton("Start_btn", false);
             Recipe recipe = Recipe.Get(SystemConfig.Get().CurrentRecipe);
             foreach (Node Node in NodeManagement.GetLoadPortList())
