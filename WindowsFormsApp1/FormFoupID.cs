@@ -81,6 +81,11 @@ namespace Adam
                 }
                 else
                 {
+                    if(FoupID_Read_tb.Text.Trim().IndexOfAny(System.IO.Path.GetInvalidFileNameChars()) >= 0)
+                    {
+                        MessageBox.Show("檢查到特殊字元");
+                        return;
+                    }
                     foupID = FoupID_Read_tb.Text;
                 }
 
