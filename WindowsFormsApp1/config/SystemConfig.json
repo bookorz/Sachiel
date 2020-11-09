@@ -11,8 +11,8 @@
   "MappingData": "111111111111111111111111",
   "AdminPassword": "0192023A7BBD73250516F069DF18B500",
   "SaftyCheckByPass": true,
-  "FakeData":false,
-  "CurrentRecipe":"default",
-  "EquipmentID":"SORT",
-  "FoupTxfLogPath":"D:/log/foup"
+  "FakeData": true,
+  "CurrentRecipe": "default",
+  "EquipmentID": "SORT",
+  "FoupTxfLogPath": "D:/log/foup"
 }
